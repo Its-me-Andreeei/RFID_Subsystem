@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config>
+    <source_groups>
+        <source_group_2c3ba36b-0539-4eb3-9e41-47af3e7940a5>
+            <c_standard>gnu99</c_standard>
+            <compiler_flags>
+                <compiler_flag>-fms-extensions</compiler_flag>
+                <compiler_flag>-fms-compatibility</compiler_flag>
+                <compiler_flag>-fms-compatibility-version=19</compiler_flag>
+            </compiler_flags>
+            <cross_compilation>
+                <target>
+                    <abi>cygnus</abi>
+                    <arch>avr</arch>
+                    <sys>windows</sys>
+                    <vendor>unknown</vendor>
+                </target>
+                <target_options_enabled>1</target_options_enabled>
+            </cross_compilation>
+            <exclude_filters>
+                <exclude_filter>mercuryapi-1.37.1.44/c/src/samples</exclude_filter>
+            </exclude_filters>
+            <header_search_paths>
+                <header_search_path>C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/avr/include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32F103RB/RTE/_stm32_bare_metal_api</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/Core/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/Core_A/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/JTest/inc/arr_desc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/basic_math_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/complex_math_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/controller_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/fast_math_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/filtering_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/intrinsics_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/matrix_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/statistics_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/support_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/templates</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/Common/inc/transform_tests</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/DSP_Lib_TestSuite/RefLibs/inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/DSP/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/Device/ST/STM32L4xx/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/NN/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/NN/NN_Lib_Tests/nn_test/Ref_Implementations</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/CMSIS/RTOS2/Include</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Drivers/STM32L4xx_HAL_Driver/Inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/baremetal_proj/stm32_proj/STM32L476VG/Inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/src/api</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/src/api/lib/LTK/LTKC/Library</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/src/api/ltkc_win32/inc</header_search_path>
+                <header_search_path>mercuryapi-1.37.1.44/c/src/arch/win32/include</header_search_path>
+            </header_search_paths>
+            <name>C Source Group</name>
+            <pch_flags>
+                <use_compiler_flags>1</use_compiler_flags>
+            </pch_flags>
+            <source_extensions>
+                <source_extension>.c</source_extension>
+                <source_extension>.h</source_extension>
+            </source_extensions>
+            <source_paths>
+                <source_path>./</source_path>
+            </source_paths>
+            <status>enabled</status>
+            <type>C Source Group</type>
+        </source_group_2c3ba36b-0539-4eb3-9e41-47af3e7940a5>
+    </source_groups>
+    <version>8</version>
+</config>
