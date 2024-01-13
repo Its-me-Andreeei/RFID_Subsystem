@@ -652,7 +652,7 @@ Discarded input sections
  .debug_macro   0x00000000       0xf6 mercuryapi-1.37.1.44/c/src/api/tmr_param.o
  .debug_macro   0x00000000       0xbf mercuryapi-1.37.1.44/c/src/api/tmr_param.o
  .debug_line    0x00000000      0x308 mercuryapi-1.37.1.44/c/src/api/tmr_param.o
- .debug_str     0x00000000     0x7a46 mercuryapi-1.37.1.44/c/src/api/tmr_param.o
+ .debug_str     0x00000000     0x7a4b mercuryapi-1.37.1.44/c/src/api/tmr_param.o
  .comment       0x00000000       0x31 mercuryapi-1.37.1.44/c/src/api/tmr_param.o
  .group         0x00000000        0x8 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
  .group         0x00000000        0x8 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
@@ -701,7 +701,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
  .debug_macro   0x00000000       0x93 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
  .debug_line    0x00000000      0x321 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
- .debug_str     0x00000000     0x78cd mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
+ .debug_str     0x00000000     0x78d2 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
  .comment       0x00000000       0x31 mercuryapi-1.37.1.44/c/src/api/tmr_strerror.o
  .group         0x00000000        0x8 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
  .group         0x00000000        0x8 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
@@ -1507,7 +1507,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0xf090
+.text           0x00000000     0xf08a
  *(.vectors)
  .vectors       0x00000000       0x8c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128/avr51/crtatmega128.o
                 0x00000000                __vector_default
@@ -1620,565 +1620,565 @@ END GROUP
                 0x0000054a                __vector_20
                 0x0000054c                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x0000054c       0x8e main.o
+ .text.main     0x0000054c       0x72 main.o
                 0x0000054c                main
  .text.TMR_hexDottedQuad
-                0x000005da       0x4e mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
-                0x000005da                TMR_hexDottedQuad
+                0x000005be       0x4e mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+                0x000005be                TMR_hexDottedQuad
  .text.tmr_gettime
-                0x00000628       0x12 mercuryapi-1.37.1.44/c/src/api/osdep.o
-                0x00000628                tmr_gettime
+                0x0000060c       0x12 mercuryapi-1.37.1.44/c/src/api/osdep.o
+                0x0000060c                tmr_gettime
  .text.tmr_gettime_low
-                0x0000063a        0x8 mercuryapi-1.37.1.44/c/src/api/osdep.o
-                0x0000063a                tmr_gettime_low
+                0x0000061e        0x8 mercuryapi-1.37.1.44/c/src/api/osdep.o
+                0x0000061e                tmr_gettime_low
  .text.tmr_gettime_high
-                0x00000642        0x8 mercuryapi-1.37.1.44/c/src/api/osdep.o
-                0x00000642                tmr_gettime_high
+                0x00000626        0x8 mercuryapi-1.37.1.44/c/src/api/osdep.o
+                0x00000626                tmr_gettime_high
  .text.TMR_SR_cmdGetPerAntennaTime
-                0x0000064a      0x114 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x0000062e      0x114 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.setAntennaList
-                0x0000075e       0xe0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000742       0xe0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.setProtocol
-                0x0000083e       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000822       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.getHardwareInfo
-                0x00000894       0x68 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000878       0x68 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.getSerialNumber
-                0x000008fc       0xe2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x000008e0       0xe2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.prepEmbReadTagMultiple
-                0x000009de       0x82 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x000009c2       0x82 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.fillStaticTxRxMapData
-                0x00000a60       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00000a60                fillStaticTxRxMapData
+                0x00000a44       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000a44                fillStaticTxRxMapData
  .text.updateTxRxMapData
-                0x00000aae       0xae mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00000aae                updateTxRxMapData
+                0x00000a92       0xae mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000a92                updateTxRxMapData
  .text.initTxRxMapFromPorts
-                0x00000b5c       0x98 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00000b5c                initTxRxMapFromPorts
+                0x00000b40       0x98 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000b40                initTxRxMapFromPorts
  .text.TMR_SR_cmdSetPerAntennaTime
-                0x00000bf4      0x1de mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000bd8      0x1de mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.getPortValues
-                0x00000dd2      0x1d4 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000db6      0x1d4 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.TMR_SR_paramGet
-                0x00000fa6     0x1128 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00000f8a     0x1128 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.setPortValues
-                0x000020ce      0x19e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x000020b2      0x19e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.TMR_SR_boot
-                0x0000226c      0x130 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000226c                TMR_SR_boot
+                0x00002250      0x130 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002250                TMR_SR_boot
  .text.TMR_SR_getVersion
-                0x0000239c       0xd0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000239c                TMR_SR_getVersion
+                0x00002380       0xd0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002380                TMR_SR_getVersion
  .text.TMR_SR_connect
-                0x0000246c      0x100 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000246c                TMR_SR_connect
+                0x00002450      0x100 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002450                TMR_SR_connect
  .text.validateParams
-                0x0000256c      0x10e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000256c                validateParams
+                0x00002550      0x10e mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002550                validateParams
  .text.setAntennaReadTimeHelper
-                0x0000267a      0x348 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000267a                setAntennaReadTimeHelper
+                0x0000265e      0x348 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x0000265e                setAntennaReadTimeHelper
  .text.setAntennaReadTimeList
-                0x000029c2       0xc2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x000029c2                setAntennaReadTimeList
+                0x000029a6       0xc2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x000029a6                setAntennaReadTimeList
  .text.compareAntennas
-                0x00002a84       0xca mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00002a84                compareAntennas
+                0x00002a68       0xca mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002a68                compareAntennas
  .text.prepForSearch
-                0x00002b4e       0xfe mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00002b4e                prepForSearch
+                0x00002b32       0xfe mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002b32                prepForSearch
  .text.TMR_SR_paramSet
-                0x00002c4c      0xed4 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00002c30      0xed4 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.TMR_SR_hasMoreTags
-                0x00003b20      0x442 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00003b20                TMR_SR_hasMoreTags
+                0x00003b04      0x442 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00003b04                TMR_SR_hasMoreTags
  .text.TMR_SR_getNextTag
-                0x00003f62      0x22c mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00003f62                TMR_SR_getNextTag
+                0x00003f46      0x22c mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00003f46                TMR_SR_getNextTag
  .text.TMR_SR_SerialReader_init
-                0x0000418e      0x1c0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000418e                TMR_SR_SerialReader_init
+                0x00004172      0x1c0 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00004172                TMR_SR_SerialReader_init
  .text.getReadExtParams
-                0x0000434e      0x2b6 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0000434e                getReadExtParams
+                0x00004332      0x2b6 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00004332                getReadExtParams
  .text.getWriteExtParams
-                0x00004604      0x436 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00004604                getWriteExtParams
+                0x000045e8      0x436 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x000045e8                getWriteExtParams
  .text.isTagTypeFilterAvail
-                0x00004a3a       0x58 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00004a3a                isTagTypeFilterAvail
+                0x00004a1e       0x58 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00004a1e                isTagTypeFilterAvail
  .text.TMR_SR_addTagOp
-                0x00004a92      0xafe mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00004a92                TMR_SR_addTagOp
+                0x00004a76      0xafe mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00004a76                TMR_SR_addTagOp
  .text.TMR_SR_read_internal
-                0x00005590      0x658 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00005574      0x658 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .text.TMR_SR_read
-                0x00005be8       0xa6 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x00005be8                TMR_SR_read
- .text.tm_crc   0x00005c8e       0x80 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00005bcc       0xa6 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00005bcc                TMR_SR_read
+ .text.tm_crc   0x00005c72       0x80 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
  .text.filterbytes
-                0x00005d0e      0x7a8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00005cf2      0x7a8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
  .text.parseEBVdata
-                0x000064b6       0x5c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000064b6                parseEBVdata
+                0x0000649a       0x5c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000649a                parseEBVdata
  .text.TMR_SR_sendBytes
-                0x00006512       0x8c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006512                TMR_SR_sendBytes
+                0x000064f6       0x8c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000064f6                TMR_SR_sendBytes
  .text.TMR_SR_sendMessage
-                0x0000659e      0x164 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000659e                TMR_SR_sendMessage
+                0x00006582      0x164 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006582                TMR_SR_sendMessage
  .text.TMR_SR_receiveMessage
-                0x00006702      0x4e0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006702                TMR_SR_receiveMessage
+                0x000066e6      0x4e0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000066e6                TMR_SR_receiveMessage
  .text.TMR_SR_sendTimeout
-                0x00006be2      0x138 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006be2                TMR_SR_sendTimeout
+                0x00006bc6      0x138 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006bc6                TMR_SR_sendTimeout
  .text.TMR_SR_send
-                0x00006d1a       0x12 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006d1a                TMR_SR_send
+                0x00006cfe       0x12 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006cfe                TMR_SR_send
  .text.TMR_SR_sendCmd
-                0x00006d2c        0xa mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006d2c                TMR_SR_sendCmd
+                0x00006d10        0xa mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006d10                TMR_SR_sendCmd
  .text.TMR_SR_callSendCmd
-                0x00006d36       0x1e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006d36                TMR_SR_callSendCmd
+                0x00006d1a       0x1e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006d1a                TMR_SR_callSendCmd
  .text.TMR_SR_cmdFrameHeader
-                0x00006d54       0xbe mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006d54                TMR_SR_cmdFrameHeader
+                0x00006d38       0xbe mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006d38                TMR_SR_cmdFrameHeader
  .text.fillVersionInfo
-                0x00006e12       0xec mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006e12                fillVersionInfo
+                0x00006df6       0xec mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006df6                fillVersionInfo
  .text.TMR_SR_cmdVersion
-                0x00006efe       0x92 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006efe                TMR_SR_cmdVersion
+                0x00006ee2       0x92 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006ee2                TMR_SR_cmdVersion
  .text.TMR_SR_cmdBootFirmware
-                0x00006f90       0x88 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00006f90                TMR_SR_cmdBootFirmware
+                0x00006f74       0x88 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006f74                TMR_SR_cmdBootFirmware
  .text.TMR_SR_cmdSetBaudRate
-                0x00007018       0x50 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007018                TMR_SR_cmdSetBaudRate
+                0x00006ffc       0x50 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00006ffc                TMR_SR_cmdSetBaudRate
  .text.TMR_SR_cmdGetHardwareVersion
-                0x00007068       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007068                TMR_SR_cmdGetHardwareVersion
+                0x0000704c       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000704c                TMR_SR_cmdGetHardwareVersion
  .text.TMR_SR_msgSetupReadTagMultipleWithMetadata
-                0x0000711e      0x466 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000711e                TMR_SR_msgSetupReadTagMultipleWithMetadata
+                0x00007102      0x466 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007102                TMR_SR_msgSetupReadTagMultipleWithMetadata
  .text.TMR_SR_msgSetupReadTagMultiple
-                0x00007584       0x5a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007584                TMR_SR_msgSetupReadTagMultiple
+                0x00007568       0x5a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007568                TMR_SR_msgSetupReadTagMultiple
  .text.TMR_SR_cmdReadTagMultiple
-                0x000075de      0x234 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000075de                TMR_SR_cmdReadTagMultiple
+                0x000075c2      0x234 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000075c2                TMR_SR_cmdReadTagMultiple
  .text.TMR_SR_executeEmbeddedRead
-                0x00007812      0x2be mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007812                TMR_SR_executeEmbeddedRead
+                0x000077f6      0x2be mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000077f6                TMR_SR_executeEmbeddedRead
  .text.TMR_SR_msgAddGEN2WriteTagEPC
-                0x00007ad0       0xb0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007ad0                TMR_SR_msgAddGEN2WriteTagEPC
+                0x00007ab4       0xb0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007ab4                TMR_SR_msgAddGEN2WriteTagEPC
  .text.TMR_SR_msgAddGEN2DataRead
-                0x00007b80      0x152 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007b80                TMR_SR_msgAddGEN2DataRead
+                0x00007b64      0x152 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007b64                TMR_SR_msgAddGEN2DataRead
  .text.TMR_SR_msgAddGEN2DataWrite
-                0x00007cd2      0x152 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007cd2                TMR_SR_msgAddGEN2DataWrite
+                0x00007cb6      0x152 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007cb6                TMR_SR_msgAddGEN2DataWrite
  .text.TMR_SR_msgAddGEN2LockTag
-                0x00007e24      0x122 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007e24                TMR_SR_msgAddGEN2LockTag
+                0x00007e08      0x122 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007e08                TMR_SR_msgAddGEN2LockTag
  .text.TMR_SR_msgAddGEN2KillTag
-                0x00007f46       0xd0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00007f46                TMR_SR_msgAddGEN2KillTag
+                0x00007f2a       0xd0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007f2a                TMR_SR_msgAddGEN2KillTag
  .text.TMR_SR_msgAddGEN2BlockWrite
-                0x00008016      0x2f8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008016                TMR_SR_msgAddGEN2BlockWrite
+                0x00007ffa      0x2f8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00007ffa                TMR_SR_msgAddGEN2BlockWrite
  .text.TMR_SR_msgAddGEN2BlockPermaLock
-                0x0000830e      0x2c2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000830e                TMR_SR_msgAddGEN2BlockPermaLock
+                0x000082f2      0x2c2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000082f2                TMR_SR_msgAddGEN2BlockPermaLock
  .text.TMR_SR_msgAddGEN2BlockErase
-                0x000085d0      0x1a0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000085d0                TMR_SR_msgAddGEN2BlockErase
+                0x000085b4      0x1a0 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000085b4                TMR_SR_msgAddGEN2BlockErase
  .text.TMR_SR_cmdClearTagBuffer
-                0x00008770       0x32 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008770                TMR_SR_cmdClearTagBuffer
+                0x00008754       0x32 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008754                TMR_SR_cmdClearTagBuffer
  .text.TMR_SR_cmdGetTagsRemaining
-                0x000087a2       0x7e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000087a2                TMR_SR_cmdGetTagsRemaining
+                0x00008786       0x7e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008786                TMR_SR_cmdGetTagsRemaining
  .text.extractGen2MemoryBankValues
-                0x00008820      0x100 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008820                extractGen2MemoryBankValues
+                0x00008804      0x100 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008804                extractGen2MemoryBankValues
  .text.TMR_SR_parseMetadataOnly
-                0x00008920      0x496 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008920                TMR_SR_parseMetadataOnly
+                0x00008904      0x496 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008904                TMR_SR_parseMetadataOnly
  .text.TMR_SR_parseMetadataFromMessage
-                0x00008db6      0x1f8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008db6                TMR_SR_parseMetadataFromMessage
+                0x00008d9a      0x1f8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008d9a                TMR_SR_parseMetadataFromMessage
  .text.TMR_SR_antennaDecoding
-                0x00008fae       0xe2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00008fae                TMR_SR_antennaDecoding
+                0x00008f92       0xe2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00008f92                TMR_SR_antennaDecoding
  .text.TMR_SR_postprocessReaderSpecificMetadata
-                0x00009090      0x314 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009090                TMR_SR_postprocessReaderSpecificMetadata
+                0x00009074      0x314 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009074                TMR_SR_postprocessReaderSpecificMetadata
  .text.TMR_SR_cmdSetTxRxPorts
-                0x000093a4       0x6a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000093a4                TMR_SR_cmdSetTxRxPorts
+                0x00009388       0x6a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009388                TMR_SR_cmdSetTxRxPorts
  .text.TMR_SR_cmdSetAntennaSearchList
-                0x0000940e       0xd4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000940e                TMR_SR_cmdSetAntennaSearchList
+                0x000093f2       0xd4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000093f2                TMR_SR_cmdSetAntennaSearchList
  .text.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime
-                0x000094e2      0x168 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000094e2                TMR_SR_cmdSetAntennaPortPowersAndSettlingTime
+                0x000094c6      0x168 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000094c6                TMR_SR_cmdSetAntennaPortPowersAndSettlingTime
  .text.TMR_SR_cmdSetReadWriteTxPower
-                0x0000964a       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000964a                TMR_SR_cmdSetReadWriteTxPower
+                0x0000962e       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000962e                TMR_SR_cmdSetReadWriteTxPower
  .text.TMR_SR_cmdSetReadTxPower
-                0x00009698        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009698                TMR_SR_cmdSetReadTxPower
+                0x0000967c        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000967c                TMR_SR_cmdSetReadTxPower
  .text.TMR_SR_cmdSetProtocolList
-                0x0000969e      0x10c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000969e                TMR_SR_cmdSetProtocolList
+                0x00009682      0x10c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009682                TMR_SR_cmdSetProtocolList
  .text.TMR_SR_cmdSetProtocol
-                0x000097aa       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000097aa                TMR_SR_cmdSetProtocol
+                0x0000978e       0x4e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000978e                TMR_SR_cmdSetProtocol
  .text.TMR_SR_cmdSetWriteTxPower
-                0x000097f8        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000097f8                TMR_SR_cmdSetWriteTxPower
+                0x000097dc        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000097dc                TMR_SR_cmdSetWriteTxPower
  .text.TMR_SR_cmdSetFrequencyHopTable
-                0x000097fe       0xe6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000097fe                TMR_SR_cmdSetFrequencyHopTable
+                0x000097e2       0xe6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000097e2                TMR_SR_cmdSetFrequencyHopTable
  .text.TMR_SR_cmdSetFrequencyHopTableOption
-                0x000098e4       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000098e4                TMR_SR_cmdSetFrequencyHopTableOption
+                0x000098c8       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000098c8                TMR_SR_cmdSetFrequencyHopTableOption
  .text.TMR_SR_cmdSetRegion
-                0x0000993a       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000993a                TMR_SR_cmdSetRegion
+                0x0000991e       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000991e                TMR_SR_cmdSetRegion
  .text.TMR_SR_cmdSetRegionDwellTimeLbtEnable
-                0x000099f0       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x000099f0                TMR_SR_cmdSetRegionDwellTimeLbtEnable
+                0x000099d4       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x000099d4                TMR_SR_cmdSetRegionDwellTimeLbtEnable
  .text.TMR_SR_cmdSetRegionDwellTimeEnable
-                0x00009a46        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009a46                TMR_SR_cmdSetRegionDwellTimeEnable
+                0x00009a2a        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009a2a                TMR_SR_cmdSetRegionDwellTimeEnable
  .text.TMR_SR_cmdSetRegionDwellTime
-                0x00009a4c       0x58 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009a4c                TMR_SR_cmdSetRegionDwellTime
+                0x00009a30       0x58 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009a30                TMR_SR_cmdSetRegionDwellTime
  .text.TMR_SR_cmdSetRegionLbtThreshold
-                0x00009aa4       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009aa4                TMR_SR_cmdSetRegionLbtThreshold
+                0x00009a88       0x56 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009a88                TMR_SR_cmdSetRegionLbtThreshold
  .text.TMR_SR_cmdSetRegionLbt
-                0x00009afa        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009afa                TMR_SR_cmdSetRegionLbt
+                0x00009ade        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009ade                TMR_SR_cmdSetRegionLbt
  .text.TMR_SR_cmdSetMode
-                0x00009b00       0x4a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009b00                TMR_SR_cmdSetMode
+                0x00009ae4       0x4a mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009ae4                TMR_SR_cmdSetMode
  .text.TMR_SR_cmdSetPowerMode
-                0x00009b4a        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009b4a                TMR_SR_cmdSetPowerMode
+                0x00009b2e        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009b2e                TMR_SR_cmdSetPowerMode
  .text.TMR_SR_cmdSetUserMode
-                0x00009b50        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009b50                TMR_SR_cmdSetUserMode
+                0x00009b34        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009b34                TMR_SR_cmdSetUserMode
  .text.TMR_SR_cmdSetReaderConfiguration
-                0x00009b56       0xe8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009b56                TMR_SR_cmdSetReaderConfiguration
+                0x00009b3a       0xe8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009b3a                TMR_SR_cmdSetReaderConfiguration
  .text.TMR_SR_cmdSetProtocolLicenseKey
-                0x00009c3e      0x126 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009c3e                TMR_SR_cmdSetProtocolLicenseKey
+                0x00009c22      0x126 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009c22                TMR_SR_cmdSetProtocolLicenseKey
  .text.TMR_SR_cmdSetProtocolConfiguration
-                0x00009d64      0x4b4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00009d64                TMR_SR_cmdSetProtocolConfiguration
+                0x00009d48      0x4b4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00009d48                TMR_SR_cmdSetProtocolConfiguration
  .text.TMR_SR_cmdAntennaDetect
-                0x0000a218       0xdc mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a218                TMR_SR_cmdAntennaDetect
+                0x0000a1fc       0xdc mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a1fc                TMR_SR_cmdAntennaDetect
  .text.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime
-                0x0000a2f4      0x1bc mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a2f4                TMR_SR_cmdGetAntennaPortPowersAndSettlingTime
+                0x0000a2d8      0x1bc mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a2d8                TMR_SR_cmdGetAntennaPortPowersAndSettlingTime
  .text.TMR_SR_cmdGetAntennaReturnLoss
-                0x0000a4b0      0x110 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a4b0                TMR_SR_cmdGetAntennaReturnLoss
+                0x0000a494      0x110 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a494                TMR_SR_cmdGetAntennaReturnLoss
  .text.TMR_SR_cmdGetReadWriteTxPower
-                0x0000a5c0       0x92 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a5c0                TMR_SR_cmdGetReadWriteTxPower
+                0x0000a5a4       0x92 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a5a4                TMR_SR_cmdGetReadWriteTxPower
  .text.TMR_SR_cmdGetReadTxPower
-                0x0000a652        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a652                TMR_SR_cmdGetReadTxPower
+                0x0000a636        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a636                TMR_SR_cmdGetReadTxPower
  .text.TMR_SR_cmdGetReadTxPowerWithLimits
-                0x0000a658       0xaa mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a658                TMR_SR_cmdGetReadTxPowerWithLimits
+                0x0000a63c       0xaa mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a63c                TMR_SR_cmdGetReadTxPowerWithLimits
  .text.TMR_SR_cmdGetWriteTxPower
-                0x0000a702        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a702                TMR_SR_cmdGetWriteTxPower
+                0x0000a6e6        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a6e6                TMR_SR_cmdGetWriteTxPower
  .text.TMR_SR_cmdGetFrequencyHopTable
-                0x0000a708      0x142 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a708                TMR_SR_cmdGetFrequencyHopTable
+                0x0000a6ec      0x142 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a6ec                TMR_SR_cmdGetFrequencyHopTable
  .text.TMR_SR_cmdGetFrequencyHopTableOption
-                0x0000a84a       0xc4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a84a                TMR_SR_cmdGetFrequencyHopTableOption
+                0x0000a82e       0xc4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a82e                TMR_SR_cmdGetFrequencyHopTableOption
  .text.TMR_SR_cmdGetFrequencyHopTime
-                0x0000a90e        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a90e                TMR_SR_cmdGetFrequencyHopTime
+                0x0000a8f2        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a8f2                TMR_SR_cmdGetFrequencyHopTime
  .text.TMR_SR_cmdGetQuantizationStep
-                0x0000a914        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a914                TMR_SR_cmdGetQuantizationStep
+                0x0000a8f8        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a8f8                TMR_SR_cmdGetQuantizationStep
  .text.TMR_SR_cmdGetMinimumFrequency
-                0x0000a91a        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a91a                TMR_SR_cmdGetMinimumFrequency
+                0x0000a8fe        0x6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a8fe                TMR_SR_cmdGetMinimumFrequency
  .text.TMR_SR_cmdGetGPIO
-                0x0000a920      0x124 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000a920                TMR_SR_cmdGetGPIO
+                0x0000a904      0x124 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000a904                TMR_SR_cmdGetGPIO
  .text.TMR_SR_cmdGetGPIODirection
-                0x0000aa44       0x84 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000aa44                TMR_SR_cmdGetGPIODirection
+                0x0000aa28       0x84 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000aa28                TMR_SR_cmdGetGPIODirection
  .text.TMR_SR_cmdSetGPIODirection
-                0x0000aac8       0x74 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000aac8                TMR_SR_cmdSetGPIODirection
+                0x0000aaac       0x74 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000aaac                TMR_SR_cmdSetGPIODirection
  .text.TMR_SR_cmdGetProtocolList
-                0x0000ab3c       0xd2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ab3c                TMR_SR_cmdGetProtocolList
+                0x0000ab20       0xd2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ab20                TMR_SR_cmdGetProtocolList
  .text.TMR_SR_cmdGetCurrentProtocol
-                0x0000ac0e       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ac0e                TMR_SR_cmdGetCurrentProtocol
+                0x0000abf2       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000abf2                TMR_SR_cmdGetCurrentProtocol
  .text.TMR_SR_cmdGetRegion
-                0x0000ac70       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ac70                TMR_SR_cmdGetRegion
+                0x0000ac54       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ac54                TMR_SR_cmdGetRegion
  .text.TMR_SR_cmdGetRegionConfiguration
-                0x0000acd2       0xec mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000acd2                TMR_SR_cmdGetRegionConfiguration
+                0x0000acb6       0xec mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000acb6                TMR_SR_cmdGetRegionConfiguration
  .text.TMR_SR_cmdGetPowerMode
-                0x0000adbe       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000adbe                TMR_SR_cmdGetPowerMode
+                0x0000ada2       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ada2                TMR_SR_cmdGetPowerMode
  .text.TMR_SR_cmdGetUserMode
-                0x0000ae20       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ae20                TMR_SR_cmdGetUserMode
+                0x0000ae04       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ae04                TMR_SR_cmdGetUserMode
  .text.TMR_SR_cmdGetReaderConfiguration
-                0x0000ae82      0x134 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ae82                TMR_SR_cmdGetReaderConfiguration
+                0x0000ae66      0x134 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ae66                TMR_SR_cmdGetReaderConfiguration
  .text.TMR_SR_cmdGetProtocolConfiguration
-                0x0000afb6      0x51e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000afb6                TMR_SR_cmdGetProtocolConfiguration
+                0x0000af9a      0x51e mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000af9a                TMR_SR_cmdGetProtocolConfiguration
  .text.TMR_SR_msgSetupMultipleProtocolSearch
-                0x0000b4d4      0x586 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000b4d4                TMR_SR_msgSetupMultipleProtocolSearch
+                0x0000b4b8      0x586 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000b4b8                TMR_SR_msgSetupMultipleProtocolSearch
  .text.TMR_SR_cmdSetUserProfile
-                0x0000ba5a      0x488 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ba5a                TMR_SR_cmdSetUserProfile
+                0x0000ba3e      0x488 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ba3e                TMR_SR_cmdSetUserProfile
  .text.TMR_SR_cmdMultipleProtocolSearch
-                0x0000bee2      0x240 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000bee2                TMR_SR_cmdMultipleProtocolSearch
+                0x0000bec6      0x240 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000bec6                TMR_SR_cmdMultipleProtocolSearch
  .text.TMR_SR_cmdGetAvailableProtocols
-                0x0000c122      0x12c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c122                TMR_SR_cmdGetAvailableProtocols
+                0x0000c106      0x12c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c106                TMR_SR_cmdGetAvailableProtocols
  .text.TMR_SR_cmdGetAvailableRegions
-                0x0000c24e       0xae mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c24e                TMR_SR_cmdGetAvailableRegions
+                0x0000c232       0xae mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c232                TMR_SR_cmdGetAvailableRegions
  .text.TMR_SR_cmdGetTemperature
-                0x0000c2fc       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c2fc                TMR_SR_cmdGetTemperature
+                0x0000c2e0       0x62 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c2e0                TMR_SR_cmdGetTemperature
  .text.TMR_SR_cmdGetReaderStatistics
-                0x0000c35e      0x2d4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c35e                TMR_SR_cmdGetReaderStatistics
+                0x0000c342      0x2d4 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c342                TMR_SR_cmdGetReaderStatistics
  .text.TMR_SR_cmdResetReaderStatistics
-                0x0000c632       0x80 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c632                TMR_SR_cmdResetReaderStatistics
+                0x0000c616       0x80 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c616                TMR_SR_cmdResetReaderStatistics
  .text.TMR_fillReaderStats
-                0x0000c6b2      0x3e8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000c6b2                TMR_fillReaderStats
+                0x0000c696      0x3e8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000c696                TMR_fillReaderStats
  .text.TMR_SR_cmdGetReaderStats
-                0x0000ca9a      0x330 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ca9a                TMR_SR_cmdGetReaderStats
+                0x0000ca7e      0x330 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ca7e                TMR_SR_cmdGetReaderStats
  .text.TMR_SR_cmdResetReaderStats
-                0x0000cdca       0xb2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000cdca                TMR_SR_cmdResetReaderStats
+                0x0000cdae       0xb2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000cdae                TMR_SR_cmdResetReaderStats
  .text.TMR_SR_cmdStopReading
-                0x0000ce7c       0x84 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000ce7c                TMR_SR_cmdStopReading
+                0x0000ce60       0x84 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000ce60                TMR_SR_cmdStopReading
  .text.TMR_SR_cmdGetReaderWriteTimeOut
-                0x0000cf00       0x98 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000cf00                TMR_SR_cmdGetReaderWriteTimeOut
+                0x0000cee4       0x98 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000cee4                TMR_SR_cmdGetReaderWriteTimeOut
  .text.TMR_SR_cmdSetReaderWriteTimeOut
-                0x0000cf98       0x70 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000cf98                TMR_SR_cmdSetReaderWriteTimeOut
+                0x0000cf7c       0x70 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000cf7c                TMR_SR_cmdSetReaderWriteTimeOut
  .text.TMR_SR_msgAddAccessPassword
-                0x0000d008       0x70 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000d008                TMR_SR_msgAddAccessPassword
+                0x0000cfec       0x70 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000cfec                TMR_SR_msgAddAccessPassword
  .text.TMR_SR_msgAddExtendedParams
-                0x0000d078       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000d078                TMR_SR_msgAddExtendedParams
+                0x0000d05c       0xb6 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000d05c                TMR_SR_msgAddExtendedParams
  .text.TMR_SR_msgAddWriteMemory
-                0x0000d12e      0x138 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000d12e                TMR_SR_msgAddWriteMemory
+                0x0000d112      0x138 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000d112                TMR_SR_msgAddWriteMemory
  .text.TMR_SR_msgAddReadMemory
-                0x0000d266      0x19c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0000d266                TMR_SR_msgAddReadMemory
- .text.s_flush  0x0000d402        0xc mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d24a      0x19c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x0000d24a                TMR_SR_msgAddReadMemory
+ .text.s_flush  0x0000d3e6        0xc mercuryapi-1.37.1.44/c/src/api/serial_transport.o
  .text.s_shutdown
-                0x0000d40e        0xc mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d3f2        0xc mercuryapi-1.37.1.44/c/src/api/serial_transport.o
  .text.s_setBaudRate
-                0x0000d41a        0xa mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d3fe        0xa mercuryapi-1.37.1.44/c/src/api/serial_transport.o
  .text.s_receiveBytes
-                0x0000d424       0x24 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d408       0x24 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
  .text.s_sendBytes
-                0x0000d448       0x1c mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .text.s_open   0x0000d464       0x16 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d42c       0x1c mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .text.s_open   0x0000d448       0x16 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
  .text.TMR_SR_SerialTransportDummyInit
-                0x0000d47a       0x3e mercuryapi-1.37.1.44/c/src/api/serial_transport.o
-                0x0000d47a                TMR_SR_SerialTransportDummyInit
+                0x0000d45e       0x3e mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                0x0000d45e                TMR_SR_SerialTransportDummyInit
  .text.tm_memcpy
-                0x0000d4b8       0x18 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
-                0x0000d4b8                tm_memcpy
+                0x0000d49c       0x18 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+                0x0000d49c                tm_memcpy
  .text.tm_gettime_consistent
-                0x0000d4d0       0x6c mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
-                0x0000d4d0                tm_gettime_consistent
+                0x0000d4b4       0x6c mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+                0x0000d4b4                tm_gettime_consistent
  .text.tm_u8s_per_bits
-                0x0000d53c       0x1e mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
-                0x0000d53c                tm_u8s_per_bits
+                0x0000d520       0x1e mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+                0x0000d520                tm_u8s_per_bits
  .text.TMR_stringCopy
-                0x0000d55a       0x44 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
-                0x0000d55a                TMR_stringCopy
+                0x0000d53e       0x44 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+                0x0000d53e                TMR_stringCopy
  .text.validateReadPlan
-                0x0000d59e       0x64 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d59e                validateReadPlan
+                0x0000d582       0x64 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d582                validateReadPlan
  .text.versionCompare
-                0x0000d602       0x5a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d602                versionCompare
+                0x0000d5e6       0x5a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d5e6                versionCompare
  .text.getAddrByteExtEnabledVersion
-                0x0000d65c       0x2a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d65c                getAddrByteExtEnabledVersion
+                0x0000d640       0x2a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d640                getAddrByteExtEnabledVersion
  .text.checkForAvailableFeatures
-                0x0000d686       0x92 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d686                checkForAvailableFeatures
+                0x0000d66a       0x92 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d66a                checkForAvailableFeatures
  .text.TMR_paramSet
-                0x0000d718       0xba mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d718                TMR_paramSet
+                0x0000d6fc       0xba mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d6fc                TMR_paramSet
  .text.TMR_paramGet
-                0x0000d7d2       0x88 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d7d2                TMR_paramGet
+                0x0000d7b6       0x88 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d7b6                TMR_paramGet
  .text.TMR__notifyTransportListeners
-                0x0000d85a       0x7e mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d85a                TMR__notifyTransportListeners
+                0x0000d83e       0x7e mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d83e                TMR__notifyTransportListeners
  .text.TMR_RP_init_simple
-                0x0000d8d8       0x5a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d8d8                TMR_RP_init_simple
+                0x0000d8bc       0x5a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d8bc                TMR_RP_init_simple
  .text.TMR_reader_init_internal
-                0x0000d932      0x11a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000d932                TMR_reader_init_internal
+                0x0000d916      0x11a mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000d916                TMR_reader_init_internal
  .text.TMR_paramProbe
-                0x0000da4c       0xf6 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000da4c                TMR_paramProbe
+                0x0000da30       0xf6 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000da30                TMR_paramProbe
  .text.TMR_SR_convertToEBV
-                0x0000db42      0x34e mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000db42                TMR_SR_convertToEBV
+                0x0000db26      0x34e mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000db26                TMR_SR_convertToEBV
  .text.TMR_SR_convertFromEBV
-                0x0000de90      0x3be mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                0x0000de90                TMR_SR_convertFromEBV
+                0x0000de74      0x3be mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                0x0000de74                TMR_SR_convertFromEBV
  .text.TMR_startReading
-                0x0000e24e       0x78 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
-                0x0000e24e                TMR_startReading
+                0x0000e232       0x78 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+                0x0000e232                TMR_startReading
  .text.notify_read_listeners
-                0x0000e2c6       0x46 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
-                0x0000e2c6                notify_read_listeners
+                0x0000e2aa       0x46 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+                0x0000e2aa                notify_read_listeners
  .text.enable_timer1
-                0x0000e30c       0x50 Timer_Driver/timer_atmega128.o
+                0x0000e2f0       0x50 Timer_Driver/timer_atmega128.o
  .text.enable_timer3
-                0x0000e35c       0x60 Timer_Driver/timer_atmega128.o
+                0x0000e340       0x60 Timer_Driver/timer_atmega128.o
  .text.start_timer
-                0x0000e3bc       0x18 Timer_Driver/timer_atmega128.o
-                0x0000e3bc                start_timer
+                0x0000e3a0       0x18 Timer_Driver/timer_atmega128.o
+                0x0000e3a0                start_timer
  .text.get_timer_status
-                0x0000e3d4       0xa2 Timer_Driver/timer_atmega128.o
-                0x0000e3d4                get_timer_status
+                0x0000e3b8       0xa2 Timer_Driver/timer_atmega128.o
+                0x0000e3b8                get_timer_status
  .text.disable_timer
-                0x0000e476       0x3e Timer_Driver/timer_atmega128.o
-                0x0000e476                disable_timer
+                0x0000e45a       0x3e Timer_Driver/timer_atmega128.o
+                0x0000e45a                disable_timer
  .text.set_start_reason_timer
-                0x0000e4b4       0x14 Timer_Driver/timer_atmega128.o
-                0x0000e4b4                set_start_reason_timer
+                0x0000e498       0x14 Timer_Driver/timer_atmega128.o
+                0x0000e498                set_start_reason_timer
  .text.get_start_reason_timer
-                0x0000e4c8       0x18 Timer_Driver/timer_atmega128.o
-                0x0000e4c8                get_start_reason_timer
+                0x0000e4ac       0x18 Timer_Driver/timer_atmega128.o
+                0x0000e4ac                get_start_reason_timer
  .text.__vector_18
-                0x0000e4e0       0x64 UART_driver/UART_Driver.o
-                0x0000e4e0                __vector_18
+                0x0000e4c4       0x7a UART_driver/UART_Driver.o
+                0x0000e4c4                __vector_18
  .text.UART_init
-                0x0000e544       0x60 UART_driver/UART_Driver.o
-                0x0000e544                UART_init
+                0x0000e53e       0x60 UART_driver/UART_Driver.o
+                0x0000e53e                UART_init
  .text.UART0_change_BAUD
-                0x0000e5a4       0xe6 UART_driver/UART_Driver.o
-                0x0000e5a4                UART0_change_BAUD
+                0x0000e59e       0xe6 UART_driver/UART_Driver.o
+                0x0000e59e                UART0_change_BAUD
  .text.UART0_SendMessage
-                0x0000e68a      0x138 UART_driver/UART_Driver.o
-                0x0000e68a                UART0_SendMessage
+                0x0000e684      0x138 UART_driver/UART_Driver.o
+                0x0000e684                UART0_SendMessage
  .text.UART0_flush
-                0x0000e7c2       0x1e UART_driver/UART_Driver.o
-                0x0000e7c2                UART0_flush
+                0x0000e7bc       0x1e UART_driver/UART_Driver.o
+                0x0000e7bc                UART0_flush
  .text.UART0_DeInit
-                0x0000e7e0       0x12 UART_driver/UART_Driver.o
-                0x0000e7e0                UART0_DeInit
+                0x0000e7da       0x12 UART_driver/UART_Driver.o
+                0x0000e7da                UART0_DeInit
  .text.UART0_ReceiveMessage
-                0x0000e7f2      0x104 UART_driver/UART_Driver.o
-                0x0000e7f2                UART0_ReceiveMessage
+                0x0000e7ec      0x104 UART_driver/UART_Driver.o
+                0x0000e7ec                UART0_ReceiveMessage
  .text.libgcc.mul
-                0x0000e8f6       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_mulsi3.o)
-                0x0000e8f6                __mulsi3
+                0x0000e8f0       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_mulsi3.o)
+                0x0000e8f0                __mulsi3
  .text.libgcc.div
-                0x0000e914       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
-                0x0000e914                __udivmodhi4
+                0x0000e90e       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodhi4.o)
+                0x0000e90e                __udivmodhi4
  .text.libgcc.div
-                0x0000e93c       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_divmodhi4.o)
-                0x0000e93c                _div
-                0x0000e93c                __divmodhi4
+                0x0000e936       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_divmodhi4.o)
+                0x0000e936                _div
+                0x0000e936                __divmodhi4
  .text.libgcc.div
-                0x0000e962       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
-                0x0000e962                __udivmodsi4
- .text.libgcc   0x0000e9a6       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
-                0x0000e9a6                __tablejump2__
+                0x0000e95c       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_udivmodsi4.o)
+                0x0000e95c                __udivmodsi4
+ .text.libgcc   0x0000e9a0       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_tablejump2.o)
+                0x0000e9a0                __tablejump2__
  .text.libgcc.mul
-                0x0000e9b8       0x14 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_muluhisi3.o)
-                0x0000e9b8                __muluhisi3
+                0x0000e9b2       0x14 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_muluhisi3.o)
+                0x0000e9b2                __muluhisi3
  .text.libgcc.builtins
-                0x0000e9cc       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_ashldi3.o)
-                0x0000e9cc                __ashldi3
+                0x0000e9c6       0x32 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_ashldi3.o)
+                0x0000e9c6                __ashldi3
  .text.libgcc.builtins
-                0x0000e9fe       0x3c c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_ashrdi3.o)
-                0x0000e9fe                __ashrdi3
-                0x0000ea02                __lshrdi3
- .text.libgcc   0x0000ea3a       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_subdi3.o)
-                0x0000ea3a                __subdi3
- .text.libgcc   0x0000ea4c       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_cmpdi2.o)
-                0x0000ea4c                __cmpdi2
- .text.libgcc   0x0000ea5e       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_cmpdi2_s8.o)
-                0x0000ea5e                __cmpdi2_s8
+                0x0000e9f8       0x3c c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_ashrdi3.o)
+                0x0000e9f8                __ashrdi3
+                0x0000e9fc                __lshrdi3
+ .text.libgcc   0x0000ea34       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_subdi3.o)
+                0x0000ea34                __subdi3
+ .text.libgcc   0x0000ea46       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_cmpdi2.o)
+                0x0000ea46                __cmpdi2
+ .text.libgcc   0x0000ea58       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_cmpdi2_s8.o)
+                0x0000ea58                __cmpdi2_s8
  .text.libgcc.mul
-                0x0000ea76       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_umulhisi3.o)
-                0x0000ea76                __umulhisi3
+                0x0000ea70       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_umulhisi3.o)
+                0x0000ea70                __umulhisi3
  .text.avr-libc
-                0x0000ea94       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memcpy.o)
-                0x0000ea94                memcpy
+                0x0000ea8e       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memcpy.o)
+                0x0000ea8e                memcpy
  .text.avr-libc
-                0x0000eaa6       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memmove.o)
-                0x0000eaa6                memmove
+                0x0000eaa0       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(memmove.o)
+                0x0000eaa0                memmove
  .text.avr-libc
-                0x0000eac8        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strcpy.o)
-                0x0000eac8                strcpy
+                0x0000eac2        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strcpy.o)
+                0x0000eac2                strcpy
  .text.avr-libc
-                0x0000ead6       0x5c c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(sprintf.o)
-                0x0000ead6                sprintf
+                0x0000ead0       0x5c c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(sprintf.o)
+                0x0000ead0                sprintf
  .text.avr-libc
-                0x0000eb32      0x3fa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vfprintf_std.o)
-                0x0000eb32                vfprintf
+                0x0000eb2c      0x3fa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(vfprintf_std.o)
+                0x0000eb2c                vfprintf
  .text.avr-libc
-                0x0000ef2c       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
-                0x0000ef2c                strnlen_P
+                0x0000ef26       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen_P.o)
+                0x0000ef26                strnlen_P
  .text.avr-libc
-                0x0000ef42       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
-                0x0000ef42                strnlen
+                0x0000ef3c       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(strnlen.o)
+                0x0000ef3c                strnlen
  .text.avr-libc
-                0x0000ef58       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
-                0x0000ef58                fputc
+                0x0000ef52       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(fputc.o)
+                0x0000ef52                fputc
  .text.avr-libc
-                0x0000efd0       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
-                0x0000efd0                __ultoa_invert
-                0x0000f08c                . = ALIGN (0x2)
+                0x0000efca       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr51\libc.a(ultoa_invert.o)
+                0x0000efca                __ultoa_invert
+                0x0000f086                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000f08c        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
-                0x0000f08c                _exit
-                0x0000f08c                exit
+ .fini9         0x0000f086        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+                0x0000f086                _exit
+                0x0000f086                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -2197,11 +2197,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000f08c        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
+ .fini0         0x0000f086        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000f090                _etext = .
+                0x0000f08a                _etext = .
 
-.data           0x00800100      0x152 load address 0x0000f090
+.data           0x00800100      0x152 load address 0x0000f08a
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -2225,71 +2225,75 @@ END GROUP
                 0x00800252                _edata = .
                 0x00800252                PROVIDE (__data_end, .)
 
-.bss            0x00800252      0x121
+.bss            0x00800252      0xaa0
                 0x00800252                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
+ .bss.readData  0x00800252      0x358 main.o
+ .bss.readTagCount
+                0x008005aa        0x4 main.o
+ .bss.reader    0x008005ae      0x623 main.o
  .bss.readError
-                0x00800252        0x1 main.o
- .bss.idx.7338  0x00800253        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00800bd1        0x1 main.o
+ .bss.idx.7338  0x00800bd2        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
  .bss.LastDSPMicro
-                0x00800254        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800254                LastDSPMicro
+                0x00800bd3        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bd3                LastDSPMicro
  .bss.isStreamEnabled
-                0x00800256        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800256                isStreamEnabled
+                0x00800bd5        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bd5                isStreamEnabled
  .bss.totalMsgIdx
-                0x00800257        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800257                totalMsgIdx
+                0x00800bd6        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bd6                totalMsgIdx
  .bss.isAddrByteExtended
-                0x00800259        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800259                isAddrByteExtended
+                0x00800bd8        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bd8                isAddrByteExtended
  .bss.regionConfigurationFlag
-                0x0080025a        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025a                regionConfigurationFlag
+                0x00800bd9        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bd9                regionConfigurationFlag
  .bss.DwellTimeEnable
-                0x0080025b        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025b                DwellTimeEnable
+                0x00800bda        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bda                DwellTimeEnable
  .bss.LBTEnable
-                0x0080025c        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025c                LBTEnable
+                0x00800bdb        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bdb                LBTEnable
  .bss.isSecureAccessEnabled
-                0x0080025d        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025d                isSecureAccessEnabled
+                0x00800bdc        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bdc                isSecureAccessEnabled
  .bss.isEmbeddedTagopEnabled
-                0x0080025e        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025e                isEmbeddedTagopEnabled
+                0x00800bdd        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bdd                isEmbeddedTagopEnabled
  .bss.isMultiSelectEnabled
-                0x0080025f        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x0080025f                isMultiSelectEnabled
+                0x00800bde        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bde                isMultiSelectEnabled
  .bss.onFlyCmdOpcode
-                0x00800260        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800260                onFlyCmdOpcode
+                0x00800bdf        0x1 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800bdf                onFlyCmdOpcode
  .bss.onFlyCmdSntTime
-                0x00800261        0x8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800261                onFlyCmdSntTime
- .bss.timer3    0x00800269        0x2 Timer_Driver/timer_atmega128.o
- .bss.timer1    0x0080026b        0x2 Timer_Driver/timer_atmega128.o
+                0x00800be0        0x8 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800be0                onFlyCmdSntTime
+ .bss.timer3    0x00800be8        0x2 Timer_Driver/timer_atmega128.o
+ .bss.timer1    0x00800bea        0x2 Timer_Driver/timer_atmega128.o
  .bss.ISR_end_index
-                0x0080026d        0x2 UART_driver/UART_Driver.o
+                0x00800bec        0x2 UART_driver/UART_Driver.o
  .bss.ISR_Buffer
-                0x0080026f       0xff UART_driver/UART_Driver.o
+                0x00800bee       0xff UART_driver/UART_Driver.o
  *(COMMON)
- COMMON         0x0080036e        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                0x0080036e                delta
- COMMON         0x00800370        0x3 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                0x00800370                DwellTime
-                0x00800372                LBTThreshold
-                0x00800373                PROVIDE (__bss_end, .)
-                0x0000f090                __data_load_start = LOADADDR (.data)
-                0x0000f1e2                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800ced        0x2 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                0x00800ced                delta
+ COMMON         0x00800cef        0x3 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                0x00800cef                DwellTime
+                0x00800cf1                LBTThreshold
+                0x00800cf2                PROVIDE (__bss_end, .)
+                0x0000f08a                __data_load_start = LOADADDR (.data)
+                0x0000f1dc                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800373        0x0
+.noinit         0x00800cf2        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800373                _end = .
-                0x00800373                PROVIDE (__heap_start, .)
+                0x00800cf2                _end = .
+                0x00800cf2                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -2395,103 +2399,102 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000    0x37aa3
+.debug_info     0x00000000    0x37aad
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x780 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_info    0x00000780     0x5491 main.o
- .debug_info    0x00005c11      0x5f3 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
- .debug_info    0x00006204      0x192 mercuryapi-1.37.1.44/c/src/api/osdep.o
- .debug_info    0x00006396     0xb427 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
- .debug_info    0x000117bd    0x1790c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
- .debug_info    0x000290c9      0x5ab mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .debug_info    0x00029674      0x631 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
- .debug_info    0x00029ca5     0x7d60 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
- .debug_info    0x00031a05     0x5775 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
- .debug_info    0x0003717a      0x3df Timer_Driver/timer_atmega128.o
- .debug_info    0x00037559      0x54a UART_driver/UART_Driver.o
+ .debug_info    0x00000780     0x549b main.o
+ .debug_info    0x00005c1b      0x5f3 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+ .debug_info    0x0000620e      0x192 mercuryapi-1.37.1.44/c/src/api/osdep.o
+ .debug_info    0x000063a0     0xb427 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+ .debug_info    0x000117c7    0x1790c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+ .debug_info    0x000290d3      0x5ab mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .debug_info    0x0002967e      0x631 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+ .debug_info    0x00029caf     0x7d60 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+ .debug_info    0x00031a0f     0x5775 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+ .debug_info    0x00037184      0x3df Timer_Driver/timer_atmega128.o
+ .debug_info    0x00037563      0x54a UART_driver/UART_Driver.o
 
-.debug_abbrev   0x00000000     0x21bc
+.debug_abbrev   0x00000000     0x21ad
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x718 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_abbrev  0x00000718      0x24d main.o
- .debug_abbrev  0x00000965      0x128 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
- .debug_abbrev  0x00000a8d       0xc6 mercuryapi-1.37.1.44/c/src/api/osdep.o
- .debug_abbrev  0x00000b53      0x3f9 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
- .debug_abbrev  0x00000f4c      0x45c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
- .debug_abbrev  0x000013a8      0x160 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .debug_abbrev  0x00001508      0x1d9 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
- .debug_abbrev  0x000016e1      0x428 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
- .debug_abbrev  0x00001b09      0x37f mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
- .debug_abbrev  0x00001e88      0x19c Timer_Driver/timer_atmega128.o
- .debug_abbrev  0x00002024      0x198 UART_driver/UART_Driver.o
+ .debug_abbrev  0x00000718      0x23e main.o
+ .debug_abbrev  0x00000956      0x128 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+ .debug_abbrev  0x00000a7e       0xc6 mercuryapi-1.37.1.44/c/src/api/osdep.o
+ .debug_abbrev  0x00000b44      0x3f9 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+ .debug_abbrev  0x00000f3d      0x45c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+ .debug_abbrev  0x00001399      0x160 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .debug_abbrev  0x000014f9      0x1d9 mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+ .debug_abbrev  0x000016d2      0x428 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+ .debug_abbrev  0x00001afa      0x37f mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+ .debug_abbrev  0x00001e79      0x19c Timer_Driver/timer_atmega128.o
+ .debug_abbrev  0x00002015      0x198 UART_driver/UART_Driver.o
 
-.debug_line     0x00000000     0xfb72
+.debug_line     0x00000000     0xfb78
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x16a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_line    0x0000016a      0x5f7 main.o
- .debug_line    0x00000761      0x4cb mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
- .debug_line    0x00000c2c      0x1b6 mercuryapi-1.37.1.44/c/src/api/osdep.o
- .debug_line    0x00000de2     0x3d95 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
- .debug_line    0x00004b77     0x770c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
- .debug_line    0x0000c283      0x503 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .debug_line    0x0000c786      0x4fb mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
- .debug_line    0x0000cc81     0x1b38 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
- .debug_line    0x0000e7b9      0x5dc mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
- .debug_line    0x0000ed95      0x682 Timer_Driver/timer_atmega128.o
- .debug_line    0x0000f417      0x75b UART_driver/UART_Driver.o
+ .debug_line    0x0000016a      0x5f1 main.o
+ .debug_line    0x0000075b      0x4cb mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+ .debug_line    0x00000c26      0x1b6 mercuryapi-1.37.1.44/c/src/api/osdep.o
+ .debug_line    0x00000ddc     0x3d95 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+ .debug_line    0x00004b71     0x770c mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+ .debug_line    0x0000c27d      0x503 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .debug_line    0x0000c780      0x4fb mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+ .debug_line    0x0000cc7b     0x1b38 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+ .debug_line    0x0000e7b3      0x5dc mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+ .debug_line    0x0000ed8f      0x682 Timer_Driver/timer_atmega128.o
+ .debug_line    0x0000f411      0x767 UART_driver/UART_Driver.o
 
-.debug_frame    0x00000000     0x6834
+.debug_frame    0x00000000     0x6820
  *(.debug_frame)
- .debug_frame   0x00000000       0x38 main.o
- .debug_frame   0x00000038      0x104 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
- .debug_frame   0x0000013c       0x64 mercuryapi-1.37.1.44/c/src/api/osdep.o
- .debug_frame   0x000001a0      0xe08 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
- .debug_frame   0x00000fa8     0x4860 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
- .debug_frame   0x00005808       0xc8 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .debug_frame   0x000058d0      0x18c mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
- .debug_frame   0x00005a5c      0xa98 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
- .debug_frame   0x000064f4      0x170 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
- .debug_frame   0x00006664       0x84 Timer_Driver/timer_atmega128.o
- .debug_frame   0x000066e8      0x14c UART_driver/UART_Driver.o
+ .debug_frame   0x00000000       0x24 main.o
+ .debug_frame   0x00000024      0x104 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+ .debug_frame   0x00000128       0x64 mercuryapi-1.37.1.44/c/src/api/osdep.o
+ .debug_frame   0x0000018c      0xe08 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+ .debug_frame   0x00000f94     0x4860 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+ .debug_frame   0x000057f4       0xc8 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .debug_frame   0x000058bc      0x18c mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+ .debug_frame   0x00005a48      0xa98 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+ .debug_frame   0x000064e0      0x170 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+ .debug_frame   0x00006650       0x84 Timer_Driver/timer_atmega128.o
+ .debug_frame   0x000066d4      0x14c UART_driver/UART_Driver.o
 
-.debug_str      0x00000000    0x188a4
+.debug_str      0x00000000    0x1889d
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_str     0x0000027d    0x113e2 main.o
-                              0x11900 (size before relaxing)
- .debug_str     0x0001165f      0x314 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
-                               0x7d78 (size before relaxing)
- .debug_str     0x00011973       0xbd mercuryapi-1.37.1.44/c/src/api/osdep.o
-                               0x33a6 (size before relaxing)
- .debug_str     0x00011a30     0x3b9c mercuryapi-1.37.1.44/c/src/api/serial_reader.o
-                              0x113a8 (size before relaxing)
- .debug_str     0x000155cc     0x20e5 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
-                              0x12955 (size before relaxing)
- .debug_str     0x000176b1      0x178 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
-                               0x75cb (size before relaxing)
- .debug_str     0x00017829       0xab mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
-                               0x428f (size before relaxing)
- .debug_str     0x000178d4      0xabe mercuryapi-1.37.1.44/c/src/api/tm_reader.o
-                               0xf238 (size before relaxing)
- .debug_str     0x00018392      0x117 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
-                               0xd492 (size before relaxing)
- .debug_str     0x000184a9      0x1cb Timer_Driver/timer_atmega128.o
-                               0xb58d (size before relaxing)
- .debug_str     0x00018674      0x230 UART_driver/UART_Driver.o
-                               0xb797 (size before relaxing)
+ .debug_str     0x0000027d    0x113db main.o
+                              0x118f9 (size before relaxing)
+ .debug_str     0x00011658      0x314 mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+                               0x7d7d (size before relaxing)
+ .debug_str     0x0001196c       0xbd mercuryapi-1.37.1.44/c/src/api/osdep.o
+                               0x33ab (size before relaxing)
+ .debug_str     0x00011a29     0x3b9c mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+                              0x113ad (size before relaxing)
+ .debug_str     0x000155c5     0x20e5 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+                              0x1295a (size before relaxing)
+ .debug_str     0x000176aa      0x178 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+                               0x75d0 (size before relaxing)
+ .debug_str     0x00017822       0xab mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+                               0x4294 (size before relaxing)
+ .debug_str     0x000178cd      0xabe mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+                               0xf23d (size before relaxing)
+ .debug_str     0x0001838b      0x117 mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+                               0xd497 (size before relaxing)
+ .debug_str     0x000184a2      0x1cb Timer_Driver/timer_atmega128.o
+                               0xb592 (size before relaxing)
+ .debug_str     0x0001866d      0x230 UART_driver/UART_Driver.o
+                               0xb79c (size before relaxing)
 
-.debug_loc      0x00000000    0x30ef1
+.debug_loc      0x00000000    0x30e8b
  *(.debug_loc)
- .debug_loc     0x00000000       0x66 main.o
- .debug_loc     0x00000066      0x6cd mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
- .debug_loc     0x00000733     0x9021 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
- .debug_loc     0x00009754    0x21714 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
- .debug_loc     0x0002ae68      0x352 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
- .debug_loc     0x0002b1ba      0x98e mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
- .debug_loc     0x0002bb48     0x4245 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
- .debug_loc     0x0002fd8d      0x6fc mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
- .debug_loc     0x00030489      0x3b2 Timer_Driver/timer_atmega128.o
- .debug_loc     0x0003083b      0x6b6 UART_driver/UART_Driver.o
+ .debug_loc     0x00000000      0x6cd mercuryapi-1.37.1.44/c/src/api/hex_bytes.o
+ .debug_loc     0x000006cd     0x9021 mercuryapi-1.37.1.44/c/src/api/serial_reader.o
+ .debug_loc     0x000096ee    0x21714 mercuryapi-1.37.1.44/c/src/api/serial_reader_l3.o
+ .debug_loc     0x0002ae02      0x352 mercuryapi-1.37.1.44/c/src/api/serial_transport.o
+ .debug_loc     0x0002b154      0x98e mercuryapi-1.37.1.44/c/src/api/tmr_utils.o
+ .debug_loc     0x0002bae2     0x4245 mercuryapi-1.37.1.44/c/src/api/tm_reader.o
+ .debug_loc     0x0002fd27      0x6fc mercuryapi-1.37.1.44/c/src/api/tm_reader_async.o
+ .debug_loc     0x00030423      0x3b2 Timer_Driver/timer_atmega128.o
+ .debug_loc     0x000307d5      0x6b6 UART_driver/UART_Driver.o
 
 .debug_macinfo
  *(.debug_macinfo)

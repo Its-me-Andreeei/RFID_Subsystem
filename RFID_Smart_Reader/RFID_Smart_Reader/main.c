@@ -15,7 +15,10 @@
 #include "Timer_Driver/timer_atmega128.h"
 
 /*TBD: Debug variable: To be removed after testing is done*/
-static volatile u8 readError = 0;
+static volatile u8 readError = (u8)0U;
+static TMR_Reader reader;
+static int32_t readTagCount = (u8)0U;
+static TMR_TagReadData readData;
 
 int main(void)
 {
@@ -23,11 +26,6 @@ int main(void)
     UART_init(9600, DEBUG_INTERFACE); /*placed here in order to open UART for DEBUGGING Purpose*/
 	//UART1_SendMessage_DEBUG("DEBUG: ON");
 	#endif
-	
-	TMR_Reader reader;
-	TMR_Status read_status;
-	int32_t readTagCount;
-	TMR_TagReadData readData;
 	
 	cli();
 	TMR_SR_SerialTransportDummyInit(&reader.u.serialReader.transport, NULL, NULL); /*This will set the functions from implemented driver*/
@@ -39,8 +37,7 @@ int main(void)
 	
     while (1) 
     {
-		read_status = TMR_read(&reader, 3000, &readTagCount);
-		if(TMR_SUCCESS != read_status)
+		if(TMR_SUCCESS != TMR_read(&reader, 3000, &readTagCount))
 		{
 			readError++;
 		}

@@ -32,7 +32,8 @@
  
  ISR(USART0_RX_vect) 
 {
-	
+	if(ISR_end_index >= MAX_RX_BUFFER_SIZE)
+		ISR_end_index = (u8)0U;
 	ISR_Buffer[ISR_end_index] = UDR0;
 	while((u8)UCSR0A & ((u8)1U << (u8)RXC0))	
 		ISR_Buffer[ISR_end_index] = (u8)UDR0;
