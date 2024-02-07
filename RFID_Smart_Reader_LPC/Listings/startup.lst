@@ -662,7 +662,7 @@ ARM Macro Assembler    Page 11
 Command Line: --debug --xref --diag_suppress=9931 --apcs=interwork --depend=.\o
 bjects\startup.d -o.\objects\startup.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\A
 RM\CMSIS\Include -IC:\Keil_v5\ARM\INC\Philips --predefine="__UVISION_VERSION SE
-TA 526" --list=.\listings\startup.lst Startup.s
+TA 529" --list=.\listings\startup.lst Startup.s
 
 
 

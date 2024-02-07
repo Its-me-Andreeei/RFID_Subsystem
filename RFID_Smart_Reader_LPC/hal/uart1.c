@@ -2,6 +2,7 @@
 #include <lpc22xx.h>
 #include <stdint.h>
 #include "../utils/ringbuf.h"
+#include "../utils/timer_software.h"
 #include "ISR_manager.h"
 #include <stdio.h>
 
@@ -43,7 +44,6 @@ bool_t UART1_sendbuffer(uint8_t *buffer, uint32_t size, const uint32_t timeoutMs
 	}
 	printf("\n");
 	//#endif /*END DEBUG_TX_RX*/
-	//RingBufFlush(&uart1_ringbuff_rx); /*Clear buffer before starting a new transmission*/
 	
 	for (uint32_t i = 0; i < size; i++)
 	{
@@ -68,52 +68,52 @@ bool_t UART1_sendbuffer(uint8_t *buffer, uint32_t size, const uint32_t timeoutMs
 **************************************************************************/
 bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
 {
-	#define RXFE (uint8_t)7U /*Error in Rx FIFO*/
-	#ifdef DEBUG
-	#define FE (uint8_t)3U   /*Framing Error*/
-	#define PE (uint8_t)2U   /*Parity Error*/
-	#define OE (uint8_t)1U   /*Overrun Error*/
-	#endif /*END DEBUG*/
-	
 	bool_t result = TRUE; 
 	uint8_t error_status = (uint8_t)0U;
-	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
-	TIMER_SOFTWARE_Wait(1000);
+	timer_software_handler_t timer_RX;
+	
+	#define RXFE (uint8_t)7U /*Error in Rx FIFO*/
 	
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
 	
-	*actualLength = RingBufUsed(&uart1_ringbuff_rx);
+	timer_RX = TIMER_SOFTWARE_request_timer();
+	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1);
+	TIMER_SOFTWARE_reset_timer(timer_RX);
 	
-	if(*actualLength == expectedLength)
+	while(!TIMER_SOFTWARE_interrupt_pending(timer_RX))
 	{
-		RingBufRead(&uart1_ringbuff_rx, message, *actualLength);
+		*actualLength = RingBufUsed(&uart1_ringbuff_rx);
+		
+		if(*actualLength >= expectedLength)
+		{
+			RingBufRead(&uart1_ringbuff_rx, message, expectedLength);
+			TIMER_SOFTWARE_clear_interrupt(timer_RX);
+			TIMER_SOFTWARE_disable_timer(timer_RX);
+			break;
+		}
 	}
+	
+	if(TIMER_SOFTWARE_interrupt_pending(timer_RX)) /*If RX did not finished within timer's timeout, there is an error*/ 
+	{
+		result = FALSE;
+		TIMER_SOFTWARE_clear_interrupt(timer_RX);
+		TIMER_SOFTWARE_disable_timer(timer_RX);
+	}
+	TIMER_SOFTWARE_clear_interrupt(timer_RX);
+	TIMER_SOFTWARE_disable_timer(timer_RX);
+	
 	error_status = (uint8_t)U1LSR;
 	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
 	{
-		#ifdef DEBUG
-		if((error_status & ((uint8_t)1 << FE)) != (uint8_t)0U)
-		{
-			printf("Frame Error detected\n");
-		}
-		if((error_status & ((uint8_t)1 << PE)) != (uint8_t)0U)
-		{
-			printf("Parity Error detected\n");
-		}
-		if((error_status & ((uint8_t)1 << OE)) != (uint8_t)0U)
-		{
-			printf("Data Overrun Error detected\n");
-		}
-		#endif /*END DEBUG*/
-		
+		printf("\nComm Error in RX\n");
 		result = FALSE;
 	}
 	//#ifdef DEBUG_TX_RX
 	printf("RX: ");
 	printf ("\n%d = %d \n", *actualLength, expectedLength);
-	for(uint16_t i = 0; i < *actualLength; i++)
+	for(uint16_t i = 0; i < expectedLength; i++)
 	{
-		printf("---%X ", message[i]);
+		printf("%02X ", message[i]);
 	}
 	printf("\n");
 	//#endif /*END DEBUG_TX_RX*/
@@ -122,12 +122,6 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 
 bool_t UART1_flush(void)
 {
-	
-	//#define RxFIFO_RST ((uint8_t)1U)
-	//#define TxFIFO_RST ((uint8_t)2U)
-	//U1FCR |= ((uint8_t)(((uint8_t)1U <<RxFIFO_RST) | ((uint8_t)1U <<TxFIFO_RST))); /*Perform TX and RX reset on FIFOs on HW level*/
-	/*TBD: Check if flush is performed by checking EMPTY flag within a timeout. If no flush is done -> HW issue*/
-	/*dummy return*/
 	RingBufFlush(&uart1_ringbuff_rx);
-	return TRUE;
+	return ((RingBufEmpty(&uart1_ringbuff_rx) == TRUE) ? TRUE : FALSE);
 }
