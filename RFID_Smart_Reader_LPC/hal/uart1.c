@@ -43,7 +43,7 @@ bool_t UART1_sendbuffer(uint8_t *buffer, uint32_t size, const uint32_t timeoutMs
 	}
 	printf("\n");
 	//#endif /*END DEBUG_TX_RX*/
-	RingBufFlush(&uart1_ringbuff_rx); /*Clear buffer before starting a new transmission*/
+	//RingBufFlush(&uart1_ringbuff_rx); /*Clear buffer before starting a new transmission*/
 	
 	for (uint32_t i = 0; i < size; i++)
 	{
@@ -78,11 +78,12 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	bool_t result = TRUE; 
 	uint8_t error_status = (uint8_t)0U;
 	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
-	
+	TIMER_SOFTWARE_Wait(1000);
 	
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
 	
 	*actualLength = RingBufUsed(&uart1_ringbuff_rx);
+	
 	if(*actualLength == expectedLength)
 	{
 		RingBufRead(&uart1_ringbuff_rx, message, *actualLength);
@@ -111,7 +112,7 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	printf("RX: ");
 	for(uint16_t i = 0; i < *actualLength; i++)
 	{
-		printf("%X ", message[i]);
+		printf("---%X ", message[i]);
 	}
 	printf("\n");
 	//#endif /*END DEBUG_TX_RX*/

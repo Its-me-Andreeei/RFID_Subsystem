@@ -8,7 +8,7 @@
 #include "hal/uart1.h"
 
 static TMR_Reader reader;
-//static TMR_TagReadData data;
+TMR_TagReadData data;
 
 void setRegion_NA2(void)
 {
@@ -38,15 +38,17 @@ void setCompleteMetadataFlag(void)
 int main(void)
 {	 
 	timer_software_handler_t timer1;
-	printf("Main");
+	int n = 0;
 	TIMER_SOFTWARE_init();
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
+	UART1_Init();
+	printf("Main");
 	InitInterrupt();
 	/*------------------------------------*/
-	/*(void)TMR_SR_SerialTransportDummyInit(&reader.u.serialReader.transport, NULL, NULL);
-	//TMR_SR_SerialReader_init(&reader);
-	TMR_create(&reader, "eapi:///UART1");
+	(void)TMR_SR_SerialTransportDummyInit(&reader.u.serialReader.transport, NULL, NULL);
+	TMR_SR_SerialReader_init(&reader);
+//TMR_create(&reader, "eapi:///UART1");
 	TMR_connect(&reader);
 	
 	//setRegion_NA2();
@@ -55,18 +57,23 @@ int main(void)
 	/*------------------------------------*/
 	uint8_t array[5] = {0xFF, 0x00, 0x03, 0x1D, 0x0C};
 	
-	UART1_Init();
-	UART1_sendbuffer(array, 5, 0);
 	
-	/*timer1 = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer1, MODE_0, 5000, 1);
-	TIMER_SOFTWARE_reset_timer(timer1);
+	//timer1 = TIMER_SOFTWARE_request_timer();
+	//TIMER_SOFTWARE_configure_timer(timer1, MODE_0, 5000, 1);
+	//TIMER_SOFTWARE_reset_timer(timer1);
 	//TMR_startReading(&reader);
 	/*------------------------------------*/
 	TIMER_SOFTWARE_start_timer(timer1);
-	
+	printf ("while\n");
 	while(1)
 	{
+
+		TIMER_SOFTWARE_Wait(1000);
+		printf ("%d\n", n++);
+//		UART1_sendbuffer(array, 5, 0);
+	//	TIMER_SOFTWARE_Wait(1000);
+//		while(!RingBufEmpty(&uart1_ringbuff_rx))
+	//		printf("%02X ", RingBufReadOne(&uart1_ringbuff_rx));
 		/*if(TMR_ERROR_NO_TAGS_FOUND != TMR_hasMoreTags(&reader))
 		{
 			TMR_getNextTag(&reader, &data);

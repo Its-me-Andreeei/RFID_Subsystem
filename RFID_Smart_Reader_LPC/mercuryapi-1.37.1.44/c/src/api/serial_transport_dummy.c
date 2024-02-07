@@ -152,7 +152,7 @@ TMR_Status TMR_SR_SerialTransportDummyInit(TMR_SR_SerialTransport *transport, TM
  */
 TMR_Status TMR_SR_SerialTransportNativeInit(TMR_SR_SerialTransport *transport, TMR_SR_SerialPortNativeContext *context, const char *device)
 {
-	(void)TMR_SR_SerialTransportDummyInit(transport, NULL, NULL);
+	//(void)TMR_SR_SerialTransportDummyInit(transport, NULL, NULL);
   return TMR_SUCCESS;
 }
 
