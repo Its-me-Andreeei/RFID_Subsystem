@@ -1,0 +1,6 @@
+--c99 --gnu -c --cpu ARM7TDMI -D__MICROLIB -g -O0 --apcs=interwork --split_sections
+-IC:\Keil_v5\ARM\RV31\INC
+-IC:\Keil_v5\ARM\CMSIS\Include
+-IC:\Keil_v5\ARM\INC\Philips
+-D__UVISION_VERSION="529" -DBARE_METAL
+-o .\objects\tmr_utils.o --omf_browse .\objects\tmr_utils.crf --depend .\objects\tmr_utils.d --feedback ".\Objects\rfid.fed" "mercuryapi-1.37.1.44\c\src\api\tmr_utils.c"

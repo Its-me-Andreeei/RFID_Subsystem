@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp.sp --branchpatch=sdcomp-29491-629360
+".\object\startup_stm32l476xx.o"
+".\object\stm32l4xx_it.o"
+".\object\hex_bytes.o"
+".\object\osdep_stm32l476vg.o"
+".\object\serial_reader.o"
+".\object\serial_reader_l3.o"
+".\object\serial_transport_stm32l476vg.o"
+".\object\tm_reader.o"
+".\object\tm_reader_async.o"
+".\object\tmr_param.o"
+".\object\tmr_strerror.o"
+".\object\tmr_utils.o"
+".\object\read.o"
+".\object\stm32l4xx_ll_exti.o"
+".\object\stm32l4xx_ll_utils.o"
+".\object\stm32l4xx_ll_gpio.o"
+".\object\stm32l4xx_ll_pwr.o"
+".\object\stm32l4xx_ll_dma.o"
+".\object\stm32l4xx_ll_rcc.o"
+".\object\stm32l4xx_ll_usart.o"
+".\object\system_stm32l4xx.o"
+--library_type=microlib --strict --scatter ".\Object\stm32l476_bare_metal_api.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\stm32l476_bare_metal_api.map" -o .\Object\stm32l476_bare_metal_api.axf

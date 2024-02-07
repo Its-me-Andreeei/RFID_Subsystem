@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>Target 1</TargetName>
+      <TargetName>LPC2994</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
@@ -149,7 +149,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>19</TargetSelection>
+          <TargetSelection>18</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -366,8 +366,8 @@
             <uC99>1</uC99>
             <uGnu>1</uGnu>
             <useXO>0</useXO>
-            <v6Lang>1</v6Lang>
-            <v6LangP>1</v6LangP>
+            <v6Lang>3</v6Lang>
+            <v6LangP>3</v6LangP>
             <vShortEn>1</vShortEn>
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
@@ -375,7 +375,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define></Define>
+              <Define>BARE_METAL, DEBUG_TX_RX</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -411,7 +411,7 @@
             <ScatterFile>.\Objects\rfid.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>--info=summarystack</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -470,6 +470,66 @@
               <FileName>uart1.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\hal\uart1.c</FilePath>
+            </File>
+            <File>
+              <FileName>ISR_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hal\ISR_manager.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MercuryAPI</GroupName>
+          <Files>
+            <File>
+              <FileName>hex_bytes.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\hex_bytes.c</FilePath>
+            </File>
+            <File>
+              <FileName>osdep_dummy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\osdep_dummy.c</FilePath>
+            </File>
+            <File>
+              <FileName>serial_reader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\serial_reader.c</FilePath>
+            </File>
+            <File>
+              <FileName>serial_reader_l3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\serial_reader_l3.c</FilePath>
+            </File>
+            <File>
+              <FileName>serial_transport_dummy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\serial_transport_dummy.c</FilePath>
+            </File>
+            <File>
+              <FileName>tm_reader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tm_reader.c</FilePath>
+            </File>
+            <File>
+              <FileName>tm_reader_async.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tm_reader_async.c</FilePath>
+            </File>
+            <File>
+              <FileName>tmr_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tmr_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>tmr_strerror.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tmr_strerror.c</FilePath>
+            </File>
+            <File>
+              <FileName>tmr_utils.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tmr_utils.c</FilePath>
             </File>
           </Files>
         </Group>
