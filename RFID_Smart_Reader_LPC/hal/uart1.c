@@ -110,6 +110,7 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	}
 	//#ifdef DEBUG_TX_RX
 	printf("RX: ");
+	printf ("\n%d = %d \n", *actualLength, expectedLength);
 	for(uint16_t i = 0; i < *actualLength; i++)
 	{
 		printf("---%X ", message[i]);
@@ -121,10 +122,12 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 
 bool_t UART1_flush(void)
 {
-	#define RxFIFO_RST ((uint8_t)1U)
-	#define TxFIFO_RST ((uint8_t)2U)
-	U1FCR |= ((uint8_t)(((uint8_t)1U <<RxFIFO_RST) | ((uint8_t)1U <<TxFIFO_RST))); /*Perform TX and RX reset on FIFOs on HW level*/
+	
+	//#define RxFIFO_RST ((uint8_t)1U)
+	//#define TxFIFO_RST ((uint8_t)2U)
+	//U1FCR |= ((uint8_t)(((uint8_t)1U <<RxFIFO_RST) | ((uint8_t)1U <<TxFIFO_RST))); /*Perform TX and RX reset on FIFOs on HW level*/
 	/*TBD: Check if flush is performed by checking EMPTY flag within a timeout. If no flush is done -> HW issue*/
 	/*dummy return*/
+	RingBufFlush(&uart1_ringbuff_rx);
 	return TRUE;
 }

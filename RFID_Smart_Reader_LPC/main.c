@@ -64,16 +64,16 @@ int main(void)
 	//TMR_startReading(&reader);
 	/*------------------------------------*/
 	TIMER_SOFTWARE_start_timer(timer1);
-	printf ("while\n");
+	printf ("while %d\n", reader.connected);
 	while(1)
 	{
 
 		TIMER_SOFTWARE_Wait(1000);
 		printf ("%d\n", n++);
-//		UART1_sendbuffer(array, 5, 0);
-	//	TIMER_SOFTWARE_Wait(1000);
-//		while(!RingBufEmpty(&uart1_ringbuff_rx))
-	//		printf("%02X ", RingBufReadOne(&uart1_ringbuff_rx));
+		UART1_sendbuffer(array, 5, 0);
+		TIMER_SOFTWARE_Wait(1000);
+		while(!RingBufEmpty(&uart1_ringbuff_rx))
+			printf("%02X ", RingBufReadOne(&uart1_ringbuff_rx));
 		/*if(TMR_ERROR_NO_TAGS_FOUND != TMR_hasMoreTags(&reader))
 		{
 			TMR_getNextTag(&reader, &data);

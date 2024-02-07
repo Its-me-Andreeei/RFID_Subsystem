@@ -3,30 +3,34 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.29.0.0
-Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Andrei Karolyi, UPT, LIC=D0D74-FLUNA-WFQI7-ET675-JXCRR-MVUXX
+IDE-Version: µVision V5.26.2.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: a a, a, LIC=MPPFW-QHS0G-LPFZV-PAL27-V6YJW-HRQ2H
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.29.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.26.2.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 6 (build 750)
 Assembler:       Armasm.exe V5.06 update 6 (build 750)
 Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
 Library Manager: ArmAr.exe V5.06 update 6 (build 750)
 Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
-CPU DLL:         SARM.DLL V5.29.0.0
+CPU DLL:         SARM.DLL V5.26.2.0
 Dialog DLL:      DARMP.DLL V1.53.0.0
 Target DLL:      Segger\JLTAgdi.dll V1.61.0.0
 Dialog DLL:      TARMP.DLL V1.53.0.0
  
 <h2>Project:</h2>
-D:\Repository\LPC2994\proiectdiploma_karolyi_andrei\RFID_Smart_Reader_LPC\rfid.uvproj
-Project File Date:  02/05/2024
+D:\work\proiectdiploma_karolyi_andrei\RFID_Smart_Reader_LPC\rfid.uvproj
+Project File Date:  02/07/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'LPC2994'
+compiling uart1.c...
+hal\uart1.c(81): warning:  #223-D: function "TIMER_SOFTWARE_Wait" declared implicitly
+  	TIMER_SOFTWARE_Wait(1000);
+hal\uart1.c: 1 warning, 0 errors
 compiling main.c...
 main.c(15): warning:  #550-D: variable "status"  was set but never used
   	TMR_Status status;
@@ -38,14 +42,12 @@ main.c(33): warning:  #550-D: variable "status"  was set but never used
   	TMR_Status status;
 main.c(88): warning:  #111-D: statement is unreachable
   	return 0;
-main.c(58): warning:  #177-D: variable "array"  was declared but never referenced
-  	uint8_t array[5] = {0xFF, 0x00, 0x03, 0x1D, 0x0C};
-main.c: 6 warnings, 0 errors
+main.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=72140 RO-data=104 RW-data=108 ZI-data=12956  
+Program Size: Code=72604 RO-data=124 RW-data=108 ZI-data=12956  
 FromELF: creating hex file...
 ".\Objects\rfid.axf" - 0 Error(s), 6 Warning(s).
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

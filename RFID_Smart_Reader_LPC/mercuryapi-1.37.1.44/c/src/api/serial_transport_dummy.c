@@ -37,7 +37,7 @@ static TMR_Status s_open(TMR_SR_SerialTransport *this)
 
   /* This routine should open the serial connection */
 	(void)this;
-	UART1_Init();
+//	UART1_Init();
 
   return TMR_SUCCESS;
 }
