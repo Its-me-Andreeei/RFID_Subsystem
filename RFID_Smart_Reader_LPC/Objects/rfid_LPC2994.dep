@@ -1,12 +1,12 @@
 Dependencies for Project 'rfid', Target 'LPC2994': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
 F (.\Startup.s)(0x65C36F0A)(--cpu ARM7TDMI -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips--pd "__UVISION_VERSION SETA 529"--list .\listings\startup.lst --xref -o .\objects\startup.o --depend .\objects\startup.d)
-F (.\main.c)(0x65C3EF81)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\main.c)(0x65C52363)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
 I (hal/timer.h)(0x65BE1E80)
 I (hal/uart0.h)(0x65BE1E80)
-I (utils/timer_software.h)(0x65C3F137)
+I (utils/timer_software.h)(0x65C51DED)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
 I (hal/ISR_manager.h)(0x65C3F3F8)
 I (hal/../utils/ringbuf.h)(0x65BE1E80)
@@ -47,22 +47,22 @@ F (.\utils\ringbuf.c)(0x65BE1E80)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=in
 I (utils\ringbuf.h)(0x65BE1E80)
 F (.\utils\timer_software.c)(0x65BE1E80)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer_software.o --omf_browse .\objects\timer_software.crf --depend .\objects\timer_software.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
-I (utils\timer_software.h)(0x65C3F137)
+I (utils\timer_software.h)(0x65C51DED)
 F (.\hal\timer.c)(0x65BE65AB)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
 I (hal\timer.h)(0x65BE1E80)
-I (hal\../utils/timer_software.h)(0x65C3F137)
+I (hal\../utils/timer_software.h)(0x65C51DED)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
 F (.\hal\uart0.c)(0x65BE822C)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart0.o --omf_browse .\objects\uart0.crf --depend .\objects\uart0.d)
 I (hal\uart0.h)(0x65BE1E80)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
-F (.\hal\uart1.c)(0x65C3F7F0)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart1.o --omf_browse .\objects\uart1.crf --depend .\objects\uart1.d)
+F (.\hal\uart1.c)(0x65C51F04)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart1.o --omf_browse .\objects\uart1.crf --depend .\objects\uart1.d)
 I (hal\uart1.h)(0x65C36F30)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
 I (hal\../utils/ringbuf.h)(0x65BE1E80)
-I (hal\../utils/timer_software.h)(0x65C3F137)
+I (hal\../utils/timer_software.h)(0x65C51DED)
 I (hal\ISR_manager.h)(0x65C3F3F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
 F (.\hal\ISR_manager.c)(0x65C36C79)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\isr_manager.o --omf_browse .\objects\isr_manager.crf --depend .\objects\isr_manager.d)
@@ -70,7 +70,7 @@ I (hal\ISR_manager.h)(0x65C3F3F8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
 I (hal\../utils/ringbuf.h)(0x65BE1E80)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (hal\../utils/timer_software.h)(0x65C3F137)
+I (hal\../utils/timer_software.h)(0x65C51DED)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
 F (.\mercuryapi-1.37.1.44\c\src\api\hex_bytes.c)(0x6461E568)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\hex_bytes.o --omf_browse .\objects\hex_bytes.crf --depend .\objects\hex_bytes.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B267A)
@@ -174,7 +174,7 @@ I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65BE6C16)
 I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x64AE9021)
 I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x6461E568)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
-F (.\mercuryapi-1.37.1.44\c\src\api\serial_transport_dummy.c)(0x65C3EFAA)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_transport_dummy.o --omf_browse .\objects\serial_transport_dummy.crf --depend .\objects\serial_transport_dummy.d)
+F (.\mercuryapi-1.37.1.44\c\src\api\serial_transport_dummy.c)(0x65C5138D)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_transport_dummy.o --omf_browse .\objects\serial_transport_dummy.crf --depend .\objects\serial_transport_dummy.d)
 I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65BF6E34)
 I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x64DF1DEE)
 I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x6461E568)

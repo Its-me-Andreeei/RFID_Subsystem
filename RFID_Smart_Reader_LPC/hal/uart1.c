@@ -37,6 +37,7 @@ bool_t UART1_sendbuffer(uint8_t *buffer, uint32_t size, const uint32_t timeoutMs
 {
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
 	//#ifdef DEBUG_TX_RX
+	printf("---------------\n");
 	printf("TX: ");
 	for(uint16_t i = 0; i < size; i++)
 	{
@@ -77,25 +78,31 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
 	
 	timer_RX = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1);
+	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1); /*TBD: To be added timeoutMS variable after testing is done. Might require adjusting in order to give enough time to UART Comm to happen*/
 	TIMER_SOFTWARE_reset_timer(timer_RX);
 	
-	while(!TIMER_SOFTWARE_interrupt_pending(timer_RX))
+	while(!TIMER_SOFTWARE_interrupt_pending(timer_RX)) /*While interrupt is not happening -> Timeout not reached yet*/
 	{
+		/*Fetch current length from ISR buffer*/
 		*actualLength = RingBufUsed(&uart1_ringbuff_rx);
 		
+		/*Since Mercury API splits the expected length by first computing if 5 bytes (minimum required) are received, then checks for data bytes also*/
+		/*We check that we received AT LEAST expectedLength (but can be more out there) */
 		if(*actualLength >= expectedLength)
 		{
 			RingBufRead(&uart1_ringbuff_rx, message, expectedLength);
+			/*After fatching is complete we disable and clear the timer. It would remain PENDING if code does not reach here*/
+			/*Meaning time is out and COMM is not finished yet*/
 			TIMER_SOFTWARE_clear_interrupt(timer_RX);
 			TIMER_SOFTWARE_disable_timer(timer_RX);
 			break;
 		}
 	}
 	
-	if(TIMER_SOFTWARE_interrupt_pending(timer_RX)) /*If RX did not finished within timer's timeout, there is an error*/ 
+	/*check if RX did not finished within timer's timeout, there is an error*/
+	if(TIMER_SOFTWARE_interrupt_pending(timer_RX))  
 	{
-		result = FALSE;
+		result = FALSE; /*Timeout error happened*/
 		TIMER_SOFTWARE_clear_interrupt(timer_RX);
 		TIMER_SOFTWARE_disable_timer(timer_RX);
 	}
@@ -106,22 +113,24 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
 	{
 		printf("\nComm Error in RX\n");
-		result = FALSE;
+		result = FALSE; /*Comm error happened*/
 	}
 	//#ifdef DEBUG_TX_RX
 	printf("RX: ");
-	printf ("\n%d = %d \n", *actualLength, expectedLength);
 	for(uint16_t i = 0; i < expectedLength; i++)
 	{
 		printf("%02X ", message[i]);
 	}
 	printf("\n");
 	//#endif /*END DEBUG_TX_RX*/
+	
+	TIMER_SOFTWARE_release_timer(timer_RX);
 	return result;
 }
 
 bool_t UART1_flush(void)
 {
+	/*We only flush the software buffer, not the HW one*/
 	RingBufFlush(&uart1_ringbuff_rx);
 	return ((RingBufEmpty(&uart1_ringbuff_rx) == TRUE) ? TRUE : FALSE);
 }
