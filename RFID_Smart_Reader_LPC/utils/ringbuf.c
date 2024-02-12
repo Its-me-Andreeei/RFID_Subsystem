@@ -62,8 +62,6 @@ static void
 UpdateIndexAtomic(volatile unsigned long *pulVal, unsigned long ulDelta,
                   unsigned long ulSize)
 {
-    tBoolean bIntsOff;
-
     //
     // Turn interrupts off temporarily.
     //
@@ -88,11 +86,6 @@ UpdateIndexAtomic(volatile unsigned long *pulVal, unsigned long ulDelta,
     //
     // Restore the interrupt state
     //
-    if(!bIntsOff)
-    {
-		//enable interrupts
-//        IntMasterEnable();
-    }
 }
 
 //*****************************************************************************
@@ -185,8 +178,6 @@ RingBufEmpty(tRingBufObject *ptRingBuf)
 void
 RingBufFlush(tRingBufObject *ptRingBuf)
 {
-    tBoolean bIntsOff;
-
     //
     // Check the arguments.
     //
@@ -200,11 +191,6 @@ RingBufFlush(tRingBufObject *ptRingBuf)
     //bIntsOff = IntMasterDisable();
 
     ptRingBuf->ulReadIndex = ptRingBuf->ulWriteIndex;
-    if(!bIntsOff)
-    {
-		// enable interrupts
-        //IntMasterEnable();
-    }
 }
 
 //*****************************************************************************
@@ -530,7 +516,6 @@ RingBufAdvanceWrite(tRingBufObject *ptRingBuf,
                        unsigned long ulNumBytes)
 {
     unsigned long ulCount;
-    tBoolean bIntsOff;
 
     //
     // Check the arguments.
@@ -592,11 +577,6 @@ RingBufAdvanceWrite(tRingBufObject *ptRingBuf,
     //
     // Restore interrupts if we turned them off earlier.
     //
-    if(!bIntsOff)
-    {
-		//enable interrupts
-        //IntMasterEnable();
-    }
 }
 
 //*****************************************************************************

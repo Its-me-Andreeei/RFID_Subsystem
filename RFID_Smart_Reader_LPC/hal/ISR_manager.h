@@ -4,8 +4,7 @@
 #include <stdint.h>
 #include "../utils/ringbuf.h"
 
-extern tRingBufObject uart1_ringbuff_rx;
-extern volatile uint32_t RxCnt;
+extern tRingBufObject uart1_ringbuff_rx; /*TBD: To be handled through an interface function*/
 
 void InitInterrupt(void);
 #endif

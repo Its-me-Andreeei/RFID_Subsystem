@@ -1,9 +1,10 @@
 #ifndef __UART0_H
 #define __UART0_H
 
+#include <stdint.h>
 
 void UART0_Init(void);
-int UART0_sendchar(int ch);
+uint8_t UART0_sendchar(uint8_t ch);
 
 #endif
 

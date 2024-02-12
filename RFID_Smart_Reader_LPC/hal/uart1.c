@@ -17,7 +17,7 @@ void UART1_Init(void)
 	U1FCR = 0x01;	// fifo enable
 	U1IER = 1;
 	
-		timer_RX = TIMER_SOFTWARE_request_timer();
+	timer_RX = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1);
 
 }
@@ -42,7 +42,6 @@ uint8_t UART1_sendchar(uint8_t ch)
 bool_t UART1_sendbuffer(uint8_t *buffer, uint32_t size, const uint32_t timeoutMs)
 {
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
-RxCnt = 0;
 	printf("------------\n");
 	printf("TX: ");
 	for(uint16_t i = 0; i < size; i++)
@@ -50,8 +49,6 @@ RxCnt = 0;
 		printf("%02X ", buffer[i]);
 	}
 	printf("\n");
-
-	//RingBufFlush(&uart1_ringbuff_rx); /*Clear buffer before starting a new transmission*/
 	
 	for (uint32_t i = 0; i < size; i++)
 	{
@@ -78,14 +75,12 @@ RxCnt = 0;
 bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
 {
 	#define RXFE ((uint8_t)7U) /*Error in Rx FIFO*/
-
 	
 	bool_t result = TRUE; 
 	uint8_t error_status = (uint8_t)0U;
 	uint16_t ringBuffLength = 0U;
 	uint8_t index = 0U;
 	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
-	//TIMER_SOFTWARE_Wait(1000);
 	
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
 	
@@ -133,13 +128,12 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	
 //	printf("------------\n");
 	printf("RX: ");
-	//printf ("\n%d = %d \n", *actualLength, expectedLength);
+
 	for(uint16_t i = 0; i < *actualLength; i++)
 	{
 		printf("%02X ", message[i]);
 	}
 	printf("\n");
-//	TIMER_SOFTWARE_release_timer(timer_RX);
 
 	return result;
 }

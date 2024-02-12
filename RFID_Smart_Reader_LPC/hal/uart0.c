@@ -1,6 +1,5 @@
 #include "uart0.h"
 #include <lpc22xx.h>
-#include <stdint.h>
 
 void UART0_Init()
 {
@@ -11,7 +10,7 @@ void UART0_Init()
   U0FCR = (uint8_t)0x01U;	// fifo enable
 }
 
-int UART0_sendchar(int ch)
+uint8_t UART0_sendchar(uint8_t ch)
 {
 	while (!((uint8_t)U0LSR & (uint8_t)0x20));
 	return (U0THR = ch);
