@@ -7,6 +7,7 @@
 
 uint8_t uart1_buffer[UART1_BUFFER_SIZE];
 tRingBufObject uart1_ringbuff_rx; /*TBD: To be added into an interface later for better encapsulation*/
+volatile uint32_t RxCnt = 0;
 
 void UART1_irq(void) __irq
 {	
@@ -17,6 +18,7 @@ void UART1_irq(void) __irq
 	{		
 		ch = U1RBR;	
 		RingBufWriteOne(&uart1_ringbuff_rx, ch);
+		RxCnt ++;
 	}
 	VICVectAddr = 0; // ack interrupt for VIC
 }

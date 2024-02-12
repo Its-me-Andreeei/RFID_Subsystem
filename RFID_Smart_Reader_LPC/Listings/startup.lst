@@ -110,23 +110,23 @@ ARM Macro Assembler    Page 2
    60 00000000 00000000 
                        UND_Stack_Size
                                EQU              0x00000000
-   61 00000000 00000008 
+   61 00000000 00000080 
                        SVC_Stack_Size
-                               EQU              0x00000008
+                               EQU              0x00000080
    62 00000000 00000000 
                        ABT_Stack_Size
                                EQU              0x00000000
-   63 00000000 00000200 
+   63 00000000 00000400 
                        FIQ_Stack_Size
-                               EQU              0x00000200
-   64 00000000 00000200 
+                               EQU              0x00000400
+   64 00000000 00000400 
                        IRQ_Stack_Size
-                               EQU              0x00000200
+                               EQU              0x00000400
    65 00000000 00002000 
                        USR_Stack_Size
                                EQU              0x00002000
    66 00000000         
-   68 00000000 00000408 
+   68 00000000 00000880 
                        ISR_Stack_Size
 
 
@@ -145,19 +145,19 @@ e + ABT_Stack_Size +                           FIQ_Stack_Size + IRQ_Stack_Size
                                SPACE            USR_Stack_Size
    73 00002000         __initial_sp
                                SPACE            ISR_Stack_Size
-   74 00002408         
-   75 00002408         Stack_Top
-   76 00002408         
-   77 00002408         
-   78 00002408         ;// <h> Heap Configuration
-   79 00002408         ;//   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF>
-   80 00002408         ;// </h>
-   81 00002408         
-   82 00002408 00000000 
+   74 00002880         
+   75 00002880         Stack_Top
+   76 00002880         
+   77 00002880         
+   78 00002880         ;// <h> Heap Configuration
+   79 00002880         ;//   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF>
+   80 00002880         ;// </h>
+   81 00002880         
+   82 00002880 00000000 
                        Heap_Size
                                EQU              0x00000000
-   83 00002408         
-   84 00002408                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+   83 00002880         
+   84 00002880                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
 3
    85 00000000         __heap_base
    86 00000000         Heap_Mem
@@ -597,19 +597,19 @@ _Bit
   387 000000C8 E321F0D1        MSR              CPSR_c, #Mode_FIQ:OR:I_Bit:OR:F
 _Bit
   388 000000CC E1A0D000        MOV              SP, R0
-  389 000000D0 E2400C02        SUB              R0, R0, #FIQ_Stack_Size
+  389 000000D0 E2400B01        SUB              R0, R0, #FIQ_Stack_Size
   390 000000D4         
   391 000000D4         ;  Enter IRQ Mode and set its Stack Pointer
   392 000000D4 E321F0D2        MSR              CPSR_c, #Mode_IRQ:OR:I_Bit:OR:F
 _Bit
   393 000000D8 E1A0D000        MOV              SP, R0
-  394 000000DC E2400C02        SUB              R0, R0, #IRQ_Stack_Size
+  394 000000DC E2400B01        SUB              R0, R0, #IRQ_Stack_Size
   395 000000E0         
   396 000000E0         ;  Enter Supervisor Mode and set its Stack Pointer
   397 000000E0 E321F0D3        MSR              CPSR_c, #Mode_SVC:OR:I_Bit:OR:F
 _Bit
   398 000000E4 E1A0D000        MOV              SP, R0
-  399 000000E8 E2400008        SUB              R0, R0, #SVC_Stack_Size
+  399 000000E8 E2400080        SUB              R0, R0, #SVC_Stack_Size
   400 000000EC         
   401 000000EC         ;  Enter User Mode and set its Stack Pointer
   402 000000EC E321F010        MSR              CPSR_c, #Mode_USR
@@ -662,7 +662,7 @@ ARM Macro Assembler    Page 11
 Command Line: --debug --xref --diag_suppress=9931 --apcs=interwork --depend=.\o
 bjects\startup.d -o.\objects\startup.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\A
 RM\CMSIS\Include -IC:\Keil_v5\ARM\INC\Philips --predefine="__UVISION_VERSION SE
-TA 526" --list=.\listings\startup.lst Startup.s
+TA 529" --list=.\listings\startup.lst Startup.s
 
 
 
@@ -686,7 +686,7 @@ Symbol: Stack_Mem
       At line 436 in file Startup.s
       At line 438 in file Startup.s
 
-Stack_Top 00002408
+Stack_Top 00002880
 
 Symbol: Stack_Top
    Definitions
@@ -1066,7 +1066,7 @@ Absolute symbols
    Uses
       At line 282 in file Startup.s
 Comment: EMC_SETUP used once
-FIQ_Stack_Size 00000200
+FIQ_Stack_Size 00000400
 
 Symbol: FIQ_Stack_Size
    Definitions
@@ -1096,7 +1096,7 @@ Symbol: Heap_Size
       At line 86 in file Startup.s
       At line 437 in file Startup.s
 
-IRQ_Stack_Size 00000200
+IRQ_Stack_Size 00000400
 
 Symbol: IRQ_Stack_Size
    Definitions
@@ -1105,7 +1105,7 @@ Symbol: IRQ_Stack_Size
       At line 68 in file Startup.s
       At line 394 in file Startup.s
 
-ISR_Stack_Size 00000408
+ISR_Stack_Size 00000880
 
 Symbol: ISR_Stack_Size
    Definitions
@@ -1378,7 +1378,7 @@ Symbol: PLL_SETUP
    Uses
       At line 317 in file Startup.s
 Comment: PLL_SETUP used once
-SVC_Stack_Size 00000008
+SVC_Stack_Size 00000080
 
 Symbol: SVC_Stack_Size
    Definitions

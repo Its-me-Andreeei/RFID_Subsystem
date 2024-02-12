@@ -1,336 +1,338 @@
 Dependencies for Project 'rfid', Target 'LPC2994': (DO NOT MODIFY !)
-F (.\Startup.s)(0x65C371E4)(--cpu ARM7TDMI -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips--pd "__UVISION_VERSION SETA 526"--list .\listings\startup.lst --xref -o .\objects\startup.o --depend .\objects\startup.d)
-F (.\main.c)(0x65C3753E)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
+F (.\Startup.s)(0x65C9C59B)(--cpu ARM7TDMI -g --apcs=interwork -IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips--pd "__UVISION_VERSION SETA 529"--list .\listings\startup.lst --xref -o .\objects\startup.o --depend .\objects\startup.d)
+F (.\main.c)(0x65C9CBDA)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (hal/timer.h)(0x65B758D3)
-I (hal/uart0.h)(0x65B75A77)
-I (utils/timer_software.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (hal/ISR_manager.h)(0x65C35663)
-I (hal/../utils/ringbuf.h)(0x63E22FB7)
-I (mercuryapi-1.37.1.44/c/src/api/tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44/c/src/api/tmr_serial_transport.h)(0x65C35667)
-I (hal/uart1.h)(0x65C371E4)
-F (.\Retarget.c)(0x65B75AA3)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\rt_misc.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (hal/uart0.h)(0x65B75A77)
-F (.\utils\ringbuf.c)(0x63E22FB7)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\ringbuf.o --omf_browse .\objects\ringbuf.crf --depend .\objects\ringbuf.d)
-I (utils\ringbuf.h)(0x63E22FB7)
-F (.\utils\timer_software.c)(0x65B75346)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer_software.o --omf_browse .\objects\timer_software.crf --depend .\objects\timer_software.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (utils\timer_software.h)(0x65C35667)
-F (.\hal\timer.c)(0x65C35663)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (hal/timer.h)(0x65C78852)
+I (hal/uart0.h)(0x65C78852)
+I (utils/timer_software.h)(0x65C8C375)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (hal/ISR_manager.h)(0x65C8D4CB)
+I (hal/../utils/ringbuf.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44/c/src/api/tmr_serial_transport.h)(0x65C78854)
+I (hal/uart1.h)(0x65C8C688)
+F (.\Retarget.c)(0x65C78852)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\rt_misc.h)(0x5D9B2672)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (hal/uart0.h)(0x65C78852)
+F (.\utils\ringbuf.c)(0x65C9C063)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\ringbuf.o --omf_browse .\objects\ringbuf.crf --depend .\objects\ringbuf.d)
+I (utils\ringbuf.h)(0x65C78854)
+F (.\utils\timer_software.c)(0x65C8D837)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer_software.o --omf_browse .\objects\timer_software.crf --depend .\objects\timer_software.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (utils\timer_software.h)(0x65C8C375)
+F (.\hal\timer.c)(0x65C78852)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\timer.o --omf_browse .\objects\timer.crf --depend .\objects\timer.d)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (hal\timer.h)(0x65B758D3)
-I (hal\../utils/timer_software.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-F (.\hal\uart0.c)(0x65C35663)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart0.o --omf_browse .\objects\uart0.crf --depend .\objects\uart0.d)
-I (hal\uart0.h)(0x65B75A77)
+I (hal\timer.h)(0x65C78852)
+I (hal\../utils/timer_software.h)(0x65C8C375)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+F (.\hal\uart0.c)(0x65C78852)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart0.o --omf_browse .\objects\uart0.crf --depend .\objects\uart0.d)
+I (hal\uart0.h)(0x65C78852)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-F (.\hal\uart1.c)(0x65C3753F)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart1.o --omf_browse .\objects\uart1.crf --depend .\objects\uart1.d)
-I (hal\uart1.h)(0x65C371E4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+F (.\hal\uart1.c)(0x65C9C52C)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\uart1.o --omf_browse .\objects\uart1.crf --depend .\objects\uart1.d)
+I (hal\uart1.h)(0x65C8C688)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (hal\../utils/ringbuf.h)(0x63E22FB7)
-I (hal\ISR_manager.h)(0x65C35663)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-F (.\hal\ISR_manager.c)(0x65C371E4)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\isr_manager.o --omf_browse .\objects\isr_manager.crf --depend .\objects\isr_manager.d)
-I (hal\ISR_manager.h)(0x65C35663)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (hal\../utils/ringbuf.h)(0x63E22FB7)
+I (hal\../utils/ringbuf.h)(0x65C78854)
+I (hal\ISR_manager.h)(0x65C8D4CB)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (hal\../utils/timer_software.h)(0x65C8C375)
+F (.\hal\ISR_manager.c)(0x65C8D4BB)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\isr_manager.o --omf_browse .\objects\isr_manager.crf --depend .\objects\isr_manager.d)
+I (hal\ISR_manager.h)(0x65C8D4CB)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (hal\../utils/ringbuf.h)(0x65C78854)
 I (C:\Keil_v5\ARM\INC\Philips\lpc22xx.h)(0x559D2F68)
-I (hal\../utils/timer_software.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\hex_bytes.c)(0x65C35666)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\hex_bytes.o --omf_browse .\objects\hex_bytes.crf --depend .\objects\hex_bytes.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C35667)
-F (.\mercuryapi-1.37.1.44\c\src\api\osdep_dummy.c)(0x65C35666)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\osdep_dummy.o --omf_browse .\objects\osdep_dummy.crf --depend .\objects\osdep_dummy.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-F (.\mercuryapi-1.37.1.44\c\src\api\serial_reader.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_reader.o --omf_browse .\objects\serial_reader.crf --depend .\objects\serial_reader.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\serial_reader_l3.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_reader_l3.o --omf_browse .\objects\serial_reader_l3.crf --depend .\objects\serial_reader_l3.d)
-I (C:\Keil_v5\ARM\ARMCC\include\inttypes.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\serial_transport_dummy.c)(0x65C372F6)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_transport_dummy.o --omf_browse .\objects\serial_transport_dummy.crf --depend .\objects\serial_transport_dummy.d)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\../../../../hal/uart1.h)(0x65C371E4)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\tm_reader.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tm_reader.o --omf_browse .\objects\tm_reader.crf --depend .\objects\tm_reader.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C35667)
-F (.\mercuryapi-1.37.1.44\c\src\api\tm_reader_async.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tm_reader_async.o --omf_browse .\objects\tm_reader_async.crf --depend .\objects\tm_reader_async.d)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\tmr_param.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_param.o --omf_browse .\objects\tmr_param.crf --depend .\objects\tmr_param.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-F (.\mercuryapi-1.37.1.44\c\src\api\tmr_strerror.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_strerror.o --omf_browse .\objects\tmr_strerror.crf --depend .\objects\tmr_strerror.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C35667)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C35667)
-F (.\mercuryapi-1.37.1.44\c\src\api\tmr_utils.c)(0x65C35667)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_utils.o --omf_browse .\objects\tmr_utils.crf --depend .\objects\tmr_utils.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
-I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C35666)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C35667)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C35667)
+I (hal\../utils/timer_software.h)(0x65C8C375)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+F (.\mercuryapi-1.37.1.44\c\src\api\hex_bytes.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\hex_bytes.o --omf_browse .\objects\hex_bytes.crf --depend .\objects\hex_bytes.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B267A)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C78854)
+F (.\mercuryapi-1.37.1.44\c\src\api\osdep_dummy.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\osdep_dummy.o --omf_browse .\objects\osdep_dummy.crf --depend .\objects\osdep_dummy.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+F (.\mercuryapi-1.37.1.44\c\src\api\serial_reader.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_reader.o --omf_browse .\objects\serial_reader.crf --depend .\objects\serial_reader.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+F (.\mercuryapi-1.37.1.44\c\src\api\serial_reader_l3.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_reader_l3.o --omf_browse .\objects\serial_reader_l3.crf --depend .\objects\serial_reader_l3.d)
+I (C:\Keil_v5\ARM\ARMCC\include\inttypes.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+F (.\mercuryapi-1.37.1.44\c\src\api\serial_transport_dummy.c)(0x65C8C643)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\serial_transport_dummy.o --omf_browse .\objects\serial_transport_dummy.crf --depend .\objects\serial_transport_dummy.d)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\../../../../hal/uart1.h)(0x65C8C688)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+F (.\mercuryapi-1.37.1.44\c\src\api\tm_reader.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tm_reader.o --omf_browse .\objects\tm_reader.crf --depend .\objects\tm_reader.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C78854)
+F (.\mercuryapi-1.37.1.44\c\src\api\tm_reader_async.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tm_reader_async.o --omf_browse .\objects\tm_reader_async.crf --depend .\objects\tm_reader_async.d)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+F (.\mercuryapi-1.37.1.44\c\src\api\tmr_param.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_param.o --omf_browse .\objects\tmr_param.crf --depend .\objects\tmr_param.d)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+F (.\mercuryapi-1.37.1.44\c\src\api\tmr_strerror.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_strerror.o --omf_browse .\objects\tmr_strerror.crf --depend .\objects\tmr_strerror.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B267A)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tm_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tm_config.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_status.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gpio.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_params.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_read_plan.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_protocol.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_gen2.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso180006b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_ipx.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443a.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso14443b.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_iso15693.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf125khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_lf134khz.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_filter.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_data.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tagop.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_auth.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_tag_lock_action.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_reader.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_region.h)(0x65C78854)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h)(0x65C78854)
+F (.\mercuryapi-1.37.1.44\c\src\api\tmr_utils.c)(0x65C78854)(--c99 --gnu -c --cpu ARM7TDMI -g -O0 --apcs=interwork --split_sections-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="529" -DBARE_METAL -DDEBUG_TX_RX-o .\objects\tmr_utils.o --omf_browse .\objects\tmr_utils.crf --depend .\objects\tmr_utils.d)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\osdep.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_types.h)(0x65C78854)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5D9B2678)
+I (mercuryapi-1.37.1.44\c\src\api\tmr_utils.h)(0x65C78854)

@@ -58,10 +58,10 @@ F_Bit           EQU     0x40            ; when F bit is set, FIQ is disabled
 ;// </h>
 
 UND_Stack_Size  EQU     0x00000000
-SVC_Stack_Size  EQU     0x00000008
+SVC_Stack_Size  EQU     0x00000080
 ABT_Stack_Size  EQU     0x00000000
-FIQ_Stack_Size  EQU     0x00000200
-IRQ_Stack_Size  EQU     0x00000200
+FIQ_Stack_Size  EQU     0x00000400
+IRQ_Stack_Size  EQU     0x00000400
 USR_Stack_Size  EQU     0x00002000
 
 ISR_Stack_Size  EQU     (UND_Stack_Size + SVC_Stack_Size + ABT_Stack_Size + \

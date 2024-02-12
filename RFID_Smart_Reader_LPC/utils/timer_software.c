@@ -214,7 +214,7 @@ timer_software_handler_t TIMER_SOFTWARE_request_timer()
 			break;
 		}
 	}
-	if (found)
+	if (found && (i < MAX_NR_TIMERS))
 	{
 		timers[i].TimerControl = 0;
 		timers[i].TimerPeriod = 0;

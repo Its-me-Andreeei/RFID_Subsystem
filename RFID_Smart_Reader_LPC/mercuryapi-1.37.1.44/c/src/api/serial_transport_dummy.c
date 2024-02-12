@@ -65,8 +65,6 @@ static TMR_Status s_receiveBytes(TMR_SR_SerialTransport *this, uint32_t length, 
    */
 	
 	(void)this;
-	/*TBD: To be implemented with timeouts*/
-	(void)timeoutMs;
 	
 	/*TBD: In case of Comm error, timeout is not accurate as error.. should be replaced with anything like INVALID_VALUE*/
   return ((UART1_receivebuffer(message, length, messageLength, timeoutMs)) ? TMR_SUCCESS : TMR_ERROR_TIMEOUT); 
