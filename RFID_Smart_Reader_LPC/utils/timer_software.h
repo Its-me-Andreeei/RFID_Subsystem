@@ -22,7 +22,7 @@ extern "C"
 #endif
 
 #define SW_TIMER_PERIOD 	1000 // (us)  /**< Defines the software timer tick in microseconds  */
-#define MAX_NR_TIMERS 		2					  /**< Maximum available timers  */
+#define MAX_NR_TIMERS 		4					  /**< Maximum available timers  */
 
 //*****************************************************************************
 //! \enum SOFTWARE_TIMER_MODE
