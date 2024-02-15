@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "../utils/timer_software.h"
 
-	timer_software_handler_t timer_RX;
+static timer_software_handler_t timer_RX;
 
 void UART1_Init(void)
 {

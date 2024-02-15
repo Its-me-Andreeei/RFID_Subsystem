@@ -394,6 +394,32 @@ int8_t TIMER_SOFTWARE_stop_timer(timer_software_handler_t timer_handler)
 }
 
 //*****************************************************************************
+//! Return the running status of a timer (if the timer is running or not)
+//! 
+//! \param timer_handler The handler of the software timer. The handler needs to be obtained with \ref TIMER_SOFTWARE_request_timer
+//! \return \b 0 for error 
+//! \return \b 1 for success
+uint8_t TIMER_SOFTWARE_is_Running(timer_software_handler_t timer_handler)
+{
+	if (timer_handler >	MAX_NR_TIMERS)
+	{
+		return 0;
+	}
+	else if (!TIMER_IS_VALID(timer_handler))
+	{
+		return 0;
+	}
+	else if(!TIMER_IS_ENABLED(timer_handler))
+	{
+		return 0;
+	}
+	else if(TIMER_IS_IN_ERROR_STATE(timer_handler))
+	{
+		return 0;
+	}
+	return (TIMER_IS_RUNNING(timer_handler));
+}
+//*****************************************************************************
 //! Sets the callback function of the coresponding software timer. This function will be called when a software timer expires
 //! 
 //! \param timer_handler The handler of the software timer. The handler needs to be obtained with \ref TIMER_SOFTWARE_request_timer

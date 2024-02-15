@@ -97,6 +97,7 @@ void TIMER_SOFTWARE_Wait(uint32_t time);
 void TIMER_SOFTWARE_reset_timer(timer_software_handler_t timer_handler);
 uint8_t TIMER_SOFTWARE_interrupt_pending(timer_software_handler_t timer_handler);
 void TIMER_SOFTWARE_clear_interrupt(timer_software_handler_t timer_handler);
+uint8_t TIMER_SOFTWARE_is_Running(timer_software_handler_t timer_handler);
 #ifdef __cplusplus
 }
 #endif

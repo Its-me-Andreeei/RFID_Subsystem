@@ -18,7 +18,6 @@ void Module_Reset()
 
 int main(void)
 {	 
-	timer_software_handler_t timer1;
 	IO0DIR |= (uint8_t)1 << (uint8_t)23;
 	IO0CLR = (uint8_t)1 << (uint8_t)23;
 	
@@ -29,17 +28,11 @@ int main(void)
 	printf("Main");
 
 	InitInterrupt();
-	Reader_Reset();
 	/*------------------------------------*/
+	Reader_Reset();
 	ReaderManagerInit();
 	/*------------------------------------*/
 
-	timer1 = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer1, MODE_0, 5000, 1);
-	TIMER_SOFTWARE_reset_timer(timer1);
-	/*------------------------------------*/
-
-	TIMER_SOFTWARE_start_timer(timer1);
 	while(1)
 	{
 		Reader_Manager();
