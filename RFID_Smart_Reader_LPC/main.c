@@ -8,13 +8,6 @@
 #include "hal/uart1.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
-void Module_Reset()
-{
-	IO0CLR = 1 << 23;
-	TIMER_SOFTWARE_Wait(1000);
-	IO0SET = 1 << 23;
-	TIMER_SOFTWARE_Wait(1000);
-}
 
 int main(void)
 {	 
@@ -29,7 +22,7 @@ int main(void)
 
 	InitInterrupt();
 	/*------------------------------------*/
-	Reader_Reset();
+	Reader_HW_Reset();
 	ReaderManagerInit();
 	/*------------------------------------*/
 
