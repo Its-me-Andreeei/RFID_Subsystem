@@ -5,4 +5,5 @@
 void ReaderManagerInit(void);
 void Reader_HW_Reset(void);
 void Reader_Manager(void);
+
 #endif

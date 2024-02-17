@@ -4,7 +4,6 @@
 #include "hal/uart0.h"
 #include "utils/timer_software.h"
 #include "hal/ISR_manager.h"
-#include "mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 #include "hal/uart1.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
@@ -14,7 +13,7 @@ int main(void)
 	IO0DIR |= (uint8_t)1 << (uint8_t)23;
 	IO0CLR = (uint8_t)1 << (uint8_t)23;
 	
-	TIMER_SOFTWARE_init();
+	TIMER_SOFTWARE_init(); /*This is the SW timer*/
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
