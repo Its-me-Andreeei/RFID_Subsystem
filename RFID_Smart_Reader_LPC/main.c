@@ -24,7 +24,7 @@ int main(void)
 	Reader_HW_Reset();
 	ReaderManagerInit();
 	/*------------------------------------*/
-
+	
 	while(1)
 	{
 		Reader_Manager();

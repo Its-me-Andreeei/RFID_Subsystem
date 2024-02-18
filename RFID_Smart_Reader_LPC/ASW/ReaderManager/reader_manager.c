@@ -3,6 +3,7 @@
 #include "../../utils/timer_software.h"
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 #include <stdio.h>
+#include "../../hal/uart1.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -10,8 +11,7 @@
 
 static TMR_Reader reader;
 static TMR_TagReadData data;
-static timer_software_handler_t timer_reader;
-static uint8_t commErrors = 0; /*To be added in UART1 API and exposed through an interface*/
+static timer_software_handler_t timer_reader; 
 
 typedef enum ReaderManager_state_en{
 	MODULE_INIT,
@@ -19,21 +19,22 @@ typedef enum ReaderManager_state_en{
 	STOP_READING,
 	GET_TAGS, /*This will be the state will be most of time*/
 	CHECK_TEMPERATURE,
-	ERROR_MANAGEMENT
+	PERMANENT_FAILURE
 }ReaderManager_state_en;
 
-static void commErrorMonitor(TMR_Status status_to_check)
+typedef enum Recovery_sequence_step_en
 {
-	if(TMR_SUCCESS != status_to_check)
-	{
-		commErrors ++;
-	}
-}
+	APPLY_PING,
+	CHECK_RX_EMPTY,
+	CHECK_RESPONSE,
+	PERFORM_SW_RESET,
+	PERFORM_HW_RESET,
+	END_OF_SEQUENCE
+}Recovery_sequence_step_en;
 
 /*This function is not recreating the timer element and reader struct*/
 static void ConfigInit(void)
 {
-	TMR_Status status = TMR_SUCCESS;
 	const TMR_Region region = TMR_REGION_NA2;
 	TMR_ReadPlan readPlan;
 	uint8_t antennaList[] = {(uint8_t)1U};
@@ -44,27 +45,20 @@ static void ConfigInit(void)
 	uint16_t asyncOnTime= (uint16_t) 500; /*Time in ms*/
 	uint16_t asyncOffTime= (uint16_t) 1000; /*Time in ms*/
 	
-	status = TMR_connect(&reader);
-	commErrorMonitor(status);
+	(void)TMR_connect(&reader);
 	
-	status = TMR_paramSet(&reader, TMR_PARAM_REGION_ID, &region);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_REGION_ID, &region);
 	
 	(void)TMR_RP_init_simple(&readPlan, antennaCount, antennaList,protocol, 100U);
-	status = TMR_paramSet(&reader, TMR_PARAM_READ_PLAN, &readPlan);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_READ_PLAN, &readPlan);
 	
-	status = TMR_paramSet(&reader, TMR_PARAM_METADATAFLAG, &metadata);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_METADATAFLAG, &metadata);
 	
-	status = TMR_paramSet(&reader, TMR_PARAM_TAGREADDATA_ENABLEREADFILTER, &readFilter);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_TAGREADDATA_ENABLEREADFILTER, &readFilter);
 	
-	status = TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCONTIME, &asyncOnTime);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCONTIME, &asyncOnTime);
 	
-	status = TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCOFFTIME, &asyncOffTime);
-	commErrorMonitor(status);
+	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCOFFTIME, &asyncOffTime);
 }
 
 void ReaderManagerInit(void)
@@ -90,13 +84,67 @@ void Reader_HW_Reset(void)
 	TIMER_SOFTWARE_Wait(1000);
 }
 
+static uint8_t reader_recovery()
+{
+	#define NUMBER_OF_PING_CHECKS_AFTER_RESET ((uint8_t)4)
+	#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS ((uint8_t)0x03U)
+	
+	uint8_t recovery_sequence_counter = NUMBER_OF_RECOVERY_SEQUENCE_STEPS;
+	uint8_t result = FALSE;
+	uint8_t ping_result = FALSE;
+	uint8_t index;
+	uint8_t number_of_correct_pings = (uint8_t)0x00;
+	
+	printf("---------chip recovery----\n");
+	while((recovery_sequence_counter > (uint8_t)0U) && (result == FALSE))
+	{
+		/*Reset number of correct ping results after each retry*/
+		number_of_correct_pings = (uint8_t) 0x00;
+		
+		/*Perform HW reset of Reader circuit*/
+		Reader_HW_Reset();
+		
+		/*Check for several correct PINGS to see if communication is now working*/
+		for(index = (uint8_t)0x00; index < NUMBER_OF_PING_CHECKS_AFTER_RESET; index++)
+		{
+			TIMER_SOFTWARE_Wait(500);
+			/*Send PING signal to Reader*/
+			ping_result = UART1_send_reveice_PING();
+			
+			/*Check if response to PING signal is not what was expected*/
+			if(TRUE == ping_result)
+			{
+				number_of_correct_pings++;
+				break; /*Do not send anymore pings, we got a correct one*/
+			}
+		}
+		/*If there are correct responses to ping, we can end the sequence*/
+		if((uint8_t)0x00 != number_of_correct_pings)
+		{
+			result = TRUE;
+			break;
+		}
+		else
+		{
+			/*This assignment is added for robustness. 'result' is initially set to FALSE anyways*/
+			result = FALSE;
+		}
+		if(recovery_sequence_counter > 0)
+		{
+			recovery_sequence_counter --;
+		}
+	}
+	printf("NUM_SEQ= %d\n", recovery_sequence_counter);
+	printf("---end chip recovery----\n");
+	return result; 
+}
+
 void Reader_Manager(void)
 {
 	static ReaderManager_state_en current_state_en = START_READING;
-	int8_t temperature = (int8_t) 0U;
-	static uint8_t request_temp_check_after_stop= 0x00; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
+	int8_t temperature = (int8_t)0x00U;
+	static uint8_t request_temp_check_after_stop= (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
-	TMR_Status status = TMR_SUCCESS;
 	
 	switch(current_state_en)
 	{
@@ -107,16 +155,15 @@ void Reader_Manager(void)
 			break;
 		
 		case START_READING:
-			status = TMR_startReading(&reader);
-			commErrorMonitor(status);
+			(void)TMR_startReading(&reader);
 		
 			current_state_en = GET_TAGS;
 			break;
 		
 		case STOP_READING:
 			/*This will stop RF emissions*/
-			status = TMR_stopReading(&reader);
-			commErrorMonitor(status);
+			(void)TMR_stopReading(&reader);
+
 			/* flush of SW buffer is done because stop reading function is not 'receiving' the RX buffer thus response is 
 			 * stucked and will interfere with temperature result*/
 			(void)TMR_flush(&reader); 
@@ -135,6 +182,7 @@ void Reader_Manager(void)
 			/*Check if it's first reading iteration and timer has to be started*/
 			if(!TIMER_SOFTWARE_interrupt_pending(timer_reader) && !TIMER_SOFTWARE_is_Running(timer_reader))
 			{
+				TIMER_SOFTWARE_reset_timer(timer_reader);
 				TIMER_SOFTWARE_start_timer(timer_reader);
 			}
 			
@@ -169,8 +217,7 @@ void Reader_Manager(void)
 		case CHECK_TEMPERATURE:
 			/*Reading temporary stopped by now for temperature measurement*/
 
-			status = TMR_paramGet(&reader, TMR_PARAM_RADIO_TEMPERATURE, &temperature);
-			commErrorMonitor(status);
+			(void)TMR_paramGet(&reader, TMR_PARAM_RADIO_TEMPERATURE, &temperature);
 
 			printf("---\n");
 			printf("%d\n", temperature);
@@ -184,8 +231,7 @@ void Reader_Manager(void)
 				{
 					/*Sett reader back to High Power*/
 					powerManagementRequest = TMR_SR_POWER_MODE_FULL;
-					status = TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
-					commErrorMonitor(status);
+					(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
 				}
 				/*We can keep reading as temperature is OK*/
 				current_state_en = START_READING;
@@ -196,8 +242,7 @@ void Reader_Manager(void)
 				if(powerManagementRequest != TMR_SR_POWER_MODE_MEDSAVE)
 				{
 					powerManagementRequest = TMR_SR_POWER_MODE_MEDSAVE;
-					status = TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
-					commErrorMonitor(status);
+					(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
 				}
 				
 				/*We can keep reading as temperature is OK*/
@@ -208,8 +253,7 @@ void Reader_Manager(void)
 				/*Set reader to Low Power until temperature is decreased*/
 				powerManagementRequest = TMR_SR_POWER_MODE_MAXSAVE;
 				
-				status = TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
-				commErrorMonitor(status);
+				(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
 				
 				/*Manager will be stucked in this state untill temperature decreases*/
 				current_state_en = CHECK_TEMPERATURE;
@@ -218,12 +262,9 @@ void Reader_Manager(void)
 			}
 			
 			break;
-		
-		case ERROR_MANAGEMENT:
-			/*TBD: To be added soft reset first*/
-			Reader_HW_Reset();
-			commErrors = 0;
-			current_state_en = MODULE_INIT;
+			
+		case PERMANENT_FAILURE:
+			/*Do nothing for now*/
 			break;
 		
 		default:
@@ -232,9 +273,30 @@ void Reader_Manager(void)
 			break;
 	}
 
-	/*TBD: To be moved in UART1 or to be removed the error manager case*/
-	if(commErrors > 0)
+	/*Do not perform chip recovery if already in permanent failure mode*/
+	if(current_state_en != PERMANENT_FAILURE)
 	{
-		current_state_en = ERROR_MANAGEMENT; /*Override any state as comm is lost*/
+	
+		/*Check for communication errors*/
+		if(UART1_get_CommErrors() > (uint8_t)0U)
+		{ 
+			TIMER_SOFTWARE_Wait(500);
+			(void)TMR_stopReading(&reader);
+			printf("COMM ERROR: ");
+			printf("%d\n", UART1_get_CommErrors());
+			
+			/*Check if chip recovery is successfull*/
+			if((uint8_t)0x01U == reader_recovery())
+			{
+				current_state_en = MODULE_INIT;
+				printf("RECOVERED\n");
+			}
+			else
+			{
+				
+				current_state_en = PERMANENT_FAILURE;
+				printf("PERMANENT_FAILURE\n");
+			}		
+		}
 	}
 }

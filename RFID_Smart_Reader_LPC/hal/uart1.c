@@ -63,6 +63,80 @@ bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32
 	return TRUE;
 }
 
+bool_t UART1_send_reveice_PING(void)
+{
+	#define PING_SIZE ((uint8_t)5U)
+	#define PING_RESPONSE_SIZE ((uint8_t)27U)
+	
+	const uint8_t PING[PING_SIZE] = {(uint8_t)0xFFU, (uint8_t)0x00U, (uint8_t)0x03U, (uint8_t)0x1DU, (uint8_t)0x0CU};
+	uint8_t actual_response[PING_RESPONSE_SIZE];
+	uint16_t actual_response_index = (uint16_t)0x0000U;
+	uint8_t result = TRUE;
+	
+	/*Make sure receiver buffer is empty*/
+	UART1_flush();
+	/*Send ping signal trough UART*/
+	UART1_sendbuffer(PING, PING_SIZE, 1000);
+	
+	/*Use a fixed timeout to not get stuck in loop*/
+	TIMER_SOFTWARE_reset_timer(timer_RX);
+	TIMER_SOFTWARE_start_timer(timer_RX);
+	
+	while(!TIMER_SOFTWARE_interrupt_pending(timer_RX))
+	{
+		/*Check for available data in ISR buffer*/
+		if(!RingBufEmpty(&uart1_ringbuff_rx))
+		{
+			/*Guard in order to avoid overflow*/
+			if(actual_response_index < PING_RESPONSE_SIZE)
+			{
+				/*Get availabe data from ISR buffer*/
+				actual_response[actual_response_index] = RingBufReadOne(&uart1_ringbuff_rx);
+				actual_response_index ++;
+			}
+			else
+			{
+				/*Reaching here means we got all expected bytes, we can leave earlier then TIMEOUT ms*/
+				break;
+			}
+		}
+	}
+	
+	/*Reset and clear interrupt, as this timer is also used by other functions*/
+	TIMER_SOFTWARE_reset_timer(timer_RX);
+	TIMER_SOFTWARE_clear_interrupt(timer_RX);
+	
+	/*Make sure we have exactly PING_RESPONSE_SIZE bytes*/
+	if(actual_response_index == PING_RESPONSE_SIZE)
+	{
+		/*Check for meaningful bytes only (including CRC for optimized speed*/
+		if((actual_response[0] == (uint8_t)0xFF) && 
+			(actual_response[1] == (uint8_t)0x14) && 
+			(actual_response[2] == (uint8_t)0x03) && 
+			(actual_response[PING_RESPONSE_SIZE-2] == (uint8_t)0x79)  && 
+			(actual_response[PING_RESPONSE_SIZE-1] == (uint8_t)0x62) )
+		{
+			result = TRUE;
+		}
+		else
+		{
+			/*Something is not OK -> maybe corrupted message*/
+			result = FALSE;
+		}
+			
+		for(uint16_t loop_index = 0x0000; loop_index < PING_RESPONSE_SIZE; loop_index++)
+		{
+			printf("%02X ", actual_response[loop_index]);
+		}
+	}
+	else
+	{
+		/*If we got 0 or less bytes then expected*/
+		result = FALSE;
+	}
+	return result;
+}
+
 /**************************************************************************
 *		Function: UART1_receivebuffer
 *		Parameters: 
@@ -158,18 +232,8 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 
 bool_t UART1_flush(void)
 {
-	
-	//#define RxFIFO_RST ((uint8_t)1U)
-	//#define TxFIFO_RST ((uint8_t)2U)
-	//U1FCR |= ((uint8_t)(((uint8_t)1U <<RxFIFO_RST) | ((uint8_t)1U <<TxFIFO_RST))); /*Perform TX and RX reset on FIFOs on HW level*/
 	/*TBD: Check if flush is performed by checking EMPTY flag within a timeout. If no flush is done -> HW issue*/
 	/*dummy return*/
 	RingBufFlush(&uart1_ringbuff_rx);
 	return TRUE;
-}
-
-uint16_t UART1_get_RX_buffer_size(void)
-{
-	/*16 bits is enough to represent maximum size, which is configured to be 1024 bytes in this case*/
-	return (uint16_t)RingBufUsed(&uart1_ringbuff_rx);
 }

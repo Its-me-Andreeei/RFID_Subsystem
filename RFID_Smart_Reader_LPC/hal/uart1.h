@@ -13,6 +13,5 @@ bool_t UART1_flush(void);
 bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs);
 bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs);
 uint8_t UART1_get_CommErrors(void);
-uint16_t UART1_get_RX_buffer_size(void);
-
+bool_t UART1_send_reveice_PING(void);
 #endif
