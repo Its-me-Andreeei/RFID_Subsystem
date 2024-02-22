@@ -33,6 +33,14 @@ typedef enum Recovery_sequence_step_en
 }Recovery_sequence_step_en;
 
 /*This function is not recreating the timer element and reader struct*/
+/*************************************************************************************************************************************************
+	Function: 		ConfigInit
+	Description:	This function must be called only after reader is created. Will check the communication with RFID Reader, and set the configuration inside Reader system trough UART1
+								This function is not recreating the timer element and reader struct
+	Parameters: 	void
+	Return value:	void
+							
+*************************************************************************************************************************************************/
 static void ConfigInit(void)
 {
 	const TMR_Region region = TMR_REGION_NA2;
@@ -61,6 +69,13 @@ static void ConfigInit(void)
 	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCOFFTIME, &asyncOffTime);
 }
 
+/*************************************************************************************************************************************************
+	Function: 		ReaderManagerInit
+	Description:	This funciton will initialize the reader manager, and physical reader and required internal software timer
+	Parameters: 	void
+	Return value:	void
+							
+*************************************************************************************************************************************************/
 void ReaderManagerInit(void)
 {
 	(void)TMR_SR_SerialTransportDummyInit(&reader.u.serialReader.transport, NULL, NULL);
@@ -75,7 +90,13 @@ void ReaderManagerInit(void)
 }
 
 
-
+/*************************************************************************************************************************************************
+	Function: 		Reader_HW_Reset
+	Description:	This function will perform a HW reset of reader module
+	Parameters: 	void
+	Return value:	void
+							
+*************************************************************************************************************************************************/
 void Reader_HW_Reset(void)
 {
 	IO0CLR = (uint8_t)1 << (uint8_t)23;
@@ -84,6 +105,14 @@ void Reader_HW_Reset(void)
 	TIMER_SOFTWARE_Wait(1000);
 }
 
+/*************************************************************************************************************************************************
+	Function: 		reader_recovery
+	Description:	This function will perform recovery procedure: Will perform a HW reset of reader module, and send 4 PINGs. 
+								If no none of pings will receive answear, the requence is redone up to a maximum of 4 times
+	Parameters: 	void
+	Return value:	TRUE = Communication is recovered
+								FALSE = Permament failure state - Communication was not recovered after 4 complete sequences. No ping responses
+*************************************************************************************************************************************************/
 static uint8_t reader_recovery()
 {
 	#define NUMBER_OF_PING_CHECKS_AFTER_RESET ((uint8_t)4)
@@ -139,6 +168,13 @@ static uint8_t reader_recovery()
 	return result; 
 }
 
+/*************************************************************************************************************************************************
+	Function: 		ReaderManagerInit
+	Description:	This manager handles the RFID reader, as a state machine. Must be called cyclically. Must not be called before ReaderInit() function
+	Parameters: 	void
+	Return value:	void
+							
+*************************************************************************************************************************************************/
 void Reader_Manager(void)
 {
 	static ReaderManager_state_en current_state_en = START_READING;

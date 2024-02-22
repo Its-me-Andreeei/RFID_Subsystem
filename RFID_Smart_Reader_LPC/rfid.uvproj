@@ -419,7 +419,7 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>Main</GroupName>
           <Files>
             <File>
               <FileName>Startup.s</FileName>
@@ -530,6 +530,16 @@
               <FileName>tmr_utils.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\mercuryapi-1.37.1.44\c\src\api\tmr_utils.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ASW</GroupName>
+          <Files>
+            <File>
+              <FileName>reader_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ASW\ReaderManager\reader_manager.c</FilePath>
             </File>
           </Files>
         </Group>

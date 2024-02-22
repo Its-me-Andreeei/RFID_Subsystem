@@ -9,6 +9,13 @@
 static timer_software_handler_t timer_RX;
 static uint8_t commErrors = 0;
 
+/*************************************************************************************************************************************************
+	Function: 		UART1_Init
+	Description:	This function is initialising UART1 module
+	Parameters: 	void
+	Return value:	void
+							
+*************************************************************************************************************************************************/
 void UART1_Init(void)
 {
 	PINSEL0 |= 0x50000;   //Enable TX, RX        
@@ -22,6 +29,13 @@ void UART1_Init(void)
 	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1);
 }
 
+/*************************************************************************************************************************************************
+	Function: 		UART1_get_CommErrors
+	Description:	This function is returning the number of TX/RX errors (present or historic). Must not be called before UART1_init() function
+	Parameters: 	void
+	Return value: The number of Communication errors
+
+*************************************************************************************************************************************************/
 uint8_t UART1_get_CommErrors(void)
 {
 	return commErrors;
@@ -33,17 +47,18 @@ uint8_t UART1_sendchar(uint8_t ch)
 	return (U1THR = ch);
 }
 
-/**************************************************************************
-*		Function: UART1_sendbuffer
-*		Parameters: 
-*							buffer: The buffer to be sent [IN]
-*							size: The length of the buffer [IN]
-*							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
-*
-* 
-*   Return value:
-*							TRUE = Success in trasmission
-**************************************************************************/
+/******************************************************************************************************************************************************************
+		Function: UART1_sendbuffer
+		Description: This function is sending a message using UART protocol, within a given timeout, with a known length. Must not be called before UART1_init() function
+		Parameters: 
+							buffer: The buffer to be sent [IN]
+							size: The length of the buffer [IN]
+							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
+ 
+		Return value:
+							TRUE = Success in trasmission
+							FALSE = Transmission was not send within given timeout. Check if BAUD or timeout is configured OK
+*******************************************************************************************************************************************************************/
 bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
 {
 	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
@@ -63,6 +78,16 @@ bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32
 	return TRUE;
 }
 
+/*************************************************************************************************************************************************
+	Function: 		UART1_send_reveice_PING
+	Description:	This function is sending a PING message from MCU and is waiting for a specific response. The PING signal is not making any 
+								configuration changes in destination system, and it's only used to prove if UART communication it's working
+								Must not be called before UART1_init() function
+	Parameters: 	void
+	Return value:
+								TRUE = Response to PING signal was OK
+								FALSE = Response to PING was absent or not the expected one (might be corrupted)
+*************************************************************************************************************************************************/
 bool_t UART1_send_reveice_PING(void)
 {
 	#define PING_SIZE ((uint8_t)5U)
@@ -137,20 +162,22 @@ bool_t UART1_send_reveice_PING(void)
 	return result;
 }
 
-/**************************************************************************
-*		Function: UART1_receivebuffer
-*		Parameters: 
-*							message: The buffer where received results will be stored dor further processing [OUT]
-*							expectedLength: The expected length of the RX buffer [IN]
-*							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
-*							actualLength: The actual number of processed bytes of the RX buffer. Will be lesser or equal to expectedLength param [OUT]
-* 						timeoutMS: The time in MS in which the buffer must be completly sent [IN]
-*
-*   Return value:
-*							TRUE = Success in trasmission
-*							FALSE = The buffer was not transmitted wihin TimeoutMS miliseconds OR COMM errors happened
-**************************************************************************/
+/*************************************************************************************************************************************************
+		Function: UART1_receivebuffer
+		Description:
+							This function waits for 'expectedLength' bytes to be available in RX buffer within a given timeout. If the timeout is over, 
+							actualLength will be the length achieved until timeout expired. Must not be called before UART1_init() function
+		Parameters: 
+							message: The buffer where received results will be stored dor further processing [OUT]
+							expectedLength: The expected length of the RX buffer [IN]
+							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
+							actualLength: The actual number of processed bytes of the RX buffer. Will be lesser or equal to expectedLength param [OUT]
+							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
 
+		Return value:
+							TRUE = Success in trasmission
+							FALSE = The buffer was not transmitted wihin TimeoutMS miliseconds OR COMM errors happened
+*************************************************************************************************************************************************/
 bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
 {
 	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
@@ -230,6 +257,14 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	return result;
 }
 
+/*************************************************************************************************************************************************
+	Function: 	UART1_flush
+	Description: This function flushes the SW buffer (which is used in UART RX interrupt). Must not be called before UART1_init() and InterruptInit() functions
+	Parameters: void
+  Return value:
+							TRUE = Flush operation was successfull
+							FALSE = Flush operation failed
+*************************************************************************************************************************************************/
 bool_t UART1_flush(void)
 {
 	/*TBD: Check if flush is performed by checking EMPTY flag within a timeout. If no flush is done -> HW issue*/
