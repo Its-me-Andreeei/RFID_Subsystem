@@ -13,6 +13,15 @@ static TMR_Reader reader;
 static TMR_TagReadData data;
 static timer_software_handler_t timer_reader; 
 
+#define TEMPERATURE_CHECK_TIMEOUT 10000
+#define RESET_PIN_READER_U8 ((uint8_t)23U)
+
+/*This is the maximum number of times we perform recovery sequences in case of lost communication*/
+#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8 ((uint8_t)0x03U) 
+/*This if the maximum number of PINGs we try after a hard reset is performed in sequence recovery process*/
+#define NUMBER_OF_PING_CHECKS_AFTER_RESET_U8 ((uint8_t)4U)
+
+
 /*This function is not recreating the timer element and reader struct*/
 /*************************************************************************************************************************************************
 	Function: 		ConfigInit
@@ -65,8 +74,9 @@ void ReaderManagerInit(void)
 
 	ConfigInit();
 	
+	/*Timer is used in order to switch to temperature check mode after a given timeout*/
 	timer_reader = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_reader, MODE_0, 10000, 1);
+	TIMER_SOFTWARE_configure_timer(timer_reader, MODE_0, TEMPERATURE_CHECK_TIMEOUT, 1);
 	TIMER_SOFTWARE_reset_timer(timer_reader);
 }
 
@@ -80,9 +90,9 @@ void ReaderManagerInit(void)
 *************************************************************************************************************************************************/
 void Reader_HW_Reset(void)
 {
-	IO0CLR = (uint8_t)1 << (uint8_t)23;
+	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
 	TIMER_SOFTWARE_Wait(1000);
-	IO0SET = (uint8_t)1 << (uint8_t)23;
+	IO0SET = (uint8_t)1 << RESET_PIN_READER_U8;
 	TIMER_SOFTWARE_Wait(1000);
 }
 
@@ -96,10 +106,7 @@ void Reader_HW_Reset(void)
 *************************************************************************************************************************************************/
 static bool_t reader_recovery()
 {
-	#define NUMBER_OF_PING_CHECKS_AFTER_RESET ((uint8_t)4)
-	#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS ((uint8_t)0x03U)
-	
-	uint8_t recovery_sequence_counter = NUMBER_OF_RECOVERY_SEQUENCE_STEPS;
+	uint8_t recovery_sequence_counter = NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8;
 	uint8_t result = FALSE;
 	UART_TX_RX_Status_en ping_result = RETURN_NOK;
 	uint8_t index;
@@ -115,7 +122,7 @@ static bool_t reader_recovery()
 		Reader_HW_Reset();
 		
 		/*Check for several correct PINGS to see if communication is now working*/
-		for(index = (uint8_t)0x00; index < NUMBER_OF_PING_CHECKS_AFTER_RESET; index++)
+		for(index = (uint8_t)0x00; index < NUMBER_OF_PING_CHECKS_AFTER_RESET_U8; index++)
 		{
 			TIMER_SOFTWARE_Wait(500);
 			/*Send PING signal to Reader*/
