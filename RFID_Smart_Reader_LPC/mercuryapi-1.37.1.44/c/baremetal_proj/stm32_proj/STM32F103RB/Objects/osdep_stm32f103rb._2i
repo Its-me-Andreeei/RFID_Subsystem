@@ -1,7 +1,0 @@
--c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ..\..\..\src -I ..\..\..\src\api
--I.\RTE\Device\STM32F103RB
--I.\RTE\_stm32f103_bare_metal_api
--IC:\Users\apanchal\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include
--IC:\Users\apanchal\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include
--D__UVISION_VERSION="529" -D_RTE_ -DSTM32F10X_MD -DBARE_METAL
--o .\objects\osdep_stm32f103rb.o --omf_browse .\objects\osdep_stm32f103rb.crf --depend .\objects\osdep_stm32f103rb.d --feedback ".\Objects\stm32f103_bare_metal_api.fed" "..\..\..\src\api\osdep_stm32F103RB.c"
