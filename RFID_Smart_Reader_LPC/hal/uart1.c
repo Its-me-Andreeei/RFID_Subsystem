@@ -6,12 +6,15 @@
 #include <stdio.h>
 #include "../utils/timer_software.h"
 
-static timer_software_handler_t timer_RX;
+/*This is used as a software timer, for RX operation*/
+static timer_software_handler_t timer_TX_RX;
+
+/*This counter is incremented whenever a communication error occours*/
 static uint8_t commErrors = 0;
 
 /*************************************************************************************************************************************************
 	Function: 		UART1_Init
-	Description:	This function is initialising UART1 module
+	Description:	This function is initialising UART1 module. Must be called before any other UART1 function
 	Parameters: 	void
 	Return value:	void
 							
@@ -25,8 +28,10 @@ void UART1_Init(void)
 	U1FCR = 0x01;	// fifo enable
 	U1IER = 1;
 	
-	timer_RX = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_RX, MODE_0, 2000, 1);
+	/*Configure software timer used in receive operation. MODE_0 means counter will stop after reaching desired value. */
+	/*2s is the default timeout but can be changed*/
+	timer_TX_RX = TIMER_SOFTWARE_request_timer();
+	TIMER_SOFTWARE_configure_timer(timer_TX_RX, MODE_0, 2000, 1);
 }
 
 /*************************************************************************************************************************************************
@@ -41,6 +46,13 @@ uint8_t UART1_get_CommErrors(void)
 	return commErrors;
 }
 
+/*************************************************************************************************************************************************
+	Function: 		UART1_sendchar
+	Description:	This function is sending one byte only over UART1. Must not be called before UART1_init() function
+	Parameters: 	character to be send
+	Return value: The sent byte
+
+*************************************************************************************************************************************************/
 uint8_t UART1_sendchar(uint8_t ch)
 {
 	while (!(U1LSR & 0x20));
@@ -61,21 +73,50 @@ uint8_t UART1_sendchar(uint8_t ch)
 *******************************************************************************************************************************************************************/
 bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
 {
-	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
+	uint32_t txBufferIndex = 0x000000;
+	bool_t result = TRUE;
+	uint16_t i_dbg = 0;
+	
 	printf("------------\n");
 	printf("TX: ");
-	for(uint16_t i = 0; i < size; i++)
+	for(i_dbg = 0x0000; i_dbg < size; i_dbg++)
 	{
-		printf("%02X ", buffer[i]);
+		printf("%02X ", buffer[i_dbg]);
 	}
 	printf("\n");
 	
-	for (uint32_t i = 0; i < size; i++)
+	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
+	TIMER_SOFTWARE_configure_timer(timer_TX_RX, MODE_0, timeoutMs, 1);
+	TIMER_SOFTWARE_start_timer(timer_TX_RX);
+	
+	/*As long as we have not send all bytes, and we still have time, send byte by byte through UART*/
+	for (txBufferIndex = 0; (txBufferIndex < size) && (TIMER_SOFTWARE_interrupt_pending(timer_TX_RX) == 0x00); txBufferIndex++)
 	{
-		(void)UART1_sendchar(buffer[i]);	
+		(void)UART1_sendchar(buffer[txBufferIndex]);	
 	}
 	
-	return TRUE;
+	/*If timer is over and we still have bytes to send, we failed to send all bytes within given timeout*/
+	if((0U != TIMER_SOFTWARE_interrupt_pending(timer_TX_RX)) && (txBufferIndex < size))
+	{
+		result = FALSE;
+	}
+	else if( txBufferIndex == size) /*Even if timeout is over, it is acceptable to finish sending at time limit*/
+	{
+		result = TRUE;
+	}
+	
+	/*Clean interrupt flag as this might be used in other functions*/
+	if(0U != TIMER_SOFTWARE_interrupt_pending(timer_TX_RX))
+	{
+		TIMER_SOFTWARE_clear_interrupt(timer_TX_RX);
+	}
+	
+	/*Make sure timer leave this functions with TCNT = 0*/
+	if(0U != TIMER_SOFTWARE_is_Running(timer_TX_RX))
+	{
+		TIMER_SOFTWARE_reset_timer(timer_TX_RX);
+	}
+	return result;
 }
 
 /*************************************************************************************************************************************************
@@ -97,6 +138,7 @@ bool_t UART1_send_reveice_PING(void)
 	uint8_t actual_response[PING_RESPONSE_SIZE];
 	uint16_t actual_response_index = (uint16_t)0x0000U;
 	uint8_t result = TRUE;
+	uint16_t loop_index = 0x0000;
 	
 	/*Make sure receiver buffer is empty*/
 	UART1_flush();
@@ -104,10 +146,10 @@ bool_t UART1_send_reveice_PING(void)
 	UART1_sendbuffer(PING, PING_SIZE, 1000);
 	
 	/*Use a fixed timeout to not get stuck in loop*/
-	TIMER_SOFTWARE_reset_timer(timer_RX);
-	TIMER_SOFTWARE_start_timer(timer_RX);
+	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
+	TIMER_SOFTWARE_start_timer(timer_TX_RX);
 	
-	while(!TIMER_SOFTWARE_interrupt_pending(timer_RX))
+	while(!TIMER_SOFTWARE_interrupt_pending(timer_TX_RX))
 	{
 		/*Check for available data in ISR buffer*/
 		if(!RingBufEmpty(&uart1_ringbuff_rx))
@@ -128,8 +170,8 @@ bool_t UART1_send_reveice_PING(void)
 	}
 	
 	/*Reset and clear interrupt, as this timer is also used by other functions*/
-	TIMER_SOFTWARE_reset_timer(timer_RX);
-	TIMER_SOFTWARE_clear_interrupt(timer_RX);
+	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
+	TIMER_SOFTWARE_clear_interrupt(timer_TX_RX);
 	
 	/*Make sure we have exactly PING_RESPONSE_SIZE bytes*/
 	if(actual_response_index == PING_RESPONSE_SIZE)
@@ -149,7 +191,7 @@ bool_t UART1_send_reveice_PING(void)
 			result = FALSE;
 		}
 			
-		for(uint16_t loop_index = 0x0000; loop_index < PING_RESPONSE_SIZE; loop_index++)
+		for(loop_index = 0x0000; loop_index < PING_RESPONSE_SIZE; loop_index++)
 		{
 			printf("%02X ", actual_response[loop_index]);
 		}
@@ -187,14 +229,15 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	uint8_t error_status = (uint8_t)0U;
 	uint16_t ringBuffLength = (uint8_t)0U;
 	uint8_t index = (uint8_t)0U;
+	uint16_t index_dbg = 0x0000;
 	
+	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
 	
-	(void)timeoutMs; /*TBD: To be implemented with timers after basic functionality is validated*/
+	/*We only want to set timeout with the parameter timeout, but in order to do it we have to set entire configuration for timer*/
+	TIMER_SOFTWARE_configure_timer(timer_TX_RX, MODE_0, timeoutMs, 1);
+	TIMER_SOFTWARE_start_timer(timer_TX_RX);
 	
-	TIMER_SOFTWARE_reset_timer(timer_RX);
-	TIMER_SOFTWARE_start_timer(timer_RX);
-	
-	while(TIMER_SOFTWARE_interrupt_pending(timer_RX) == (uint8_t)0x00U)
+	while(TIMER_SOFTWARE_interrupt_pending(timer_TX_RX) == (uint8_t)0x00U)
 	{
 		ringBuffLength = RingBufUsed(&uart1_ringbuff_rx);
 		
@@ -204,7 +247,7 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 			index = expectedLength;
 			break;
 		}
-		else{ //read one byte a time
+		else{ /*read one byte a time*/
 			if((index < expectedLength) && (RingBufUsed(&uart1_ringbuff_rx) > 0))
 			{
 				message[index] = RingBufReadOne(&uart1_ringbuff_rx);
@@ -212,11 +255,15 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 			}
 			else if(index == expectedLength)
 			{
-				break; //we got all [expectedLength] bytes
+				/*If we got the bytes in time, stop timer and reset it (otherwise it will reset itself when timeout reached)*/
+				TIMER_SOFTWARE_stop_timer(timer_TX_RX);
+				TIMER_SOFTWARE_reset_timer(timer_TX_RX);
+				
+				break; /*we got all [expectedLength] bytes*/
 			}
 		}
 	}
-	
+
 	if(index < expectedLength)
 	{
 		result = FALSE;
@@ -236,24 +283,26 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	error_status = (uint8_t)U1LSR;
 	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
 	{
-		result = FALSE;
-	}
-	
-	if(FALSE == result)
-	{
 		commErrors++;
+		result = FALSE;
 	}
 	
 	if(actualLength != NULL)
 	{
 		printf("RX: ");
-		for(uint16_t i = 0; i < *actualLength; i++)
+		for(index_dbg = 0; index_dbg < *actualLength; index_dbg++)
 		{
-			printf("%02X ", message[i]);
+			printf("%02X ", message[index_dbg]);
 		}
 		printf("\n");
 	}
-
+	
+	/*Reset interrupt flag as this timer is also used by other UART functions*/
+	if(TIMER_SOFTWARE_interrupt_pending(timer_TX_RX))
+	{
+		TIMER_SOFTWARE_clear_interrupt(timer_TX_RX);
+	}
+	
 	return result;
 }
 
@@ -267,8 +316,12 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 *************************************************************************************************************************************************/
 bool_t UART1_flush(void)
 {
-	/*TBD: Check if flush is performed by checking EMPTY flag within a timeout. If no flush is done -> HW issue*/
-	/*dummy return*/
+	bool_t result;
+
 	RingBufFlush(&uart1_ringbuff_rx);
-	return TRUE;
+	
+	/*Check if SW ISR buffer is actually empty. This check is done for robustness*/
+	result = RingBufEmpty(&uart1_ringbuff_rx);
+	
+	return result;
 }

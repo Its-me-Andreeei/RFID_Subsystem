@@ -86,7 +86,7 @@ TMR_SR_sendBytes(TMR_Reader *reader, uint8_t len, uint8_t *data, uint32_t timeou
  * ThingMagic-mutated CRC used for messages.
  * Notably, not a CCITT CRC-16, though it looks close.
  */
-static uint16_t crctable[] = 
+static const  uint16_t crctable[16] = 
 {
   0x0000, 0x1021, 0x2042, 0x3063,
   0x4084, 0x50a5, 0x60c6, 0x70e7,

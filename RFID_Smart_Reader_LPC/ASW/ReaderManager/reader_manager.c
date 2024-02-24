@@ -13,25 +13,6 @@ static TMR_Reader reader;
 static TMR_TagReadData data;
 static timer_software_handler_t timer_reader; 
 
-typedef enum ReaderManager_state_en{
-	MODULE_INIT,
-	START_READING,
-	STOP_READING,
-	GET_TAGS, /*This will be the state will be most of time*/
-	CHECK_TEMPERATURE,
-	PERMANENT_FAILURE
-}ReaderManager_state_en;
-
-typedef enum Recovery_sequence_step_en
-{
-	APPLY_PING,
-	CHECK_RX_EMPTY,
-	CHECK_RESPONSE,
-	PERFORM_SW_RESET,
-	PERFORM_HW_RESET,
-	END_OF_SEQUENCE
-}Recovery_sequence_step_en;
-
 /*This function is not recreating the timer element and reader struct*/
 /*************************************************************************************************************************************************
 	Function: 		ConfigInit
@@ -158,6 +139,8 @@ static uint8_t reader_recovery()
 			/*This assignment is added for robustness. 'result' is initially set to FALSE anyways*/
 			result = FALSE;
 		}
+		
+		/*Guard sequence counter in order to not reach underflow*/
 		if(recovery_sequence_counter > 0)
 		{
 			recovery_sequence_counter --;
@@ -177,6 +160,15 @@ static uint8_t reader_recovery()
 *************************************************************************************************************************************************/
 void Reader_Manager(void)
 {
+	typedef enum ReaderManager_state_en{
+		MODULE_INIT,
+		START_READING,
+		STOP_READING,
+		GET_TAGS, /*This will be the state will be most of time*/
+		CHECK_TEMPERATURE,
+		PERMANENT_FAILURE
+	}ReaderManager_state_en;
+	
 	static ReaderManager_state_en current_state_en = START_READING;
 	int8_t temperature = (int8_t)0x00U;
 	static uint8_t request_temp_check_after_stop= (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
@@ -184,7 +176,7 @@ void Reader_Manager(void)
 	
 	switch(current_state_en)
 	{
-		/*We assume init is already done. We only get here by other internal states request*/
+		/*We assume init is already done, so first state will be START_READING. We only get here by other internal states request*/
 		case MODULE_INIT:
 			ConfigInit();
 			current_state_en = START_READING;
@@ -204,7 +196,7 @@ void Reader_Manager(void)
 			 * stucked and will interfere with temperature result*/
 			(void)TMR_flush(&reader); 
 		
-			if(request_temp_check_after_stop == 0x01)
+			if((uint8_t)0x01 == request_temp_check_after_stop)
 			{
 				/*Reset flag after processing request*/
 				request_temp_check_after_stop = 0x00; 
@@ -263,7 +255,7 @@ void Reader_Manager(void)
 			if(temperature < 45)
 			{
 				/*If temperature is acceptable but we are in LP due to a previous overtemperature*/
-				if(powerManagementRequest != TMR_SR_POWER_MODE_FULL)
+				if(TMR_SR_POWER_MODE_FULL != powerManagementRequest)
 				{
 					/*Sett reader back to High Power*/
 					powerManagementRequest = TMR_SR_POWER_MODE_FULL;
@@ -275,7 +267,7 @@ void Reader_Manager(void)
 			if(temperature >=45 && temperature < 55) /*thermal warning*/
 			{
 				
-				if(powerManagementRequest != TMR_SR_POWER_MODE_MEDSAVE)
+				if(TMR_SR_POWER_MODE_MEDSAVE != powerManagementRequest)
 				{
 					powerManagementRequest = TMR_SR_POWER_MODE_MEDSAVE;
 					(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
@@ -312,9 +304,8 @@ void Reader_Manager(void)
 	/*Do not perform chip recovery if already in permanent failure mode*/
 	if(current_state_en != PERMANENT_FAILURE)
 	{
-	
 		/*Check for communication errors*/
-		if(UART1_get_CommErrors() > (uint8_t)0U)
+		if(UART1_get_CommErrors() > (uint8_t)0U) 
 		{ 
 			TIMER_SOFTWARE_Wait(500);
 			(void)TMR_stopReading(&reader);
