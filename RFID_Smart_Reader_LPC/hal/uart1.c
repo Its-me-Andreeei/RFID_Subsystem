@@ -59,6 +59,28 @@ uint8_t UART1_sendchar(uint8_t ch)
 	return (U1THR = ch);
 }
 
+static UART_TX_RX_Status_en check_communication_errors(void)
+{
+	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
+	#define RXFE ((uint8_t)7U) /*Error in Rx FIFO*/
+	
+	uint8_t error_status = (uint8_t)0U;
+	UART_TX_RX_Status_en result;
+	
+	error_status = (uint8_t)U1LSR;
+	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
+	{
+		commErrors++;
+		result = COMMUNICATION_ERROR;
+	}
+	else
+	{
+		result = RETURN_OK;
+	}
+
+	return result;
+}
+
 /******************************************************************************************************************************************************************
 		Function: UART1_sendbuffer
 		Description: This function is sending a message using UART protocol, within a given timeout, with a known length. Must not be called before UART1_init() function
@@ -68,8 +90,8 @@ uint8_t UART1_sendchar(uint8_t ch)
 							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
  
 		Return value:
-							TRUE = Success in trasmission
-							FALSE = Transmission was not send within given timeout. Check if BAUD or timeout is configured OK
+							RETURN_OK = Success in trasmission: all bytes sent within timeout, no communication errors
+							TIMEOUT_ERROR = Transmission was not send within given timeout. Check if BAUD or timeout is configured OK
 *******************************************************************************************************************************************************************/
 UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
 {
@@ -126,10 +148,12 @@ UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size
 								Must not be called before UART1_init() function
 	Parameters: 	void
 	Return value:
-								TRUE = Response to PING signal was OK
-								FALSE = Response to PING was absent or not the expected one (might be corrupted)
+								RETURN_OK = Response to PING signal was OK, with respect to given timeout
+								RETURN_NOK = Response to PING was absent or not the expected one (might be corrupted)
+								TIMEOUT_ERROR = incomplete response in given timeout
+								COMMUNICATION_ERROR = There was a HW communication issue
 *************************************************************************************************************************************************/
-bool_t UART1_send_reveice_PING(void)
+UART_TX_RX_Status_en UART1_send_reveice_PING(void)
 {
 	#define PING_SIZE ((uint8_t)5U)
 	#define PING_RESPONSE_SIZE ((uint8_t)27U)
@@ -137,7 +161,8 @@ bool_t UART1_send_reveice_PING(void)
 	const uint8_t PING[PING_SIZE] = {(uint8_t)0xFFU, (uint8_t)0x00U, (uint8_t)0x03U, (uint8_t)0x1DU, (uint8_t)0x0CU};
 	uint8_t actual_response[PING_RESPONSE_SIZE];
 	uint16_t actual_response_index = (uint16_t)0x0000U;
-	uint8_t result = TRUE;
+	UART_TX_RX_Status_en result = RETURN_OK;
+	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
 	uint16_t loop_index = 0x0000;
 	
 	/*Make sure receiver buffer is empty*/
@@ -183,12 +208,12 @@ bool_t UART1_send_reveice_PING(void)
 			(actual_response[PING_RESPONSE_SIZE-2] == (uint8_t)0x79)  && 
 			(actual_response[PING_RESPONSE_SIZE-1] == (uint8_t)0x62) )
 		{
-			result = TRUE;
+			result = RETURN_OK;
 		}
 		else
 		{
 			/*Something is not OK -> maybe corrupted message*/
-			result = FALSE;
+			result = RETURN_NOK;
 		}
 			
 		for(loop_index = 0x0000; loop_index < PING_RESPONSE_SIZE; loop_index++)
@@ -198,8 +223,15 @@ bool_t UART1_send_reveice_PING(void)
 	}
 	else
 	{
-		/*If we got 0 or less bytes then expected*/
-		result = FALSE;
+		/*If we got 0 or less bytes then expected within timoeut*/
+		result = TIMEOUT_ERROR;
+	}
+	comm_error_result = check_communication_errors();
+	
+	/*Only change return of function if there is a communication HW issue*/
+	if(comm_error_result != RETURN_OK)
+	{
+		result = comm_error_result;
 	}
 	return result;
 }
@@ -217,16 +249,14 @@ bool_t UART1_send_reveice_PING(void)
 							timeoutMS: The time in MS in which the buffer must be completly sent [IN]
 
 		Return value:
-							TRUE = Success in trasmission
-							FALSE = The buffer was not transmitted wihin TimeoutMS miliseconds OR COMM errors happened
+							RETURN_OK = Success in trasmission - all bytes received within given timeout
+							TIMEOUT_ERROR = The buffer was not transmitted wihin TimeoutMS
+							COMMUNICATION_ERROR = There was a HW communication issue
 *************************************************************************************************************************************************/
 UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
 {
-	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
-	#define RXFE ((uint8_t)7U) /*Error in Rx FIFO*/
-	
 	UART_TX_RX_Status_en result = RETURN_OK; 
-	uint8_t error_status = (uint8_t)0U;
+	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
 	uint16_t ringBuffLength = (uint8_t)0U;
 	uint8_t index = (uint8_t)0U;
 	uint16_t index_dbg = 0x0000;
@@ -280,11 +310,13 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 		}
 	}
 	
-	error_status = (uint8_t)U1LSR;
-	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
+	/*Check for HW issues regarding communication errors*/
+	comm_error_result = check_communication_errors();
+	
+	/*Only change return of function if there is a communication HW issue*/
+	if(comm_error_result != RETURN_OK)
 	{
-		commErrors++;
-		result = COMMUNICATION_ERROR;
+		result = comm_error_result;
 	}
 	
 	if(actualLength != NULL)

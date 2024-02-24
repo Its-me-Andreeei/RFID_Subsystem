@@ -94,14 +94,14 @@ void Reader_HW_Reset(void)
 	Return value:	TRUE = Communication is recovered
 								FALSE = Permament failure state - Communication was not recovered after 4 complete sequences. No ping responses
 *************************************************************************************************************************************************/
-static uint8_t reader_recovery()
+static bool_t reader_recovery()
 {
 	#define NUMBER_OF_PING_CHECKS_AFTER_RESET ((uint8_t)4)
 	#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS ((uint8_t)0x03U)
 	
 	uint8_t recovery_sequence_counter = NUMBER_OF_RECOVERY_SEQUENCE_STEPS;
 	uint8_t result = FALSE;
-	uint8_t ping_result = FALSE;
+	UART_TX_RX_Status_en ping_result = RETURN_NOK;
 	uint8_t index;
 	uint8_t number_of_correct_pings = (uint8_t)0x00;
 	
@@ -121,13 +121,14 @@ static uint8_t reader_recovery()
 			/*Send PING signal to Reader*/
 			ping_result = UART1_send_reveice_PING();
 			
-			/*Check if response to PING signal is not what was expected*/
-			if(TRUE == ping_result)
+			/*Check if response to PING signal is what was expected*/
+			if(RETURN_OK == ping_result)
 			{
 				number_of_correct_pings++;
 				break; /*Do not send anymore pings, we got a correct one*/
 			}
 		}
+		
 		/*If there are correct responses to ping, we can end the sequence*/
 		if((uint8_t)0x00 != number_of_correct_pings)
 		{
@@ -305,8 +306,8 @@ void Reader_Manager(void)
 	if(current_state_en != PERMANENT_FAILURE)
 	{
 		/*Check for communication errors*/
-		if(UART1_get_CommErrors() > (uint8_t)0U) 
-		{ 
+		if(UART1_get_CommErrors() > 0U) 
+		{
 			TIMER_SOFTWARE_Wait(500);
 			(void)TMR_stopReading(&reader);
 			printf("COMM ERROR: ");
