@@ -44,30 +44,63 @@ static TMR_Status s_open(TMR_SR_SerialTransport *this)
 
 static TMR_Status s_sendBytes(TMR_SR_SerialTransport *this, uint32_t length, uint8_t* message, const uint32_t timeoutMs)
 {
-
   /* This routine should send length bytes, pointed to by message on
    * the serial connection. If the transmission does not complete in
    * timeoutMs milliseconds, it should return TMR_ERROR_TIMEOUT.
    */
-	(void)this;
+	TMR_Status m_api_result;
+	UART_TX_RX_Status_en uart_result;
 	
-	return ((UART1_sendbuffer(message, length, timeoutMs) == TRUE)? TMR_SUCCESS : TMR_ERROR_TIMEOUT);
+	(void)this;
+	uart_result = UART1_sendbuffer(message, length, timeoutMs);
+	
+	/*Perform mapping from UART errors to Mercury API's errors*/
+	if(RETURN_OK == uart_result)
+	{
+		m_api_result = TMR_SUCCESS;
+	}
+	else if(COMMUNICATION_ERROR == uart_result)
+	{
+		m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
+	}
+	else if(TIMEOUT_ERROR == uart_result)
+	{
+		m_api_result = TMR_ERROR_TIMEOUT;
+	}
+	
+	return m_api_result;
 }
 
 
 static TMR_Status s_receiveBytes(TMR_SR_SerialTransport *this, uint32_t length, uint32_t* messageLength, uint8_t* message, const uint32_t timeoutMs)
 {
-
   /* This routine should receive exactly length bytes on the serial
    * connection and store them into the memory pointed to by
    * message. If the required number of bytes are note received in
    * timeoutMs milliseconds, it should return TMR_ERROR_TIMEOUT.
    */
 	
-	(void)this;
+	TMR_Status m_api_result;
+	UART_TX_RX_Status_en uart_result;
 	
-	/*TBD: In case of Comm error, timeout is not accurate as error.. should be replaced with anything like INVALID_VALUE*/
-  return ((UART1_receivebuffer(message, length, messageLength, timeoutMs)) ? TMR_SUCCESS : TMR_ERROR_TIMEOUT); 
+	(void)this;
+	uart_result = UART1_receivebuffer(message, length, messageLength, timeoutMs);
+	
+	/*Perform mapping from UART errors to Mercury API's errors*/
+	if(RETURN_OK == uart_result)
+	{
+		m_api_result = TMR_SUCCESS;
+	}
+	else if(COMMUNICATION_ERROR == uart_result)
+	{
+		m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
+	}
+	else if(TIMEOUT_ERROR == uart_result)
+	{
+		m_api_result = TMR_ERROR_TIMEOUT;
+	}
+	
+  return m_api_result; 
 }
 
 

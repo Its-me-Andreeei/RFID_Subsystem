@@ -190,7 +190,7 @@ typedef uint32_t TMR_Status;
 #define TMR_ERROR_COMM_IS_ERRNO(x)                        (0x8000 == (TMR_STATUS_GET_VALUE(x) & 0x8000))
 #define TMR_ERROR_COMM_GET_ERRNO(x)                       (TMR_STATUS_GET_VALUE(x) & 0x7fff)
 #define TMR_ERROR_TIMEOUT                                 TMR_ERROR_COMM(1)
-#define TMR_ERROR_NO_HOST                                 TMR_ERROR_COMM(2)
+#define TMR_ERROR_COMM_ERRORS_HOST                        TMR_ERROR_COMM(2)
 #define TMR_ERROR_LLRP                                    TMR_ERROR_COMM(3)
 #define TMR_ERROR_PARSE                                   TMR_ERROR_COMM(4)
 #define TMR_ERROR_DEVICE_RESET                            TMR_ERROR_COMM(5)

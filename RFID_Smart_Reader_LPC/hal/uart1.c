@@ -71,10 +71,10 @@ uint8_t UART1_sendchar(uint8_t ch)
 							TRUE = Success in trasmission
 							FALSE = Transmission was not send within given timeout. Check if BAUD or timeout is configured OK
 *******************************************************************************************************************************************************************/
-bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
+UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
 {
 	uint32_t txBufferIndex = 0x000000;
-	bool_t result = TRUE;
+	UART_TX_RX_Status_en result = RETURN_OK;
 	uint16_t i_dbg = 0;
 	
 	printf("------------\n");
@@ -98,11 +98,11 @@ bool_t UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32
 	/*If timer is over and we still have bytes to send, we failed to send all bytes within given timeout*/
 	if((0U != TIMER_SOFTWARE_interrupt_pending(timer_TX_RX)) && (txBufferIndex < size))
 	{
-		result = FALSE;
+		result = TIMEOUT_ERROR;
 	}
 	else if( txBufferIndex == size) /*Even if timeout is over, it is acceptable to finish sending at time limit*/
 	{
-		result = TRUE;
+		result = RETURN_OK;
 	}
 	
 	/*Clean interrupt flag as this might be used in other functions*/
@@ -220,12 +220,12 @@ bool_t UART1_send_reveice_PING(void)
 							TRUE = Success in trasmission
 							FALSE = The buffer was not transmitted wihin TimeoutMS miliseconds OR COMM errors happened
 *************************************************************************************************************************************************/
-bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
+UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
 {
 	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
 	#define RXFE ((uint8_t)7U) /*Error in Rx FIFO*/
 	
-	bool_t result = TRUE; 
+	UART_TX_RX_Status_en result = RETURN_OK; 
 	uint8_t error_status = (uint8_t)0U;
 	uint16_t ringBuffLength = (uint8_t)0U;
 	uint8_t index = (uint8_t)0U;
@@ -266,7 +266,7 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 
 	if(index < expectedLength)
 	{
-		result = FALSE;
+		result = TIMEOUT_ERROR;
 		if(actualLength != NULL)
 		{
 			*actualLength = index;
@@ -284,7 +284,7 @@ bool_t UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* 
 	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
 	{
 		commErrors++;
-		result = FALSE;
+		result = COMMUNICATION_ERROR;
 	}
 	
 	if(actualLength != NULL)
