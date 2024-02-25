@@ -309,7 +309,7 @@ int8_t TIMER_SOFTWARE_configure_timer(timer_software_handler_t timer_handler, SO
 //*****************************************************************************
 int8_t TIMER_SOFTWARE_enable_timer(timer_software_handler_t timer_handler)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >=	MAX_NR_TIMERS)
 	{
 		return -1;
 	}
@@ -334,7 +334,7 @@ int8_t TIMER_SOFTWARE_enable_timer(timer_software_handler_t timer_handler)
 //*****************************************************************************
 int8_t TIMER_SOFTWARE_disable_timer(timer_software_handler_t timer_handler)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >= MAX_NR_TIMERS)
 	{
 		return -1;
 	}
@@ -355,7 +355,7 @@ int8_t TIMER_SOFTWARE_disable_timer(timer_software_handler_t timer_handler)
 //*****************************************************************************
 int8_t TIMER_SOFTWARE_start_timer(timer_software_handler_t timer_handler)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >= MAX_NR_TIMERS)
 	{
 		return -1;
 	}
@@ -381,7 +381,7 @@ int8_t TIMER_SOFTWARE_start_timer(timer_software_handler_t timer_handler)
 //*****************************************************************************
 int8_t TIMER_SOFTWARE_stop_timer(timer_software_handler_t timer_handler)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >= MAX_NR_TIMERS)
 	{
 		return -1;
 	}
@@ -401,7 +401,7 @@ int8_t TIMER_SOFTWARE_stop_timer(timer_software_handler_t timer_handler)
 //! \return \b 1 for success
 uint8_t TIMER_SOFTWARE_is_Running(timer_software_handler_t timer_handler)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >= MAX_NR_TIMERS)
 	{
 		return 0;
 	}
@@ -429,7 +429,7 @@ uint8_t TIMER_SOFTWARE_is_Running(timer_software_handler_t timer_handler)
 //*****************************************************************************
 int8_t TIMER_SOFTWARE_set_callback(timer_software_handler_t timer_handler, TIMER_SOFTWARE_Callback callback)
 {
-	if (timer_handler >	MAX_NR_TIMERS)
+	if (timer_handler >= MAX_NR_TIMERS)
 	{
 		return -1;
 	}
