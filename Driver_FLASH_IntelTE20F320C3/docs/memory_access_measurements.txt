@@ -1,0 +1,19 @@
+PCLK = 73.728.000 Hz
+
+
+FLASH
+usable size: 0x3F0000 = 4.194.304 bytes
+
+erase time: 0xCF22053F = 65 s - 64.528 bytes/sec = 65 KB/s
+
+write time: 0x81F89D0D = 30 s - 139.810 bytes/sec = 140 KB/s
+
+read time: 0x03D84012 = 0,874 s = 4,8 MB/s
+
+
+SRAM
+usable size: 100000 = 1.048.576 btes
+
+write time: 0x68003D =  0,0924453 s - 10,81 MB/s
+
+read time:  0x50001D =  0,0711115 s - 14,06 MB/s

@@ -1,0 +1,1 @@
+-c --cpu ARM7TDMI -g -O0 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\Inc -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "flash_stm29w320db.o" --omf_browse "flash_stm29w320db.crf" --depend "flash_stm29w320db.d" "Code\Flash_STM29W320DB\flash_stm29w320db.c"

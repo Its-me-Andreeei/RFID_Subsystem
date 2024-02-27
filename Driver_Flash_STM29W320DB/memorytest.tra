@@ -1,0 +1,25 @@
+*** Creating Trace Output File 'memorytest.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"main.o"'
+### List of Objects: adding '"startup.o"'
+### List of Objects: adding '"global.o"'
+### List of Objects: adding '"retarget.o"'
+### List of Objects: adding '"serial.o"'
+### List of Objects: adding '"flash_test.o"'
+### List of Objects: adding '"flash_stm29w320db.o"'
+### ADS-LD Command completed:
+--cpu ARM7TDMI "main.o" "startup.o" "global.o" "retarget.o" "serial.o" "flash_test.o" "flash_stm29w320db.o" --strict --scatter "memorytest.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\memorytest.map" -o memorytest.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'memorytest.axf'
+### ADS-LD Command File: 'memorytest.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'memorytest.lnp', Handle=0x0000024C
+### Writing '.lnp' file
+### ADS-LD Command file 'memorytest.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

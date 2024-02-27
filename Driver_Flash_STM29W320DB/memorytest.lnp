@@ -1,0 +1,4 @@
+--cpu ARM7TDMI "main.o" "startup.o" "global.o" "retarget.o" "serial.o" "flash_test.o" "flash_stm29w320db.o" --strict --scatter "memorytest.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\memorytest.map" -o memorytest.axf

@@ -1,0 +1,23 @@
+Dependencies for Project 'memorytest', Target 'Target 1': (DO NOT MODIFY !)
+F (.\Code\main.c)(0x5103F4B9)(-c --cpu ARM7TDMI -g -O3 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "main.o" --omf_browse "main.crf" --depend "main.d")
+I (C:\Keil\ARM\Inc\Philips\lpc22xx.h)(0x4F588BDC)
+I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB126E6)
+I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB126E4)
+I (.\Code\Flash_IntelTE28F320C3/Flash_IntelTE28F320C3.h)(0x5102E28B)
+I (Code\global.h)(0x505B1966)
+I (Code\memory.h)(0x5045F753)
+I (Code\serial.h)(0x4FAE01D0)
+F (.\Code\Startup.s)(0x5102B694)(--cpu ARM7TDMI -g --apcs=interwork -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips --list ".\Startup.lst" --xref -o "Startup.o" --depend "Startup.d")
+F (.\Code\global.c)(0x4FAE01D0)(-c --cpu ARM7TDMI -g -O3 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "global.o" --omf_browse "global.crf" --depend "global.d")
+I (C:\Keil\ARM\Inc\Philips\lpc22xx.h)(0x4F588BDC)
+I (Code\global.h)(0x505B1966)
+F (.\Code\Retarget.c)(0x4FAE01D0)(-c --cpu ARM7TDMI -g -O3 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "retarget.o" --omf_browse "retarget.crf" --depend "retarget.d")
+I (C:\Keil\ARM\ARMCC\bin\..\include\stdio.h)(0x4EB126E6)
+I (C:\Keil\ARM\ARMCC\bin\..\include\rt_misc.h)(0x4EB126E0)
+I (Code\serial.h)(0x4FAE01D0)
+F (.\Code\Serial.c)(0x5102B694)(-c --cpu ARM7TDMI -g -O3 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "serial.o" --omf_browse "serial.crf" --depend "serial.d")
+I (C:\Keil\ARM\Inc\Philips\LPC22xx.H)(0x4F588BDC)
+I (Code\serial.h)(0x4FAE01D0)
+F (.\Code\Flash_IntelTE28F320C3\Flash_IntelTE28F320C3.c)(0x5103F9EA)(-c --cpu ARM7TDMI -g -O3 --apcs=interwork -I.\Code -I C:\Keil\ARM\RV31\INC -I C:\Keil\ARM\CMSIS\Include -I C:\Keil\ARM\Inc\Philips -o "flash_intelte28f320c3.o" --omf_browse "flash_intelte28f320c3.crf" --depend "flash_intelte28f320c3.d")
+I (Code\Flash_IntelTE28F320C3\Flash_IntelTE28F320C3.h)(0x5102E28B)
+I (C:\Keil\ARM\ARMCC\bin\..\include\stdint.h)(0x4EB126E4)
