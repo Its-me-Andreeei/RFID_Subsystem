@@ -26,25 +26,6 @@
 static int gpio_system_fd;
 static struct gpio_v2_line_request request;
 
-
-state_t gpio_init(void)
-{
-    state_t result;
-
-    gpio_system_fd = open(GPIO_DEVICE, O_RDONLY);
-    if(gpio_system_fd < 0)
-    {
-        ERR("Could not open file");
-        result = STATE_NOK;
-    }
-    else
-    {
-        DBG("File Opened successfully....\n");
-        result = STATE_OK;
-    }
-    return result;
-}
-
 static struct gpio_v2_line_config set_gpio_config(void)
 {
     struct gpio_v2_line_config config;
@@ -76,8 +57,35 @@ static state_t gpio_line_request(void)
     }
     else
     {
-        DBG("GPIO (%d) access granted.....\n", GPIO_PIN);
-        result = STATE_OK;
+        if(request.fd <=0)
+        {
+            ERR("Could not obtain file descriptor for access");
+            result = STATE_NOK;
+        }
+        else
+        {
+            DBG("GPIO (%d) access granted.....\n", GPIO_PIN);
+            result = STATE_OK;
+        }
+        
+    }
+    return result;
+}
+
+state_t gpio_init(void)
+{
+    state_t result;
+
+    gpio_system_fd = open(GPIO_DEVICE, O_RDONLY);
+    if(gpio_system_fd < 0)
+    {
+        ERR("Could not open file");
+        result = STATE_NOK;
+    }
+    else
+    {
+        DBG("File Opened successfully....\n");
+        result = gpio_line_request();
     }
     return result;
 }
@@ -108,12 +116,31 @@ state_t gpio_set_output(const GPIO_state_t gpio_state)
     return result;
 }
 
+state_t gpio_DeInit(void)
+{
+    state_t result = STATE_OK;
+    int sys_call_result;
+
+    sys_call_result = close(request.fd);
+    if(sys_call_result < 0)
+    {
+        ERR(strerror(errno));
+        result = STATE_NOK;
+    }
+    else
+    {
+        result = STATE_OK; 
+    }
+
+    return result;
+}
+
+/*   Example usage
 int main(void)
 {
     int i = 3;
 
     (void)gpio_init();
-    (void)gpio_line_request();
     while(i>0)
     {
         gpio_set_output(HIGH);
@@ -123,7 +150,7 @@ int main(void)
         i--;
     }
 
-    close(request.fd);
-    close(gpio_system_fd);
+    gpio_DeInit();
     return 0;
 }
+*/

@@ -18,5 +18,5 @@ typedef enum GPIO_state_t
 
 state_t gpio_init(void);
 state_t gpio_set_output(const GPIO_state_t gpio_state);
-
+state_t gpio_DeInit(void);
 #endif /*__GPIO_DRIVER_H*/
