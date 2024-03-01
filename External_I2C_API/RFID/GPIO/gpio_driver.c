@@ -11,7 +11,6 @@
 #include "gpio_driver.h"
 
 #define GPIO_DEVICE "/dev/gpiochip0"
-#define DEBUG
 
 #ifdef DEBUG
 #define ERR(...) do { fprintf(stderr, "Error in (%s), at line (%d) : %s\n", __FILE__, __LINE__, __VA_ARGS__);}while(0)
@@ -129,6 +128,7 @@ state_t gpio_DeInit(void)
     }
     else
     {
+        DBG("GPIO module is de-initialised");
         result = STATE_OK; 
     }
 
