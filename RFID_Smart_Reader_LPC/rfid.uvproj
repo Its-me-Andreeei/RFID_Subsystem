@@ -451,6 +451,11 @@
               <FileType>1</FileType>
               <FilePath>.\utils\timer_software.c</FilePath>
             </File>
+            <File>
+              <FileName>crc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\utils\crc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -480,6 +485,11 @@
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\hal\i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_ISR.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hal\i2c_ISR.h</FilePath>
             </File>
           </Files>
         </Group>

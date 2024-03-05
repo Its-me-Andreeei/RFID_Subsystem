@@ -5,6 +5,7 @@
 #include "utils/timer_software.h"
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
+#include "hal/i2c.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
 
@@ -17,17 +18,24 @@ int main(void)
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
+	i2c_init();
 	printf("Main");
 
-	InitInterrupt();
+	 InitInterrupt();
 	/*------------------------------------*/
-	Reader_HW_Reset();
-	ReaderManagerInit();
+	//Reader_HW_Reset();
+	//ReaderManagerInit();
 	/*------------------------------------*/
 	
 	while(1)
 	{
-		Reader_Manager();
+		//printf("%02X\n", I2STAT);
+		//TIMER_SOFTWARE_Wait(200);
+		//Reader_Manager();
+		while(!RingBufEmpty(&i2c_ringbuff_rx))
+		{
+			//printf("%02X ", RingBufReadOne(&i2c_ringbuff_rx));
+		}
 	}
 	return 0;
 }
