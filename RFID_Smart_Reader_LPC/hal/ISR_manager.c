@@ -5,7 +5,6 @@
 #include "i2c_ISR.h"
 
 #define UART1_BUFFER_SIZE 1024
-#define I2C_BUFFER_SIZE 5
 
 static uint8_t uart1_buffer[UART1_BUFFER_SIZE];
 tRingBufObject uart1_ringbuff_rx; /*TBD: To be added into an interface later for better encapsulation*/

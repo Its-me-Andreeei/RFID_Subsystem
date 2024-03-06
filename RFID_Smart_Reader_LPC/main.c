@@ -23,19 +23,13 @@ int main(void)
 
 	 InitInterrupt();
 	/*------------------------------------*/
-	//Reader_HW_Reset();
-	//ReaderManagerInit();
+	Reader_HW_Reset();
+	ReaderManagerInit();
 	/*------------------------------------*/
 	
 	while(1)
 	{
-		//printf("%02X\n", I2STAT);
-		//TIMER_SOFTWARE_Wait(200);
-		//Reader_Manager();
-		while(!RingBufEmpty(&i2c_ringbuff_rx))
-		{
-			//printf("%02X ", RingBufReadOne(&i2c_ringbuff_rx));
-		}
+			Reader_Manager();
 	}
 	return 0;
 }

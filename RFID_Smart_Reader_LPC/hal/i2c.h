@@ -10,7 +10,6 @@ typedef enum state_t{
 }state_t;
 
 #define I2C_SLAVE_ADDR ((uint8_t)0x08U)
-#define I2C_FRAME_LENGTH ((uint8_t)4U)
 
 typedef enum i2c_requests_t
 {
