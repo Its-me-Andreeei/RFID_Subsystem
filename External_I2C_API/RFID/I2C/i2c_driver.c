@@ -92,7 +92,7 @@ state_t i2c_sendMessage(const uint8_t *message, const uint8_t length)
             #ifdef DEBUG
             for(uint8_t i = 0x00; i< length; i++)
             {
-                DBG("%d ", message[i]);
+                DBG("%02X ", message[i]);
             }
             DBG("\n");
             #endif
@@ -103,10 +103,68 @@ state_t i2c_sendMessage(const uint8_t *message, const uint8_t length)
     return result;
 }
 
+state_t i2c_receiveMessage(uint8_t *message, const uint8_t expectedlength)
+{
+    state_t result;
+    struct i2c_msg i2c_message;
+    struct i2c_rdwr_ioctl_data i2c_frame;
+
+    i2c_message.len = expectedlength;
+    i2c_message.buf = message;
+    i2c_message.addr = SLAVE_ADDR;
+    i2c_message.flags = I2C_M_RD;
+
+    i2c_frame.msgs = &i2c_message;
+    i2c_frame.nmsgs = 1; /*We generally send only one message at a time, not a group of messages*/
+
+    if(0 > ioctl(i2c_system_fd, I2C_RDWR, &i2c_frame))
+    {
+        ERR(strerror(errno));
+        result = STATE_NOK;
+    }
+    else
+    {
+        result = STATE_OK;
+        DBG("Message received:\n");
+        #ifdef DEBUG
+        for(uint8_t i = 0x00; i< expectedlength; i++)
+        {
+            DBG("%02X ", message[i]);
+        }
+        DBG("\n");
+        #endif
+    }
+
+    return result;
+}
+
+state_t i2c_DeInit(void)
+{
+    state_t result;
+    int sys_call_result;
+
+    sys_call_result = close(i2c_system_fd);
+    if(sys_call_result < 0)
+    {
+        ERR(strerror(errno));
+        result = STATE_NOK;
+    }
+    else
+    {
+        DBG("I2C module closed successfully\n");
+        result = STATE_OK;
+    }
+
+    return result;
+}
 int main(void)
 {
-    uint8_t msg[3] = {0x01, 0x01, 0x01};
+    uint8_t tx_msg[4] = {0x1, 0x13, 0x13, 0x13};
+    uint8_t rx_msg[4];
     i2c_init();
-    i2c_sendMessage(msg, 3);
+    i2c_sendMessage(tx_msg, 4);
+
+    i2c_receiveMessage(rx_msg, 4);
+    i2c_DeInit();
     return 0;
 }

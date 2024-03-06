@@ -8,10 +8,11 @@ typedef enum state_t
     STATE_NOK
 }state_t;
 
-#define SLAVE_ADDR ((uint8_t)0x01U)
+#define SLAVE_ADDR ((uint8_t)0x08U)
 
 state_t i2c_init(void);
 state_t i2c_sendMessage(const uint8_t *message, const uint8_t length);
-state_t i2c_receiveMessage(const uint8_t *message, const uint8_t expectedlength);
+state_t i2c_receiveMessage(uint8_t *message, const uint8_t expectedlength);
+state_t i2c_DeInit(void);
 
 #endif
