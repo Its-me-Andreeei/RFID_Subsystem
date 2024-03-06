@@ -157,6 +157,8 @@ state_t i2c_DeInit(void)
 
     return result;
 }
+
+/*
 int main(void)
 {
     uint8_t tx_msg[4] = {0x1, 0x13, 0x13, 0x13};
@@ -167,4 +169,4 @@ int main(void)
     i2c_receiveMessage(rx_msg, 4);
     i2c_DeInit();
     return 0;
-}
+} */
