@@ -5,6 +5,7 @@
 #include "utils/timer_software.h"
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
+#include "hal/i2c.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
 
@@ -17,9 +18,10 @@ int main(void)
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
+	i2c_init();
 	printf("Main");
 
-	InitInterrupt();
+	 InitInterrupt();
 	/*------------------------------------*/
 	Reader_HW_Reset();
 	ReaderManagerInit();
@@ -27,7 +29,7 @@ int main(void)
 	
 	while(1)
 	{
-		Reader_Manager();
+			Reader_Manager();
 	}
 	return 0;
 }

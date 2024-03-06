@@ -36,6 +36,8 @@
 #include "serial_reader_imp.h"
 #include "tmr_utils.h"
 
+#include "../../../../utils/crc.h"
+
 #ifdef TMR_ENABLE_UHF
 #define NUMBER_OF_MULTISELECT_SUPPORTED 3u
 #endif /* TMR_ENABLE_UHF */
@@ -86,30 +88,6 @@ TMR_SR_sendBytes(TMR_Reader *reader, uint8_t len, uint8_t *data, uint32_t timeou
  * ThingMagic-mutated CRC used for messages.
  * Notably, not a CCITT CRC-16, though it looks close.
  */
-static const  uint16_t crctable[16] = 
-{
-  0x0000, 0x1021, 0x2042, 0x3063,
-  0x4084, 0x50a5, 0x60c6, 0x70e7,
-  0x8108, 0x9129, 0xa14a, 0xb16b,
-  0xc18c, 0xd1ad, 0xe1ce, 0xf1ef,
-};
-
-static uint16_t
-tm_crc(uint8_t *u8Buf, uint8_t len)
-{
-  uint16_t crc;
-  int i;
-
-  crc = 0xffff;
-
-  for (i = 0; i < len ; i++)
-  {
-    crc = ((crc << 4) | (u8Buf[i] >> 4))  ^ crctable[crc >> 12];
-    crc = ((crc << 4) | (u8Buf[i] & 0xf)) ^ crctable[crc >> 12];
-  }
-
-  return crc;
-}
 
 uint8_t 
 parseEBVdata(uint8_t* msg, uint8_t *ebvValue, uint8_t *idx)
@@ -272,7 +250,7 @@ TMR_SR_sendMessage(TMR_Reader *reader, uint8_t *data, uint8_t *opcode, uint32_t 
 
   // if (reader->u.serialReader.crcEnabled)
   {
-    crc = tm_crc(&data[1], len + 2);
+    crc = compute_crc(&data[1], len + 2);
 
     data[len + 3] = crc >> 8;
     data[len + 4] = crc & 0xff;
@@ -447,7 +425,7 @@ TMR_SR_receiveMessage(TMR_Reader *reader, uint8_t *data, uint8_t opcode, uint32_
   if (reader->u.serialReader.crcEnabled)
 #endif /* TMR_ENABLE_UHF */
   {
-    crc = tm_crc(&data[1], len + 4);
+    crc = compute_crc(&data[1], len + 4);
     if ((data[len + 5] != (crc >> 8)) ||
         (data[len + 6] != (crc & 0xff)))
     {
