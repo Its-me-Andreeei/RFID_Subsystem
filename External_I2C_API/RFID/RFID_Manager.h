@@ -1,6 +1,8 @@
 #ifndef __RFID_MANAGER_H
 #define __RFID_MANAGER_H
 
+#include <stdint.h>
+
 typedef enum RFID_command_t
 {
     RFID_GET_ROUTE_STATUS,
