@@ -26,9 +26,9 @@
 
 static int i2c_system_fd;
 
-state_t i2c_init(void)
+i2c_state_t i2c_init(void)
 {
-    state_t result = STATE_OK;
+    i2c_state_t result = STATE_OK;
 
     i2c_system_fd = open(I2C_DEVICE, O_RDWR);
     if(0 > i2c_system_fd)
@@ -40,9 +40,9 @@ state_t i2c_init(void)
     return result;
 }
 
-state_t i2c_sendMessage(const uint8_t *message, const uint8_t length)
+i2c_state_t i2c_sendMessage(const uint8_t *message, const uint8_t length)
 {
-    state_t result = STATE_OK;
+    i2c_state_t result = STATE_OK;
 
     unsigned long functionalities = 0;
     struct i2c_msg i2c_message;
@@ -103,9 +103,10 @@ state_t i2c_sendMessage(const uint8_t *message, const uint8_t length)
     return result;
 }
 
-state_t i2c_receiveMessage(uint8_t *message, const uint8_t expectedlength)
+i2c_state_t i2c_receiveMessage(uint8_t *message, const uint8_t expectedlength)
 {
-    state_t result;
+    #define I2C_TX_REQUEST_PENDING_U8 ((uint8_t)0x02U)
+    i2c_state_t result;
     struct i2c_msg i2c_message;
     struct i2c_rdwr_ioctl_data i2c_frame;
 
@@ -133,14 +134,19 @@ state_t i2c_receiveMessage(uint8_t *message, const uint8_t expectedlength)
         }
         DBG("\n");
         #endif
+
+        if(message[1] == I2C_TX_REQUEST_PENDING_U8)
+        {
+            result = STATE_PENDING;
+        }
     }
 
     return result;
 }
 
-state_t i2c_DeInit(void)
+i2c_state_t i2c_DeInit(void)
 {
-    state_t result;
+    i2c_state_t result;
     int sys_call_result;
 
     sys_call_result = close(i2c_system_fd);
