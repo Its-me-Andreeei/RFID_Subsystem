@@ -37,7 +37,6 @@ PING signal:
 
 **********************/
 
-extern tRingBufObject i2c_ringbuff_rx;
 
 void i2c_init(void);
 

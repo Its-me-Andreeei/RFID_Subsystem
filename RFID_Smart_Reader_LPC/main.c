@@ -30,6 +30,7 @@ int main(void)
 	while(1)
 	{
 			Reader_Manager();
+			I2C_Comm_Manager();
 	}
 	return 0;
 }

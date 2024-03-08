@@ -12,14 +12,7 @@
 static TMR_Reader reader;
 static TMR_TagReadData data;
 static timer_software_handler_t timer_reader; 
-
-#define TEMPERATURE_CHECK_TIMEOUT 10000
-#define RESET_PIN_READER_U8 ((uint8_t)23U)
-
-/*This is the maximum number of times we perform recovery sequences in case of lost communication*/
-#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8 ((uint8_t)0x03U) 
-/*This if the maximum number of PINGs we try after a hard reset is performed in sequence recovery process*/
-#define NUMBER_OF_PING_CHECKS_AFTER_RESET_U8 ((uint8_t)4U)
+static route_status_t route_status = ON_THE_ROUTE;
 
 
 /*This function is not recreating the timer element and reader struct*/
@@ -57,6 +50,26 @@ static void ConfigInit(void)
 	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCONTIME, &asyncOnTime);
 	
 	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCOFFTIME, &asyncOffTime);
+}
+
+/*************************************************************************************************************************************************
+	Function: 		validate_tag_criteria
+	Description:	This funciton will validate if a tag is within the route or not. Will be stubed for now
+	Parameters: 	EPC read from tag and it's length
+	Return value:	true if tag is part of the route, false otherwise
+							
+*************************************************************************************************************************************************/
+static bool validate_tag_criteria(const uint8_t *epc, const uint8_t epc_length)
+{
+	bool result = false;
+	
+	/*will be replaced later on*/
+	if(epc[epc_length-1] == (uint8_t)0xBF)
+	{
+		result = true;
+	}
+	
+	return result;
 }
 
 /*************************************************************************************************************************************************
@@ -177,10 +190,13 @@ void Reader_Manager(void)
 		PERMANENT_FAILURE
 	}ReaderManager_state_en;
 	
+	#define MAX_DEBOUNCE_CNT_U8 ((uint8_t)10U)
+	
 	static ReaderManager_state_en current_state_en = START_READING;
 	int8_t temperature = (int8_t)0x00U;
 	static uint8_t request_temp_check_after_stop= (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
+	static uint8_t tags_debounce_counter_u8 = 0x00U;
 	
 	switch(current_state_en)
 	{
@@ -231,7 +247,32 @@ void Reader_Manager(void)
 				{
 					printf("%02X ", data.tag.epc[i]);
 				}
+				if(true == validate_tag_criteria(data.tag.epc, data.tag.epcByteCount))
+				{
+					/*Set flag regarding "on route" status*/
+					route_status = ON_THE_ROUTE;
+					
+					/*Reset debounce counter*/
+					tags_debounce_counter_u8 = 0;
+				}
+				else
+				{
+					tags_debounce_counter_u8 ++;
+				}
 				printf("\n");
+			}
+			else
+			{
+				tags_debounce_counter_u8 ++;
+			}
+			
+			if(tags_debounce_counter_u8 == MAX_DEBOUNCE_CNT_U8)
+			{
+				/*After enough missings, declare not on route status*/
+				route_status = NOT_ON_ROUTE;
+				
+				/*Reset event counter*/
+				tags_debounce_counter_u8 = 0U;
 			}
 			
 			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
@@ -335,3 +376,12 @@ void Reader_Manager(void)
 		}
 	}
 }
+
+route_status_t Reader_GET_route_status(void)
+{
+	route_status_t result;
+	result = route_status;
+	route_status = ROUTE_PENDING;
+	return result;
+}
+
