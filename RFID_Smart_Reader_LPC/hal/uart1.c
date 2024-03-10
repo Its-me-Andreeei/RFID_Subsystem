@@ -97,8 +97,11 @@ UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size
 {
 	uint32_t txBufferIndex = 0x000000;
 	UART_TX_RX_Status_en result = RETURN_OK;
+	#ifdef UART1_DBG
 	uint16_t i_dbg = 0;
+	#endif /*UART1_DBG*/
 	
+	#ifdef UART1_DBG
 	printf("------------\n");
 	printf("TX: ");
 	for(i_dbg = 0x0000; i_dbg < size; i_dbg++)
@@ -106,6 +109,7 @@ UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size
 		printf("%02X ", buffer[i_dbg]);
 	}
 	printf("\n");
+	#endif /*UART1_DBG*/
 	
 	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
 	TIMER_SOFTWARE_configure_timer(timer_TX_RX, MODE_0, timeoutMs, 1);
@@ -259,7 +263,9 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
 	uint16_t ringBuffLength = (uint8_t)0U;
 	uint8_t index = (uint8_t)0U;
+	#ifdef UART1_DBG
 	uint16_t index_dbg = 0x0000;
+	#endif /*UART1_DBG*/
 	
 	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
 	
@@ -321,12 +327,14 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 	
 	if(actualLength != NULL)
 	{
+		#ifdef UART1_DBG
 		printf("RX: ");
 		for(index_dbg = 0; index_dbg < *actualLength; index_dbg++)
 		{
 			printf("%02X ", message[index_dbg]);
 		}
 		printf("\n");
+		#endif /*UART1_DBG*/
 	}
 	
 	/*Reset interrupt flag as this timer is also used by other UART functions*/

@@ -8,6 +8,7 @@
 #include "hal/i2c.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
+//#define UART1_DBG
 
 int main(void)
 {	 
@@ -30,6 +31,7 @@ int main(void)
 	while(1)
 	{
 			Reader_Manager();
+			I2C_Comm_Manager();
 	}
 	return 0;
 }
