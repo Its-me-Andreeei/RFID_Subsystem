@@ -18,14 +18,17 @@ typedef enum data_ready_t
 	DATA_READY
 }data_ready_t;
 
+static uint8_t i2c_request_pending_buffer[I2C_BUFFER_SIZE];
+static volatile uint8_t *ptr_buffer = i2c_request_pending_buffer;
 static uint8_t i2c_buffer_tx[I2C_BUFFER_SIZE];
-static volatile uint8_t TX_index;
+static volatile uint8_t TX_index = 0U;
+static volatile data_ready_t response_ready_en = DATA_NOT_READY;
 
 static uint8_t i2c_buffer_rx[I2C_BUFFER_SIZE];
-static volatile uint8_t RX_index;
+static volatile uint8_t RX_index = 0U;
 //static const uint8_t COMSTR_TX_REQUEST_PENDING[I2C_BUFFER_SIZE] = {};
 
-static volatile data_ready_t data_ready_flag_en = DATA_NOT_READY;
+static volatile data_ready_t RX_data_available_en = DATA_NOT_READY;
 //static volatile bool response_ready_to_deploy = false;
 //static uint8_t temporary_response[I2C_BUFFER_SIZE];
 
@@ -63,11 +66,12 @@ void I2C_irq(void) __irq
 	
 	#define I2C_ACK_BIT ((uint8_t)2U)
 	
-	printf("%02X\n", I2STAT);
+	//printf("I2STAT=%02X\n", I2STAT);
 	switch((uint8_t)I2STAT)
 	{
 		case SLAVE_RX_START_ADDRESSING:
 				RX_index = 0;
+				response_ready_en = DATA_NOT_READY;
 				I2CONSET = (1 << I2C_ACK_BIT);
 			break;
 		 
@@ -86,40 +90,51 @@ void I2C_irq(void) __irq
 			if(RX_index == (uint8_t)1U)
 			{
 
-				i2c_buffer_tx[0] = RX_data_byte;
-				i2c_buffer_tx[1] = I2C_TX_REQUEST_PENDING;
+				i2c_request_pending_buffer[0] = RX_data_byte;
+				i2c_request_pending_buffer[1] = I2C_TX_REQUEST_PENDING;
 				
 				tx_tmp_crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE-2);
-				i2c_buffer_tx[I2C_BUFFER_SIZE-2] = (tx_tmp_crc >> 8) & 0xFF;
-				i2c_buffer_tx[I2C_BUFFER_SIZE-1] = tx_tmp_crc & 0xFF;
+				i2c_request_pending_buffer[I2C_BUFFER_SIZE-2] = (tx_tmp_crc >> 8) & 0xFF;
+				i2c_request_pending_buffer[I2C_BUFFER_SIZE-1] = tx_tmp_crc & 0xFF;
 				
 			} /*Prepare entire temporary response, separation is done in order to not spend much time only on FIRST byte*/
 			else if(RX_index >= I2C_BUFFER_SIZE)
 			{
+				RX_data_available_en = DATA_READY;
 				RX_index = 0;
 			}
 			break;
 			
 		case SLAVE_RX_STOP_CONDITION:
-			data_ready_flag_en = DATA_READY;
+			RX_data_available_en = DATA_READY;
 			I2CONSET = ((uint8_t)1U << I2C_ACK_BIT); 
 			break;
 			
 		case SLAVE_TX_START_ADDRESSING:
 			TX_index = 0;
+			RX_data_available_en = DATA_READY;
+ 			if(DATA_READY == response_ready_en)
+			{
+				ptr_buffer = i2c_buffer_tx;
+				response_ready_en = DATA_NOT_READY;
+			}
+			else if(DATA_NOT_READY == response_ready_en)
+			{
+				ptr_buffer = i2c_request_pending_buffer;
+			}
 
-			I2DAT = i2c_buffer_tx[TX_index];
+			I2DAT = ptr_buffer[TX_index];
 			I2CONSET = ((uint8_t)1U << I2C_ACK_BIT);
 			TX_index ++;
-			for(int i=0; i< 4; i++)
+			/*for(int i=0; i< 4; i++)
 				printf("%02X ", i2c_buffer_tx[i]);
-			printf("\n");
+			printf("\n");*/
 			break;
 		
 		case SLAVE_TX_DATA_READY:
 			if(TX_index < I2C_BUFFER_SIZE)
 			{
-				I2DAT = i2c_buffer_tx[TX_index];
+				I2DAT = ptr_buffer[TX_index];
 				
 				/*If there is only 1 byte left, mark Last Byte and send*/
 				if(TX_index < (I2C_BUFFER_SIZE - 1))
@@ -249,9 +264,9 @@ void I2C_Comm_Manager(void)
 	uint8_t crc_hi, crc_lo; 
 	i2c_requests_t command;
 	state_t command_status;
-	
+
 	/*If data aquisition is ready ( we received a full frame)*/
-	if(DATA_READY == data_ready_flag_en)
+	if(DATA_READY == RX_data_available_en)
 	{
 		crc = compute_crc(i2c_buffer_rx, I2C_BUFFER_SIZE-2);
 		crc_hi = (uint8_t) ((crc >> (uint8_t)8U) & (uint8_t)0xFFU );
@@ -266,9 +281,11 @@ void I2C_Comm_Manager(void)
 			command = i2c_get_command();
 			command_status = i2c_map_requests(command);
 			i2c_set_command_status(command_status);
+			
+			response_ready_en = DATA_READY;
 		}
 		
-		data_ready_flag_en = DATA_NOT_READY;
+		RX_data_available_en = DATA_NOT_READY;
 	}
 }
 

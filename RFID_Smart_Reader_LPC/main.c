@@ -8,6 +8,7 @@
 #include "hal/i2c.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
+//#define UART1_DBG
 
 int main(void)
 {	 

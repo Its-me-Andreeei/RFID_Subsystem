@@ -190,7 +190,7 @@ void Reader_Manager(void)
 		PERMANENT_FAILURE
 	}ReaderManager_state_en;
 	
-	#define MAX_DEBOUNCE_CNT_U8 ((uint8_t)10U)
+	#define MAX_DEBOUNCE_CNT_U8 ((uint8_t)5U)
 	
 	static ReaderManager_state_en current_state_en = START_READING;
 	int8_t temperature = (int8_t)0x00U;
@@ -295,10 +295,11 @@ void Reader_Manager(void)
 			/*Reading temporary stopped by now for temperature measurement*/
 
 			(void)TMR_paramGet(&reader, TMR_PARAM_RADIO_TEMPERATURE, &temperature);
-
+			#ifdef UART1_DBG
 			printf("---\n");
 			printf("%d\n", temperature);
 			printf("---\n");
+			#endif /*UART1_DBG*/
 			
 			
 			if(temperature < 45)
