@@ -8,12 +8,11 @@
 #include "hal/i2c.h"
 #include "ASW/ReaderManager/reader_manager.h"
 
-//#define UART1_DBG
-
 int main(void)
-{	 
-	IO0DIR |= (uint8_t)1 << (uint8_t)23;
-	IO0CLR = (uint8_t)1 << (uint8_t)23;
+{	
+	#define READER_HW_RESET_PIN_U8 ((uint8_t) 23U)
+	IO0DIR |= (uint32_t)1 << READER_HW_RESET_PIN_U8;
+	IO0CLR = (uint32_t)1 << READER_HW_RESET_PIN_U8;
 	
 	TIMER_SOFTWARE_init(); /*This is the SW timer*/
 	TIMER_Init(); /*This is the HW timer*/

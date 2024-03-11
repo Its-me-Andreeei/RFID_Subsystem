@@ -48,24 +48,23 @@ static TMR_Status s_sendBytes(TMR_SR_SerialTransport *this, uint32_t length, uin
    * the serial connection. If the transmission does not complete in
    * timeoutMs milliseconds, it should return TMR_ERROR_TIMEOUT.
    */
-	TMR_Status m_api_result;
+	TMR_Status m_api_result = TMR_SUCCESS;
 	UART_TX_RX_Status_en uart_result;
 	
 	(void)this;
 	uart_result = UART1_sendbuffer(message, length, timeoutMs);
 	
 	/*Perform mapping from UART errors to Mercury API's errors*/
-	if(RETURN_OK == uart_result)
+	if(RETURN_OK != uart_result)
 	{
-		m_api_result = TMR_SUCCESS;
-	}
-	else if(COMMUNICATION_ERROR == uart_result)
-	{
-		m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
-	}
-	else if(TIMEOUT_ERROR == uart_result)
-	{
-		m_api_result = TMR_ERROR_TIMEOUT;
+		if(COMMUNICATION_ERROR == uart_result)
+		{
+			m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
+		}
+		else if(TIMEOUT_ERROR == uart_result)
+		{
+			m_api_result = TMR_ERROR_TIMEOUT;
+		}
 	}
 	
 	return m_api_result;
@@ -80,25 +79,25 @@ static TMR_Status s_receiveBytes(TMR_SR_SerialTransport *this, uint32_t length, 
    * timeoutMs milliseconds, it should return TMR_ERROR_TIMEOUT.
    */
 	
-	TMR_Status m_api_result;
+	TMR_Status m_api_result = TMR_SUCCESS;
 	UART_TX_RX_Status_en uart_result;
 	
 	(void)this;
 	uart_result = UART1_receivebuffer(message, length, messageLength, timeoutMs);
 	
 	/*Perform mapping from UART errors to Mercury API's errors*/
-	if(RETURN_OK == uart_result)
+	if(RETURN_OK != uart_result)
 	{
-		m_api_result = TMR_SUCCESS;
+		if(COMMUNICATION_ERROR == uart_result)
+		{
+			m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
+		}
+		else if(TIMEOUT_ERROR == uart_result)
+		{
+			m_api_result = TMR_ERROR_TIMEOUT;
+		}
 	}
-	else if(COMMUNICATION_ERROR == uart_result)
-	{
-		m_api_result = TMR_ERROR_COMM_ERRORS_HOST;
-	}
-	else if(TIMEOUT_ERROR == uart_result)
-	{
-		m_api_result = TMR_ERROR_TIMEOUT;
-	}
+	
 	
   return m_api_result; 
 }

@@ -18,19 +18,12 @@ typedef enum data_ready_t
 	DATA_READY
 }data_ready_t;
 
-static uint8_t i2c_request_pending_buffer[I2C_BUFFER_SIZE];
-static volatile uint8_t *ptr_buffer = i2c_request_pending_buffer;
+
 static uint8_t i2c_buffer_tx[I2C_BUFFER_SIZE];
-static volatile uint8_t TX_index = 0U;
-static volatile data_ready_t response_ready_en = DATA_NOT_READY;
-
 static uint8_t i2c_buffer_rx[I2C_BUFFER_SIZE];
-static volatile uint8_t RX_index = 0U;
-//static const uint8_t COMSTR_TX_REQUEST_PENDING[I2C_BUFFER_SIZE] = {};
 
+static volatile data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile data_ready_t RX_data_available_en = DATA_NOT_READY;
-//static volatile bool response_ready_to_deploy = false;
-//static uint8_t temporary_response[I2C_BUFFER_SIZE];
 
 void i2c_init(void)
 {
@@ -41,7 +34,7 @@ void i2c_init(void)
 	PINSEL0 |= 0x50U;
 	
 	/*I2C node will operate in SLAVE mode*/
-	I2ADR = (I2C_SLAVE_ADDR << 1) | 0x01;
+	I2ADR = (I2C_SLAVE_ADDR << 1U) | 0x01U;
 	
 	/*Enable I2C interface and enable ACK option*/
 	I2CONSET = ((uint8_t)1U << I2C_ACK_BIT) | ((uint8_t)1U << I2C_ENABLE_BIT);
@@ -51,6 +44,10 @@ void I2C_irq(void) __irq
 {
 	uint8_t RX_data_byte;
 	uint16_t tx_tmp_crc;
+	static uint8_t TX_index = 0U;
+	static uint8_t RX_index = 0U;
+	static uint8_t i2c_request_pending_buffer[I2C_BUFFER_SIZE];
+	static uint8_t *ptr_buffer = i2c_request_pending_buffer;
 	
 	#define CLEAR_ISR_BIT ((uint8_t)3U)
 	#define I2C_ACK_BIT ((uint8_t)2U)

@@ -261,7 +261,7 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 {
 	UART_TX_RX_Status_en result = RETURN_OK; 
 	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
-	uint16_t ringBuffLength = (uint8_t)0U;
+	uint16_t ringBuffLength;
 	uint8_t index = (uint8_t)0U;
 	#ifdef UART1_DBG
 	uint16_t index_dbg = 0x0000;
