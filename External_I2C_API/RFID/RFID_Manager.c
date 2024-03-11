@@ -59,39 +59,41 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
         }
         else
         {
-            i2c_comm_state = i2c_receiveMessage(rx_message, I2C_MESSAGE_LEN_U8);
-            if(STATE_NOK == i2c_comm_state)
-            {
-                result = RFID_REQUEST_NOK_RX_COMM_ERROR;
-            }
-            else
-            {
-                if(rx_message[COMMAND_BIT_POS_U8] != tx_message[COMMAND_BIT_POS_U8])
+            do{
+                i2c_comm_state = i2c_receiveMessage(rx_message, I2C_MESSAGE_LEN_U8);
+                if(STATE_NOK == i2c_comm_state)
                 {
                     result = RFID_REQUEST_NOK_RX_COMM_ERROR;
                 }
                 else
                 {
-                    crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
-                    if((rx_message[CRC_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
-                    (rx_message[CRC_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
+                    if(rx_message[COMMAND_BIT_POS_U8] != tx_message[COMMAND_BIT_POS_U8])
                     {
-                        result = RFID_REQUEST_NOK_INVALID_CRC;
+                        result = RFID_REQUEST_NOK_RX_COMM_ERROR;
                     }
                     else
                     {
-                        if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
+                        crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
+                        if((rx_message[CRC_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
+                        (rx_message[CRC_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
                         {
-                            result = RFID_REQUEST_PENDING;
+                            result = RFID_REQUEST_NOK_INVALID_CRC;
                         }
                         else
                         {
-                            *out_data = rx_message[DATA_BIT_POS_U8];
-                            result = RFID_REQUEST_OK;
+                            if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
+                            {
+                                result = RFID_REQUEST_PENDING;
+                            }
+                            else
+                            {
+                                *out_data = rx_message[DATA_BIT_POS_U8];
+                                result = RFID_REQUEST_OK;
+                            }
                         }
                     }
                 }
-            }
+            }while(i2c_comm_state == RFID_REQUEST_PENDING);
         }
     }
 
