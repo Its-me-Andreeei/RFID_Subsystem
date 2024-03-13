@@ -3,6 +3,7 @@
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 
 #define TEMPERATURE_CHECK_TIMEOUT 10000
+#define STATUS_NO_ON_ROUTE_TIMEOUT 2000
 #define RESET_PIN_READER_U8 ((uint8_t)23U)
 
 /*This is the maximum number of times we perform recovery sequences in case of lost communication*/

@@ -12,6 +12,7 @@
 static TMR_Reader reader;
 static TMR_TagReadData data;
 static timer_software_handler_t timer_reader; 
+static timer_software_handler_t timer_route_status;
 static route_status_t route_status = ON_THE_ROUTE;
 
 
@@ -91,6 +92,10 @@ void ReaderManagerInit(void)
 	timer_reader = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_reader, MODE_0, TEMPERATURE_CHECK_TIMEOUT, 1);
 	TIMER_SOFTWARE_reset_timer(timer_reader);
+	
+	timer_route_status = TIMER_SOFTWARE_request_timer();
+	TIMER_SOFTWARE_configure_timer(timer_route_status, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
+	TIMER_SOFTWARE_reset_timer(timer_route_status);
 }
 
 
@@ -125,7 +130,10 @@ static bool_t reader_recovery()
 	uint8_t index;
 	uint8_t number_of_correct_pings = (uint8_t)0x00;
 	
+	#ifdef UART1_DBG
 	printf("---------chip recovery----\n");
+	#endif /*UART1_DBG*/
+	
 	while((recovery_sequence_counter > (uint8_t)0U) && (result == FALSE))
 	{
 		/*Reset number of correct ping results after each retry*/
@@ -167,13 +175,15 @@ static bool_t reader_recovery()
 			recovery_sequence_counter --;
 		}
 	}
+	#ifdef UART1_DBG
 	printf("NUM_SEQ= %d\n", recovery_sequence_counter);
 	printf("---end chip recovery----\n");
+	#endif /*UART1_DBG*/
 	return result; 
 }
 
 /*************************************************************************************************************************************************
-	Function: 		ReaderManagerInit
+	Function: 		Reader_Manager
 	Description:	This manager handles the RFID reader, as a state machine. Must be called cyclically. Must not be called before ReaderInit() function
 	Parameters: 	void
 	Return value:	void
@@ -190,13 +200,10 @@ void Reader_Manager(void)
 		PERMANENT_FAILURE
 	}ReaderManager_state_en;
 	
-	#define MAX_DEBOUNCE_CNT_U8 ((uint8_t)5U)
-	
 	static ReaderManager_state_en current_state_en = START_READING;
 	int8_t temperature = (int8_t)0x00U;
-	static uint8_t request_temp_check_after_stop= (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
+	static uint8_t request_temp_check_after_stop = (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
-	static uint8_t tags_debounce_counter_u8 = 0x00U;
 	
 	switch(current_state_en)
 	{
@@ -238,41 +245,46 @@ void Reader_Manager(void)
 				TIMER_SOFTWARE_start_timer(timer_reader);
 			}
 			
+			/*Check if it's first reading iteration and timer has to be started*/
+			if(!TIMER_SOFTWARE_interrupt_pending(timer_route_status) && !TIMER_SOFTWARE_is_Running(timer_route_status))
+			{
+				TIMER_SOFTWARE_reset_timer(timer_route_status);
+				TIMER_SOFTWARE_start_timer(timer_route_status);
+			}
+			
 			/*Check if there are tags available*/
 			if(TMR_SUCCESS == TMR_hasMoreTags(&reader))
 			{
 				TMR_getNextTag(&reader, &data);
+				
+				#ifdef PRINT_EPC_DBG
 				printf("EPC:" );
 				for(uint16_t i = 0; i< data.tag.epcByteCount; i++)
 				{
 					printf("%02X ", data.tag.epc[i]);
 				}
+				printf("\n");
+				#endif /*PRINT_EPC_DBG*/
+				
 				if(true == validate_tag_criteria(data.tag.epc, data.tag.epcByteCount))
 				{
 					/*Set flag regarding "on route" status*/
 					route_status = ON_THE_ROUTE;
 					
-					/*Reset debounce counter*/
-					tags_debounce_counter_u8 = 0;
+					/*Reset timer if already got positive response*/
+					(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
+					TIMER_SOFTWARE_clear_interrupt(timer_route_status);
+					TIMER_SOFTWARE_reset_timer(timer_route_status);
 				}
-				else
-				{
-					tags_debounce_counter_u8 ++;
-				}
-				printf("\n");
-			}
-			else
-			{
-				tags_debounce_counter_u8 ++;
 			}
 			
-			if(tags_debounce_counter_u8 == MAX_DEBOUNCE_CNT_U8)
+			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
 			{
+				TIMER_SOFTWARE_clear_interrupt(timer_route_status);
+				TIMER_SOFTWARE_reset_timer(timer_route_status);
+				
 				/*After enough missings, declare not on route status*/
 				route_status = NOT_ON_ROUTE;
-				
-				/*Reset event counter*/
-				tags_debounce_counter_u8 = 0U;
 			}
 			
 			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
@@ -280,8 +292,11 @@ void Reader_Manager(void)
 			{
 				TIMER_SOFTWARE_clear_interrupt(timer_reader);
 				
-				/*Request to manager to go to check temperature only after RF emissions are off*/
-				request_temp_check_after_stop = 0x01;
+				(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
+				TIMER_SOFTWARE_reset_timer(timer_route_status);
+				
+				/*Request to manager to go to check temperature only after RF emissions are off. Might add An enum if more cases will be possible from STOP state*/
+				request_temp_check_after_stop = (uint8_t)0x01U;
 				
 				current_state_en = STOP_READING;
 			}
@@ -302,7 +317,7 @@ void Reader_Manager(void)
 			#endif /*UART1_DBG*/
 			
 			
-			if(temperature < 45)
+			if(temperature < 45U)
 			{
 				/*If temperature is acceptable but we are in LP due to a previous overtemperature*/
 				if(TMR_SR_POWER_MODE_FULL != powerManagementRequest)
@@ -314,7 +329,7 @@ void Reader_Manager(void)
 				/*We can keep reading as temperature is OK*/
 				current_state_en = START_READING;
 			}
-			if(temperature >=45 && temperature < 55) /*thermal warning*/
+			if(temperature >=45U && temperature < 55U) /*thermal warning*/
 			{
 				
 				if(TMR_SR_POWER_MODE_MEDSAVE != powerManagementRequest)
@@ -359,20 +374,29 @@ void Reader_Manager(void)
 		{
 			TIMER_SOFTWARE_Wait(500);
 			(void)TMR_stopReading(&reader);
+			
+			#ifdef UART1_DBG
 			printf("COMM ERROR: ");
 			printf("%d\n", UART1_get_CommErrors());
+			#endif /*UART1_DBG*/
 			
 			/*Check if chip recovery is successfull*/
 			if((uint8_t)0x01U == reader_recovery())
 			{
 				current_state_en = MODULE_INIT;
+				
+				#ifdef UART1_DBG
 				printf("RECOVERED\n");
+				#endif /*UART1_DBG*/
 			}
 			else
 			{
 				
 				current_state_en = PERMANENT_FAILURE;
+				
+				#ifdef UART1_DBG
 				printf("PERMANENT_FAILURE\n");
+				#endif /*UART1_DBG*/
 			}		
 		}
 	}
