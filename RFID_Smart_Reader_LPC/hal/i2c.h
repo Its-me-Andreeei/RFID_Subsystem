@@ -3,11 +3,6 @@
 
 #include <stdint.h>
 #include "../utils/ringbuf.h"
-typedef enum state_t{
-	STATE_OK,
-	STATE_NOK,
-	STATE_PENDING
-}state_t;
 
 #define I2C_SLAVE_ADDR ((uint8_t)0x08U)
 
@@ -39,9 +34,6 @@ PING signal:
 
 
 void i2c_init(void);
-
-void i2c_set_command_status(state_t status);
-i2c_requests_t i2c_get_command(void);
 void I2C_Comm_Manager(void);
 
 #endif

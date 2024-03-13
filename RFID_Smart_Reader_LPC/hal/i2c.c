@@ -25,6 +25,12 @@ static uint8_t i2c_buffer_rx[I2C_BUFFER_SIZE];
 static volatile data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile data_ready_t RX_data_available_en = DATA_NOT_READY;
 
+typedef enum state_t{
+	STATE_OK,
+	STATE_NOK,
+	STATE_PENDING
+}state_t;
+
 void i2c_init(void)
 {
 	#define I2C_ENABLE_BIT ((uint8_t)6U)
@@ -169,7 +175,7 @@ void I2C_irq(void) __irq
 	VICVectAddr = 0;
 }
 
-void i2c_set_command_status(state_t status)
+static void i2c_set_command_status(state_t status)
 {
 	uint16_t crc;
 	
@@ -195,7 +201,7 @@ void i2c_set_command_status(state_t status)
 	i2c_buffer_tx[I2C_BUFFER_SIZE-1] = crc & 0xFF;	
 }
 
-i2c_requests_t i2c_get_command(void)
+static i2c_requests_t i2c_get_command(void)
 {
 	i2c_requests_t command;
 	if(i2c_buffer_tx[0] >= (uint8_t)INVALID)
@@ -210,7 +216,7 @@ i2c_requests_t i2c_get_command(void)
 	return command;
 }
 
-state_t i2c_map_requests(i2c_requests_t command)
+state_t i2c_decode_requests(i2c_requests_t command)
 {
 	state_t result = STATE_PENDING;
 	route_status_t route_status;
@@ -276,7 +282,7 @@ void I2C_Comm_Manager(void)
 		else
 		{
 			command = i2c_get_command();
-			command_status = i2c_map_requests(command);
+			command_status = i2c_decode_requests(command);
 			i2c_set_command_status(command_status);
 			
 			response_ready_en = DATA_READY;
