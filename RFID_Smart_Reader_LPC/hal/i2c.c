@@ -3,12 +3,14 @@
 #include "i2c_ISR.h"
 #include "../utils/crc.h"
 #include <stdio.h>
+#include <string.h>
 #include "../ASW/ReaderManager/reader_manager.h"
 
 #define I2C_BUFFER_SIZE_U8 ((uint8_t)4U)
 
 #define I2C_COMMAND_BIT_POS_U8 ((uint8_t)0U)
 #define I2C_STATUS_BIT_POS_U8 ((uint8_t)1U)
+#define I2C_DATA_IN_BIT_POS_U8 ((uint8_t)1U)
 #define I2C_CRC_HI_BIT_POS_U8 (I2C_BUFFER_SIZE_U8 - (uint8_t)2U)
 #define I2C_CRC_LO_BIT_POS_U8 (I2C_BUFFER_SIZE_U8 - (uint8_t)1U)
 
@@ -92,35 +94,46 @@ void I2C_irq(void) __irq
 			/*If we just wrote the first byte, which is the COMMAND byte, also write it in TX buffer for response*/
 			if(RX_index == (uint8_t)1U)
 			{
-
-				i2c_request_pending_buffer[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
-				i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
-				
-				i2c_request_pending_buffer[I2C_STATUS_BIT_POS_U8] = (uint8_t)STATE_PENDING;
-				
-				tx_tmp_crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE_U8-2);
-				i2c_request_pending_buffer[I2C_CRC_HI_BIT_POS_U8] = (tx_tmp_crc >> 8) & 0xFF;
-				i2c_request_pending_buffer[I2C_CRC_LO_BIT_POS_U8] = tx_tmp_crc & 0xFF;
-				
-				
+				/*Check If we have a PING signal, then compute it's whole value. 
+				No Manager should be involved as it is only used to check communication, with instant response*/
+				if(i2c_buffer_rx[I2C_COMMAND_BIT_POS_U8] == I2C_REQUEST_PING)
+				{
+					(void)memset(i2c_request_pending_buffer, I2C_REQUEST_PING, I2C_BUFFER_SIZE_U8);
+				}
+				else
+				{
+					i2c_request_pending_buffer[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
+					i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
+					
+					i2c_request_pending_buffer[I2C_STATUS_BIT_POS_U8] = (uint8_t)STATE_PENDING;
+					
+					tx_tmp_crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE_U8-2);
+					i2c_request_pending_buffer[I2C_CRC_HI_BIT_POS_U8] = (tx_tmp_crc >> 8) & 0xFF;
+					i2c_request_pending_buffer[I2C_CRC_LO_BIT_POS_U8] = tx_tmp_crc & 0xFF;
+				}
 				
 			} /*Prepare entire temporary response, separation is done in order to not spend much time only on FIRST byte*/
 			else if(RX_index >= I2C_BUFFER_SIZE_U8)
 			{
-				RX_data_available_en = DATA_READY;
 				RX_index = 0;
 			}
 			break;
 			
 		case SLAVE_RX_STOP_CONDITION:
-			RX_data_available_en = DATA_READY;
 			I2CONSET = ((uint8_t)1U << I2C_ACK_BIT_U8); 
 			break;
 			
 		case SLAVE_TX_START_ADDRESSING:
 			TX_index = 0;
-		
-			RX_data_available_en = DATA_READY;
+			
+			if(I2C_REQUEST_PING == i2c_buffer_rx[I2C_COMMAND_BIT_POS_U8])
+			{
+				RX_data_available_en = DATA_NOT_READY;
+			}
+			else
+			{
+				RX_data_available_en = DATA_READY;
+			}
 		
  			if(DATA_READY == response_ready_en)
 			{
@@ -135,9 +148,6 @@ void I2C_irq(void) __irq
 			I2DAT = ptr_buffer[TX_index];
 			I2CONSET = ((uint8_t)1U << I2C_ACK_BIT_U8);
 			TX_index ++;
-			/*for(int i=0; i< 4; i++)
-				printf("%02X ", i2c_buffer_tx[i]);
-			printf("\n");*/
 			break;
 		
 		case SLAVE_TX_DATA_READY:
