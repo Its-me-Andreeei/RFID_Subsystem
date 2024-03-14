@@ -8,11 +8,11 @@
 
 typedef enum i2c_requests_t
 {
-	GET_ROUTE_STATUS,
-	PING = 0x01,
-	GO_TO_SLEEP,
-	WAKE_UP,
-	INVALID
+	GET_ROUTE_STATUS 	= 0x00,
+	PING 						 	= 0x01,
+	GO_TO_SLEEP 			= 0x02,
+	WAKE_UP						= 0x03,
+	INVALID						= 0x04
 }i2c_requests_t;
 
 /**********************
