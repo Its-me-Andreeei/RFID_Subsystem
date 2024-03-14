@@ -7,11 +7,6 @@
 
 #define I2C_BUFFER_SIZE_U8 ((uint8_t)4U)
 
-#define I2C_TX_REQUEST_SUCCESS_U8 ((uint8_t)0x00U)
-#define I2C_TX_REQUEST_FAILURE_U8 ((uint8_t)0x01U)
-#define I2C_TX_REQUEST_PENDING_U8 ((uint8_t)0x02U)
-#define I2C_TX_REQUEST_INVALID_U8 ((uint8_t)0x03U)
-
 #define I2C_COMMAND_BIT_POS_U8 ((uint8_t)0U)
 #define I2C_STATUS_BIT_POS_U8 ((uint8_t)1U)
 #define I2C_CRC_HI_BIT_POS_U8 (I2C_BUFFER_SIZE_U8 - (uint8_t)2U)
@@ -31,9 +26,9 @@ static volatile data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile data_ready_t RX_data_available_en = DATA_NOT_READY;
 
 typedef enum state_t{
-	STATE_OK,
-	STATE_NOK,
-	STATE_PENDING,
+	STATE_OK			= 0x00,
+	STATE_NOK			= 0x01,
+	STATE_PENDING	= 0x02,
 	STATE_INVALID = 0xFF
 }state_t;
 
@@ -75,7 +70,6 @@ void I2C_irq(void) __irq
 	
 	#define I2C_ACK_BIT_U8 ((uint8_t)2U)
 	
-	//printf("I2STAT=%02X\n", I2STAT);
 	switch((uint8_t)I2STAT)
 	{
 		case SLAVE_RX_START_ADDRESSING:
@@ -99,14 +93,14 @@ void I2C_irq(void) __irq
 			if(RX_index == (uint8_t)1U)
 			{
 
-				i2c_request_pending_buffer[0] = RX_data_byte;
-				i2c_buffer_tx[0] = RX_data_byte;
+				i2c_request_pending_buffer[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
+				i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
 				
-				i2c_request_pending_buffer[1] = I2C_TX_REQUEST_PENDING_U8;
+				i2c_request_pending_buffer[I2C_STATUS_BIT_POS_U8] = (uint8_t)STATE_PENDING;
 				
 				tx_tmp_crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE_U8-2);
-				i2c_request_pending_buffer[I2C_BUFFER_SIZE_U8-2] = (tx_tmp_crc >> 8) & 0xFF;
-				i2c_request_pending_buffer[I2C_BUFFER_SIZE_U8-1] = tx_tmp_crc & 0xFF;
+				i2c_request_pending_buffer[I2C_CRC_HI_BIT_POS_U8] = (tx_tmp_crc >> 8) & 0xFF;
+				i2c_request_pending_buffer[I2C_CRC_LO_BIT_POS_U8] = tx_tmp_crc & 0xFF;
 				
 				
 				
@@ -125,7 +119,9 @@ void I2C_irq(void) __irq
 			
 		case SLAVE_TX_START_ADDRESSING:
 			TX_index = 0;
+		
 			RX_data_available_en = DATA_READY;
+		
  			if(DATA_READY == response_ready_en)
 			{
 				ptr_buffer = i2c_buffer_tx;
@@ -189,38 +185,24 @@ static void i2c_set_command_status(state_t status)
 {
 	uint16_t crc;
 	
-	if(STATE_OK == status)
-	{
-		i2c_buffer_tx[1] = I2C_TX_REQUEST_SUCCESS_U8;
-	}
-	else if(STATE_NOK == status)
-	{
-		i2c_buffer_tx[1] = I2C_TX_REQUEST_FAILURE_U8;
-	}
-	else if(STATE_PENDING == status)
-	{
-		i2c_buffer_tx[1] = I2C_TX_REQUEST_PENDING_U8;
-	}
-	else
-	{
-		i2c_buffer_tx[1] = I2C_TX_REQUEST_INVALID_U8;
-	}
+	i2c_buffer_tx[I2C_STATUS_BIT_POS_U8] = status;
 	
 	crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE_U8-2);
-	i2c_buffer_tx[I2C_BUFFER_SIZE_U8-2] = (crc >> 8) & 0xFF;
-	i2c_buffer_tx[I2C_BUFFER_SIZE_U8-1] = crc & 0xFF;	
+	
+	i2c_buffer_tx[I2C_CRC_HI_BIT_POS_U8] = (crc >> 8) & 0xFF;
+	i2c_buffer_tx[I2C_CRC_LO_BIT_POS_U8] = crc & 0xFF;	
 }
 
 static i2c_requests_t i2c_get_command(void)
 {
 	i2c_requests_t command;
-	if(i2c_buffer_tx[0] >= (uint8_t)INVALID)
+	if(i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8] >= (uint8_t)I2C_REQUEST_INVALID)
 	{
-		command = INVALID;
+		command = I2C_REQUEST_INVALID;
 	}
 	else
 	{
-		command = (i2c_requests_t)i2c_buffer_tx[0];
+		command = (i2c_requests_t)i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8];
 	}
 	
 	return command;
@@ -233,7 +215,7 @@ state_t i2c_decode_requests(i2c_requests_t command)
 	
 	switch(command)
 	{
-		case GET_ROUTE_STATUS:
+		case I2C_REQUEST_GET_ROUTE_STATUS:
 			route_status = Reader_GET_route_status();
 			if(ON_THE_ROUTE == route_status)
 			{
@@ -249,19 +231,19 @@ state_t i2c_decode_requests(i2c_requests_t command)
 			}
 			break;
 		
-		case PING:
+		case I2C_REQUEST_PING:
 			result = STATE_INVALID;
 			break;
 		
-		case WAKE_UP:
+		case I2C_REQUEST_WAKE_UP:
 			result = STATE_INVALID;
 			break; 
 		
-		case GO_TO_SLEEP:
+		case I2C_REQUEST_GO_TO_SLEEP:
 			result = STATE_INVALID;
 			break;
 		
-		case INVALID:
+		case I2C_REQUEST_INVALID:
 			result = STATE_INVALID;
 			break;
 		
@@ -285,7 +267,7 @@ void I2C_Comm_Manager(void)
 		crc_hi = (uint8_t) ((crc >> (uint8_t)8U) & (uint8_t)0xFFU );
 		crc_lo = (uint8_t) (crc & (uint8_t)0xFFU );
 		
-		if((crc_hi != i2c_buffer_rx[I2C_BUFFER_SIZE_U8-2]) || (crc_lo != i2c_buffer_rx[I2C_BUFFER_SIZE_U8 -1]))
+		if((crc_hi != i2c_buffer_rx[I2C_CRC_HI_BIT_POS_U8]) || (crc_lo != i2c_buffer_rx[I2C_CRC_LO_BIT_POS_U8]))
 		{
 			i2c_set_command_status(STATE_NOK);
 			response_ready_en = DATA_READY; 
