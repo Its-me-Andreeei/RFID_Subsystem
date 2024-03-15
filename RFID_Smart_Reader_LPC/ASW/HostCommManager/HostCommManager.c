@@ -1,0 +1,86 @@
+#include <stdint.h>
+
+#include "../../hal/i2c.h"
+#include "../ReaderManager/reader_manager.h"
+#include "HostCommManager.h"
+
+static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
+{
+	i2c_command_status_t result = STATE_PENDING;
+	route_status_t route_status;
+	
+	switch(command)
+	{
+		case I2C_REQUEST_GET_ROUTE_STATUS:
+			route_status = Reader_GET_route_status();
+			if(ON_THE_ROUTE == route_status)
+			{
+				result = STATE_OK;
+			}
+			else if(NOT_ON_ROUTE == route_status)
+			{
+				result = STATE_NOK;
+			}
+			else if(ROUTE_PENDING == route_status)
+			{
+				result = STATE_PENDING;
+			}
+			break;
+		
+		case I2C_REQUEST_PING:
+			result = STATE_INVALID;
+			break;
+		
+		case I2C_REQUEST_WAKE_UP:
+			result = STATE_INVALID;
+			break; 
+		
+		case I2C_REQUEST_GO_TO_SLEEP:
+			result = STATE_INVALID;
+			break;
+		
+		case I2C_REQUEST_INVALID:
+			result = STATE_INVALID;
+			break;
+		
+		default: 
+			result = STATE_INVALID;
+	}
+	return result;
+}
+
+void HostComm_Manager(void)
+{
+	i2c_requests_t command;
+	i2c_command_status_t command_status;
+	i2c_data_ready_t RX_data_available_en;
+	
+	RX_data_available_en = i2c_get_RX_ready_status();
+	
+	/*If data aquisition is ready ( we received a full frame)*/
+	if(DATA_READY == RX_data_available_en)
+	{
+		/*Compute CRC on length-2 bytes (all bytes except CRC from host, to see if they match*/
+		if(false == i2c_check_CRC_after_RX_finish())
+		{
+			/*Mark CRC as invalid -> corrupted data*/
+			i2c_set_command_status(STATE_NOK);
+			
+			/*send response to host*/
+			i2c_set_response_ready_status(DATA_READY); 
+		}
+		else
+		{
+			/*Get the current command, decode and process it, set status after processing*/
+			command = i2c_get_command();
+			command_status = HostComm_decode_requests(command);
+			i2c_set_command_status(command_status);
+			
+			/*send response to host*/
+			i2c_set_response_ready_status(DATA_READY); 
+		}
+		
+		/*Open to new RX transmission*/
+		i2c_set_RX_ready_status(DATA_NOT_READY);
+	}
+}

@@ -556,6 +556,11 @@
               <FileType>1</FileType>
               <FilePath>.\ASW\ReaderManager\reader_manager.c</FilePath>
             </File>
+            <File>
+              <FileName>HostCommManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ASW\HostCommManager\HostCommManager.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

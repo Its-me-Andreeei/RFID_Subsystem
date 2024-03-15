@@ -6,7 +6,9 @@
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
 #include "hal/i2c.h"
+
 #include "ASW/ReaderManager/reader_manager.h"
+#include "ASW/HostCommManager/HostCommManager.h"
 
 int main(void)
 {	
@@ -30,7 +32,7 @@ int main(void)
 	while(1)
 	{
 			Reader_Manager();
-			I2C_Comm_Manager();
+			HostComm_Manager();
 	}
 	return 0;
 }
