@@ -21,7 +21,7 @@ static uint8_t i2c_buffer_rx[I2C_BUFFER_SIZE_U8];
 static volatile i2c_data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile i2c_data_ready_t RX_data_available_en = DATA_NOT_READY;
 
-void i2c_init(void)
+void I2C_init(void)
 {
 	#define I2C_ENABLE_BIT_U8 ((uint8_t)6U)
 	#define I2C_ACK_BIT_U8 ((uint8_t)2U)

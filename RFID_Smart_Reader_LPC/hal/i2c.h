@@ -46,7 +46,7 @@ PING signal:
 **********************/
 
 
-void i2c_init(void);
+void I2C_init(void);
 
 i2c_requests_t i2c_get_command(void);
 void i2c_set_command_status(i2c_command_status_t status);

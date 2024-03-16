@@ -6,6 +6,7 @@
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
 #include "hal/i2c.h"
+#include "hal/spi.h"
 
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
@@ -20,7 +21,9 @@ int main(void)
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
-	i2c_init();
+	I2C_init();
+	SPI0_init();
+	
 	printf("Main");
 
 	 InitInterrupt();
