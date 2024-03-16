@@ -487,9 +487,9 @@
               <FilePath>.\hal\i2c.c</FilePath>
             </File>
             <File>
-              <FileName>i2c_ISR.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\hal\i2c_ISR.h</FilePath>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hal\spi.c</FilePath>
             </File>
           </Files>
         </Group>

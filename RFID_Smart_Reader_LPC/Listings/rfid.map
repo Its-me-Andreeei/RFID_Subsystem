@@ -2368,143 +2368,143 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      272  startup.o(RESET)
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0_sigfpe.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor_intlibspace.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0_sigfpe.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  mutex_dummy.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  rtudiv10.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv_div0.o ABSOLUTE
-    ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi_div0.o ABSOLUTE
     ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_realloc.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
+    ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi_div0.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_realloc_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_realloc.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc.o ABSOLUTE
-    ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
+    ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  malloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  realloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  term_alloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  term_alloc.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxa.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memmove_w.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  strcmp.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  aeabi_memset.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  strncpy.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memmove.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  strncpy.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  aeabi_memset.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  strcmp.o ABSOLUTE
     ../clib/misc.s                           0x00000000   Number         0  printf_stubs.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __2sprintf.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  noretval__2printf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_char_file.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  noretval__2sprintf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ptr.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_pad.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_str.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_dec.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ll.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ll.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ptr.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ptr.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ll_ptr.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ll_ptr.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ll_ptr.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ll_ptr.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ptr.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  noretval__2sprintf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __2sprintf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __2printf.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_x.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  noretval__2printf.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_d.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_x.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strtok_int.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  memcmp.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strtok.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strspn.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strncmp.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strcspn.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  memcmp.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strspn.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strtok.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
     ASW\HostCommManager\HostCommManager.c    0x00000000   Number         0  hostcommmanager.o ABSOLUTE
     ASW\ReaderManager\reader_manager.c       0x00000000   Number         0  reader_manager.o ABSOLUTE
@@ -2513,6 +2513,7 @@ Image Symbol Table
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     hal\ISR_manager.c                        0x00000000   Number         0  isr_manager.o ABSOLUTE
     hal\i2c.c                                0x00000000   Number         0  i2c.o ABSOLUTE
+    hal\spi.c                                0x00000000   Number         0  spi.o ABSOLUTE
     hal\timer.c                              0x00000000   Number         0  timer.o ABSOLUTE
     hal\uart0.c                              0x00000000   Number         0  uart0.o ABSOLUTE
     hal\uart1.c                              0x00000000   Number         0  uart1.o ABSOLUTE
@@ -3342,121 +3343,121 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x00000110   Code   RO            3    RESET               startup.o
-    0x00000110   0x00000110   0x00000008   Code   RO         3693  * !!!main             c_t.l(__main.o)
-    0x00000118   0x00000118   0x0000003c   Code   RO         3929    !!!scatter          c_t.l(__scatter.o)
-    0x00000154   0x00000154   0x00000028   Code   RO         3931    !!handler_copy      c_t.l(__scatter_copy.o)
-    0x0000017c   0x0000017c   0x0000002c   Code   RO         3933    !!handler_zi        c_t.l(__scatter_zi.o)
-    0x000001a8   0x000001a8   0x00000004   Ven    RO         3649    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
-    0x000001ac   0x000001ac   0x00000000   Code   RO         3649    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
-    0x000001ac   0x000001ac   0x00000008   Code   RO         3648    .ARM.Collect$$_printf_percent$$00000009  c_t.l(_printf_d.o)
-    0x000001b4   0x000001b4   0x00000008   Code   RO         3647    .ARM.Collect$$_printf_percent$$0000000C  c_t.l(_printf_x.o)
-    0x000001bc   0x000001bc   0x00000008   Code   RO         3646    .ARM.Collect$$_printf_percent$$00000014  c_t.l(_printf_s.o)
-    0x000001c4   0x000001c4   0x00000008   Code   RO         3743    .ARM.Collect$$_printf_percent$$00000017  c_t.l(_printf_percent_end.o)
-    0x000001cc   0x000001cc   0x00000008   Ven    RO         3872    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
-    0x000001d4   0x000001d4   0x00000002   Code   RO         3872    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3753    .ARM.Collect$$libinit$$00000002  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3755    .ARM.Collect$$libinit$$00000004  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3758    .ARM.Collect$$libinit$$0000000A  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3760    .ARM.Collect$$libinit$$0000000C  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3762    .ARM.Collect$$libinit$$0000000E  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3765    .ARM.Collect$$libinit$$00000011  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3767    .ARM.Collect$$libinit$$00000013  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3769    .ARM.Collect$$libinit$$00000015  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3771    .ARM.Collect$$libinit$$00000017  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3773    .ARM.Collect$$libinit$$00000019  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3775    .ARM.Collect$$libinit$$0000001B  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3777    .ARM.Collect$$libinit$$0000001D  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3779    .ARM.Collect$$libinit$$0000001F  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3781    .ARM.Collect$$libinit$$00000021  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3783    .ARM.Collect$$libinit$$00000023  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3785    .ARM.Collect$$libinit$$00000025  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3789    .ARM.Collect$$libinit$$0000002C  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3791    .ARM.Collect$$libinit$$0000002E  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3793    .ARM.Collect$$libinit$$00000030  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x00000000   Code   RO         3795    .ARM.Collect$$libinit$$00000032  c_t.l(libinit2.o)
-    0x000001d6   0x000001d6   0x0000000c   Code   RO         3796    .ARM.Collect$$libinit$$00000033  c_t.l(libinit2.o)
+    0x00000110   0x00000110   0x00000008   Code   RO         3705  * !!!main             c_t.l(__main.o)
+    0x00000118   0x00000118   0x0000003c   Code   RO         3941    !!!scatter          c_t.l(__scatter.o)
+    0x00000154   0x00000154   0x00000028   Code   RO         3943    !!handler_copy      c_t.l(__scatter_copy.o)
+    0x0000017c   0x0000017c   0x0000002c   Code   RO         3945    !!handler_zi        c_t.l(__scatter_zi.o)
+    0x000001a8   0x000001a8   0x00000004   Ven    RO         3661    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
+    0x000001ac   0x000001ac   0x00000000   Code   RO         3661    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
+    0x000001ac   0x000001ac   0x00000008   Code   RO         3660    .ARM.Collect$$_printf_percent$$00000009  c_t.l(_printf_d.o)
+    0x000001b4   0x000001b4   0x00000008   Code   RO         3659    .ARM.Collect$$_printf_percent$$0000000C  c_t.l(_printf_x.o)
+    0x000001bc   0x000001bc   0x00000008   Code   RO         3658    .ARM.Collect$$_printf_percent$$00000014  c_t.l(_printf_s.o)
+    0x000001c4   0x000001c4   0x00000008   Code   RO         3755    .ARM.Collect$$_printf_percent$$00000017  c_t.l(_printf_percent_end.o)
+    0x000001cc   0x000001cc   0x00000008   Ven    RO         3884    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
+    0x000001d4   0x000001d4   0x00000002   Code   RO         3884    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3765    .ARM.Collect$$libinit$$00000002  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3767    .ARM.Collect$$libinit$$00000004  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3770    .ARM.Collect$$libinit$$0000000A  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3772    .ARM.Collect$$libinit$$0000000C  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3774    .ARM.Collect$$libinit$$0000000E  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3777    .ARM.Collect$$libinit$$00000011  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3779    .ARM.Collect$$libinit$$00000013  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3781    .ARM.Collect$$libinit$$00000015  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3783    .ARM.Collect$$libinit$$00000017  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3785    .ARM.Collect$$libinit$$00000019  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3787    .ARM.Collect$$libinit$$0000001B  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3789    .ARM.Collect$$libinit$$0000001D  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3791    .ARM.Collect$$libinit$$0000001F  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3793    .ARM.Collect$$libinit$$00000021  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3795    .ARM.Collect$$libinit$$00000023  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3797    .ARM.Collect$$libinit$$00000025  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3801    .ARM.Collect$$libinit$$0000002C  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3803    .ARM.Collect$$libinit$$0000002E  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3805    .ARM.Collect$$libinit$$00000030  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x00000000   Code   RO         3807    .ARM.Collect$$libinit$$00000032  c_t.l(libinit2.o)
+    0x000001d6   0x000001d6   0x0000000c   Code   RO         3808    .ARM.Collect$$libinit$$00000033  c_t.l(libinit2.o)
     0x000001e2   0x000001e2   0x00000002   PAD
-    0x000001e4   0x000001e4   0x00000008   Ven    RO         3926    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
-    0x000001ec   0x000001ec   0x00000004   Code   RO         3926    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3886    .ARM.Collect$$libshutdown$$00000002  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3888    .ARM.Collect$$libshutdown$$00000004  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3891    .ARM.Collect$$libshutdown$$00000007  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3894    .ARM.Collect$$libshutdown$$0000000A  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3896    .ARM.Collect$$libshutdown$$0000000C  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3899    .ARM.Collect$$libshutdown$$0000000F  c_t.l(libshutdown2.o)
-    0x000001f0   0x000001f0   0x00000006   Code   RO         3900    .ARM.Collect$$libshutdown$$00000010  c_t.l(libshutdown2.o)
+    0x000001e4   0x000001e4   0x00000008   Ven    RO         3938    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
+    0x000001ec   0x000001ec   0x00000004   Code   RO         3938    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3898    .ARM.Collect$$libshutdown$$00000002  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3900    .ARM.Collect$$libshutdown$$00000004  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3903    .ARM.Collect$$libshutdown$$00000007  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3906    .ARM.Collect$$libshutdown$$0000000A  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3908    .ARM.Collect$$libshutdown$$0000000C  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         3911    .ARM.Collect$$libshutdown$$0000000F  c_t.l(libshutdown2.o)
+    0x000001f0   0x000001f0   0x00000006   Code   RO         3912    .ARM.Collect$$libshutdown$$00000010  c_t.l(libshutdown2.o)
     0x000001f6   0x000001f6   0x00000002   PAD
-    0x000001f8   0x000001f8   0x00000000   Code   RO         3697    .ARM.Collect$$rtentry$$00000000  c_t.l(__rtentry.o)
-    0x000001f8   0x000001f8   0x00000000   Code   RO         3803    .ARM.Collect$$rtentry$$00000002  c_t.l(__rtentry2.o)
-    0x000001f8   0x000001f8   0x00000008   Code   RO         3815    .ARM.Collect$$rtentry$$00000004  c_t.l(__rtentry4.o)
-    0x00000200   0x00000200   0x00000000   Code   RO         3805    .ARM.Collect$$rtentry$$00000009  c_t.l(__rtentry2.o)
-    0x00000200   0x00000200   0x00000004   Code   RO         3806    .ARM.Collect$$rtentry$$0000000A  c_t.l(__rtentry2.o)
-    0x00000204   0x00000204   0x00000000   Code   RO         3808    .ARM.Collect$$rtentry$$0000000C  c_t.l(__rtentry2.o)
-    0x00000204   0x00000204   0x00000028   Code   RO         3809    .ARM.Collect$$rtentry$$0000000D  c_t.l(__rtentry2.o)
-    0x0000022c   0x0000022c   0x00000004   Ven    RO         3873    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
-    0x00000230   0x00000230   0x00000004   Code   RO         3873    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
-    0x00000234   0x00000234   0x00000000   Code   RO         3902    .ARM.Collect$$rtexit$$00000002  c_t.l(rtexit2.o)
-    0x00000234   0x00000234   0x00000004   Code   RO         3903    .ARM.Collect$$rtexit$$00000003  c_t.l(rtexit2.o)
-    0x00000238   0x00000238   0x00000008   Code   RO         3904    .ARM.Collect$$rtexit$$00000004  c_t.l(rtexit2.o)
+    0x000001f8   0x000001f8   0x00000000   Code   RO         3709    .ARM.Collect$$rtentry$$00000000  c_t.l(__rtentry.o)
+    0x000001f8   0x000001f8   0x00000000   Code   RO         3815    .ARM.Collect$$rtentry$$00000002  c_t.l(__rtentry2.o)
+    0x000001f8   0x000001f8   0x00000008   Code   RO         3827    .ARM.Collect$$rtentry$$00000004  c_t.l(__rtentry4.o)
+    0x00000200   0x00000200   0x00000000   Code   RO         3817    .ARM.Collect$$rtentry$$00000009  c_t.l(__rtentry2.o)
+    0x00000200   0x00000200   0x00000004   Code   RO         3818    .ARM.Collect$$rtentry$$0000000A  c_t.l(__rtentry2.o)
+    0x00000204   0x00000204   0x00000000   Code   RO         3820    .ARM.Collect$$rtentry$$0000000C  c_t.l(__rtentry2.o)
+    0x00000204   0x00000204   0x00000028   Code   RO         3821    .ARM.Collect$$rtentry$$0000000D  c_t.l(__rtentry2.o)
+    0x0000022c   0x0000022c   0x00000004   Ven    RO         3885    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
+    0x00000230   0x00000230   0x00000004   Code   RO         3885    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
+    0x00000234   0x00000234   0x00000000   Code   RO         3914    .ARM.Collect$$rtexit$$00000002  c_t.l(rtexit2.o)
+    0x00000234   0x00000234   0x00000004   Code   RO         3915    .ARM.Collect$$rtexit$$00000003  c_t.l(rtexit2.o)
+    0x00000238   0x00000238   0x00000008   Code   RO         3916    .ARM.Collect$$rtexit$$00000004  c_t.l(rtexit2.o)
     0x00000240   0x00000240   0x00000020   Code   RO            4    .text               startup.o
-    0x00000260   0x00000260   0x00000004   Code   RO         3515    .text               c_t.l(use_no_semi.o)
-    0x00000264   0x00000264   0x00000028   Code   RO         3583    .text               c_t.l(llshl.o)
-    0x0000028c   0x0000028c   0x00000008   Ven    RO         3589    .text               c_t.l(noretval__2printf.o)
-    0x00000294   0x00000294   0x0000001c   Code   RO         3589    .text               c_t.l(noretval__2printf.o)
-    0x000002b0   0x000002b0   0x00000008   Ven    RO         3591    .text               c_t.l(noretval__2sprintf.o)
-    0x000002b8   0x000002b8   0x00000028   Code   RO         3591    .text               c_t.l(noretval__2sprintf.o)
-    0x000002e0   0x000002e0   0x00000056   Code   RO         3599    .text               c_t.l(_printf_pad.o)
-    0x00000336   0x00000336   0x00000058   Code   RO         3601    .text               c_t.l(_printf_str.o)
+    0x00000260   0x00000260   0x00000004   Code   RO         3527    .text               c_t.l(use_no_semi.o)
+    0x00000264   0x00000264   0x00000028   Code   RO         3595    .text               c_t.l(llshl.o)
+    0x0000028c   0x0000028c   0x00000008   Ven    RO         3601    .text               c_t.l(noretval__2printf.o)
+    0x00000294   0x00000294   0x0000001c   Code   RO         3601    .text               c_t.l(noretval__2printf.o)
+    0x000002b0   0x000002b0   0x00000008   Ven    RO         3603    .text               c_t.l(noretval__2sprintf.o)
+    0x000002b8   0x000002b8   0x00000028   Code   RO         3603    .text               c_t.l(noretval__2sprintf.o)
+    0x000002e0   0x000002e0   0x00000056   Code   RO         3611    .text               c_t.l(_printf_pad.o)
+    0x00000336   0x00000336   0x00000058   Code   RO         3613    .text               c_t.l(_printf_str.o)
     0x0000038e   0x0000038e   0x00000002   PAD
-    0x00000390   0x00000390   0x00000008   Ven    RO         3603    .text               c_t.l(_printf_dec.o)
-    0x00000398   0x00000398   0x00000070   Code   RO         3603    .text               c_t.l(_printf_dec.o)
-    0x00000408   0x00000408   0x00000008   Ven    RO         3608    .text               c_t.l(_printf_hex_int.o)
-    0x00000410   0x00000410   0x0000005c   Code   RO         3608    .text               c_t.l(_printf_hex_int.o)
-    0x0000046c   0x0000046c   0x00000148   Code   RO         3638    .text               c_t.l(__printf_flags_wp.o)
-    0x000005b4   0x000005b4   0x00000008   Ven    RO         3650    .text               c_t.l(strtok.o)
-    0x000005bc   0x000005bc   0x00000014   Code   RO         3650    .text               c_t.l(strtok.o)
-    0x000005d0   0x000005d0   0x00000008   Ven    RO         3655    .text               c_t.l(strlen.o)
-    0x000005d8   0x000005d8   0x00000044   Code   RO         3655    .text               c_t.l(strlen.o)
-    0x0000061c   0x0000061c   0x00000008   Ven    RO         3657    .text               c_t.l(strncmp.o)
-    0x00000624   0x00000624   0x00000098   Code   RO         3657    .text               c_t.l(strncmp.o)
-    0x000006bc   0x000006bc   0x000000d4   Code   RO         3659    .text               c_t.l(rt_memcpy.o)
-    0x00000790   0x00000790   0x000000d4   Code   RO         3661    .text               c_t.l(rt_memmove.o)
-    0x00000864   0x00000864   0x00000064   Code   RO         3663    .text               c_t.l(rt_memcpy_w.o)
-    0x000008c8   0x000008c8   0x00000010   Code   RO         3665    .text               c_t.l(aeabi_memset.o)
-    0x000008d8   0x000008d8   0x00000040   Code   RO         3667    .text               c_t.l(rt_memclr.o)
-    0x00000918   0x00000918   0x00000054   Code   RO         3669    .text               c_t.l(rt_memclr_w.o)
-    0x0000096c   0x0000096c   0x00000070   Code   RO         3671    .text               c_t.l(strncpy.o)
-    0x000009dc   0x000009dc   0x000000f4   Code   RO         3673    .text               c_t.l(strcmp.o)
-    0x00000ad0   0x00000ad0   0x00000180   Code   RO         3675    .text               c_t.l(aeabi_sdiv.o)
-    0x00000c50   0x00000c50   0x00000006   Code   RO         3691    .text               c_t.l(heapauxi.o)
-    0x00000c56   0x00000c56   0x000000ba   Code   RO         3733    .text               c_t.l(_printf_intcommon.o)
-    0x00000d10   0x00000d10   0x00000030   Code   RO         3735    .text               c_t.l(_printf_char_common.o)
-    0x00000d40   0x00000d40   0x0000000a   Code   RO         3737    .text               c_t.l(_sputc.o)
+    0x00000390   0x00000390   0x00000008   Ven    RO         3615    .text               c_t.l(_printf_dec.o)
+    0x00000398   0x00000398   0x00000070   Code   RO         3615    .text               c_t.l(_printf_dec.o)
+    0x00000408   0x00000408   0x00000008   Ven    RO         3620    .text               c_t.l(_printf_hex_int.o)
+    0x00000410   0x00000410   0x0000005c   Code   RO         3620    .text               c_t.l(_printf_hex_int.o)
+    0x0000046c   0x0000046c   0x00000148   Code   RO         3650    .text               c_t.l(__printf_flags_wp.o)
+    0x000005b4   0x000005b4   0x00000008   Ven    RO         3662    .text               c_t.l(strtok.o)
+    0x000005bc   0x000005bc   0x00000014   Code   RO         3662    .text               c_t.l(strtok.o)
+    0x000005d0   0x000005d0   0x00000008   Ven    RO         3667    .text               c_t.l(strlen.o)
+    0x000005d8   0x000005d8   0x00000044   Code   RO         3667    .text               c_t.l(strlen.o)
+    0x0000061c   0x0000061c   0x00000008   Ven    RO         3669    .text               c_t.l(strncmp.o)
+    0x00000624   0x00000624   0x00000098   Code   RO         3669    .text               c_t.l(strncmp.o)
+    0x000006bc   0x000006bc   0x000000d4   Code   RO         3671    .text               c_t.l(rt_memcpy.o)
+    0x00000790   0x00000790   0x000000d4   Code   RO         3673    .text               c_t.l(rt_memmove.o)
+    0x00000864   0x00000864   0x00000064   Code   RO         3675    .text               c_t.l(rt_memcpy_w.o)
+    0x000008c8   0x000008c8   0x00000010   Code   RO         3677    .text               c_t.l(aeabi_memset.o)
+    0x000008d8   0x000008d8   0x00000040   Code   RO         3679    .text               c_t.l(rt_memclr.o)
+    0x00000918   0x00000918   0x00000054   Code   RO         3681    .text               c_t.l(rt_memclr_w.o)
+    0x0000096c   0x0000096c   0x00000070   Code   RO         3683    .text               c_t.l(strncpy.o)
+    0x000009dc   0x000009dc   0x000000f4   Code   RO         3685    .text               c_t.l(strcmp.o)
+    0x00000ad0   0x00000ad0   0x00000180   Code   RO         3687    .text               c_t.l(aeabi_sdiv.o)
+    0x00000c50   0x00000c50   0x00000006   Code   RO         3703    .text               c_t.l(heapauxi.o)
+    0x00000c56   0x00000c56   0x000000ba   Code   RO         3745    .text               c_t.l(_printf_intcommon.o)
+    0x00000d10   0x00000d10   0x00000030   Code   RO         3747    .text               c_t.l(_printf_char_common.o)
+    0x00000d40   0x00000d40   0x0000000a   Code   RO         3749    .text               c_t.l(_sputc.o)
     0x00000d4a   0x00000d4a   0x00000002   PAD
-    0x00000d4c   0x00000d4c   0x00000008   Ven    RO         3739    .text               c_t.l(_printf_char.o)
-    0x00000d54   0x00000d54   0x00000032   Code   RO         3739    .text               c_t.l(_printf_char.o)
+    0x00000d4c   0x00000d4c   0x00000008   Ven    RO         3751    .text               c_t.l(_printf_char.o)
+    0x00000d54   0x00000d54   0x00000032   Code   RO         3751    .text               c_t.l(_printf_char.o)
     0x00000d86   0x00000d86   0x00000002   PAD
-    0x00000d88   0x00000d88   0x0000002c   Code   RO         3741    .text               c_t.l(_printf_char_file.o)
-    0x00000db4   0x00000db4   0x0000004c   Code   RO         3744    .text               c_t.l(strtok_int.o)
-    0x00000e00   0x00000e00   0x00000080   Code   RO         3746    .text               c_t.l(rt_memmove_w.o)
-    0x00000e80   0x00000e80   0x00000004   Ven    RO         3748    .text               c_t.l(rtudiv10.o)
-    0x00000e84   0x00000e84   0x0000002c   Code   RO         3748    .text               c_t.l(rtudiv10.o)
-    0x00000eb0   0x00000eb0   0x0000000c   Code   RO         3799    .text               c_t.l(libspace.o)
-    0x00000ebc   0x00000ebc   0x00000024   Code   RO         3835    .text               c_t.l(strcspn.o)
-    0x00000ee0   0x00000ee0   0x00000022   Code   RO         3837    .text               c_t.l(strspn.o)
+    0x00000d88   0x00000d88   0x0000002c   Code   RO         3753    .text               c_t.l(_printf_char_file.o)
+    0x00000db4   0x00000db4   0x0000004c   Code   RO         3756    .text               c_t.l(strtok_int.o)
+    0x00000e00   0x00000e00   0x00000080   Code   RO         3758    .text               c_t.l(rt_memmove_w.o)
+    0x00000e80   0x00000e80   0x00000004   Ven    RO         3760    .text               c_t.l(rtudiv10.o)
+    0x00000e84   0x00000e84   0x0000002c   Code   RO         3760    .text               c_t.l(rtudiv10.o)
+    0x00000eb0   0x00000eb0   0x0000000c   Code   RO         3811    .text               c_t.l(libspace.o)
+    0x00000ebc   0x00000ebc   0x00000024   Code   RO         3847    .text               c_t.l(strcspn.o)
+    0x00000ee0   0x00000ee0   0x00000022   Code   RO         3849    .text               c_t.l(strspn.o)
     0x00000f02   0x00000f02   0x00000002   PAD
-    0x00000f04   0x00000f04   0x00000060   Code   RO         3847    .text               c_t.l(sys_stackheap_outer.o)
-    0x00000f64   0x00000f64   0x00000014   Code   RO         3853    .text               c_t.l(exit.o)
-    0x00000f78   0x00000f78   0x00000024   Code   RO         3676    .text_udiv          c_t.l(aeabi_sdiv.o)
-    0x00000f9c   0x00000f9c   0x000000dc   Code   RO         3273    i.ConfigInit        reader_manager.o
-    0x00001078   0x00001078   0x00000068   Code   RO         3412    i.HostComm_Manager  hostcommmanager.o
-    0x000010e0   0x000010e0   0x000000b4   Code   RO         3413    i.HostComm_decode_requests  hostcommmanager.o
+    0x00000f04   0x00000f04   0x00000060   Code   RO         3859    .text               c_t.l(sys_stackheap_outer.o)
+    0x00000f64   0x00000f64   0x00000014   Code   RO         3865    .text               c_t.l(exit.o)
+    0x00000f78   0x00000f78   0x00000024   Code   RO         3688    .text_udiv          c_t.l(aeabi_sdiv.o)
+    0x00000f9c   0x00000f9c   0x000000dc   Code   RO         3288    i.ConfigInit        reader_manager.o
+    0x00001078   0x00001078   0x00000068   Code   RO         3424    i.HostComm_Manager  hostcommmanager.o
+    0x000010e0   0x000010e0   0x000000b4   Code   RO         3425    i.HostComm_decode_requests  hostcommmanager.o
     0x00001194   0x00001194   0x00000330   Code   RO          552    i.I2C_irq           i2c.o
     0x000014c4   0x000014c4   0x00000070   Code   RO          515    i.InitInterrupt     isr_manager.o
-    0x00001534   0x00001534   0x000000b0   Code   RO         3274    i.ReaderManagerInit  reader_manager.o
-    0x000015e4   0x000015e4   0x0000001c   Code   RO         3275    i.Reader_GET_route_status  reader_manager.o
-    0x00001600   0x00001600   0x00000038   Code   RO         3276    i.Reader_HW_Reset   reader_manager.o
-    0x00001638   0x00001638   0x00000490   Code   RO         3277    i.Reader_Manager    reader_manager.o
+    0x00001534   0x00001534   0x000000b0   Code   RO         3289    i.ReaderManagerInit  reader_manager.o
+    0x000015e4   0x000015e4   0x0000001c   Code   RO         3290    i.Reader_GET_route_status  reader_manager.o
+    0x00001600   0x00001600   0x00000038   Code   RO         3291    i.Reader_HW_Reset   reader_manager.o
+    0x00001638   0x00001638   0x00000490   Code   RO         3292    i.Reader_Manager    reader_manager.o
     0x00001ac8   0x00001ac8   0x00000024   Code   RO          187    i.RingBufEmpty      ringbuf.o
     0x00001aec   0x00001aec   0x0000000c   Code   RO          188    i.RingBufFlush      ringbuf.o
     0x00001af8   0x00001af8   0x00000018   Code   RO          191    i.RingBufInit       ringbuf.o
@@ -3478,129 +3479,129 @@ Memory Map of the image
     0x000025ac   0x000025ac   0x00000098   Code   RO          300    i.TIMER_SOFTWARE_start_timer  timer_software.o
     0x00002644   0x00002644   0x00000064   Code   RO          301    i.TIMER_SOFTWARE_stop_timer  timer_software.o
     0x000026a8   0x000026a8   0x0000003c   Code   RO          516    i.TIMER_irq         isr_manager.o
-    0x000026e4   0x000026e4   0x0000005c   Code   RO         2594    i.TMR_RP_init_simple  tm_reader.o
-    0x00002740   0x00002740   0x0000018c   Code   RO          770    i.TMR_SR_SerialReader_init  serial_reader.o
-    0x000028cc   0x000028cc   0x00000058   Code   RO         2537    i.TMR_SR_SerialTransportDummyInit  serial_transport_dummy.o
-    0x00002924   0x00002924   0x0000002c   Code   RO         2538    i.TMR_SR_SerialTransportNativeInit  serial_transport_dummy.o
-    0x00002950   0x00002950   0x00000df0   Code   RO          771    i.TMR_SR_addTagOp   serial_reader.o
-    0x00003740   0x00003740   0x00000148   Code   RO         1081    i.TMR_SR_antennaDecoding  serial_reader_l3.o
-    0x00003888   0x00003888   0x000000e0   Code   RO          772    i.TMR_SR_boot       serial_reader.o
-    0x00003968   0x00003968   0x00000060   Code   RO         1082    i.TMR_SR_callSendCmd  serial_reader_l3.o
-    0x000039c8   0x000039c8   0x00000130   Code   RO         1083    i.TMR_SR_cmdAntennaDetect  serial_reader_l3.o
-    0x00003af8   0x00003af8   0x00000090   Code   RO         1089    i.TMR_SR_cmdBootFirmware  serial_reader_l3.o
-    0x00003b88   0x00003b88   0x00000028   Code   RO         1090    i.TMR_SR_cmdClearTagBuffer  serial_reader_l3.o
-    0x00003bb0   0x00003bb0   0x00000128   Code   RO         1103    i.TMR_SR_cmdFrameHeader  serial_reader_l3.o
-    0x00003cd8   0x00003cd8   0x00000240   Code   RO         1111    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
-    0x00003f18   0x00003f18   0x00000138   Code   RO         1112    i.TMR_SR_cmdGetAntennaReturnLoss  serial_reader_l3.o
-    0x00004050   0x00004050   0x000000f8   Code   RO         1113    i.TMR_SR_cmdGetAvailableProtocols  serial_reader_l3.o
-    0x00004148   0x00004148   0x000000a8   Code   RO         1114    i.TMR_SR_cmdGetAvailableRegions  serial_reader_l3.o
-    0x000041f0   0x000041f0   0x00000054   Code   RO         1116    i.TMR_SR_cmdGetCurrentProtocol  serial_reader_l3.o
-    0x00004244   0x00004244   0x000000c8   Code   RO         1117    i.TMR_SR_cmdGetFrequencyHopTable  serial_reader_l3.o
-    0x0000430c   0x0000430c   0x000000d8   Code   RO         1118    i.TMR_SR_cmdGetFrequencyHopTableOption  serial_reader_l3.o
-    0x000043e4   0x000043e4   0x00000024   Code   RO         1119    i.TMR_SR_cmdGetFrequencyHopTime  serial_reader_l3.o
-    0x00004408   0x00004408   0x00000190   Code   RO         1120    i.TMR_SR_cmdGetGPIO  serial_reader_l3.o
-    0x00004598   0x00004598   0x000000d0   Code   RO         1121    i.TMR_SR_cmdGetGPIODirection  serial_reader_l3.o
-    0x00004668   0x00004668   0x0000012c   Code   RO         1122    i.TMR_SR_cmdGetHardwareVersion  serial_reader_l3.o
-    0x00004794   0x00004794   0x00000024   Code   RO         1123    i.TMR_SR_cmdGetMinimumFrequency  serial_reader_l3.o
-    0x000047b8   0x000047b8   0x0000011c   Code   RO          773    i.TMR_SR_cmdGetPerAntennaTime  serial_reader.o
-    0x000048d4   0x000048d4   0x0000004c   Code   RO         1124    i.TMR_SR_cmdGetPowerMode  serial_reader_l3.o
-    0x00004920   0x00004920   0x00000714   Code   RO         1125    i.TMR_SR_cmdGetProtocolConfiguration  serial_reader_l3.o
-    0x00005034   0x00005034   0x00000134   Code   RO         1126    i.TMR_SR_cmdGetProtocolList  serial_reader_l3.o
-    0x00005168   0x00005168   0x00000024   Code   RO         1127    i.TMR_SR_cmdGetQuantizationStep  serial_reader_l3.o
-    0x0000518c   0x0000518c   0x00000024   Code   RO         1128    i.TMR_SR_cmdGetReadTxPower  serial_reader_l3.o
-    0x000051b0   0x000051b0   0x000000ec   Code   RO         1129    i.TMR_SR_cmdGetReadTxPowerWithLimits  serial_reader_l3.o
-    0x0000529c   0x0000529c   0x000000c0   Code   RO         1130    i.TMR_SR_cmdGetReadWriteTxPower  serial_reader_l3.o
-    0x0000535c   0x0000535c   0x00000248   Code   RO         1131    i.TMR_SR_cmdGetReaderConfiguration  serial_reader_l3.o
-    0x000055a4   0x000055a4   0x000002ac   Code   RO         1132    i.TMR_SR_cmdGetReaderStatistics  serial_reader_l3.o
-    0x00005850   0x00005850   0x00000318   Code   RO         1133    i.TMR_SR_cmdGetReaderStats  serial_reader_l3.o
-    0x00005b68   0x00005b68   0x00000118   Code   RO         1134    i.TMR_SR_cmdGetReaderWriteTimeOut  serial_reader_l3.o
-    0x00005c80   0x00005c80   0x0000004c   Code   RO         1135    i.TMR_SR_cmdGetRegion  serial_reader_l3.o
-    0x00005ccc   0x00005ccc   0x0000019c   Code   RO         1136    i.TMR_SR_cmdGetRegionConfiguration  serial_reader_l3.o
-    0x00005e68   0x00005e68   0x00000064   Code   RO         1137    i.TMR_SR_cmdGetTagsRemaining  serial_reader_l3.o
-    0x00005ecc   0x00005ecc   0x00000054   Code   RO         1138    i.TMR_SR_cmdGetTemperature  serial_reader_l3.o
-    0x00005f20   0x00005f20   0x0000004c   Code   RO         1139    i.TMR_SR_cmdGetUserMode  serial_reader_l3.o
-    0x00005f6c   0x00005f6c   0x00000024   Code   RO         1141    i.TMR_SR_cmdGetWriteTxPower  serial_reader_l3.o
-    0x00005f90   0x00005f90   0x000001a4   Code   RO         1159    i.TMR_SR_cmdMultipleProtocolSearch  serial_reader_l3.o
-    0x00006134   0x00006134   0x0000018c   Code   RO         1170    i.TMR_SR_cmdReadTagMultiple  serial_reader_l3.o
-    0x000062c0   0x000062c0   0x000000f8   Code   RO         1171    i.TMR_SR_cmdResetReaderStatistics  serial_reader_l3.o
-    0x000063b8   0x000063b8   0x00000168   Code   RO         1172    i.TMR_SR_cmdResetReaderStats  serial_reader_l3.o
-    0x00006520   0x00006520   0x00000248   Code   RO         1190    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
-    0x00006768   0x00006768   0x0000014c   Code   RO         1191    i.TMR_SR_cmdSetAntennaSearchList  serial_reader_l3.o
-    0x000068b4   0x000068b4   0x000000e0   Code   RO         1192    i.TMR_SR_cmdSetBaudRate  serial_reader_l3.o
-    0x00006994   0x00006994   0x00000110   Code   RO         1193    i.TMR_SR_cmdSetFrequencyHopTable  serial_reader_l3.o
-    0x00006aa4   0x00006aa4   0x00000128   Code   RO         1194    i.TMR_SR_cmdSetFrequencyHopTableOption  serial_reader_l3.o
-    0x00006bcc   0x00006bcc   0x00000144   Code   RO         1196    i.TMR_SR_cmdSetGPIODirection  serial_reader_l3.o
-    0x00006d10   0x00006d10   0x0000009c   Code   RO         1198    i.TMR_SR_cmdSetMode  serial_reader_l3.o
-    0x00006dac   0x00006dac   0x00000250   Code   RO          775    i.TMR_SR_cmdSetPerAntennaTime  serial_reader.o
-    0x00006ffc   0x00006ffc   0x00000024   Code   RO         1199    i.TMR_SR_cmdSetPowerMode  serial_reader_l3.o
-    0x00007020   0x00007020   0x000000b4   Code   RO         1200    i.TMR_SR_cmdSetProtocol  serial_reader_l3.o
-    0x000070d4   0x000070d4   0x00000a6c   Code   RO         1201    i.TMR_SR_cmdSetProtocolConfiguration  serial_reader_l3.o
-    0x00007b40   0x00007b40   0x00000134   Code   RO         1202    i.TMR_SR_cmdSetProtocolLicenseKey  serial_reader_l3.o
-    0x00007c74   0x00007c74   0x00000144   Code   RO         1203    i.TMR_SR_cmdSetProtocolList  serial_reader_l3.o
-    0x00007db8   0x00007db8   0x00000024   Code   RO         1204    i.TMR_SR_cmdSetReadTxPower  serial_reader_l3.o
-    0x00007ddc   0x00007ddc   0x000000c4   Code   RO         1205    i.TMR_SR_cmdSetReadWriteTxPower  serial_reader_l3.o
-    0x00007ea0   0x00007ea0   0x00000304   Code   RO         1206    i.TMR_SR_cmdSetReaderConfiguration  serial_reader_l3.o
-    0x000081a4   0x000081a4   0x00000160   Code   RO         1207    i.TMR_SR_cmdSetReaderWriteTimeOut  serial_reader_l3.o
-    0x00008304   0x00008304   0x00000344   Code   RO         1208    i.TMR_SR_cmdSetRegion  serial_reader_l3.o
-    0x00008648   0x00008648   0x00000164   Code   RO         1209    i.TMR_SR_cmdSetRegionDwellTime  serial_reader_l3.o
-    0x000087ac   0x000087ac   0x0000002c   Code   RO         1210    i.TMR_SR_cmdSetRegionDwellTimeEnable  serial_reader_l3.o
-    0x000087d8   0x000087d8   0x0000012c   Code   RO         1211    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  serial_reader_l3.o
-    0x00008904   0x00008904   0x0000002c   Code   RO         1212    i.TMR_SR_cmdSetRegionLbt  serial_reader_l3.o
-    0x00008930   0x00008930   0x00000144   Code   RO         1213    i.TMR_SR_cmdSetRegionLbtThreshold  serial_reader_l3.o
-    0x00008a74   0x00008a74   0x000000e0   Code   RO         1214    i.TMR_SR_cmdSetTxRxPorts  serial_reader_l3.o
-    0x00008b54   0x00008b54   0x00000024   Code   RO         1215    i.TMR_SR_cmdSetUserMode  serial_reader_l3.o
-    0x00008b78   0x00008b78   0x000004b0   Code   RO         1216    i.TMR_SR_cmdSetUserProfile  serial_reader_l3.o
-    0x00009028   0x00009028   0x00000024   Code   RO         1217    i.TMR_SR_cmdSetWriteTxPower  serial_reader_l3.o
-    0x0000904c   0x0000904c   0x0000010c   Code   RO         1218    i.TMR_SR_cmdStopReading  serial_reader_l3.o
-    0x00009158   0x00009158   0x000000a0   Code   RO         1222    i.TMR_SR_cmdVersion  serial_reader_l3.o
-    0x000091f8   0x000091f8   0x000000f8   Code   RO          776    i.TMR_SR_connect    serial_reader.o
-    0x000092f0   0x000092f0   0x000002f8   Code   RO         2601    i.TMR_SR_convertFromEBV  tm_reader.o
-    0x000095e8   0x000095e8   0x00000340   Code   RO         2602    i.TMR_SR_convertToEBV  tm_reader.o
-    0x00009928   0x00009928   0x00000454   Code   RO         1227    i.TMR_SR_executeEmbeddedRead  serial_reader_l3.o
-    0x00009d7c   0x00009d7c   0x000002a0   Code   RO          780    i.TMR_SR_getNextTag  serial_reader.o
-    0x0000a01c   0x0000a01c   0x00000104   Code   RO          781    i.TMR_SR_getVersion  serial_reader.o
-    0x0000a120   0x0000a120   0x00000408   Code   RO          784    i.TMR_SR_hasMoreTags  serial_reader.o
-    0x0000a528   0x0000a528   0x00000094   Code   RO         1228    i.TMR_SR_msgAddAccessPassword  serial_reader_l3.o
-    0x0000a5bc   0x0000a5bc   0x000000d4   Code   RO         1231    i.TMR_SR_msgAddExtendedParams  serial_reader_l3.o
-    0x0000a690   0x0000a690   0x000001d0   Code   RO         1241    i.TMR_SR_msgAddGEN2BlockErase  serial_reader_l3.o
-    0x0000a860   0x0000a860   0x00000324   Code   RO         1242    i.TMR_SR_msgAddGEN2BlockPermaLock  serial_reader_l3.o
-    0x0000ab84   0x0000ab84   0x00000358   Code   RO         1243    i.TMR_SR_msgAddGEN2BlockWrite  serial_reader_l3.o
-    0x0000aedc   0x0000aedc   0x0000019c   Code   RO         1244    i.TMR_SR_msgAddGEN2DataRead  serial_reader_l3.o
-    0x0000b078   0x0000b078   0x000001ec   Code   RO         1245    i.TMR_SR_msgAddGEN2DataWrite  serial_reader_l3.o
-    0x0000b264   0x0000b264   0x0000011c   Code   RO         1246    i.TMR_SR_msgAddGEN2KillTag  serial_reader_l3.o
-    0x0000b380   0x0000b380   0x00000188   Code   RO         1247    i.TMR_SR_msgAddGEN2LockTag  serial_reader_l3.o
-    0x0000b508   0x0000b508   0x0000010c   Code   RO         1248    i.TMR_SR_msgAddGEN2WriteTagEPC  serial_reader_l3.o
-    0x0000b614   0x0000b614   0x00000240   Code   RO         1291    i.TMR_SR_msgAddReadMemory  serial_reader_l3.o
-    0x0000b854   0x0000b854   0x000001b8   Code   RO         1292    i.TMR_SR_msgAddWriteMemory  serial_reader_l3.o
-    0x0000ba0c   0x0000ba0c   0x00000680   Code   RO         1293    i.TMR_SR_msgSetupMultipleProtocolSearch  serial_reader_l3.o
-    0x0000c08c   0x0000c08c   0x00000050   Code   RO         1294    i.TMR_SR_msgSetupReadTagMultiple  serial_reader_l3.o
-    0x0000c0dc   0x0000c0dc   0x000005e4   Code   RO         1295    i.TMR_SR_msgSetupReadTagMultipleWithMetadata  serial_reader_l3.o
-    0x0000c6c0   0x0000c6c0   0x000016fc   Code   RO          788    i.TMR_SR_paramGet   serial_reader.o
-    0x0000ddbc   0x0000ddbc   0x0000123c   Code   RO          789    i.TMR_SR_paramSet   serial_reader.o
-    0x0000eff8   0x0000eff8   0x0000022c   Code   RO         1296    i.TMR_SR_parseMetadataFromMessage  serial_reader_l3.o
-    0x0000f224   0x0000f224   0x000004b0   Code   RO         1297    i.TMR_SR_parseMetadataOnly  serial_reader_l3.o
-    0x0000f6d4   0x0000f6d4   0x000001a0   Code   RO         1298    i.TMR_SR_postprocessReaderSpecificMetadata  serial_reader_l3.o
-    0x0000f874   0x0000f874   0x00000098   Code   RO          790    i.TMR_SR_read       serial_reader.o
-    0x0000f90c   0x0000f90c   0x00000578   Code   RO          795    i.TMR_SR_read_internal  serial_reader.o
-    0x0000fe84   0x0000fe84   0x00000484   Code   RO         1300    i.TMR_SR_receiveMessage  serial_reader_l3.o
-    0x00010308   0x00010308   0x00000024   Code   RO         1302    i.TMR_SR_send       serial_reader_l3.o
-    0x0001032c   0x0001032c   0x00000068   Code   RO         1303    i.TMR_SR_sendBytes  serial_reader_l3.o
-    0x00010394   0x00010394   0x0000002c   Code   RO         1304    i.TMR_SR_sendCmd    serial_reader_l3.o
-    0x000103c0   0x000103c0   0x00000180   Code   RO         1305    i.TMR_SR_sendMessage  serial_reader_l3.o
-    0x00010540   0x00010540   0x00000124   Code   RO         1306    i.TMR_SR_sendTimeout  serial_reader_l3.o
-    0x00010664   0x00010664   0x00000058   Code   RO         2645    i.TMR__notifyTransportListeners  tm_reader.o
-    0x000106bc   0x000106bc   0x000001d0   Code   RO         2647    i.TMR_create        tm_reader.o
-    0x0001088c   0x0001088c   0x0000047c   Code   RO         1307    i.TMR_fillReaderStats  serial_reader_l3.o
-    0x00010d08   0x00010d08   0x000000b8   Code   RO         1308    i.TMR_flush         serial_reader_l3.o
-    0x00010dc0   0x00010dc0   0x00000058   Code   RO          622    i.TMR_hexDottedQuad  hex_bytes.o
-    0x00010e18   0x00010e18   0x0000012c   Code   RO         2651    i.TMR_initSerialTransportTable  tm_reader.o
-    0x00010f44   0x00010f44   0x000000b0   Code   RO         2654    i.TMR_paramGet      tm_reader.o
-    0x00010ff4   0x00010ff4   0x000000c0   Code   RO         2656    i.TMR_paramProbe    tm_reader.o
-    0x000110b4   0x000110b4   0x000000ec   Code   RO         2657    i.TMR_paramSet      tm_reader.o
-    0x000111a0   0x000111a0   0x000000f0   Code   RO         2659    i.TMR_reader_init_internal  tm_reader.o
-    0x00011290   0x00011290   0x00000064   Code   RO         3085    i.TMR_startReading  tm_reader_async.o
-    0x000112f4   0x000112f4   0x000000b4   Code   RO         3086    i.TMR_stopReading   tm_reader_async.o
-    0x000113a8   0x000113a8   0x00000058   Code   RO         3188    i.TMR_stringCopy    tmr_utils.o
+    0x000026e4   0x000026e4   0x0000005c   Code   RO         2609    i.TMR_RP_init_simple  tm_reader.o
+    0x00002740   0x00002740   0x0000018c   Code   RO          785    i.TMR_SR_SerialReader_init  serial_reader.o
+    0x000028cc   0x000028cc   0x00000058   Code   RO         2552    i.TMR_SR_SerialTransportDummyInit  serial_transport_dummy.o
+    0x00002924   0x00002924   0x0000002c   Code   RO         2553    i.TMR_SR_SerialTransportNativeInit  serial_transport_dummy.o
+    0x00002950   0x00002950   0x00000df0   Code   RO          786    i.TMR_SR_addTagOp   serial_reader.o
+    0x00003740   0x00003740   0x00000148   Code   RO         1096    i.TMR_SR_antennaDecoding  serial_reader_l3.o
+    0x00003888   0x00003888   0x000000e0   Code   RO          787    i.TMR_SR_boot       serial_reader.o
+    0x00003968   0x00003968   0x00000060   Code   RO         1097    i.TMR_SR_callSendCmd  serial_reader_l3.o
+    0x000039c8   0x000039c8   0x00000130   Code   RO         1098    i.TMR_SR_cmdAntennaDetect  serial_reader_l3.o
+    0x00003af8   0x00003af8   0x00000090   Code   RO         1104    i.TMR_SR_cmdBootFirmware  serial_reader_l3.o
+    0x00003b88   0x00003b88   0x00000028   Code   RO         1105    i.TMR_SR_cmdClearTagBuffer  serial_reader_l3.o
+    0x00003bb0   0x00003bb0   0x00000128   Code   RO         1118    i.TMR_SR_cmdFrameHeader  serial_reader_l3.o
+    0x00003cd8   0x00003cd8   0x00000240   Code   RO         1126    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
+    0x00003f18   0x00003f18   0x00000138   Code   RO         1127    i.TMR_SR_cmdGetAntennaReturnLoss  serial_reader_l3.o
+    0x00004050   0x00004050   0x000000f8   Code   RO         1128    i.TMR_SR_cmdGetAvailableProtocols  serial_reader_l3.o
+    0x00004148   0x00004148   0x000000a8   Code   RO         1129    i.TMR_SR_cmdGetAvailableRegions  serial_reader_l3.o
+    0x000041f0   0x000041f0   0x00000054   Code   RO         1131    i.TMR_SR_cmdGetCurrentProtocol  serial_reader_l3.o
+    0x00004244   0x00004244   0x000000c8   Code   RO         1132    i.TMR_SR_cmdGetFrequencyHopTable  serial_reader_l3.o
+    0x0000430c   0x0000430c   0x000000d8   Code   RO         1133    i.TMR_SR_cmdGetFrequencyHopTableOption  serial_reader_l3.o
+    0x000043e4   0x000043e4   0x00000024   Code   RO         1134    i.TMR_SR_cmdGetFrequencyHopTime  serial_reader_l3.o
+    0x00004408   0x00004408   0x00000190   Code   RO         1135    i.TMR_SR_cmdGetGPIO  serial_reader_l3.o
+    0x00004598   0x00004598   0x000000d0   Code   RO         1136    i.TMR_SR_cmdGetGPIODirection  serial_reader_l3.o
+    0x00004668   0x00004668   0x0000012c   Code   RO         1137    i.TMR_SR_cmdGetHardwareVersion  serial_reader_l3.o
+    0x00004794   0x00004794   0x00000024   Code   RO         1138    i.TMR_SR_cmdGetMinimumFrequency  serial_reader_l3.o
+    0x000047b8   0x000047b8   0x0000011c   Code   RO          788    i.TMR_SR_cmdGetPerAntennaTime  serial_reader.o
+    0x000048d4   0x000048d4   0x0000004c   Code   RO         1139    i.TMR_SR_cmdGetPowerMode  serial_reader_l3.o
+    0x00004920   0x00004920   0x00000714   Code   RO         1140    i.TMR_SR_cmdGetProtocolConfiguration  serial_reader_l3.o
+    0x00005034   0x00005034   0x00000134   Code   RO         1141    i.TMR_SR_cmdGetProtocolList  serial_reader_l3.o
+    0x00005168   0x00005168   0x00000024   Code   RO         1142    i.TMR_SR_cmdGetQuantizationStep  serial_reader_l3.o
+    0x0000518c   0x0000518c   0x00000024   Code   RO         1143    i.TMR_SR_cmdGetReadTxPower  serial_reader_l3.o
+    0x000051b0   0x000051b0   0x000000ec   Code   RO         1144    i.TMR_SR_cmdGetReadTxPowerWithLimits  serial_reader_l3.o
+    0x0000529c   0x0000529c   0x000000c0   Code   RO         1145    i.TMR_SR_cmdGetReadWriteTxPower  serial_reader_l3.o
+    0x0000535c   0x0000535c   0x00000248   Code   RO         1146    i.TMR_SR_cmdGetReaderConfiguration  serial_reader_l3.o
+    0x000055a4   0x000055a4   0x000002ac   Code   RO         1147    i.TMR_SR_cmdGetReaderStatistics  serial_reader_l3.o
+    0x00005850   0x00005850   0x00000318   Code   RO         1148    i.TMR_SR_cmdGetReaderStats  serial_reader_l3.o
+    0x00005b68   0x00005b68   0x00000118   Code   RO         1149    i.TMR_SR_cmdGetReaderWriteTimeOut  serial_reader_l3.o
+    0x00005c80   0x00005c80   0x0000004c   Code   RO         1150    i.TMR_SR_cmdGetRegion  serial_reader_l3.o
+    0x00005ccc   0x00005ccc   0x0000019c   Code   RO         1151    i.TMR_SR_cmdGetRegionConfiguration  serial_reader_l3.o
+    0x00005e68   0x00005e68   0x00000064   Code   RO         1152    i.TMR_SR_cmdGetTagsRemaining  serial_reader_l3.o
+    0x00005ecc   0x00005ecc   0x00000054   Code   RO         1153    i.TMR_SR_cmdGetTemperature  serial_reader_l3.o
+    0x00005f20   0x00005f20   0x0000004c   Code   RO         1154    i.TMR_SR_cmdGetUserMode  serial_reader_l3.o
+    0x00005f6c   0x00005f6c   0x00000024   Code   RO         1156    i.TMR_SR_cmdGetWriteTxPower  serial_reader_l3.o
+    0x00005f90   0x00005f90   0x000001a4   Code   RO         1174    i.TMR_SR_cmdMultipleProtocolSearch  serial_reader_l3.o
+    0x00006134   0x00006134   0x0000018c   Code   RO         1185    i.TMR_SR_cmdReadTagMultiple  serial_reader_l3.o
+    0x000062c0   0x000062c0   0x000000f8   Code   RO         1186    i.TMR_SR_cmdResetReaderStatistics  serial_reader_l3.o
+    0x000063b8   0x000063b8   0x00000168   Code   RO         1187    i.TMR_SR_cmdResetReaderStats  serial_reader_l3.o
+    0x00006520   0x00006520   0x00000248   Code   RO         1205    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
+    0x00006768   0x00006768   0x0000014c   Code   RO         1206    i.TMR_SR_cmdSetAntennaSearchList  serial_reader_l3.o
+    0x000068b4   0x000068b4   0x000000e0   Code   RO         1207    i.TMR_SR_cmdSetBaudRate  serial_reader_l3.o
+    0x00006994   0x00006994   0x00000110   Code   RO         1208    i.TMR_SR_cmdSetFrequencyHopTable  serial_reader_l3.o
+    0x00006aa4   0x00006aa4   0x00000128   Code   RO         1209    i.TMR_SR_cmdSetFrequencyHopTableOption  serial_reader_l3.o
+    0x00006bcc   0x00006bcc   0x00000144   Code   RO         1211    i.TMR_SR_cmdSetGPIODirection  serial_reader_l3.o
+    0x00006d10   0x00006d10   0x0000009c   Code   RO         1213    i.TMR_SR_cmdSetMode  serial_reader_l3.o
+    0x00006dac   0x00006dac   0x00000250   Code   RO          790    i.TMR_SR_cmdSetPerAntennaTime  serial_reader.o
+    0x00006ffc   0x00006ffc   0x00000024   Code   RO         1214    i.TMR_SR_cmdSetPowerMode  serial_reader_l3.o
+    0x00007020   0x00007020   0x000000b4   Code   RO         1215    i.TMR_SR_cmdSetProtocol  serial_reader_l3.o
+    0x000070d4   0x000070d4   0x00000a6c   Code   RO         1216    i.TMR_SR_cmdSetProtocolConfiguration  serial_reader_l3.o
+    0x00007b40   0x00007b40   0x00000134   Code   RO         1217    i.TMR_SR_cmdSetProtocolLicenseKey  serial_reader_l3.o
+    0x00007c74   0x00007c74   0x00000144   Code   RO         1218    i.TMR_SR_cmdSetProtocolList  serial_reader_l3.o
+    0x00007db8   0x00007db8   0x00000024   Code   RO         1219    i.TMR_SR_cmdSetReadTxPower  serial_reader_l3.o
+    0x00007ddc   0x00007ddc   0x000000c4   Code   RO         1220    i.TMR_SR_cmdSetReadWriteTxPower  serial_reader_l3.o
+    0x00007ea0   0x00007ea0   0x00000304   Code   RO         1221    i.TMR_SR_cmdSetReaderConfiguration  serial_reader_l3.o
+    0x000081a4   0x000081a4   0x00000160   Code   RO         1222    i.TMR_SR_cmdSetReaderWriteTimeOut  serial_reader_l3.o
+    0x00008304   0x00008304   0x00000344   Code   RO         1223    i.TMR_SR_cmdSetRegion  serial_reader_l3.o
+    0x00008648   0x00008648   0x00000164   Code   RO         1224    i.TMR_SR_cmdSetRegionDwellTime  serial_reader_l3.o
+    0x000087ac   0x000087ac   0x0000002c   Code   RO         1225    i.TMR_SR_cmdSetRegionDwellTimeEnable  serial_reader_l3.o
+    0x000087d8   0x000087d8   0x0000012c   Code   RO         1226    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  serial_reader_l3.o
+    0x00008904   0x00008904   0x0000002c   Code   RO         1227    i.TMR_SR_cmdSetRegionLbt  serial_reader_l3.o
+    0x00008930   0x00008930   0x00000144   Code   RO         1228    i.TMR_SR_cmdSetRegionLbtThreshold  serial_reader_l3.o
+    0x00008a74   0x00008a74   0x000000e0   Code   RO         1229    i.TMR_SR_cmdSetTxRxPorts  serial_reader_l3.o
+    0x00008b54   0x00008b54   0x00000024   Code   RO         1230    i.TMR_SR_cmdSetUserMode  serial_reader_l3.o
+    0x00008b78   0x00008b78   0x000004b0   Code   RO         1231    i.TMR_SR_cmdSetUserProfile  serial_reader_l3.o
+    0x00009028   0x00009028   0x00000024   Code   RO         1232    i.TMR_SR_cmdSetWriteTxPower  serial_reader_l3.o
+    0x0000904c   0x0000904c   0x0000010c   Code   RO         1233    i.TMR_SR_cmdStopReading  serial_reader_l3.o
+    0x00009158   0x00009158   0x000000a0   Code   RO         1237    i.TMR_SR_cmdVersion  serial_reader_l3.o
+    0x000091f8   0x000091f8   0x000000f8   Code   RO          791    i.TMR_SR_connect    serial_reader.o
+    0x000092f0   0x000092f0   0x000002f8   Code   RO         2616    i.TMR_SR_convertFromEBV  tm_reader.o
+    0x000095e8   0x000095e8   0x00000340   Code   RO         2617    i.TMR_SR_convertToEBV  tm_reader.o
+    0x00009928   0x00009928   0x00000454   Code   RO         1242    i.TMR_SR_executeEmbeddedRead  serial_reader_l3.o
+    0x00009d7c   0x00009d7c   0x000002a0   Code   RO          795    i.TMR_SR_getNextTag  serial_reader.o
+    0x0000a01c   0x0000a01c   0x00000104   Code   RO          796    i.TMR_SR_getVersion  serial_reader.o
+    0x0000a120   0x0000a120   0x00000408   Code   RO          799    i.TMR_SR_hasMoreTags  serial_reader.o
+    0x0000a528   0x0000a528   0x00000094   Code   RO         1243    i.TMR_SR_msgAddAccessPassword  serial_reader_l3.o
+    0x0000a5bc   0x0000a5bc   0x000000d4   Code   RO         1246    i.TMR_SR_msgAddExtendedParams  serial_reader_l3.o
+    0x0000a690   0x0000a690   0x000001d0   Code   RO         1256    i.TMR_SR_msgAddGEN2BlockErase  serial_reader_l3.o
+    0x0000a860   0x0000a860   0x00000324   Code   RO         1257    i.TMR_SR_msgAddGEN2BlockPermaLock  serial_reader_l3.o
+    0x0000ab84   0x0000ab84   0x00000358   Code   RO         1258    i.TMR_SR_msgAddGEN2BlockWrite  serial_reader_l3.o
+    0x0000aedc   0x0000aedc   0x0000019c   Code   RO         1259    i.TMR_SR_msgAddGEN2DataRead  serial_reader_l3.o
+    0x0000b078   0x0000b078   0x000001ec   Code   RO         1260    i.TMR_SR_msgAddGEN2DataWrite  serial_reader_l3.o
+    0x0000b264   0x0000b264   0x0000011c   Code   RO         1261    i.TMR_SR_msgAddGEN2KillTag  serial_reader_l3.o
+    0x0000b380   0x0000b380   0x00000188   Code   RO         1262    i.TMR_SR_msgAddGEN2LockTag  serial_reader_l3.o
+    0x0000b508   0x0000b508   0x0000010c   Code   RO         1263    i.TMR_SR_msgAddGEN2WriteTagEPC  serial_reader_l3.o
+    0x0000b614   0x0000b614   0x00000240   Code   RO         1306    i.TMR_SR_msgAddReadMemory  serial_reader_l3.o
+    0x0000b854   0x0000b854   0x000001b8   Code   RO         1307    i.TMR_SR_msgAddWriteMemory  serial_reader_l3.o
+    0x0000ba0c   0x0000ba0c   0x00000680   Code   RO         1308    i.TMR_SR_msgSetupMultipleProtocolSearch  serial_reader_l3.o
+    0x0000c08c   0x0000c08c   0x00000050   Code   RO         1309    i.TMR_SR_msgSetupReadTagMultiple  serial_reader_l3.o
+    0x0000c0dc   0x0000c0dc   0x000005e4   Code   RO         1310    i.TMR_SR_msgSetupReadTagMultipleWithMetadata  serial_reader_l3.o
+    0x0000c6c0   0x0000c6c0   0x000016fc   Code   RO          803    i.TMR_SR_paramGet   serial_reader.o
+    0x0000ddbc   0x0000ddbc   0x0000123c   Code   RO          804    i.TMR_SR_paramSet   serial_reader.o
+    0x0000eff8   0x0000eff8   0x0000022c   Code   RO         1311    i.TMR_SR_parseMetadataFromMessage  serial_reader_l3.o
+    0x0000f224   0x0000f224   0x000004b0   Code   RO         1312    i.TMR_SR_parseMetadataOnly  serial_reader_l3.o
+    0x0000f6d4   0x0000f6d4   0x000001a0   Code   RO         1313    i.TMR_SR_postprocessReaderSpecificMetadata  serial_reader_l3.o
+    0x0000f874   0x0000f874   0x00000098   Code   RO          805    i.TMR_SR_read       serial_reader.o
+    0x0000f90c   0x0000f90c   0x00000578   Code   RO          810    i.TMR_SR_read_internal  serial_reader.o
+    0x0000fe84   0x0000fe84   0x00000484   Code   RO         1315    i.TMR_SR_receiveMessage  serial_reader_l3.o
+    0x00010308   0x00010308   0x00000024   Code   RO         1317    i.TMR_SR_send       serial_reader_l3.o
+    0x0001032c   0x0001032c   0x00000068   Code   RO         1318    i.TMR_SR_sendBytes  serial_reader_l3.o
+    0x00010394   0x00010394   0x0000002c   Code   RO         1319    i.TMR_SR_sendCmd    serial_reader_l3.o
+    0x000103c0   0x000103c0   0x00000180   Code   RO         1320    i.TMR_SR_sendMessage  serial_reader_l3.o
+    0x00010540   0x00010540   0x00000124   Code   RO         1321    i.TMR_SR_sendTimeout  serial_reader_l3.o
+    0x00010664   0x00010664   0x00000058   Code   RO         2660    i.TMR__notifyTransportListeners  tm_reader.o
+    0x000106bc   0x000106bc   0x000001d0   Code   RO         2662    i.TMR_create        tm_reader.o
+    0x0001088c   0x0001088c   0x0000047c   Code   RO         1322    i.TMR_fillReaderStats  serial_reader_l3.o
+    0x00010d08   0x00010d08   0x000000b8   Code   RO         1323    i.TMR_flush         serial_reader_l3.o
+    0x00010dc0   0x00010dc0   0x00000058   Code   RO          637    i.TMR_hexDottedQuad  hex_bytes.o
+    0x00010e18   0x00010e18   0x0000012c   Code   RO         2666    i.TMR_initSerialTransportTable  tm_reader.o
+    0x00010f44   0x00010f44   0x000000b0   Code   RO         2669    i.TMR_paramGet      tm_reader.o
+    0x00010ff4   0x00010ff4   0x000000c0   Code   RO         2671    i.TMR_paramProbe    tm_reader.o
+    0x000110b4   0x000110b4   0x000000ec   Code   RO         2672    i.TMR_paramSet      tm_reader.o
+    0x000111a0   0x000111a0   0x000000f0   Code   RO         2674    i.TMR_reader_init_internal  tm_reader.o
+    0x00011290   0x00011290   0x00000064   Code   RO         3100    i.TMR_startReading  tm_reader_async.o
+    0x000112f4   0x000112f4   0x000000b4   Code   RO         3101    i.TMR_stopReading   tm_reader_async.o
+    0x000113a8   0x000113a8   0x00000058   Code   RO         3203    i.TMR_stringCopy    tmr_utils.o
     0x00011400   0x00011400   0x00000040   Code   RO          425    i.UART0_Init        uart0.o
     0x00011440   0x00011440   0x00000028   Code   RO          426    i.UART0_sendchar    uart0.o
     0x00011468   0x00011468   0x00000074   Code   RO          446    i.UART1_Init        uart1.o
@@ -3612,28 +3613,28 @@ Memory Map of the image
     0x0001189c   0x0001189c   0x0000015c   Code   RO          451    i.UART1_sendbuffer  uart1.o
     0x000119f8   0x000119f8   0x00000028   Code   RO          452    i.UART1_sendchar    uart1.o
     0x00011a20   0x00011a20   0x0000002c   Code   RO          198    i.UpdateIndexAtomic  ringbuf.o
-    0x00011a4c   0x00011a4c   0x00000002   Code   RO         3597    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
-    0x00011a4e   0x00011a4e   0x00000002   Code   RO         3595    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
-    0x00011a50   0x00011a50   0x0000000e   Code   RO         3636    i._is_digit         c_t.l(__printf_wp.o)
+    0x00011a4c   0x00011a4c   0x00000002   Code   RO         3609    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
+    0x00011a4e   0x00011a4e   0x00000002   Code   RO         3607    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
+    0x00011a50   0x00011a50   0x0000000e   Code   RO         3648    i._is_digit         c_t.l(__printf_wp.o)
     0x00011a5e   0x00011a5e   0x00000002   PAD
     0x00011a60   0x00011a60   0x00000004   Code   RO          140    i._sys_exit         retarget.o
-    0x00011a64   0x00011a64   0x00000084   Code   RO         2665    i.checkForAvailableFeatures  tm_reader.o
+    0x00011a64   0x00011a64   0x00000084   Code   RO         2680    i.checkForAvailableFeatures  tm_reader.o
     0x00011ae8   0x00011ae8   0x00000044   Code   RO          453    i.check_communication_errors  uart1.o
-    0x00011b2c   0x00011b2c   0x00000118   Code   RO          802    i.compareAntennas   serial_reader.o
+    0x00011b2c   0x00011b2c   0x00000118   Code   RO          817    i.compareAntennas   serial_reader.o
     0x00011c44   0x00011c44   0x0000007c   Code   RO          390    i.compute_crc       crc.o
-    0x00011cc0   0x00011cc0   0x00000120   Code   RO         1311    i.extractGen2MemoryBankValues  serial_reader_l3.o
+    0x00011cc0   0x00011cc0   0x00000120   Code   RO         1326    i.extractGen2MemoryBankValues  serial_reader_l3.o
     0x00011de0   0x00011de0   0x00000004   Ven    RO          142    i.ferror            retarget.o
     0x00011de4   0x00011de4   0x0000000c   Code   RO          142    i.ferror            retarget.o
-    0x00011df0   0x00011df0   0x00000088   Code   RO          803    i.fillStaticTxRxMapData  serial_reader.o
-    0x00011e78   0x00011e78   0x0000010c   Code   RO         1312    i.fillVersionInfo   serial_reader_l3.o
-    0x00011f84   0x00011f84   0x00000894   Code   RO         1313    i.filterbytes       serial_reader_l3.o
+    0x00011df0   0x00011df0   0x00000088   Code   RO          818    i.fillStaticTxRxMapData  serial_reader.o
+    0x00011e78   0x00011e78   0x0000010c   Code   RO         1327    i.fillVersionInfo   serial_reader_l3.o
+    0x00011f84   0x00011f84   0x00000894   Code   RO         1328    i.filterbytes       serial_reader_l3.o
     0x00012818   0x00012818   0x0000001c   Code   RO          143    i.fputc             retarget.o
-    0x00012834   0x00012834   0x00000050   Code   RO         2667    i.getAddrByteExtEnabledVersion  tm_reader.o
-    0x00012884   0x00012884   0x0000004c   Code   RO          804    i.getHardwareInfo   serial_reader.o
-    0x000128d0   0x000128d0   0x0000014c   Code   RO          805    i.getPortValues     serial_reader.o
-    0x00012a1c   0x00012a1c   0x000002f4   Code   RO          806    i.getReadExtParams  serial_reader.o
-    0x00012d10   0x00012d10   0x000000e4   Code   RO          807    i.getSerialNumber   serial_reader.o
-    0x00012df4   0x00012df4   0x00000468   Code   RO          808    i.getWriteExtParams  serial_reader.o
+    0x00012834   0x00012834   0x00000050   Code   RO         2682    i.getAddrByteExtEnabledVersion  tm_reader.o
+    0x00012884   0x00012884   0x0000004c   Code   RO          819    i.getHardwareInfo   serial_reader.o
+    0x000128d0   0x000128d0   0x0000014c   Code   RO          820    i.getPortValues     serial_reader.o
+    0x00012a1c   0x00012a1c   0x000002f4   Code   RO          821    i.getReadExtParams  serial_reader.o
+    0x00012d10   0x00012d10   0x000000e4   Code   RO          822    i.getSerialNumber   serial_reader.o
+    0x00012df4   0x00012df4   0x00000468   Code   RO          823    i.getWriteExtParams  serial_reader.o
     0x0001325c   0x0001325c   0x00000054   Code   RO          553    i.i2c_check_CRC_after_RX_finish  i2c.o
     0x000132b0   0x000132b0   0x00000010   Code   RO          554    i.i2c_get_RX_ready_status  i2c.o
     0x000132c0   0x000132c0   0x00000028   Code   RO          555    i.i2c_get_command   i2c.o
@@ -3641,43 +3642,43 @@ Memory Map of the image
     0x00013318   0x00013318   0x00000010   Code   RO          557    i.i2c_set_RX_ready_status  i2c.o
     0x00013328   0x00013328   0x00000038   Code   RO          558    i.i2c_set_command_status  i2c.o
     0x00013360   0x00013360   0x00000010   Code   RO          559    i.i2c_set_response_ready_status  i2c.o
-    0x00013370   0x00013370   0x0000006c   Code   RO          809    i.initTxRxMapFromPorts  serial_reader.o
-    0x000133dc   0x000133dc   0x00000074   Code   RO          810    i.isTagTypeFilterAvail  serial_reader.o
+    0x00013370   0x00013370   0x0000006c   Code   RO          824    i.initTxRxMapFromPorts  serial_reader.o
+    0x000133dc   0x000133dc   0x00000074   Code   RO          825    i.isTagTypeFilterAvail  serial_reader.o
     0x00013450   0x00013450   0x00000060   Code   RO           11    i.main              main.o
-    0x000134b0   0x000134b0   0x00000048   Code   RO         3088    i.notify_read_listeners  tm_reader_async.o
-    0x000134f8   0x000134f8   0x0000007c   Code   RO         1318    i.parseEBVdata      serial_reader_l3.o
-    0x00013574   0x00013574   0x000000ac   Code   RO          811    i.prepEmbReadTagMultiple  serial_reader.o
-    0x00013620   0x00013620   0x0000012c   Code   RO          812    i.prepForSearch     serial_reader.o
-    0x0001374c   0x0001374c   0x00000108   Code   RO         3278    i.reader_recovery   reader_manager.o
-    0x00013854   0x00013854   0x0000002c   Code   RO         2539    i.s_flush           serial_transport_dummy.o
-    0x00013880   0x00013880   0x0000000c   Code   RO         2540    i.s_open            serial_transport_dummy.o
-    0x0001388c   0x0001388c   0x0000006c   Code   RO         2541    i.s_receiveBytes    serial_transport_dummy.o
-    0x000138f8   0x000138f8   0x00000064   Code   RO         2542    i.s_sendBytes       serial_transport_dummy.o
-    0x0001395c   0x0001395c   0x0000000c   Code   RO         2543    i.s_setBaudRate     serial_transport_dummy.o
-    0x00013968   0x00013968   0x0000000c   Code   RO         2544    i.s_shutdown        serial_transport_dummy.o
-    0x00013974   0x00013974   0x000000d4   Code   RO          813    i.setAntennaList    serial_reader.o
-    0x00013a48   0x00013a48   0x000002c4   Code   RO          814    i.setAntennaReadTimeHelper  serial_reader.o
-    0x00013d0c   0x00013d0c   0x00000084   Code   RO          815    i.setAntennaReadTimeList  serial_reader.o
-    0x00013d90   0x00013d90   0x0000011c   Code   RO          816    i.setPortValues     serial_reader.o
-    0x00013eac   0x00013eac   0x0000004c   Code   RO          817    i.setProtocol       serial_reader.o
-    0x00013ef8   0x00013ef8   0x00000044   Code   RO         3190    i.tm_gettime_consistent  tmr_utils.o
-    0x00013f3c   0x00013f3c   0x00000034   Code   RO         3191    i.tm_memcpy         tmr_utils.o
-    0x00013f70   0x00013f70   0x00000024   Code   RO         3194    i.tm_strcpy         tmr_utils.o
-    0x00013f94   0x00013f94   0x00000024   Code   RO         3196    i.tm_u8s_per_bits   tmr_utils.o
-    0x00013fb8   0x00013fb8   0x0000000c   Code   RO          734    i.tmr_gettime       osdep_dummy.o
-    0x00013fc4   0x00013fc4   0x00000008   Code   RO          735    i.tmr_gettime_high  osdep_dummy.o
-    0x00013fcc   0x00013fcc   0x00000008   Code   RO          736    i.tmr_gettime_low   osdep_dummy.o
-    0x00013fd4   0x00013fd4   0x000000a8   Code   RO          818    i.updateTxRxMapData  serial_reader.o
-    0x0001407c   0x0001407c   0x00000178   Code   RO          819    i.validateParams    serial_reader.o
-    0x000141f4   0x000141f4   0x0000005c   Code   RO         2668    i.validateReadPlan  tm_reader.o
-    0x00014250   0x00014250   0x00000020   Code   RO         3279    i.validate_tag_criteria  reader_manager.o
-    0x00014270   0x00014270   0x000000cc   Code   RO         2669    i.versionCompare    tm_reader.o
+    0x000134b0   0x000134b0   0x00000048   Code   RO         3103    i.notify_read_listeners  tm_reader_async.o
+    0x000134f8   0x000134f8   0x0000007c   Code   RO         1333    i.parseEBVdata      serial_reader_l3.o
+    0x00013574   0x00013574   0x000000ac   Code   RO          826    i.prepEmbReadTagMultiple  serial_reader.o
+    0x00013620   0x00013620   0x0000012c   Code   RO          827    i.prepForSearch     serial_reader.o
+    0x0001374c   0x0001374c   0x00000108   Code   RO         3293    i.reader_recovery   reader_manager.o
+    0x00013854   0x00013854   0x0000002c   Code   RO         2554    i.s_flush           serial_transport_dummy.o
+    0x00013880   0x00013880   0x0000000c   Code   RO         2555    i.s_open            serial_transport_dummy.o
+    0x0001388c   0x0001388c   0x0000006c   Code   RO         2556    i.s_receiveBytes    serial_transport_dummy.o
+    0x000138f8   0x000138f8   0x00000064   Code   RO         2557    i.s_sendBytes       serial_transport_dummy.o
+    0x0001395c   0x0001395c   0x0000000c   Code   RO         2558    i.s_setBaudRate     serial_transport_dummy.o
+    0x00013968   0x00013968   0x0000000c   Code   RO         2559    i.s_shutdown        serial_transport_dummy.o
+    0x00013974   0x00013974   0x000000d4   Code   RO          828    i.setAntennaList    serial_reader.o
+    0x00013a48   0x00013a48   0x000002c4   Code   RO          829    i.setAntennaReadTimeHelper  serial_reader.o
+    0x00013d0c   0x00013d0c   0x00000084   Code   RO          830    i.setAntennaReadTimeList  serial_reader.o
+    0x00013d90   0x00013d90   0x0000011c   Code   RO          831    i.setPortValues     serial_reader.o
+    0x00013eac   0x00013eac   0x0000004c   Code   RO          832    i.setProtocol       serial_reader.o
+    0x00013ef8   0x00013ef8   0x00000044   Code   RO         3205    i.tm_gettime_consistent  tmr_utils.o
+    0x00013f3c   0x00013f3c   0x00000034   Code   RO         3206    i.tm_memcpy         tmr_utils.o
+    0x00013f70   0x00013f70   0x00000024   Code   RO         3209    i.tm_strcpy         tmr_utils.o
+    0x00013f94   0x00013f94   0x00000024   Code   RO         3211    i.tm_u8s_per_bits   tmr_utils.o
+    0x00013fb8   0x00013fb8   0x0000000c   Code   RO          749    i.tmr_gettime       osdep_dummy.o
+    0x00013fc4   0x00013fc4   0x00000008   Code   RO          750    i.tmr_gettime_high  osdep_dummy.o
+    0x00013fcc   0x00013fcc   0x00000008   Code   RO          751    i.tmr_gettime_low   osdep_dummy.o
+    0x00013fd4   0x00013fd4   0x000000a8   Code   RO          833    i.updateTxRxMapData  serial_reader.o
+    0x0001407c   0x0001407c   0x00000178   Code   RO          834    i.validateParams    serial_reader.o
+    0x000141f4   0x000141f4   0x0000005c   Code   RO         2683    i.validateReadPlan  tm_reader.o
+    0x00014250   0x00014250   0x00000020   Code   RO         3294    i.validate_tag_criteria  reader_manager.o
+    0x00014270   0x00014270   0x000000cc   Code   RO         2684    i.versionCompare    tm_reader.o
     0x0001433c   0x0001433c   0x00000020   Data   RO          391    .constdata          crc.o
-    0x0001435c   0x0001435c   0x00000020   Data   RO          820    .constdata          serial_reader.o
-    0x0001437c   0x0001437c   0x00000028   Data   RO         3609    .constdata          c_t.l(_printf_hex_int.o)
-    0x000143a4   0x000143a4   0x00000011   Data   RO         3639    .constdata          c_t.l(__printf_flags_wp.o)
+    0x0001435c   0x0001435c   0x00000020   Data   RO          835    .constdata          serial_reader.o
+    0x0001437c   0x0001437c   0x00000028   Data   RO         3621    .constdata          c_t.l(_printf_hex_int.o)
+    0x000143a4   0x000143a4   0x00000011   Data   RO         3651    .constdata          c_t.l(__printf_flags_wp.o)
     0x000143b5   0x000143b5   0x00000003   PAD
-    0x000143b8   0x000143b8   0x00000020   Data   RO         3927    Region$$Table       anon$$obj.o
+    0x000143b8   0x000143b8   0x00000020   Data   RO         3939    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Exec base: 0x40000000, Load base: 0x000143d8, Size: 0x00003a08, Max: 0x00004000, ABSOLUTE)
@@ -3689,23 +3690,23 @@ Memory Map of the image
     0x40000006   0x000143de   0x00000003   Data   RW          454    .data               uart1.o
     0x40000009   0x000143e1   0x00000003   PAD
     0x4000000c   0x000143e4   0x00000014   Data   RW          560    .data               i2c.o
-    0x40000020   0x000143f8   0x00000011   Data   RW          625    .data               hex_bytes.o
+    0x40000020   0x000143f8   0x00000011   Data   RW          640    .data               hex_bytes.o
     0x40000031   0x00014409   0x00000007   PAD
-    0x40000038   0x00014410   0x00000015   Data   RW          821    .data               serial_reader.o
+    0x40000038   0x00014410   0x00000015   Data   RW          836    .data               serial_reader.o
     0x4000004d   0x00014425   0x00000003   PAD
-    0x40000050   0x00014428   0x0000001c   Data   RW         1319    .data               serial_reader_l3.o
-    0x4000006c   0x00014444   0x0000000c   Data   RW         2671    .data               tm_reader.o
-    0x40000078   0x00014450   0x00000001   Data   RW         3092    .data               tm_reader_async.o
+    0x40000050   0x00014428   0x0000001c   Data   RW         1334    .data               serial_reader_l3.o
+    0x4000006c   0x00014444   0x0000000c   Data   RW         2686    .data               tm_reader.o
+    0x40000078   0x00014450   0x00000001   Data   RW         3107    .data               tm_reader_async.o
     0x40000079   0x00014451   0x00000001   PAD
-    0x4000007a   0x00014452   0x00000008   Data   RW         3281    .data               reader_manager.o
+    0x4000007a   0x00014452   0x00000008   Data   RW         3296    .data               reader_manager.o
     0x40000082   0x0001445a   0x00000002   PAD
-    0x40000084   0x0001445c   0x00000004   Data   RW         3651    .data               c_t.l(strtok.o)
+    0x40000084   0x0001445c   0x00000004   Data   RW         3663    .data               c_t.l(strtok.o)
     0x40000088        -       0x00000064   Zero   RW          302    .bss                timer_software.o
     0x400000ec        -       0x00000410   Zero   RW          518    .bss                isr_manager.o
-    0x400004fc        -       0x00000230   Zero   RW         2670    .bss                tm_reader.o
+    0x400004fc        -       0x00000230   Zero   RW         2685    .bss                tm_reader.o
     0x4000072c   0x00014460   0x00000004   PAD
-    0x40000730        -       0x000009f8   Zero   RW         3280    .bss                reader_manager.o
-    0x40001128        -       0x00000060   Zero   RW         3800    .bss                c_t.l(libspace.o)
+    0x40000730        -       0x000009f8   Zero   RW         3295    .bss                reader_manager.o
+    0x40001128        -       0x00000060   Zero   RW         3812    .bss                c_t.l(libspace.o)
     0x40001188        -       0x00000000   Zero   RW            2    HEAP                startup.o
     0x40001188        -       0x00002880   Zero   RW            1    STACK               startup.o
 
