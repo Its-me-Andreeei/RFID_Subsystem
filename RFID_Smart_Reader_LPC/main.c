@@ -22,7 +22,7 @@ int main(void)
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
 	I2C_init();
-	SPI0_init();
+	//SPI0_init();
 	
 	printf("Main");
 

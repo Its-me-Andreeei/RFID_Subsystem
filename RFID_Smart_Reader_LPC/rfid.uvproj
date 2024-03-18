@@ -561,6 +561,11 @@
               <FileType>1</FileType>
               <FilePath>.\ASW\HostCommManager\HostCommManager.c</FilePath>
             </File>
+            <File>
+              <FileName>wifi_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ASW\WiFiManager\wifi_manager.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

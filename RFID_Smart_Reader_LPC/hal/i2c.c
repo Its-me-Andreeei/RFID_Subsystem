@@ -174,7 +174,10 @@ void I2C_irq(void) __irq
 			break;
 	}
 	
+	/*Clear interrupt flag of peripheral*/
 	I2CONCLR = (uint8_t)((uint8_t)1U << CLEAR_ISR_BIT_U8);
+	
+	/*Acknowledge the interrupt for VIC module*/
 	VICVectAddr = 0;
 }
 
