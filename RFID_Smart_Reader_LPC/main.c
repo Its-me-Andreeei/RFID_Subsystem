@@ -10,6 +10,7 @@
 
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
+#include "ASW/WiFiManager/wifi_manager.h"
 
 int main(void)
 {	
@@ -22,7 +23,7 @@ int main(void)
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
 	I2C_init();
-	//SPI0_init();
+	SPI0_init();
 	
 	printf("Main");
 
@@ -34,8 +35,9 @@ int main(void)
 	
 	while(1)
 	{
-			Reader_Manager();
-			HostComm_Manager();
+		Reader_Manager();
+		HostComm_Manager();
+		Wifi_Manager();
 	}
 	return 0;
 }
