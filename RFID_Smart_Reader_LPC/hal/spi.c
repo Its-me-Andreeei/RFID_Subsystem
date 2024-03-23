@@ -1,5 +1,6 @@
 #include <LPC22xx.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "./spi.h"
 #include "./spi_ISR.h"

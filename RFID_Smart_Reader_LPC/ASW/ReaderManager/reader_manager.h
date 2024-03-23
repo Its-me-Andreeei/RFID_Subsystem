@@ -21,6 +21,7 @@ void ReaderManagerInit(void);
 void Reader_HW_Reset(void);
 void Reader_Manager(void);
 
+void Reader_Set_Read_Request(bool value);
 route_status_t Reader_GET_route_status(void);
 
 #endif

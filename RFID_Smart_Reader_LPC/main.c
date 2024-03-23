@@ -11,6 +11,7 @@
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
 #include "ASW/WiFiManager/wifi_manager.h"
+#include "ASW/LP_Mode_Manager/LP_Mode_Manager.h"
 
 int main(void)
 {	
@@ -23,12 +24,13 @@ int main(void)
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
 	I2C_init();
-	SPI0_init();
+	//SPI0_init();
 	
 	printf("Main");
 
-	 InitInterrupt();
+	InitInterrupt();
 	/*------------------------------------*/
+	LP_Mode_Manager_Init();
 	Reader_HW_Reset();
 	ReaderManagerInit();
 	/*------------------------------------*/
@@ -37,7 +39,9 @@ int main(void)
 	{
 		Reader_Manager();
 		HostComm_Manager();
-		Wifi_Manager();
+		//Wifi_Manager();
+		
+		LP_Mode_Manager();
 	}
 	return 0;
 }
