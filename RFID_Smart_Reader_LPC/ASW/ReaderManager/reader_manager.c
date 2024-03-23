@@ -259,7 +259,7 @@ void Reader_Manager(void)
 		case STOP_READING:
 			/*This will stop RF emissions*/
 			(void)TMR_stopReading(&reader);
-
+			
 			/* flush of SW buffer is done because stop reading function is not 'receiving' the RX buffer thus response is 
 			 * stucked and will interfere with temperature result*/
 			(void)TMR_flush(&reader); 
@@ -335,6 +335,12 @@ void Reader_Manager(void)
 					(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
 					TIMER_SOFTWARE_clear_interrupt(timer_route_status);
 					TIMER_SOFTWARE_reset_timer(timer_route_status);
+					
+					/*Select Stop Reading State for entering Sleep*/
+					request_stop_reading_reason = STOP_FOR_SLEEP;
+					
+					/*Mark next state as Stop Reading as request is finalized*/
+					current_state_en = STOP_READING;
 				}
 			}
 			
@@ -345,10 +351,15 @@ void Reader_Manager(void)
 				
 				/*After enough missings, declare not on route status*/
 				route_status = NOT_ON_ROUTE;
-			}
-			
-			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
-			if(TIMER_SOFTWARE_interrupt_pending(timer_reader_temperature))
+				
+				/*Select Stop Reading State for entering Sleep*/
+				request_stop_reading_reason = STOP_FOR_SLEEP;
+					
+				/*Mark next state as Stop Reading as request is finalized*/
+				current_state_en = STOP_READING;
+		
+			}/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
+			else if(TIMER_SOFTWARE_interrupt_pending(timer_reader_temperature))
 			{
 				TIMER_SOFTWARE_clear_interrupt(timer_reader_temperature);
 				

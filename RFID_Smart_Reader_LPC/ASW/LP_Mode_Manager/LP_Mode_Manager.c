@@ -62,7 +62,6 @@ void LP_Mode_Manager(void)
 		
 		/*Go to Idle State*/
 		PCON = (uint8_t)0x01;
-		__nop();
 		enable_Timer0();
 	}
 	else
