@@ -246,6 +246,7 @@ void Reader_Manager(void)
 			}
 			else
 			{
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
 				/*Wait for new request*/
 			}
 			break;
@@ -342,9 +343,8 @@ void Reader_Manager(void)
 					/*Mark next state as Stop Reading as request is finalized*/
 					current_state_en = STOP_READING;
 				}
-			}
-			
-			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
+			}		
+			else if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
 			{
 				TIMER_SOFTWARE_clear_interrupt(timer_route_status);
 				TIMER_SOFTWARE_reset_timer(timer_route_status);
