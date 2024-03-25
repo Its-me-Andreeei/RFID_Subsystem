@@ -1,5 +1,8 @@
 #include "reader_manager.h"
 #include <LPC22xx.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 #include "../../utils/timer_software.h"
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 #include <stdio.h>
@@ -11,9 +14,9 @@
 
 static TMR_Reader reader;
 static TMR_TagReadData data;
-static timer_software_handler_t timer_reader; 
 static timer_software_handler_t timer_route_status;
 static route_status_t route_status = ON_THE_ROUTE;
+static ReaderRequest_t reader_request = NO_REQUEST;
 
 
 /*This function is not recreating the timer element and reader struct*/
@@ -88,11 +91,6 @@ void ReaderManagerInit(void)
 
 	ConfigInit();
 	
-	/*Timer is used in order to switch to temperature check mode after a given timeout*/
-	timer_reader = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_reader, MODE_0, TEMPERATURE_CHECK_TIMEOUT, 1);
-	TIMER_SOFTWARE_reset_timer(timer_reader);
-	
 	timer_route_status = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_route_status, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
 	TIMER_SOFTWARE_reset_timer(timer_route_status);
@@ -114,6 +112,38 @@ void Reader_HW_Reset(void)
 	TIMER_SOFTWARE_Wait(1000);
 }
 
+ReaderRequest_t Reader_GET_request_status(void)
+{
+	ReaderRequest_t result;
+	result = reader_request;
+	
+	if(REQUEST_FINISHED == reader_request)
+	{
+		reader_request = NO_REQUEST;
+	}
+	return result;
+}
+
+bool Reader_SET_read_request(bool request)
+{
+	bool result = false;
+	
+	if(NO_REQUEST == reader_request)
+	{
+		if(true == request)
+		{
+			reader_request = READ_REQUEST_ASKED;
+			
+		}
+		else
+		{
+			reader_request = NO_REQUEST;
+		}
+		result = true;
+	}
+	
+	return result;
+}
 /*************************************************************************************************************************************************
 	Function: 		reader_recovery
 	Description:	This function will perform recovery procedure: Will perform a HW reset of reader module, and send 4 PINGs. 
@@ -192,6 +222,7 @@ static bool_t reader_recovery()
 void Reader_Manager(void)
 {
 	typedef enum ReaderManager_state_en{
+		CHECK_FOR_REQUESTS,
 		MODULE_INIT,
 		START_READING,
 		STOP_READING,
@@ -200,9 +231,15 @@ void Reader_Manager(void)
 		PERMANENT_FAILURE
 	}ReaderManager_state_en;
 	
-	static ReaderManager_state_en current_state_en = START_READING;
+	typedef enum StopReason_t {
+		NO_STOP_REASON,
+		STOP_FOR_TEMPERATURE,
+		STOP_FOR_SLEEP
+	}StopReason_t;
+	
+	static ReaderManager_state_en current_state_en = CHECK_FOR_REQUESTS;
 	int8_t temperature = (int8_t)0x00U;
-	static uint8_t request_temp_check_after_stop = (uint8_t)0x00U; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
+	static StopReason_t request_stop = NO_STOP_REASON; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 	
 	switch(current_state_en)
@@ -212,10 +249,22 @@ void Reader_Manager(void)
 			ConfigInit();
 			current_state_en = START_READING;
 			break;
+		case CHECK_FOR_REQUESTS:
+			if(READ_REQUEST_ASKED == reader_request)
+			{
+				current_state_en = START_READING;
+				reader_request = REQUEST_IN_PROGRESS;
+			}
+			else
+			{
+				current_state_en = CHECK_FOR_REQUESTS;
+			}
+			break;
 		
 		case START_READING:
 			(void)TMR_startReading(&reader);
-		
+			TIMER_SOFTWARE_reset_timer(timer_route_status);
+			TIMER_SOFTWARE_start_timer(timer_route_status);
 			current_state_en = GET_TAGS;
 			break;
 		
@@ -227,30 +276,25 @@ void Reader_Manager(void)
 			 * stucked and will interfere with temperature result*/
 			(void)TMR_flush(&reader); 
 		
-			if((uint8_t)0x01 == request_temp_check_after_stop)
-			{
-				/*Reset flag after processing request*/
-				request_temp_check_after_stop = 0x00; 
+			
+			switch(request_stop){
+				case STOP_FOR_TEMPERATURE:
+					current_state_en = CHECK_TEMPERATURE;
+				break;
 				
-				current_state_en = CHECK_TEMPERATURE;
+				case STOP_FOR_SLEEP:
+					/*Do nothing now*/
+				break;
+				
+				default:
+					current_state_en = GET_TAGS;
+				break;
 			}
-			/*TBD: To be checked for else case and other strategies*/
+			/*Reset flag after processing request*/
+			request_stop = NO_STOP_REASON;
 			break;
 		
 		case GET_TAGS:
-			/*Check if it's first reading iteration and timer has to be started*/
-			if(!TIMER_SOFTWARE_interrupt_pending(timer_reader) && !TIMER_SOFTWARE_is_Running(timer_reader))
-			{
-				TIMER_SOFTWARE_reset_timer(timer_reader);
-				TIMER_SOFTWARE_start_timer(timer_reader);
-			}
-			
-			/*Check if it's first reading iteration and timer has to be started*/
-			if(!TIMER_SOFTWARE_interrupt_pending(timer_route_status) && !TIMER_SOFTWARE_is_Running(timer_route_status))
-			{
-				TIMER_SOFTWARE_reset_timer(timer_route_status);
-				TIMER_SOFTWARE_start_timer(timer_route_status);
-			}
 			
 			/*Check if there are tags available*/
 			if(TMR_SUCCESS == TMR_hasMoreTags(&reader))
@@ -271,6 +315,8 @@ void Reader_Manager(void)
 					/*Set flag regarding "on route" status*/
 					route_status = ON_THE_ROUTE;
 					
+					reader_request = REQUEST_FINISHED;
+					
 					/*Reset timer if already got positive response*/
 					(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
 					TIMER_SOFTWARE_clear_interrupt(timer_route_status);
@@ -285,18 +331,17 @@ void Reader_Manager(void)
 				
 				/*After enough missings, declare not on route status*/
 				route_status = NOT_ON_ROUTE;
+				reader_request = REQUEST_FINISHED;
 			}
 			
 			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
-			if(TIMER_SOFTWARE_interrupt_pending(timer_reader))
+			if(REQUEST_FINISHED == reader_request)
 			{
-				TIMER_SOFTWARE_clear_interrupt(timer_reader);
-				
 				(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
 				TIMER_SOFTWARE_reset_timer(timer_route_status);
 				
 				/*Request to manager to go to check temperature only after RF emissions are off. Might add An enum if more cases will be possible from STOP state*/
-				request_temp_check_after_stop = (uint8_t)0x01U;
+				request_stop = STOP_FOR_TEMPERATURE;
 				
 				current_state_en = STOP_READING;
 			}
@@ -326,8 +371,8 @@ void Reader_Manager(void)
 					powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 					(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
 				}
-				/*We can keep reading as temperature is OK*/
-				current_state_en = START_READING;
+				/*We can keep processing requests as temperature is OK*/
+				current_state_en = CHECK_FOR_REQUESTS;
 			}
 			if(temperature >=45U && temperature < 55U) /*thermal warning*/
 			{
@@ -339,7 +384,7 @@ void Reader_Manager(void)
 				}
 				
 				/*We can keep reading as temperature is OK*/
-				current_state_en = START_READING;
+				current_state_en = CHECK_FOR_REQUESTS;
 			}
 			else if(temperature >= (uint8_t)55U) /*Check if maximal operational temperature is almost reached*/
 			{
@@ -350,6 +395,7 @@ void Reader_Manager(void)
 				
 				/*Manager will be stucked in this state untill temperature decreases*/
 				current_state_en = CHECK_TEMPERATURE;
+				
 				/*Delay between checks in order to not increase payload on UART*/
 				TIMER_SOFTWARE_Wait(500);
 			}
@@ -357,12 +403,12 @@ void Reader_Manager(void)
 			break;
 			
 		case PERMANENT_FAILURE:
-			/*Do nothing for now*/
+			current_state_en = PERMANENT_FAILURE;
 			break;
 		
 		default:
-			/*Invalid state reached, go back to 'GET TAGS' state*/
-			current_state_en = GET_TAGS;
+			/*Invalid state reached, go back to 'CHECK_FOR_REQUESTS' state*/
+			current_state_en = CHECK_FOR_REQUESTS;
 			break;
 	}
 

@@ -11,19 +11,41 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 	
 	switch(command)
 	{
-		case I2C_REQUEST_GET_ROUTE_STATUS:
-			route_status = Reader_GET_route_status();
-			if(ON_THE_ROUTE == route_status)
+		case I2C_REQUEST_GET_ROUTE_START:
+			if(NO_REQUEST == Reader_GET_request_status())
 			{
+				Reader_SET_read_request(true);
 				result = STATE_OK;
 			}
-			else if(NOT_ON_ROUTE == route_status)
+			else
 			{
 				result = STATE_NOK;
 			}
-			else if(ROUTE_PENDING == route_status)
+			break;
+		
+		case I2C_REQUEST_GET_ROUTE_STATUS:
+			if(NO_REQUEST == Reader_GET_request_status())
+			{
+				result = STATE_INVALID;
+			}
+			else if(REQUEST_IN_PROGRESS == Reader_GET_request_status())
 			{
 				result = STATE_PENDING;
+			}
+			else
+			{
+				route_status = Reader_GET_route_status();
+				if(ON_THE_ROUTE == route_status)
+				{
+					result = STATE_OK;
+				}else if(NOT_ON_ROUTE == route_status)
+				{
+					result = STATE_NOK;
+				}
+				/*else if(ROUTE_PENDING == route_status)
+				{
+					result = STATE_PENDING;
+				}*/
 			}
 			break;
 		

@@ -8,11 +8,12 @@
 
 typedef enum i2c_requests_t
 {
-	I2C_REQUEST_GET_ROUTE_STATUS 	= 0x00,
+	I2C_REQUEST_GET_ROUTE_START 	= 0x00,
 	I2C_REQUEST_PING 						 	= 0x01,
 	I2C_REQUEST_GO_TO_SLEEP 			= 0x02,
 	I2C_REQUEST_WAKE_UP						= 0x03,
-	I2C_REQUEST_INVALID						= 0x04
+	I2C_REQUEST_GET_ROUTE_STATUS	= 0x05,
+	I2C_REQUEST_INVALID
 }i2c_requests_t;
 
 typedef enum data_ready_t
