@@ -6,7 +6,7 @@
 #include "../utils/timer_software.h"
 
 #include "i2c_ISR.h"
-#include "spi_ISR.h"
+//#include "spi_ISR.h"
 
 #define UART1_BUFFER_SIZE 1024U
 
@@ -77,12 +77,12 @@ void InitInterrupt(void)
 	VICIntSelect |= 1 << TIMER0_ISR_NUM_U8; /*TIMER ISR will be FIQ*/
 	
 	VICVectCntl0 = UART1_ISR_NUM_U8 			 | (1 << ISR_ENABLE_BIT);
-	VICVectCntl1 = SPI0_ISR_NUM_U8				 | (1 << ISR_ENABLE_BIT);
-	VICVectCntl2 = GPIO_EXT_INT_ISR_NUM_U8 | (1 << ISR_ENABLE_BIT);
+	//VICVectCntl1 = SPI0_ISR_NUM_U8				 | (1 << ISR_ENABLE_BIT);
+	//VICVectCntl2 = GPIO_EXT_INT_ISR_NUM_U8 | (1 << ISR_ENABLE_BIT);
 	VICVectCntl3 = I2C_ISR_NUM_U8 	       | (1 << ISR_ENABLE_BIT);
 	
 	VICVectAddr0 = (unsigned long int)UART1_irq;
-	VICVectAddr1 = (unsigned long int) SPI0_irq;
-	VICVectAddr2 = (unsigned long int) GPIO_Handsake_irq;
+	//VICVectAddr1 = (unsigned long int) SPI0_irq;
+	//VICVectAddr2 = (unsigned long int) GPIO_Handsake_irq;
 	VICVectAddr3 = (unsigned long int)I2C_irq;
 }

@@ -21,7 +21,7 @@ int main(void)
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
-	i2c_init();
+	I2C_init();
 	printf("Main");
 
 	 InitInterrupt();
