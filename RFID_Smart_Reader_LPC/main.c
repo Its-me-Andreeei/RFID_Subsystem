@@ -6,11 +6,9 @@
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
 #include "hal/i2c.h"
-#include "hal/spi.h"
 
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
-#include "ASW/WiFiManager/wifi_manager.h"
 #include "ASW/LP_Mode_Manager/LP_Mode_Manager.h"
 
 int main(void)
@@ -23,12 +21,10 @@ int main(void)
 	TIMER_Init(); /*This is the HW timer*/
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
-	I2C_init();
-	//SPI0_init();
-	
+	i2c_init();
 	printf("Main");
 
-	InitInterrupt();
+	 InitInterrupt();
 	/*------------------------------------*/
 	LP_Mode_Manager_Init();
 	Reader_HW_Reset();
@@ -37,11 +33,9 @@ int main(void)
 	
 	while(1)
 	{
-		Reader_Manager();
-		HostComm_Manager();
-		//Wifi_Manager();
-		
-		LP_Mode_Manager();
+			LP_Mode_Manager();
+			Reader_Manager();
+			HostComm_Manager();
 	}
 	return 0;
 }

@@ -487,9 +487,9 @@
               <FilePath>.\hal\i2c.c</FilePath>
             </File>
             <File>
-              <FileName>spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\hal\spi.c</FilePath>
+              <FileName>i2c_ISR.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\hal\i2c_ISR.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -560,11 +560,6 @@
               <FileName>HostCommManager.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ASW\HostCommManager\HostCommManager.c</FilePath>
-            </File>
-            <File>
-              <FileName>wifi_manager.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ASW\WiFiManager\wifi_manager.c</FilePath>
             </File>
             <File>
               <FileName>LP_Mode_Manager.c</FileName>

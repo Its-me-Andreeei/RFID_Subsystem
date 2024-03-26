@@ -1,13 +1,13 @@
+#include "reader_manager.h"
 #include <LPC22xx.h>
-#include <stdio.h>
+#include <stdint.h>
 #include <stdbool.h>
 
-#include "reader_manager.h"
 #include "../../utils/timer_software.h"
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
+#include <stdio.h>
 #include "../../hal/uart1.h"
-#include "../LP_Mode_manager/LP_Mode_Manager.h"
-
+#include "../LP_Mode_Manager/LP_Mode_Manager.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -15,12 +15,12 @@
 
 static TMR_Reader reader;
 static TMR_TagReadData data;
-static timer_software_handler_t timer_reader_temperature; 
 static timer_software_handler_t timer_route_status;
 static route_status_t route_status = ON_THE_ROUTE;
-static bool read_request = false;
+static ReaderRequest_t reader_request = NO_REQUEST;
 
 
+/*This function is not recreating the timer element and reader struct*/
 /*************************************************************************************************************************************************
 	Function: 		ConfigInit
 	Description:	This function must be called only after reader is created. Will check the communication with RFID Reader, and set the configuration inside Reader system trough UART1
@@ -92,12 +92,6 @@ void ReaderManagerInit(void)
 
 	ConfigInit();
 	
-	/*Timer is used to switch to temperature check mode after a given timeout*/
-	timer_reader_temperature = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_reader_temperature, MODE_0, TEMPERATURE_CHECK_TIMEOUT, 1);
-	TIMER_SOFTWARE_reset_timer(timer_reader_temperature);
-	
-	/*Timer is used to detect one single tag, in one iteration of state machine*/
 	timer_route_status = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_route_status, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
 	TIMER_SOFTWARE_reset_timer(timer_route_status);
@@ -119,9 +113,37 @@ void Reader_HW_Reset(void)
 	TIMER_SOFTWARE_Wait(1000);
 }
 
-void Reader_Set_Read_Request(bool value)
+ReaderRequest_t Reader_GET_request_status(void)
 {
-	read_request = value;
+	ReaderRequest_t result;
+	result = reader_request;
+	
+	if(REQUEST_FINISHED == reader_request)
+	{
+		reader_request = NO_REQUEST;
+	}
+	return result;
+}
+
+bool Reader_SET_read_request(bool request)
+{
+	bool result = false;
+	
+	if(NO_REQUEST == reader_request)
+	{
+		if(true == request)
+		{
+			reader_request = READ_REQUEST_ASKED;
+			
+		}
+		else
+		{
+			reader_request = NO_REQUEST;
+		}
+		result = true;
+	}
+	
+	return result;
 }
 /*************************************************************************************************************************************************
 	Function: 		reader_recovery
@@ -191,6 +213,12 @@ static bool_t reader_recovery()
 	return result; 
 }
 
+
+static void disable_HW_Reader(void)
+{
+	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
+}
+
 /*************************************************************************************************************************************************
 	Function: 		Reader_Manager
 	Description:	This manager handles the RFID reader, as a state machine. Must be called cyclically. Must not be called before ReaderInit() function
@@ -201,8 +229,8 @@ static bool_t reader_recovery()
 void Reader_Manager(void)
 {
 	typedef enum ReaderManager_state_en{
+		CHECK_FOR_REQUESTS,
 		MODULE_INIT,
-		CHECK_FOR_REQUEST,
 		START_READING,
 		STOP_READING,
 		GET_TAGS, /*This will be the state will be most of time*/
@@ -210,17 +238,15 @@ void Reader_Manager(void)
 		PERMANENT_FAILURE
 	}ReaderManager_state_en;
 	
-	typedef enum StopReason_t
-	{
+	typedef enum StopReason_t {
 		NO_STOP_REASON,
 		STOP_FOR_TEMPERATURE,
-		STOP_FOR_REQUEST_DONE,
 		STOP_FOR_SLEEP
 	}StopReason_t;
 	
-	static ReaderManager_state_en current_state_en = CHECK_FOR_REQUEST;
+	static ReaderManager_state_en current_state_en = CHECK_FOR_REQUESTS;
 	int8_t temperature = (int8_t)0x00U;
-	static StopReason_t request_stop_reading_reason = NO_STOP_REASON; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
+	static StopReason_t request_stop = NO_STOP_REASON; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 	
 	switch(current_state_en)
@@ -230,88 +256,54 @@ void Reader_Manager(void)
 			ConfigInit();
 			current_state_en = START_READING;
 			break;
-		
-		case CHECK_FOR_REQUEST:
-			
-			if(true == read_request)
+		case CHECK_FOR_REQUESTS:
+			if(READ_REQUEST_ASKED == reader_request)
 			{
-				/*Set stay awake flag*/
 				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
-				
-				/*A request to start reading was done, so go to START READING state next time*/
 				current_state_en = START_READING;
-				
-				/*Reset request flag after setting next state*/
-				read_request = false;
+				reader_request = REQUEST_IN_PROGRESS;
 			}
 			else
 			{
+				current_state_en = CHECK_FOR_REQUESTS;
 				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
-				/*Wait for new request*/
 			}
 			break;
 		
 		case START_READING:
 			(void)TMR_startReading(&reader);
-		
+			TIMER_SOFTWARE_reset_timer(timer_route_status);
+			TIMER_SOFTWARE_start_timer(timer_route_status);
 			current_state_en = GET_TAGS;
 			break;
 		
 		case STOP_READING:
 			/*This will stop RF emissions*/
 			(void)TMR_stopReading(&reader);
-			
+
 			/* flush of SW buffer is done because stop reading function is not 'receiving' the RX buffer thus response is 
 			 * stucked and will interfere with temperature result*/
 			(void)TMR_flush(&reader); 
 		
-			switch(request_stop_reading_reason)
-			{
+			
+			switch(request_stop){
 				case STOP_FOR_TEMPERATURE:
 					current_state_en = CHECK_TEMPERATURE;
-					break;
-				
-				case NO_STOP_REASON:
-					/*In case Stop state was chosen, but no start reason setted, go back to start read*/
-					current_state_en = START_READING;
-					break;	
+				break;
 				
 				case STOP_FOR_SLEEP:
-						/*Stop temperature timer. Will be resume on next request and time will keep flowing after a new request will be in place*/
-						TIMER_SOFTWARE_stop_timer(timer_reader_temperature);
-				
-					/*Remove Stay Awake flag*/
-					LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
-					
-					/*Go to Check for Request state*/
-					current_state_en = CHECK_FOR_REQUEST;
-					break;
-					
+					/*Do nothing now*/
+				break;
 				
 				default:
-					/*In case Stop state was chosen, but no valid start reason setted, go back to start read*/
-					current_state_en = START_READING;
-					break;
+					current_state_en = GET_TAGS;
+				break;
 			}
-			
-			/*Reset flag after deciding next state*/
-			request_stop_reading_reason = NO_STOP_REASON; 
+			/*Reset flag after processing request*/
+			request_stop = NO_STOP_REASON;
 			break;
 		
 		case GET_TAGS:
-			/*Check if it's first reading iteration and timer has to be started*/
-			if(!TIMER_SOFTWARE_interrupt_pending(timer_reader_temperature) && !TIMER_SOFTWARE_is_Running(timer_reader_temperature))
-			{
-				TIMER_SOFTWARE_reset_timer(timer_reader_temperature);
-				TIMER_SOFTWARE_start_timer(timer_reader_temperature);
-			}
-			
-			/*Check if it's first reading iteration and timer has to be started*/
-			if(!TIMER_SOFTWARE_interrupt_pending(timer_route_status) && !TIMER_SOFTWARE_is_Running(timer_route_status))
-			{
-				TIMER_SOFTWARE_reset_timer(timer_route_status);
-				TIMER_SOFTWARE_start_timer(timer_route_status);
-			}
 			
 			/*Check if there are tags available*/
 			if(TMR_SUCCESS == TMR_hasMoreTags(&reader))
@@ -332,42 +324,33 @@ void Reader_Manager(void)
 					/*Set flag regarding "on route" status*/
 					route_status = ON_THE_ROUTE;
 					
+					reader_request = REQUEST_FINISHED;
+					
 					/*Reset timer if already got positive response*/
 					(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
 					TIMER_SOFTWARE_clear_interrupt(timer_route_status);
 					TIMER_SOFTWARE_reset_timer(timer_route_status);
-					
-					/*Select Stop Reading State for entering Sleep*/
-					request_stop_reading_reason = STOP_FOR_SLEEP;
-					
-					/*Mark next state as Stop Reading as request is finalized*/
-					current_state_en = STOP_READING;
 				}
-			}		
-			else if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
+			}
+			
+			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
 			{
 				TIMER_SOFTWARE_clear_interrupt(timer_route_status);
 				TIMER_SOFTWARE_reset_timer(timer_route_status);
 				
 				/*After enough missings, declare not on route status*/
 				route_status = NOT_ON_ROUTE;
-				
-				/*Select Stop Reading State for entering Sleep*/
-				request_stop_reading_reason = STOP_FOR_SLEEP;
-					
-				/*Mark next state as Stop Reading as request is finalized*/
-				current_state_en = STOP_READING;
-		
-			}/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
-			else if(TIMER_SOFTWARE_interrupt_pending(timer_reader_temperature))
+				reader_request = REQUEST_FINISHED;
+			}
+			
+			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
+			if(REQUEST_FINISHED == reader_request)
 			{
-				TIMER_SOFTWARE_clear_interrupt(timer_reader_temperature);
-				
 				(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
 				TIMER_SOFTWARE_reset_timer(timer_route_status);
 				
 				/*Request to manager to go to check temperature only after RF emissions are off. Might add An enum if more cases will be possible from STOP state*/
-				request_stop_reading_reason = STOP_FOR_TEMPERATURE;
+				request_stop = STOP_FOR_TEMPERATURE;
 				
 				current_state_en = STOP_READING;
 			}
@@ -397,8 +380,11 @@ void Reader_Manager(void)
 					powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 					(void)TMR_paramSet(&reader, TMR_PARAM_POWERMODE, &powerManagementRequest);
 				}
-				/*We can keep reading as temperature is OK*/
-				current_state_en = START_READING;
+				/*We can keep processing requests as temperature is OK*/
+				current_state_en = CHECK_FOR_REQUESTS;
+				
+				/*Reader Manager finished current task, he can sleep now*/
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
 			}
 			if(temperature >=45U && temperature < 55U) /*thermal warning*/
 			{
@@ -410,7 +396,7 @@ void Reader_Manager(void)
 				}
 				
 				/*We can keep reading as temperature is OK*/
-				current_state_en = START_READING;
+				current_state_en = CHECK_FOR_REQUESTS;
 			}
 			else if(temperature >= (uint8_t)55U) /*Check if maximal operational temperature is almost reached*/
 			{
@@ -421,6 +407,7 @@ void Reader_Manager(void)
 				
 				/*Manager will be stucked in this state untill temperature decreases*/
 				current_state_en = CHECK_TEMPERATURE;
+				
 				/*Delay between checks in order to not increase payload on UART*/
 				TIMER_SOFTWARE_Wait(500);
 			}
@@ -428,13 +415,13 @@ void Reader_Manager(void)
 			break;
 			
 		case PERMANENT_FAILURE:
-			/*Do not set anymore Stay awake reason flag*/
-			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
+			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
+			current_state_en = PERMANENT_FAILURE;
 			break;
 		
 		default:
-			/*Invalid state reached, go back to 'GET TAGS' state*/
-			current_state_en = GET_TAGS;
+			/*Invalid state reached, go back to 'CHECK_FOR_REQUESTS' state*/
+			current_state_en = CHECK_FOR_REQUESTS;
 			break;
 	}
 
@@ -465,6 +452,12 @@ void Reader_Manager(void)
 			{
 				
 				current_state_en = PERMANENT_FAILURE;
+				
+				/*Reader is in PERMANENT_FAILURE, no need to stay awake*/
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
+				
+				/*Disable reader as it is not anymore usable*/
+				disable_HW_Reader();
 				
 				#ifdef UART1_DBG
 				printf("PERMANENT_FAILURE\n");
