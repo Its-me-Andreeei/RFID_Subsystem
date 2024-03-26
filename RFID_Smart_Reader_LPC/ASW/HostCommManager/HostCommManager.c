@@ -3,6 +3,7 @@
 #include "../../hal/i2c.h"
 #include "../ReaderManager/reader_manager.h"
 #include "HostCommManager.h"
+#include "../LP_Mode_Manager/LP_Mode_Manager.h"
 
 static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 {
@@ -82,6 +83,7 @@ void HostComm_Manager(void)
 	/*If data aquisition is ready ( we received a full frame)*/
 	if(DATA_READY == RX_data_available_en)
 	{
+		LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, true);
 		/*Compute CRC on length-2 bytes (all bytes except CRC from host, to see if they match*/
 		if(false == i2c_check_CRC_after_RX_finish())
 		{
@@ -101,6 +103,9 @@ void HostComm_Manager(void)
 			/*send response to host*/
 			i2c_set_response_ready_status(DATA_READY); 
 		}
+		
+		/*This manager finished it's task for now, can sleep*/
+		LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, false);
 		
 		/*Open to new RX transmission*/
 		i2c_set_RX_ready_status(DATA_NOT_READY);

@@ -7,6 +7,7 @@
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 #include <stdio.h>
 #include "../../hal/uart1.h"
+#include "../LP_Mode_Manager/LP_Mode_Manager.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -212,6 +213,12 @@ static bool_t reader_recovery()
 	return result; 
 }
 
+
+static void disable_HW_Reader(void)
+{
+	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
+}
+
 /*************************************************************************************************************************************************
 	Function: 		Reader_Manager
 	Description:	This manager handles the RFID reader, as a state machine. Must be called cyclically. Must not be called before ReaderInit() function
@@ -252,12 +259,14 @@ void Reader_Manager(void)
 		case CHECK_FOR_REQUESTS:
 			if(READ_REQUEST_ASKED == reader_request)
 			{
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
 				current_state_en = START_READING;
 				reader_request = REQUEST_IN_PROGRESS;
 			}
 			else
 			{
 				current_state_en = CHECK_FOR_REQUESTS;
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
 			}
 			break;
 		
@@ -373,6 +382,9 @@ void Reader_Manager(void)
 				}
 				/*We can keep processing requests as temperature is OK*/
 				current_state_en = CHECK_FOR_REQUESTS;
+				
+				/*Reader Manager finished current task, he can sleep now*/
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
 			}
 			if(temperature >=45U && temperature < 55U) /*thermal warning*/
 			{
@@ -403,6 +415,7 @@ void Reader_Manager(void)
 			break;
 			
 		case PERMANENT_FAILURE:
+			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
 			current_state_en = PERMANENT_FAILURE;
 			break;
 		
@@ -439,6 +452,12 @@ void Reader_Manager(void)
 			{
 				
 				current_state_en = PERMANENT_FAILURE;
+				
+				/*Reader is in PERMANENT_FAILURE, no need to stay awake*/
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
+				
+				/*Disable reader as it is not anymore usable*/
+				disable_HW_Reader();
 				
 				#ifdef UART1_DBG
 				printf("PERMANENT_FAILURE\n");

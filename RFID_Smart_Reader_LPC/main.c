@@ -9,6 +9,7 @@
 
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
+#include "ASW/LP_Mode_Manager/LP_Mode_Manager.h"
 
 int main(void)
 {	
@@ -25,12 +26,14 @@ int main(void)
 
 	 InitInterrupt();
 	/*------------------------------------*/
+	LP_Mode_Manager_Init();
 	Reader_HW_Reset();
 	ReaderManagerInit();
 	/*------------------------------------*/
 	
 	while(1)
 	{
+			LP_Mode_Manager();
 			Reader_Manager();
 			HostComm_Manager();
 	}

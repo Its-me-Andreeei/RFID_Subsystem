@@ -561,6 +561,11 @@
               <FileType>1</FileType>
               <FilePath>.\ASW\HostCommManager\HostCommManager.c</FilePath>
             </File>
+            <File>
+              <FileName>LP_Mode_Manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ASW\LP_Mode_Manager\LP_Mode_Manager.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
