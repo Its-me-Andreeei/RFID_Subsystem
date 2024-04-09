@@ -6,10 +6,12 @@
 #include "hal/ISR_manager.h"
 #include "hal/uart1.h"
 #include "hal/i2c.h"
+#include "hal/spi.h"
 
 #include "ASW/ReaderManager/reader_manager.h"
 #include "ASW/HostCommManager/HostCommManager.h"
 #include "ASW/LP_Mode_Manager/LP_Mode_Manager.h"
+#include "ASW/WiFiManager/wifi_manager.h"
 
 int main(void)
 {	
@@ -22,20 +24,29 @@ int main(void)
 	UART0_Init(); /*Debugging port*/
 	UART1_Init();
 	I2C_init();
+	SPI0_init();
 	printf("Main");
 
 	 InitInterrupt();
 	/*------------------------------------*/
-	LP_Mode_Manager_Init();
-	Reader_HW_Reset();
-	ReaderManagerInit();
+	//LP_Mode_Manager_Init();
+	//Reader_HW_Reset();
+	//ReaderManagerInit();
+	WifiManager_Init();
 	/*------------------------------------*/
 	
+	/*uint8_t buffer[7];
+	buffer[0] = (uint8_t)0x02U;
+	buffer[1] = (uint8_t)0x04U; 
+	buffer[4] = (uint8_t)0x00;
+	spi0_TX_RX_buffer[5] = (uint8_t)0x00;
+	spi0_TX_RX_buffer[6] = (uint8_t)0x00;*/
 	while(1)
 	{
-			LP_Mode_Manager();
-			Reader_Manager();
-			HostComm_Manager();
+		//spi0_sendReceive_message(buffer, 5);
+			//LP_Mode_Manager();
+			//Reader_Manager();
+			//HostComm_Manager();
 	}
 	return 0;
 }

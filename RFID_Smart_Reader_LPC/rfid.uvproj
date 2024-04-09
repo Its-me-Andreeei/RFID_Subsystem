@@ -375,7 +375,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>BARE_METAL, UART1_DBG, PRINT_EPC_DBG</Define>
+              <Define>BARE_METAL, UART1_DBG, PRINT_EPC_DBG, WI_FI_DEBUG</Define>
               <Undefine></Undefine>
               <IncludePath></IncludePath>
             </VariousControls>
@@ -491,6 +491,11 @@
               <FileType>5</FileType>
               <FilePath>.\hal\i2c_ISR.h</FilePath>
             </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hal\spi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -565,6 +570,11 @@
               <FileName>LP_Mode_Manager.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ASW\LP_Mode_Manager\LP_Mode_Manager.c</FilePath>
+            </File>
+            <File>
+              <FileName>wifi_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ASW\WiFiManager\wifi_manager.c</FilePath>
             </File>
           </Files>
         </Group>
