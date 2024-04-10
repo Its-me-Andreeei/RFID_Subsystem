@@ -32,7 +32,6 @@ void WifiManager_Perform_HW_Reset(void)
 
 void WifiManager_Init(void)
 {
-	bool handsake_pin_status;
 	uint8_t init_sequence_length;
 	uint8_t init_seq_index;
 	command_frame_status_t message_status = WI_FI_COMMAND_NOK;
@@ -48,33 +47,31 @@ void WifiManager_Init(void)
 	
 	WifiManager_Perform_HW_Reset();
 	
-	handsake_pin_status = Get_HandsakePin_Status();
-	while(false == handsake_pin_status)
-	{
-		/*TBD: To be added timer check*/
-		handsake_pin_status = Get_HandsakePin_Status();
-	}
-	
-	message_status = Read_Ready_Status();
+	message_status = Wait_For_HIGH_Transition();
 	if(WI_FI_COMMAND_OK == message_status)
 	{
-		for(init_seq_index = 0; init_seq_index < init_sequence_length; init_seq_index++)
+		message_status = Read_Ready_Status();
+		if(WI_FI_COMMAND_OK == message_status)
 		{
-			message_status = Send_ESP_Command(wifi_init_config[init_seq_index], wifi_response_buffer);
-			if(WI_FI_COMMAND_NOK == message_status)
+			for(init_seq_index = 0; init_seq_index < init_sequence_length; init_seq_index++)
 			{
-				/*If one command was wrong, do not continue*/
-				break;
+				message_status = Send_ESP_Command(wifi_init_config[init_seq_index], wifi_response_buffer);
+				if(WI_FI_COMMAND_NOK == message_status)
+				{
+					/*If one command was wrong, do not continue*/
+					break;
+				}
 			}
 		}
 	}
 	
 	if(WI_FI_COMMAND_OK == message_status)
 	{
+		/*Mark Wi-Fi module initialization as OK. WiFi Manager will not start otherwise*/
 		init_ready_flag = true;
 		#ifdef WI_FI_DEBUG
 		printf("\nWI FI MODULE INIT OK\n");
-		#endif
+		#endif /*WI_FI_DEBUG*/
 	}
 	else
 	{
@@ -82,11 +79,18 @@ void WifiManager_Init(void)
 		LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 		#ifdef WI_FI_DEBUG
 		printf("\nWI FI MODULE INIT  NOT OK\n");
-		#endif
+		#endif /*WI_FI_DEBUG*/
 	}
 }
 
 void Wifi_Manager(void)
 {
-
+	if(init_ready_flag == false)
+	{
+		LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
+	}
+	else
+	{
+	
+	}
 }

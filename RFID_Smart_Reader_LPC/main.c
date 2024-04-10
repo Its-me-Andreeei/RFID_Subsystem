@@ -29,17 +29,17 @@ int main(void)
 
 	 InitInterrupt();
 	/*------------------------------------*/
-	LP_Mode_Manager_Init();
-	Reader_HW_Reset();
-	ReaderManagerInit();
+	//LP_Mode_Manager_Init();
+	//Reader_HW_Reset();
+	//ReaderManagerInit();
 	WifiManager_Init();
 	/*------------------------------------*/
 	
 	while(1)
 	{
-			LP_Mode_Manager();
-			Reader_Manager();
-			HostComm_Manager();
+			//LP_Mode_Manager();
+			//Reader_Manager();
+			//HostComm_Manager();
 	}
 	return 0;
 }

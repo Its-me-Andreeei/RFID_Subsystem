@@ -17,6 +17,7 @@ typedef enum transition_type_t
 	HIGH_TO_LOW_TO_HIGH,
 	HIGH_TO_LOW,
 	LOW_TO_HIGH,
+	HIGH_ONLY
 }transition_type_t;
 
 typedef enum read_write_status_t
@@ -287,6 +288,17 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 				}
 			}
 			break;
+			
+		case HIGH_ONLY:
+			while(false == Get_HandsakePin_Status())
+			{
+				if(0 != TIMER_SOFTWARE_interrupt_pending(timer_handsake))
+				{
+					result = WI_FI_COMMAND_NOK;
+					break;
+				}
+			}
+			break;
 		
 		default:
 			result = WI_FI_COMMAND_NOK;
@@ -362,5 +374,14 @@ void wifi_utils_Init(void)
 	timer_handsake = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 5000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
+}
+
+command_frame_status_t Wait_For_HIGH_Transition(void)
+{
+	command_frame_status_t status;
+	
+	status = Wait_for_transition(HIGH_ONLY);
+	
+	return status;
 }
 
