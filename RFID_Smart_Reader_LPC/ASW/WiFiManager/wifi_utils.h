@@ -1,0 +1,33 @@
+#ifndef __WIFI_UTILS_H
+#define __WIFI_UTILS_H
+
+#include <stdint.h>
+#include <stdbool.h>
+
+typedef enum command_frame_status_t
+{
+	WI_FI_COMMAND_OK,
+	WI_FI_COMMAND_NOK
+}command_frame_status_t;
+
+typedef struct AT_response_st
+{
+	uint8_t response[40];
+	uint16_t response_length;
+}AT_response_st;
+
+typedef struct AT_Command_st
+{
+	const uint8_t at_command_name[40];
+	const uint16_t at_command_length;
+	
+	const uint8_t number_of_responses;
+	
+}AT_Command_st;
+
+void wifi_utils_Init(void);
+bool Get_HandsakePin_Status(void);
+command_frame_status_t Read_Ready_Status(void);
+command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st responses[]);
+
+#endif
