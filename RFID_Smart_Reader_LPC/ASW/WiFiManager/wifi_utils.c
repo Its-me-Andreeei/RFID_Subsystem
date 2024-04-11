@@ -340,6 +340,8 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 						operation_result = Wait_for_transition(HIGH_TO_LOW_TO_HIGH);
 						if(WI_FI_COMMAND_OK == operation_result)
 						{
+							if(index == 2)
+								__nop();
 							operation_result = Read_ESP_Data(responses[index].response, &responses[index].response_length);
 							if(WI_FI_COMMAND_NOK == operation_result)
 							{
@@ -352,11 +354,12 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 			}
 		}
 	}
-	
 	#ifdef WI_FI_DEBUG
+	printf("--------------\n");
 	for(index = 0; index < command.number_of_responses; index ++)
 	{
 		uint16_t i_dbg;
+		printf("Rsp Length: %04X\n", responses[index].response_length);
 		printf("\nESP: ");
 		for(i_dbg = 0; i_dbg< responses[index].response_length; i_dbg++)
 		{
@@ -364,6 +367,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		}
 		printf("\n");
 	}
+	printf("--------------\n");
 	#endif
 	
 	return operation_result;

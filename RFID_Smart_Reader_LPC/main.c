@@ -27,7 +27,7 @@ int main(void)
 	SPI0_init();
 	printf("Main");
 
-	 InitInterrupt();
+	InitInterrupt();
 	/*------------------------------------*/
 	//LP_Mode_Manager_Init();
 	//Reader_HW_Reset();

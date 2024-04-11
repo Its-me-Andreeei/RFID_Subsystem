@@ -12,13 +12,13 @@ typedef enum command_frame_status_t
 
 typedef struct AT_response_st
 {
-	uint8_t response[40];
+	uint8_t response[100];
 	uint16_t response_length;
 }AT_response_st;
 
 typedef struct AT_Command_st
 {
-	const uint8_t at_command_name[40];
+	const uint8_t at_command_name[50];
 	const uint16_t at_command_length;
 	
 	const uint8_t number_of_responses;

@@ -11,13 +11,14 @@
 
 #define ESP_RESET_PIN_NUM_U8 ((uint8_t)25U)
 
-static const AT_Command_st wifi_init_config[3] = {
+static const AT_Command_st wifi_init_config[4] = {
 																									{"AT\r\n", (uint16_t)4, (uint8_t)2},
 																									{"AT+CWMODE=1\r\n", (uint16_t)13, (uint8_t)2}, /*Set ESP to Station mode*/
-																									{"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (uint8_t)36, (uint8_t)4}
+																									{"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (uint16_t)36, (uint8_t)4},
+																									{"AT+CIPSTA?\r\n", (uint16_t)12, (uint8_t)3}
 																								};
 
-static AT_response_st wifi_response_buffer[4];
+static AT_response_st wifi_response_buffer[5];
 static bool init_ready_flag = false;																							
 
 void WifiManager_Perform_HW_Reset(void)
@@ -55,6 +56,8 @@ void WifiManager_Init(void)
 		{
 			for(init_seq_index = 0; init_seq_index < init_sequence_length; init_seq_index++)
 			{
+				if(init_seq_index == 3)
+					__nop();
 				message_status = Send_ESP_Command(wifi_init_config[init_seq_index], wifi_response_buffer);
 				if(WI_FI_COMMAND_NOK == message_status)
 				{
