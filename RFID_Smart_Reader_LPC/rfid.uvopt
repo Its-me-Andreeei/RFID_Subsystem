@@ -152,7 +152,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>JLTAgdi</Key>
-          <Name>-O1070 -J1 -Y1000 -Z1 -FO31 -FD40000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL03E000</Name>
+          <Name>-O1070 -J1 -Y2000 -Z1 -FO31 -FD40000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL03E000</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -160,7 +160,40 @@
           <Name>UL2ARM(-U40296420 -O7 -C0 -FO7 -FD40000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL01E000)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>13</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>4952</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\ASW\HostCommManager\HostCommManager.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>13</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>5204</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\ASW\HostCommManager\HostCommManager.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\rfid\ASW/HostCommManager/HostCommManager.c\13</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -180,47 +213,47 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>spi0_TX_RX_buffer</ItemText>
+          <ItemText>IO0PIN</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>IO0PIN</ItemText>
+          <ItemText>IO0PIN &amp; ((uint32_t)1U &lt;&lt; ESP_HANDSAKE_GPIO_PIN_NUM_U8)</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>IO0PIN &amp; ((uint32_t)1U &lt;&lt; ESP_HANDSAKE_GPIO_PIN_NUM_U8)</ItemText>
+          <ItemText>out_buffer</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>out_buffer</ItemText>
+          <ItemText>length</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>length</ItemText>
+          <ItemText>responses[index].response_length</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>responses[index].response_length</ItemText>
+          <ItemText>responses[2]</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>responses[2]</ItemText>
+          <ItemText>command</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>command</ItemText>
+          <ItemText>length</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>length</ItemText>
+          <ItemText>message_status</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -422,7 +455,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>11</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\hal\i2c.c</PathWithFileName>
@@ -642,7 +675,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>28</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ASW\WiFiManager\wifi_utils.c</PathWithFileName>

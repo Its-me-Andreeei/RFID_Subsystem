@@ -5,6 +5,7 @@
 #include "LP_Mode_Manager.h"
 
 static uint8_t stayAwakeReasonFlag = 0x00;
+static uint8_t initDoneFlag = 0x00;
 
 void LP_Set_StayAwake(functionality_t functionality, bool value)
 {
@@ -16,6 +17,43 @@ void LP_Set_StayAwake(functionality_t functionality, bool value)
 	{
 		stayAwakeReasonFlag &= (uint8_t)(~((uint8_t)1U << (uint8_t)functionality));
 	}
+}
+void LP_Set_InitFlag(functionality_t functionality, bool value)
+{
+	if(true == value)
+	{
+		initDoneFlag |= (uint8_t)((uint8_t)1U << (uint8_t)functionality);
+	}
+	else
+	{
+		initDoneFlag &= (uint8_t)(~((uint8_t)1U << (uint8_t)functionality));
+	}
+}
+
+bool LP_Get_System_Init_State(void)
+{
+	uint8_t index;
+	bool result = true;
+	for(index = 0; index < (uint8_t)FUNC_LENGTH; index ++)
+	{
+		if(0x00 == (initDoneFlag & ((uint8_t)1U << index)))
+		{
+			result = false;
+			break;
+		}
+	}
+	return result;
+}
+
+bool LP_Get_Functionality_Init_State(functionality_t functionality)
+{
+	bool result = true;
+
+	if(0x00 == (initDoneFlag & ((uint8_t)1U << (uint8_t)functionality)))
+	{
+		result = false;
+	}
+	return result;
 }
 
 void LP_Mode_Manager_Init(void)
@@ -40,6 +78,8 @@ void LP_Mode_Manager_Init(void)
 	PCONP &= (uint32_t)(~((uint32_t)1U << CAN2_BIT_POS_U8));
 	PCONP &= (uint32_t)(~((uint32_t)1U << CAN3_BIT_POS_U8));
 	PCONP &= (uint32_t)(~((uint32_t)1U << CAN4_BIT_POS_U8));
+	
+	LP_Set_InitFlag(FUNC_LP_MODE_MANAGER, true);
 }
 
 static void disable_Timer0(void)

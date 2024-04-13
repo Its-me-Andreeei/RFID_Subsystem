@@ -43,10 +43,6 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 				{
 					result = STATE_NOK;
 				}
-				/*else if(ROUTE_PENDING == route_status)
-				{
-					result = STATE_PENDING;
-				}*/
 			}
 			break;
 		
@@ -66,10 +62,27 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 			result = STATE_INVALID;
 			break;
 		
+		case I2C_REQUEST_INIT_STATUS:
+			if(false == LP_Get_System_Init_State())
+			{
+				result = STATE_NOK;
+			}
+			else
+			{
+				result = STATE_OK;
+			}
+			break;
+		
 		default: 
 			result = STATE_INVALID;
 	}
 	return result;
+}
+
+void HostComm_Manager_Init(void)
+{
+	/*Dummy function: No special configurations right now but it is added in order to have all managers with an init function*/
+	LP_Set_InitFlag(FUNC_HOST_COMM_MANAGER, true);
 }
 
 void HostComm_Manager(void)

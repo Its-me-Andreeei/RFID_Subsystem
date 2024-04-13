@@ -95,6 +95,8 @@ void ReaderManagerInit(void)
 	timer_route_status = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_route_status, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
 	TIMER_SOFTWARE_reset_timer(timer_route_status);
+	
+	LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, true);
 }
 
 
@@ -254,6 +256,7 @@ void Reader_Manager(void)
 		/*We assume init is already done, so first state will be START_READING. We only get here by other internal states request*/
 		case MODULE_INIT:
 			ConfigInit();
+			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, true);
 			current_state_en = START_READING;
 			break;
 		case CHECK_FOR_REQUESTS:
@@ -417,6 +420,10 @@ void Reader_Manager(void)
 		case PERMANENT_FAILURE:
 			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
 			current_state_en = PERMANENT_FAILURE;
+			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER , false);
+			
+			/*In this state the reader is not Init anymore*/
+			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
 			break;
 		
 		default:
@@ -433,6 +440,7 @@ void Reader_Manager(void)
 		{
 			TIMER_SOFTWARE_Wait(500);
 			(void)TMR_stopReading(&reader);
+			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
 			
 			#ifdef UART1_DBG
 			printf("COMM ERROR: ");
@@ -440,7 +448,7 @@ void Reader_Manager(void)
 			#endif /*UART1_DBG*/
 			
 			/*Check if chip recovery is successfull*/
-			if((uint8_t)0x01U == reader_recovery())
+			if(true == reader_recovery())
 			{
 				current_state_en = MODULE_INIT;
 				

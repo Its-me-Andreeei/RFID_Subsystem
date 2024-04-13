@@ -38,5 +38,7 @@ command_frame_status_t Read_Ready_Status(void);
 command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st responses[]);
 command_frame_status_t Wait_For_HIGH_Transition(void);
 wifi_module_state_st Get_Module_Current_State(void);
+void Set_Module_Current_State(wifi_module_state_st in_module_state);
+bool Check_for_Disconnected_WiFi(void);
 
 #endif

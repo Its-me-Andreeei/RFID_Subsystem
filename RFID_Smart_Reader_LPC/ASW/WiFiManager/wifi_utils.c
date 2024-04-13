@@ -97,7 +97,7 @@ static void send_Write_EOF(void)
 	spi0_sendReceive_message(buffer, 3);
 }
 
-static command_frame_status_t Read_ESP_Data(uint8_t *out_buffer, uint16_t *out_length)
+command_frame_status_t Read_ESP_Data(uint8_t *out_buffer, uint16_t *out_length)
 {
 	uint8_t local_buffer[4095];
 	uint16_t index;
@@ -326,6 +326,35 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 	return result;
 }
 
+bool Check_for_Disconnected_WiFi(void)
+{
+	command_frame_status_t command_status;
+	uint8_t out_buffer[4095];
+	uint16_t command_length;
+	bool result;
+	
+	/*Will check for ESP status update and then will check for new commands*/
+	command_status = Read_ESP_Data(out_buffer, &command_length);
+	if(WI_FI_COMMAND_OK == command_status)
+	{
+		if(NULL != strstr((char*)out_buffer, "WIFI DISCONNECT\r\n"))
+		{
+			module_state.wifi_connected = false;
+			result = true;
+		}
+		else
+		{
+			result = false;
+			/*More cases to be added here. Right now only react to WiFi disconnect*/
+		}
+	}
+	else
+	{
+		result = false;
+	}
+	return result;
+}
+
 command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st responses[])
 {
 	typedef enum esp_states_en
@@ -394,6 +423,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 										}
 										/*Ignore this response, consider only AT responses*/
 										index --;
+										/*Messages are mutual exclusives, so only one match is necessary*/
 										break;
 									}
 								}
@@ -441,5 +471,10 @@ command_frame_status_t Wait_For_HIGH_Transition(void)
 wifi_module_state_st Get_Module_Current_State(void)
 {
 	return module_state;
+}
+
+void Set_Module_Current_State(wifi_module_state_st in_module_state)
+{
+	module_state = in_module_state;
 }
 
