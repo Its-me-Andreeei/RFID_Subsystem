@@ -1090,36 +1090,40 @@ Section Cross References
     wifi_manager.o(i.WifiManager_Init) refers to wifi_manager.o(i.WifiManager_Perform_HW_Reset) for WifiManager_Perform_HW_Reset
     wifi_manager.o(i.WifiManager_Init) refers to wifi_utils.o(i.Wait_For_HIGH_Transition) for Wait_For_HIGH_Transition
     wifi_manager.o(i.WifiManager_Init) refers to wifi_utils.o(i.Read_Ready_Status) for Read_Ready_Status
+    wifi_manager.o(i.WifiManager_Init) refers to wifi_utils.o(i.Get_Module_Current_State) for Get_Module_Current_State
     wifi_manager.o(i.WifiManager_Init) refers to rt_memcpy.o(.text) for __aeabi_memcpy
     wifi_manager.o(i.WifiManager_Init) refers to wifi_utils.o(i.Send_ESP_Command) for Send_ESP_Command
     wifi_manager.o(i.WifiManager_Init) refers to noretval__2printf.o(.text) for __2printf
     wifi_manager.o(i.WifiManager_Init) refers to lp_mode_manager.o(i.LP_Set_StayAwake) for LP_Set_StayAwake
     wifi_manager.o(i.WifiManager_Init) refers to wifi_manager.o(.bss) for wifi_response_buffer
     wifi_manager.o(i.WifiManager_Init) refers to wifi_manager.o(.constdata) for wifi_init_config
-    wifi_manager.o(i.WifiManager_Init) refers to wifi_manager.o(.data) for init_ready_flag
+    wifi_manager.o(i.WifiManager_Init) refers to wifi_manager.o(.data) for manager_init_ready_flag
     wifi_manager.o(i.WifiManager_Perform_HW_Reset) refers to timer_software.o(i.TIMER_SOFTWARE_Wait) for TIMER_SOFTWARE_Wait
     wifi_manager.o(i.Wifi_Manager) refers to lp_mode_manager.o(i.LP_Set_StayAwake) for LP_Set_StayAwake
-    wifi_manager.o(i.Wifi_Manager) refers to wifi_manager.o(.data) for init_ready_flag
+    wifi_manager.o(i.Wifi_Manager) refers to wifi_manager.o(.data) for manager_init_ready_flag
+    wifi_utils.o(i.Get_Module_Current_State) refers to wifi_utils.o(.data) for module_state
     wifi_utils.o(i.Get_Read_Write_Status) refers to wifi_utils.o(i.Get_HandsakePin_Status) for Get_HandsakePin_Status
     wifi_utils.o(i.Get_Read_Write_Status) refers to spi.o(i.spi0_sendReceive_message) for spi0_sendReceive_message
     wifi_utils.o(i.Read_ESP_Data) refers to wifi_utils.o(i.Get_Read_Write_Status) for Get_Read_Write_Status
     wifi_utils.o(i.Read_ESP_Data) refers to spi.o(i.spi0_sendReceive_message) for spi0_sendReceive_message
     wifi_utils.o(i.Read_ESP_Data) refers to wifi_utils.o(i.send_Read_EOF) for send_Read_EOF
     wifi_utils.o(i.Read_Ready_Status) refers to wifi_utils.o(i.Read_ESP_Data) for Read_ESP_Data
+    wifi_utils.o(i.Read_Ready_Status) refers to wifi_utils.o(.data) for module_state
     wifi_utils.o(i.Request_ESP_Send_Permission) refers to wifi_utils.o(i.Get_HandsakePin_Status) for Get_HandsakePin_Status
     wifi_utils.o(i.Request_ESP_Send_Permission) refers to spi.o(i.spi0_sendReceive_message) for spi0_sendReceive_message
     wifi_utils.o(i.Request_ESP_Send_Permission) refers to wifi_utils.o(.data) for sequence_number
-    wifi_utils.o(i.Send_ESP_Command) refers to _printf_pad.o(.text) for _printf_pre_padding
     wifi_utils.o(i.Send_ESP_Command) refers to _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000) for _printf_percent
-    wifi_utils.o(i.Send_ESP_Command) refers to _printf_x.o(.ARM.Collect$$_printf_percent$$0000000C) for _printf_x
-    wifi_utils.o(i.Send_ESP_Command) refers to _printf_hex_int.o(.text) for _printf_longlong_hex
     wifi_utils.o(i.Send_ESP_Command) refers to _printf_c.o(.ARM.Collect$$_printf_percent$$00000013) for _printf_c
     wifi_utils.o(i.Send_ESP_Command) refers to _printf_str.o(.text) for _printf_str
+    wifi_utils.o(i.Send_ESP_Command) refers to rt_memcpy_w.o(.text) for __aeabi_memcpy4
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Wait_for_transition) for Wait_for_transition
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Request_ESP_Send_Permission) for Request_ESP_Send_Permission
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Write_ESP_Data) for Write_ESP_Data
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Read_ESP_Data) for Read_ESP_Data
+    wifi_utils.o(i.Send_ESP_Command) refers to memcmp.o(.text) for memcmp
     wifi_utils.o(i.Send_ESP_Command) refers to noretval__2printf.o(.text) for __2printf
+    wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(.constdata) for .constdata
+    wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(.data) for module_state
     wifi_utils.o(i.Wait_For_HIGH_Transition) refers to wifi_utils.o(i.Wait_for_transition) for Wait_for_transition
     wifi_utils.o(i.Wait_for_transition) refers to timer_software.o(i.TIMER_SOFTWARE_reset_timer) for TIMER_SOFTWARE_reset_timer
     wifi_utils.o(i.Wait_for_transition) refers to timer_software.o(i.TIMER_SOFTWARE_start_timer) for TIMER_SOFTWARE_start_timer
@@ -1921,7 +1925,7 @@ Adding Veneers to the image
     Adding AT veneer (8 bytes, Inline) for call to '__rt_lib_shutdown' from rtexit2.o(.ARM.Collect$$rtexit$$00000003).
     Adding TA veneer (4 bytes, Inline) for call to '__rt_exit' from exit.o(.text).
     Adding AT veneer (8 bytes, Inline) for call to '__2printf' from wifi_utils.o(i.Send_ESP_Command).
-    Adding AT veneer (8 bytes, Inline) for call to '_printf_int_hex' from _printf_x.o(.ARM.Collect$$_printf_percent$$0000000C).
+    Adding AT veneer (8 bytes, Inline) for call to 'memcmp' from wifi_utils.o(i.Send_ESP_Command).
     Adding AT veneer (8 bytes, Inline) for call to '_printf_char' from _printf_c.o(.ARM.Collect$$_printf_percent$$00000013).
     Adding TA veneer (4 bytes, Inline) for call to 'ferror' from _printf_char_file.o(.text).
 
@@ -1933,11 +1937,15 @@ Image Stack Usage Information.
 
 Maximum stack usage for Image.
 
-Maximum Stack Usage for main 0x1120 bytes.
+Maximum Stack Usage for main 0x1168 bytes.
 Call chain for maximum stack usage:
 main => WifiManager_Init => Send_ESP_Command => Write_ESP_Data => Get_Read_Write_Status => spi0_sendReceive_message
 
 Maximum stack usage per global function.
+
+Maximum Stack Usage for Get_Module_Current_State 0x4 bytes.
+Call chain for maximum stack usage:
+Get_Module_Current_State
 
 Maximum Stack Usage for I2C_irq 0x28 bytes.
 Call chain for maximum stack usage:
@@ -1963,7 +1971,7 @@ Maximum Stack Usage for SPI0_irq 0xc bytes.
 Call chain for maximum stack usage:
 SPI0_irq
 
-Maximum Stack Usage for Send_ESP_Command 0x10a8 bytes.
+Maximum Stack Usage for Send_ESP_Command 0x10f0 bytes.
 Call chain for maximum stack usage:
 Send_ESP_Command => Write_ESP_Data => Get_Read_Write_Status => spi0_sendReceive_message
 
@@ -2003,7 +2011,7 @@ Maximum Stack Usage for Wait_For_HIGH_Transition 0x20 bytes.
 Call chain for maximum stack usage:
 Wait_For_HIGH_Transition => Wait_for_transition => TIMER_SOFTWARE_start_timer
 
-Maximum Stack Usage for WifiManager_Init 0x1120 bytes.
+Maximum Stack Usage for WifiManager_Init 0x1168 bytes.
 Call chain for maximum stack usage:
 WifiManager_Init => Send_ESP_Command => Write_ESP_Data => Get_Read_Write_Status => spi0_sendReceive_message
 
@@ -2019,7 +2027,7 @@ Maximum Stack Usage for fputc 0x10 bytes.
 Call chain for maximum stack usage:
 fputc
 
-Maximum Stack Usage for main 0x1120 bytes.
+Maximum Stack Usage for main 0x1168 bytes.
 Call chain for maximum stack usage:
 main => WifiManager_Init => Send_ESP_Command => Write_ESP_Data => Get_Read_Write_Status => spi0_sendReceive_message
 
@@ -2079,102 +2087,100 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     RESET                                    0x00000000   Section      272  startup.o(RESET)
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
-    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_copy.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0_sigfpe.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  aeabi_idiv0_sigfpe.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor_intlibspace.o ABSOLUTE
-    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_heap_descriptor.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
+    ../clib/angel/rt.s                       0x00000000   Number         0  rt_div0.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  mutex_dummy.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/armsys.c                         0x00000000   Number         0  _get_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  no_argv.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
-    ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv_div0.o ABSOLUTE
-    ../clib/division.s                       0x00000000   Number         0  rtudiv10.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  argv_veneer.o ABSOLUTE
+    ../clib/armsys.c                         0x00000000   Number         0  _get_argv.o ABSOLUTE
     ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv.o ABSOLUTE
-    ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi.o ABSOLUTE
+    ../clib/division.s                       0x00000000   Number         0  rtudiv10.o ABSOLUTE
+    ../clib/division.s                       0x00000000   Number         0  aeabi_sdiv_div0.o ABSOLUTE
     ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi_div0.o ABSOLUTE
+    ../clib/divrt.s                          0x00000000   Number         0  divrt_7tdmi.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_realloc_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_final_mt.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_alloc.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_final.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_init.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_init_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap1.c                          0x00000000   Number         0  h1_realloc.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
-    ../clib/heap1.c                          0x00000000   Number         0  h1_realloc_mt.o ABSOLUTE
-    ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
+    ../clib/heap1.c                          0x00000000   Number         0  h1_free_mt.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2.o ABSOLUTE
+    ../clib/heap2.c                          0x00000000   Number         0  fdtree.o ABSOLUTE
     ../clib/heap2.c                          0x00000000   Number         0  heap2mt.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  term_alloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  malloc.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  realloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  free.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hguard.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  init_alloc.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
-    ../clib/heapalloc.c                      0x00000000   Number         0  heapstubs.o ABSOLUTE
+    ../clib/heapalloc.c                      0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxa.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
     ../clib/longlong.s                       0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  aeabi_memset.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memmove_w.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memmove.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  strcmp.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
-    ../clib/memcpset.s                       0x00000000   Number         0  strncpy.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  aeabi_memset.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memmove.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  strcmp.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  strncpy.o ABSOLUTE
+    ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
     ../clib/misc.s                           0x00000000   Number         0  printf_stubs.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_file.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_char.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_file.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_str.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _sputc.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_intcommon.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_nopercent.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_dec.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __2printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __2sprintf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  noretval__2printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  noretval__2sprintf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_pad.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_str.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_dec.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ll.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_char_common.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ll.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_ptr.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int_ptr.o ABSOLUTE
@@ -2184,39 +2190,41 @@ Image Symbol Table
     ../clib/printf.c                         0x00000000   Number         0  __printf_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_wp.o ABSOLUTE
-    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_flags_ss_wp.o ABSOLUTE
     ../clib/printf.c                         0x00000000   Number         0  __printf_flags_wp.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  __printf_ss_wp.o ABSOLUTE
+    ../clib/printf.c                         0x00000000   Number         0  _printf_hex_int.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent_end.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_c.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_d.o ABSOLUTE
-    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
     ../clib/printf_percent.s                 0x00000000   Number         0  _printf_x.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_percent.o ABSOLUTE
+    ../clib/printf_percent.s                 0x00000000   Number         0  _printf_s.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_formal.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_outer.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strcspn.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strtok.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  memcmp.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strspn.o ABSOLUTE
-    ../clib/string.c                         0x00000000   Number         0  strncmp.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strlen.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  memcmp.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strtok.o ABSOLUTE
     ../clib/string.c                         0x00000000   Number         0  strtok_int.o ABSOLUTE
+    ../clib/string.c                         0x00000000   Number         0  strncmp.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
     ASW\HostCommManager\HostCommManager.c    0x00000000   Number         0  hostcommmanager.o ABSOLUTE
     ASW\LP_Mode_Manager\LP_Mode_Manager.c    0x00000000   Number         0  lp_mode_manager.o ABSOLUTE
@@ -2257,139 +2265,135 @@ Image Symbol Table
     !!handler_copy                           0x00000154   Section       40  __scatter_copy.o(!!handler_copy)
     !!handler_zi                             0x0000017c   Section       44  __scatter_zi.o(!!handler_zi)
     .ARM.Collect$$_printf_percent$$00000000  0x000001ac   Section        0  _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000)
-    .ARM.Collect$$_printf_percent$$0000000C  0x000001ac   Section        8  _printf_x.o(.ARM.Collect$$_printf_percent$$0000000C)
-    .ARM.Collect$$_printf_percent$$00000013  0x000001b4   Section        8  _printf_c.o(.ARM.Collect$$_printf_percent$$00000013)
-    .ARM.Collect$$_printf_percent$$00000017  0x000001bc   Section        8  _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017)
-    .ARM.Collect$$libinit$$00000000          0x000001cc   Section        2  libinit.o(.ARM.Collect$$libinit$$00000000)
-    .ARM.Collect$$libinit$$00000002          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000002)
-    .ARM.Collect$$libinit$$00000004          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000004)
-    .ARM.Collect$$libinit$$0000000A          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000A)
-    .ARM.Collect$$libinit$$0000000C          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000C)
-    .ARM.Collect$$libinit$$0000000E          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000E)
-    .ARM.Collect$$libinit$$00000011          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000011)
-    .ARM.Collect$$libinit$$00000013          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000013)
-    .ARM.Collect$$libinit$$00000015          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000015)
-    .ARM.Collect$$libinit$$00000017          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000017)
-    .ARM.Collect$$libinit$$00000019          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000019)
-    .ARM.Collect$$libinit$$0000001B          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001B)
-    .ARM.Collect$$libinit$$0000001D          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001D)
-    .ARM.Collect$$libinit$$0000001F          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001F)
-    .ARM.Collect$$libinit$$00000021          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000021)
-    .ARM.Collect$$libinit$$00000023          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000023)
-    .ARM.Collect$$libinit$$00000025          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000025)
-    .ARM.Collect$$libinit$$0000002C          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000002C)
-    .ARM.Collect$$libinit$$0000002E          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000002E)
-    .ARM.Collect$$libinit$$00000030          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000030)
-    .ARM.Collect$$libinit$$00000032          0x000001ce   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000032)
-    .ARM.Collect$$libinit$$00000033          0x000001ce   Section       12  libinit2.o(.ARM.Collect$$libinit$$00000033)
-    .ARM.Collect$$libshutdown$$00000000      0x000001e4   Section        4  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
-    .ARM.Collect$$libshutdown$$00000002      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000002)
-    .ARM.Collect$$libshutdown$$00000004      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000004)
-    .ARM.Collect$$libshutdown$$00000007      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000007)
-    .ARM.Collect$$libshutdown$$0000000A      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A)
-    .ARM.Collect$$libshutdown$$0000000C      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C)
-    .ARM.Collect$$libshutdown$$0000000F      0x000001e8   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F)
-    .ARM.Collect$$libshutdown$$00000010      0x000001e8   Section        6  libshutdown2.o(.ARM.Collect$$libshutdown$$00000010)
-    .ARM.Collect$$rtentry$$00000000          0x000001f0   Section        0  __rtentry.o(.ARM.Collect$$rtentry$$00000000)
-    .ARM.Collect$$rtentry$$00000002          0x000001f0   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$00000002)
-    .ARM.Collect$$rtentry$$00000004          0x000001f0   Section        8  __rtentry4.o(.ARM.Collect$$rtentry$$00000004)
-    .ARM.Collect$$rtentry$$00000009          0x000001f8   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$00000009)
-    .ARM.Collect$$rtentry$$0000000A          0x000001f8   Section        4  __rtentry2.o(.ARM.Collect$$rtentry$$0000000A)
-    .ARM.Collect$$rtentry$$0000000C          0x000001fc   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000C)
-    .ARM.Collect$$rtentry$$0000000D          0x000001fc   Section       40  __rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
-    .ARM.Collect$$rtexit$$00000000           0x00000228   Section        4  rtexit.o(.ARM.Collect$$rtexit$$00000000)
-    .ARM.Collect$$rtexit$$00000002           0x0000022c   Section        0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
-    .ARM.Collect$$rtexit$$00000003           0x0000022c   Section        4  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
-    .ARM.Collect$$rtexit$$00000004           0x00000230   Section        8  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
-    .text                                    0x00000238   Section       32  startup.o(.text)
-    .text                                    0x00000258   Section        4  use_no_semi.o(.text)
-    .text                                    0x00000264   Section        0  noretval__2printf.o(.text)
-    .text                                    0x00000280   Section        0  _printf_pad.o(.text)
-    .text                                    0x000002d6   Section        0  _printf_str.o(.text)
-    .text                                    0x00000338   Section        0  _printf_hex_int.o(.text)
-    .text                                    0x00000394   Section        0  __printf_flags_wp.o(.text)
-    .text                                    0x000004dc   Section      212  rt_memcpy.o(.text)
-    .text                                    0x000005b0   Section      100  rt_memcpy_w.o(.text)
-    .text                                    0x00000614   Section       16  aeabi_memset.o(.text)
-    .text                                    0x00000624   Section       64  rt_memclr.o(.text)
-    .text                                    0x00000664   Section       84  rt_memclr_w.o(.text)
-    .text                                    0x000006b8   Section        0  heapauxi.o(.text)
-    .text                                    0x000006be   Section        0  _printf_intcommon.o(.text)
-    .text                                    0x00000778   Section        0  _printf_char_common.o(.text)
-    _printf_input_char                       0x00000779   Thumb Code    10  _printf_char_common.o(.text)
-    .text                                    0x000007b0   Section        0  _printf_char.o(.text)
-    .text                                    0x000007e4   Section        0  _printf_char_file.o(.text)
-    .text                                    0x00000810   Section       12  libspace.o(.text)
-    .text                                    0x0000081c   Section       96  sys_stackheap_outer.o(.text)
-    .text                                    0x0000087c   Section        0  exit.o(.text)
-    i.Get_HandsakePin_Status                 0x00000890   Section        0  wifi_utils.o(i.Get_HandsakePin_Status)
-    i.Get_Read_Write_Status                  0x000008b8   Section        0  wifi_utils.o(i.Get_Read_Write_Status)
-    Get_Read_Write_Status                    0x000008b8   ARM Code     144  wifi_utils.o(i.Get_Read_Write_Status)
-    i.I2C_init                               0x00000950   Section        0  i2c.o(i.I2C_init)
-    i.I2C_irq                                0x00000980   Section        0  i2c.o(i.I2C_irq)
-    i.InitInterrupt                          0x00000cb0   Section        0  isr_manager.o(i.InitInterrupt)
-    i.LP_Set_StayAwake                       0x00000d34   Section        0  lp_mode_manager.o(i.LP_Set_StayAwake)
-    i.Read_ESP_Data                          0x00000d80   Section        0  wifi_utils.o(i.Read_ESP_Data)
-    Read_ESP_Data                            0x00000d80   ARM Code     212  wifi_utils.o(i.Read_ESP_Data)
-    i.Read_Ready_Status                      0x00000e54   Section        0  wifi_utils.o(i.Read_Ready_Status)
-    i.Request_ESP_Send_Permission            0x00000edc   Section        0  wifi_utils.o(i.Request_ESP_Send_Permission)
-    Request_ESP_Send_Permission              0x00000edc   ARM Code     172  wifi_utils.o(i.Request_ESP_Send_Permission)
-    i.RingBufInit                            0x00000f8c   Section        0  ringbuf.o(i.RingBufInit)
-    i.RingBufWriteOne                        0x00000fa4   Section        0  ringbuf.o(i.RingBufWriteOne)
-    i.SPI0_init                              0x00000fd4   Section        0  spi.o(i.SPI0_init)
-    i.SPI0_irq                               0x0000104c   Section        0  spi.o(i.SPI0_irq)
-    i.SPI0_set_slave_select                  0x000010e4   Section        0  spi.o(i.SPI0_set_slave_select)
-    SPI0_set_slave_select                    0x000010e4   ARM Code      64  spi.o(i.SPI0_set_slave_select)
-    i.Send_ESP_Command                       0x00001128   Section        0  wifi_utils.o(i.Send_ESP_Command)
-    i.TIMER_Init                             0x000012d4   Section        0  timer.o(i.TIMER_Init)
-    i.TIMER_SOFTWARE_ModX                    0x00001300   Section        0  timer_software.o(i.TIMER_SOFTWARE_ModX)
-    i.TIMER_SOFTWARE_Wait                    0x00001638   Section        0  timer_software.o(i.TIMER_SOFTWARE_Wait)
-    i.TIMER_SOFTWARE_clear_interrupt         0x00001754   Section        0  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
-    i.TIMER_SOFTWARE_configure_timer         0x00001780   Section        0  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
-    i.TIMER_SOFTWARE_enable_timer            0x000019e4   Section        0  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
-    i.TIMER_SOFTWARE_init                    0x00001a68   Section        0  timer_software.o(i.TIMER_SOFTWARE_init)
-    i.TIMER_SOFTWARE_interrupt_pending       0x00001b00   Section        0  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
-    i.TIMER_SOFTWARE_request_timer           0x00001b24   Section        0  timer_software.o(i.TIMER_SOFTWARE_request_timer)
-    i.TIMER_SOFTWARE_reset_timer             0x00001bf4   Section        0  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
-    i.TIMER_SOFTWARE_start_timer             0x00001c10   Section        0  timer_software.o(i.TIMER_SOFTWARE_start_timer)
-    i.TIMER_SOFTWARE_stop_timer              0x00001ca8   Section        0  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
-    i.TIMER_irq                              0x00001d0c   Section        0  isr_manager.o(i.TIMER_irq)
-    i.UART0_Init                             0x00001d48   Section        0  uart0.o(i.UART0_Init)
-    i.UART0_sendchar                         0x00001d88   Section        0  uart0.o(i.UART0_sendchar)
-    i.UART1_Init                             0x00001db0   Section        0  uart1.o(i.UART1_Init)
-    i.UART1_irq                              0x00001e24   Section        0  isr_manager.o(i.UART1_irq)
-    i.UpdateIndexAtomic                      0x00001e6c   Section        0  ringbuf.o(i.UpdateIndexAtomic)
-    UpdateIndexAtomic                        0x00001e6c   ARM Code      44  ringbuf.o(i.UpdateIndexAtomic)
-    i.Wait_For_HIGH_Transition               0x00001e98   Section        0  wifi_utils.o(i.Wait_For_HIGH_Transition)
-    i.Wait_for_transition                    0x00001eb4   Section        0  wifi_utils.o(i.Wait_for_transition)
-    Wait_for_transition                      0x00001eb4   ARM Code     432  wifi_utils.o(i.Wait_for_transition)
-    i.WifiManager_Init                       0x00002068   Section        0  wifi_manager.o(i.WifiManager_Init)
-    i.WifiManager_Perform_HW_Reset           0x000021cc   Section        0  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
-    i.Write_ESP_Data                         0x00002230   Section        0  wifi_utils.o(i.Write_ESP_Data)
-    Write_ESP_Data                           0x00002230   ARM Code     152  wifi_utils.o(i.Write_ESP_Data)
-    i.__ARM_common_call_via_r1               0x000022c8   Section        0  __printf.o(i.__ARM_common_call_via_r1)
-    i.__ARM_common_call_via_r2               0x000022ca   Section        0  __printf.o(i.__ARM_common_call_via_r2)
-    i._is_digit                              0x000022cc   Section        0  __printf_wp.o(i._is_digit)
-    i._sys_exit                              0x000022dc   Section        0  retarget.o(i._sys_exit)
-    i.compute_crc                            0x000022e0   Section        0  crc.o(i.compute_crc)
-    i.ferror                                 0x00002360   Section        0  retarget.o(i.ferror)
-    i.fputc                                  0x0000236c   Section        0  retarget.o(i.fputc)
-    i.main                                   0x00002388   Section        0  main.o(i.main)
-    i.send_Read_EOF                          0x000023e0   Section        0  wifi_utils.o(i.send_Read_EOF)
-    send_Read_EOF                            0x000023e0   ARM Code      36  wifi_utils.o(i.send_Read_EOF)
-    i.send_Write_EOF                         0x00002408   Section        0  wifi_utils.o(i.send_Write_EOF)
-    send_Write_EOF                           0x00002408   ARM Code      36  wifi_utils.o(i.send_Write_EOF)
-    i.spi0_sendReceive_message               0x00002430   Section        0  spi.o(i.spi0_sendReceive_message)
-    i.wifi_utils_Init                        0x000024e8   Section        0  wifi_utils.o(i.wifi_utils_Init)
-    .constdata                               0x0000252c   Section       32  crc.o(.constdata)
-    crctable                                 0x0000252c   Data          32  crc.o(.constdata)
-    .constdata                               0x0000254c   Section      216  wifi_manager.o(.constdata)
-    wifi_init_config                         0x0000254c   Data         216  wifi_manager.o(.constdata)
-    .constdata                               0x00002624   Section       40  _printf_hex_int.o(.constdata)
-    uc_hextab                                0x00002624   Data          20  _printf_hex_int.o(.constdata)
-    lc_hextab                                0x00002638   Data          20  _printf_hex_int.o(.constdata)
-    .constdata                               0x0000264c   Section       17  __printf_flags_wp.o(.constdata)
-    maptable                                 0x0000264c   Data          17  __printf_flags_wp.o(.constdata)
+    .ARM.Collect$$_printf_percent$$00000013  0x000001ac   Section        8  _printf_c.o(.ARM.Collect$$_printf_percent$$00000013)
+    .ARM.Collect$$_printf_percent$$00000017  0x000001b4   Section        8  _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017)
+    .ARM.Collect$$libinit$$00000000          0x000001c4   Section        2  libinit.o(.ARM.Collect$$libinit$$00000000)
+    .ARM.Collect$$libinit$$00000002          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000002)
+    .ARM.Collect$$libinit$$00000004          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000004)
+    .ARM.Collect$$libinit$$0000000A          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000A)
+    .ARM.Collect$$libinit$$0000000C          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000C)
+    .ARM.Collect$$libinit$$0000000E          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000000E)
+    .ARM.Collect$$libinit$$00000011          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000011)
+    .ARM.Collect$$libinit$$00000013          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000013)
+    .ARM.Collect$$libinit$$00000015          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000015)
+    .ARM.Collect$$libinit$$00000017          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000017)
+    .ARM.Collect$$libinit$$00000019          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000019)
+    .ARM.Collect$$libinit$$0000001B          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001B)
+    .ARM.Collect$$libinit$$0000001D          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001D)
+    .ARM.Collect$$libinit$$0000001F          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000001F)
+    .ARM.Collect$$libinit$$00000021          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000021)
+    .ARM.Collect$$libinit$$00000023          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000023)
+    .ARM.Collect$$libinit$$00000025          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000025)
+    .ARM.Collect$$libinit$$0000002C          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000002C)
+    .ARM.Collect$$libinit$$0000002E          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$0000002E)
+    .ARM.Collect$$libinit$$00000030          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000030)
+    .ARM.Collect$$libinit$$00000032          0x000001c6   Section        0  libinit2.o(.ARM.Collect$$libinit$$00000032)
+    .ARM.Collect$$libinit$$00000033          0x000001c6   Section       12  libinit2.o(.ARM.Collect$$libinit$$00000033)
+    .ARM.Collect$$libshutdown$$00000000      0x000001dc   Section        4  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
+    .ARM.Collect$$libshutdown$$00000002      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000002)
+    .ARM.Collect$$libshutdown$$00000004      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000004)
+    .ARM.Collect$$libshutdown$$00000007      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000007)
+    .ARM.Collect$$libshutdown$$0000000A      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A)
+    .ARM.Collect$$libshutdown$$0000000C      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C)
+    .ARM.Collect$$libshutdown$$0000000F      0x000001e0   Section        0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F)
+    .ARM.Collect$$libshutdown$$00000010      0x000001e0   Section        6  libshutdown2.o(.ARM.Collect$$libshutdown$$00000010)
+    .ARM.Collect$$rtentry$$00000000          0x000001e8   Section        0  __rtentry.o(.ARM.Collect$$rtentry$$00000000)
+    .ARM.Collect$$rtentry$$00000002          0x000001e8   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$00000002)
+    .ARM.Collect$$rtentry$$00000004          0x000001e8   Section        8  __rtentry4.o(.ARM.Collect$$rtentry$$00000004)
+    .ARM.Collect$$rtentry$$00000009          0x000001f0   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$00000009)
+    .ARM.Collect$$rtentry$$0000000A          0x000001f0   Section        4  __rtentry2.o(.ARM.Collect$$rtentry$$0000000A)
+    .ARM.Collect$$rtentry$$0000000C          0x000001f4   Section        0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000C)
+    .ARM.Collect$$rtentry$$0000000D          0x000001f4   Section       40  __rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
+    .ARM.Collect$$rtexit$$00000000           0x00000220   Section        4  rtexit.o(.ARM.Collect$$rtexit$$00000000)
+    .ARM.Collect$$rtexit$$00000002           0x00000224   Section        0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
+    .ARM.Collect$$rtexit$$00000003           0x00000224   Section        4  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
+    .ARM.Collect$$rtexit$$00000004           0x00000228   Section        8  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
+    .text                                    0x00000230   Section       32  startup.o(.text)
+    .text                                    0x00000250   Section        4  use_no_semi.o(.text)
+    .text                                    0x0000025c   Section        0  noretval__2printf.o(.text)
+    .text                                    0x00000278   Section        0  _printf_str.o(.text)
+    .text                                    0x000002d0   Section        0  __printf_flags_wp.o(.text)
+    .text                                    0x00000420   Section        0  memcmp.o(.text)
+    .text                                    0x00000498   Section      212  rt_memcpy.o(.text)
+    .text                                    0x0000056c   Section      100  rt_memcpy_w.o(.text)
+    .text                                    0x000005d0   Section       16  aeabi_memset.o(.text)
+    .text                                    0x000005e0   Section       64  rt_memclr.o(.text)
+    .text                                    0x00000620   Section       84  rt_memclr_w.o(.text)
+    .text                                    0x00000674   Section        0  heapauxi.o(.text)
+    .text                                    0x0000067c   Section        0  _printf_char_common.o(.text)
+    _printf_input_char                       0x0000067d   Thumb Code    10  _printf_char_common.o(.text)
+    .text                                    0x000006b4   Section        0  _printf_char.o(.text)
+    .text                                    0x000006e8   Section        0  _printf_char_file.o(.text)
+    .text                                    0x00000714   Section       12  libspace.o(.text)
+    .text                                    0x00000720   Section       96  sys_stackheap_outer.o(.text)
+    .text                                    0x00000780   Section        0  exit.o(.text)
+    i.Get_HandsakePin_Status                 0x00000794   Section        0  wifi_utils.o(i.Get_HandsakePin_Status)
+    i.Get_Module_Current_State               0x000007bc   Section        0  wifi_utils.o(i.Get_Module_Current_State)
+    i.Get_Read_Write_Status                  0x000007f0   Section        0  wifi_utils.o(i.Get_Read_Write_Status)
+    Get_Read_Write_Status                    0x000007f0   ARM Code     144  wifi_utils.o(i.Get_Read_Write_Status)
+    i.I2C_init                               0x00000888   Section        0  i2c.o(i.I2C_init)
+    i.I2C_irq                                0x000008b8   Section        0  i2c.o(i.I2C_irq)
+    i.InitInterrupt                          0x00000be8   Section        0  isr_manager.o(i.InitInterrupt)
+    i.LP_Set_StayAwake                       0x00000c6c   Section        0  lp_mode_manager.o(i.LP_Set_StayAwake)
+    i.Read_ESP_Data                          0x00000cb8   Section        0  wifi_utils.o(i.Read_ESP_Data)
+    Read_ESP_Data                            0x00000cb8   ARM Code     212  wifi_utils.o(i.Read_ESP_Data)
+    i.Read_Ready_Status                      0x00000d8c   Section        0  wifi_utils.o(i.Read_Ready_Status)
+    i.Request_ESP_Send_Permission            0x00000e2c   Section        0  wifi_utils.o(i.Request_ESP_Send_Permission)
+    Request_ESP_Send_Permission              0x00000e2c   ARM Code     172  wifi_utils.o(i.Request_ESP_Send_Permission)
+    i.RingBufInit                            0x00000edc   Section        0  ringbuf.o(i.RingBufInit)
+    i.RingBufWriteOne                        0x00000ef4   Section        0  ringbuf.o(i.RingBufWriteOne)
+    i.SPI0_init                              0x00000f24   Section        0  spi.o(i.SPI0_init)
+    i.SPI0_irq                               0x00000f9c   Section        0  spi.o(i.SPI0_irq)
+    i.SPI0_set_slave_select                  0x00001034   Section        0  spi.o(i.SPI0_set_slave_select)
+    SPI0_set_slave_select                    0x00001034   ARM Code      64  spi.o(i.SPI0_set_slave_select)
+    i.Send_ESP_Command                       0x00001078   Section        0  wifi_utils.o(i.Send_ESP_Command)
+    i.TIMER_Init                             0x000012d8   Section        0  timer.o(i.TIMER_Init)
+    i.TIMER_SOFTWARE_ModX                    0x00001304   Section        0  timer_software.o(i.TIMER_SOFTWARE_ModX)
+    i.TIMER_SOFTWARE_Wait                    0x0000163c   Section        0  timer_software.o(i.TIMER_SOFTWARE_Wait)
+    i.TIMER_SOFTWARE_clear_interrupt         0x00001758   Section        0  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
+    i.TIMER_SOFTWARE_configure_timer         0x00001784   Section        0  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
+    i.TIMER_SOFTWARE_enable_timer            0x000019e8   Section        0  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
+    i.TIMER_SOFTWARE_init                    0x00001a6c   Section        0  timer_software.o(i.TIMER_SOFTWARE_init)
+    i.TIMER_SOFTWARE_interrupt_pending       0x00001b04   Section        0  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
+    i.TIMER_SOFTWARE_request_timer           0x00001b28   Section        0  timer_software.o(i.TIMER_SOFTWARE_request_timer)
+    i.TIMER_SOFTWARE_reset_timer             0x00001bf8   Section        0  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
+    i.TIMER_SOFTWARE_start_timer             0x00001c14   Section        0  timer_software.o(i.TIMER_SOFTWARE_start_timer)
+    i.TIMER_SOFTWARE_stop_timer              0x00001cac   Section        0  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
+    i.TIMER_irq                              0x00001d10   Section        0  isr_manager.o(i.TIMER_irq)
+    i.UART0_Init                             0x00001d4c   Section        0  uart0.o(i.UART0_Init)
+    i.UART0_sendchar                         0x00001d8c   Section        0  uart0.o(i.UART0_sendchar)
+    i.UART1_Init                             0x00001db4   Section        0  uart1.o(i.UART1_Init)
+    i.UART1_irq                              0x00001e28   Section        0  isr_manager.o(i.UART1_irq)
+    i.UpdateIndexAtomic                      0x00001e70   Section        0  ringbuf.o(i.UpdateIndexAtomic)
+    UpdateIndexAtomic                        0x00001e70   ARM Code      44  ringbuf.o(i.UpdateIndexAtomic)
+    i.Wait_For_HIGH_Transition               0x00001e9c   Section        0  wifi_utils.o(i.Wait_For_HIGH_Transition)
+    i.Wait_for_transition                    0x00001eb8   Section        0  wifi_utils.o(i.Wait_for_transition)
+    Wait_for_transition                      0x00001eb8   ARM Code     432  wifi_utils.o(i.Wait_for_transition)
+    i.WifiManager_Init                       0x0000206c   Section        0  wifi_manager.o(i.WifiManager_Init)
+    i.WifiManager_Perform_HW_Reset           0x000021f4   Section        0  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
+    i.Write_ESP_Data                         0x00002258   Section        0  wifi_utils.o(i.Write_ESP_Data)
+    Write_ESP_Data                           0x00002258   ARM Code     152  wifi_utils.o(i.Write_ESP_Data)
+    i.__ARM_common_call_via_r1               0x000022f0   Section        0  __printf.o(i.__ARM_common_call_via_r1)
+    i.__ARM_common_call_via_r2               0x000022f2   Section        0  __printf.o(i.__ARM_common_call_via_r2)
+    i._is_digit                              0x000022f4   Section        0  __printf_wp.o(i._is_digit)
+    i._sys_exit                              0x00002304   Section        0  retarget.o(i._sys_exit)
+    i.compute_crc                            0x00002308   Section        0  crc.o(i.compute_crc)
+    i.ferror                                 0x00002388   Section        0  retarget.o(i.ferror)
+    i.fputc                                  0x00002394   Section        0  retarget.o(i.fputc)
+    i.main                                   0x000023b0   Section        0  main.o(i.main)
+    i.send_Read_EOF                          0x00002408   Section        0  wifi_utils.o(i.send_Read_EOF)
+    send_Read_EOF                            0x00002408   ARM Code      36  wifi_utils.o(i.send_Read_EOF)
+    i.send_Write_EOF                         0x00002430   Section        0  wifi_utils.o(i.send_Write_EOF)
+    send_Write_EOF                           0x00002430   ARM Code      36  wifi_utils.o(i.send_Write_EOF)
+    i.spi0_sendReceive_message               0x00002458   Section        0  spi.o(i.spi0_sendReceive_message)
+    i.wifi_utils_Init                        0x00002510   Section        0  wifi_utils.o(i.wifi_utils_Init)
+    .constdata                               0x00002554   Section       32  crc.o(.constdata)
+    crctable                                 0x00002554   Data          32  crc.o(.constdata)
+    .constdata                               0x00002574   Section      378  wifi_manager.o(.constdata)
+    wifi_init_config                         0x00002574   Data         378  wifi_manager.o(.constdata)
+    .constdata                               0x000026f0   Section       63  wifi_utils.o(.constdata)
+    .constdata                               0x0000272f   Section       17  __printf_flags_wp.o(.constdata)
+    maptable                                 0x0000272f   Data          17  __printf_flags_wp.o(.constdata)
     .data                                    0x40000000   Section        4  retarget.o(.data)
     .data                                    0x40000004   Section        2  timer_software.o(.data)
     .data                                    0x40000006   Section        3  uart1.o(.data)
@@ -2412,23 +2416,24 @@ Image Symbol Table
     .data                                    0x40000026   Section        1  lp_mode_manager.o(.data)
     stayAwakeReasonFlag                      0x40000026   Data           1  lp_mode_manager.o(.data)
     .data                                    0x40000027   Section        1  wifi_manager.o(.data)
-    init_ready_flag                          0x40000027   Data           1  wifi_manager.o(.data)
-    .data                                    0x40000028   Section        3  wifi_utils.o(.data)
+    manager_init_ready_flag                  0x40000027   Data           1  wifi_manager.o(.data)
+    .data                                    0x40000028   Section        6  wifi_utils.o(.data)
     timer_handsake                           0x40000028   Data           2  wifi_utils.o(.data)
-    sequence_number                          0x4000002a   Data           1  wifi_utils.o(.data)
-    .bss                                     0x4000002c   Section      140  timer_software.o(.bss)
-    .bss                                     0x400000b8   Section     1040  isr_manager.o(.bss)
-    uart1_buffer                             0x400000b8   Data        1024  isr_manager.o(.bss)
-    .bss                                     0x400004c8   Section      255  spi.o(.bss)
-    spi0_TX_RX_buffer                        0x400004c8   Data         255  spi.o(.bss)
-    .bss                                     0x400005c8   Section      510  wifi_manager.o(.bss)
-    wifi_response_buffer                     0x400005c8   Data         510  wifi_manager.o(.bss)
-    .bss                                     0x400007c8   Section       96  libspace.o(.bss)
-    HEAP                                     0x40000828   Section        0  startup.o(HEAP)
-    STACK                                    0x40000828   Section    10368  startup.o(STACK)
-    Heap_Mem                                 0x40000828   Data           0  startup.o(HEAP)
-    Stack_Mem                                0x40000828   Data        8192  startup.o(STACK)
-    Stack_Top                                0x400030a8   Data           0  startup.o(STACK)
+    module_state                             0x4000002a   Data           3  wifi_utils.o(.data)
+    sequence_number                          0x4000002d   Data           1  wifi_utils.o(.data)
+    .bss                                     0x40000030   Section      140  timer_software.o(.bss)
+    .bss                                     0x400000bc   Section     1040  isr_manager.o(.bss)
+    uart1_buffer                             0x400000bc   Data        1024  isr_manager.o(.bss)
+    .bss                                     0x400004cc   Section      255  spi.o(.bss)
+    spi0_TX_RX_buffer                        0x400004cc   Data         255  spi.o(.bss)
+    .bss                                     0x400005cc   Section      510  wifi_manager.o(.bss)
+    wifi_response_buffer                     0x400005cc   Data         510  wifi_manager.o(.bss)
+    .bss                                     0x400007cc   Section       96  libspace.o(.bss)
+    HEAP                                     0x40000830   Section        0  startup.o(HEAP)
+    STACK                                    0x40000830   Section    10368  startup.o(STACK)
+    Heap_Mem                                 0x40000830   Data           0  startup.o(HEAP)
+    Stack_Mem                                0x40000830   Data        8192  startup.o(STACK)
+    Stack_Top                                0x400030b0   Data           0  startup.o(STACK)
 
     Global Symbols
 
@@ -2479,146 +2484,142 @@ Image Symbol Table
     __scatterload_copy                       0x00000154   ARM Code      40  __scatter_copy.o(!!handler_copy)
     __scatterload_zeroinit                   0x0000017c   ARM Code      44  __scatter_zi.o(!!handler_zi)
     Inline Thumb to ARM Veneer to _printf_percent 0x000001a9   Thumb Code     4  _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000)
+    _printf_c                                0x000001ac   ARM Code       0  _printf_c.o(.ARM.Collect$$_printf_percent$$00000013)
     _printf_percent                          0x000001ac   ARM Code       0  _printf_percent.o(.ARM.Collect$$_printf_percent$$00000000)
-    _printf_x                                0x000001ac   ARM Code       0  _printf_x.o(.ARM.Collect$$_printf_percent$$0000000C)
-    _printf_c                                0x000001b4   ARM Code       0  _printf_c.o(.ARM.Collect$$_printf_percent$$00000013)
-    _printf_percent_end                      0x000001bc   ARM Code       0  _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017)
-    Inline ARM to Thumb Veneer to __rt_lib_init 0x000001c4   ARM Code       8  libinit.o(.ARM.Collect$$libinit$$00000000)
-    __rt_lib_init                            0x000001cd   Thumb Code     0  libinit.o(.ARM.Collect$$libinit$$00000000)
-    __rt_lib_init_alloca_1                   0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000002E)
-    __rt_lib_init_argv_1                     0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000002C)
-    __rt_lib_init_atexit_1                   0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001B)
-    __rt_lib_init_clock_1                    0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000021)
-    __rt_lib_init_cpp_1                      0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000032)
-    __rt_lib_init_exceptions_1               0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000030)
-    __rt_lib_init_fp_1                       0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000002)
-    __rt_lib_init_fp_trap_1                  0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001F)
-    __rt_lib_init_getenv_1                   0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000023)
-    __rt_lib_init_heap_1                     0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000A)
-    __rt_lib_init_lc_collate_1               0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000011)
-    __rt_lib_init_lc_ctype_1                 0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000013)
-    __rt_lib_init_lc_monetary_1              0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000015)
-    __rt_lib_init_lc_numeric_1               0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000017)
-    __rt_lib_init_lc_time_1                  0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000019)
-    __rt_lib_init_preinit_1                  0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000004)
-    __rt_lib_init_rand_1                     0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000E)
-    __rt_lib_init_return                     0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000033)
-    __rt_lib_init_signal_1                   0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001D)
-    __rt_lib_init_stdio_1                    0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000025)
-    __rt_lib_init_user_alloc_1               0x000001cf   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000C)
-    Inline ARM to Thumb Veneer to __rt_lib_shutdown 0x000001dc   ARM Code       8  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
-    __rt_lib_shutdown                        0x000001e5   Thumb Code     0  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
-    __rt_lib_shutdown_cpp_1                  0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000002)
-    __rt_lib_shutdown_fp_trap_1              0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000007)
-    __rt_lib_shutdown_heap_1                 0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F)
-    __rt_lib_shutdown_return                 0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000010)
-    __rt_lib_shutdown_signal_1               0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A)
-    __rt_lib_shutdown_stdio_1                0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000004)
-    __rt_lib_shutdown_user_alloc_1           0x000001e9   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C)
-    __rt_entry                               0x000001f0   ARM Code       0  __rtentry.o(.ARM.Collect$$rtentry$$00000000)
-    __rt_entry_presh_1                       0x000001f0   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$00000002)
-    __rt_entry_sh                            0x000001f0   ARM Code       0  __rtentry4.o(.ARM.Collect$$rtentry$$00000004)
-    __rt_entry_li                            0x000001f8   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000A)
-    __rt_entry_postsh_1                      0x000001f8   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$00000009)
-    __rt_entry_main                          0x000001fc   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
-    __rt_entry_postli_1                      0x000001fc   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000C)
-    Inline Thumb to ARM Veneer to __rt_exit  0x00000225   Thumb Code     4  rtexit.o(.ARM.Collect$$rtexit$$00000000)
-    __rt_exit                                0x00000228   ARM Code       0  rtexit.o(.ARM.Collect$$rtexit$$00000000)
-    __rt_exit_ls                             0x0000022c   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
-    __rt_exit_prels_1                        0x0000022c   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
-    __rt_exit_exit                           0x00000230   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
-    __user_initial_stackheap                 0x00000238   ARM Code       0  startup.o(.text)
-    __I$use$semihosting                      0x00000258   ARM Code       0  use_no_semi.o(.text)
-    __use_no_semihosting_swi                 0x00000258   ARM Code       4  use_no_semi.o(.text)
-    Inline ARM to Thumb Veneer to __2printf  0x0000025c   ARM Code       8  noretval__2printf.o(.text)
-    __2printf                                0x00000265   Thumb Code    22  noretval__2printf.o(.text)
-    _printf_pre_padding                      0x00000281   Thumb Code    50  _printf_pad.o(.text)
-    _printf_post_padding                     0x000002b3   Thumb Code    36  _printf_pad.o(.text)
-    _printf_str                              0x000002d7   Thumb Code    88  _printf_str.o(.text)
-    Inline ARM to Thumb Veneer to _printf_int_hex 0x00000330   ARM Code       8  _printf_hex_int.o(.text)
-    _printf_int_hex                          0x00000339   Thumb Code    88  _printf_hex_int.o(.text)
-    _printf_longlong_hex                     0x00000339   Thumb Code     0  _printf_hex_int.o(.text)
-    __printf                                 0x00000395   Thumb Code   322  __printf_flags_wp.o(.text)
-    __aeabi_memcpy                           0x000004dc   ARM Code       0  rt_memcpy.o(.text)
-    __rt_memcpy                              0x000004dc   ARM Code     212  rt_memcpy.o(.text)
-    _memcpy_lastbytes                        0x00000590   ARM Code       0  rt_memcpy.o(.text)
-    __aeabi_memcpy4                          0x000005b0   ARM Code       0  rt_memcpy_w.o(.text)
-    __aeabi_memcpy8                          0x000005b0   ARM Code       0  rt_memcpy_w.o(.text)
-    __rt_memcpy_w                            0x000005b0   ARM Code     100  rt_memcpy_w.o(.text)
-    _memcpy_lastbytes_aligned                0x000005fc   ARM Code       0  rt_memcpy_w.o(.text)
-    __aeabi_memset                           0x00000614   ARM Code      16  aeabi_memset.o(.text)
-    __aeabi_memclr                           0x00000624   ARM Code       0  rt_memclr.o(.text)
-    __rt_memclr                              0x00000624   ARM Code      64  rt_memclr.o(.text)
-    _memset                                  0x00000628   ARM Code       0  rt_memclr.o(.text)
-    __aeabi_memclr4                          0x00000664   ARM Code       0  rt_memclr_w.o(.text)
-    __aeabi_memclr8                          0x00000664   ARM Code       0  rt_memclr_w.o(.text)
-    __rt_memclr_w                            0x00000664   ARM Code      84  rt_memclr_w.o(.text)
-    _memset_w                                0x00000668   ARM Code       0  rt_memclr_w.o(.text)
-    __use_two_region_memory                  0x000006b9   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_escrow                         0x000006bb   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_expand                         0x000006bd   Thumb Code     2  heapauxi.o(.text)
-    _printf_int_common                       0x000006bf   Thumb Code   186  _printf_intcommon.o(.text)
-    _printf_char_common                      0x00000783   Thumb Code    34  _printf_char_common.o(.text)
-    Inline ARM to Thumb Veneer to _printf_char 0x000007a8   ARM Code       8  _printf_char.o(.text)
-    _printf_cs_common                        0x000007b1   Thumb Code    26  _printf_char.o(.text)
-    _printf_char                             0x000007cb   Thumb Code    16  _printf_char.o(.text)
-    _printf_string                           0x000007db   Thumb Code     8  _printf_char.o(.text)
-    _printf_char_file                        0x000007e5   Thumb Code    38  _printf_char_file.o(.text)
-    __user_libspace                          0x00000810   ARM Code      12  libspace.o(.text)
-    __user_perproc_libspace                  0x00000810   ARM Code       0  libspace.o(.text)
-    __user_perthread_libspace                0x00000810   ARM Code       0  libspace.o(.text)
-    __user_setup_stackheap                   0x0000081c   ARM Code      96  sys_stackheap_outer.o(.text)
-    exit                                     0x0000087d   Thumb Code    20  exit.o(.text)
-    Get_HandsakePin_Status                   0x00000890   ARM Code      36  wifi_utils.o(i.Get_HandsakePin_Status)
-    I2C_init                                 0x00000950   ARM Code      44  i2c.o(i.I2C_init)
-    I2C_irq                                  0x00000980   ARM Code     780  i2c.o(i.I2C_irq)
-    InitInterrupt                            0x00000cb0   ARM Code     112  isr_manager.o(i.InitInterrupt)
-    LP_Set_StayAwake                         0x00000d34   ARM Code      72  lp_mode_manager.o(i.LP_Set_StayAwake)
-    Read_Ready_Status                        0x00000e54   ARM Code     124  wifi_utils.o(i.Read_Ready_Status)
-    RingBufInit                              0x00000f8c   ARM Code      24  ringbuf.o(i.RingBufInit)
-    RingBufWriteOne                          0x00000fa4   ARM Code      48  ringbuf.o(i.RingBufWriteOne)
-    SPI0_init                                0x00000fd4   ARM Code     112  spi.o(i.SPI0_init)
-    SPI0_irq                                 0x0000104c   ARM Code     128  spi.o(i.SPI0_irq)
-    Send_ESP_Command                         0x00001128   ARM Code     380  wifi_utils.o(i.Send_ESP_Command)
-    TIMER_Init                               0x000012d4   ARM Code      36  timer.o(i.TIMER_Init)
-    TIMER_SOFTWARE_ModX                      0x00001300   ARM Code     820  timer_software.o(i.TIMER_SOFTWARE_ModX)
-    TIMER_SOFTWARE_Wait                      0x00001638   ARM Code     276  timer_software.o(i.TIMER_SOFTWARE_Wait)
-    TIMER_SOFTWARE_clear_interrupt           0x00001754   ARM Code      40  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
-    TIMER_SOFTWARE_configure_timer           0x00001780   ARM Code     608  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
-    TIMER_SOFTWARE_enable_timer              0x000019e4   ARM Code     128  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
-    TIMER_SOFTWARE_init                      0x00001a68   ARM Code     144  timer_software.o(i.TIMER_SOFTWARE_init)
-    TIMER_SOFTWARE_interrupt_pending         0x00001b00   ARM Code      32  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
-    TIMER_SOFTWARE_request_timer             0x00001b24   ARM Code     204  timer_software.o(i.TIMER_SOFTWARE_request_timer)
-    TIMER_SOFTWARE_reset_timer               0x00001bf4   ARM Code      24  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
-    TIMER_SOFTWARE_start_timer               0x00001c10   ARM Code     148  timer_software.o(i.TIMER_SOFTWARE_start_timer)
-    TIMER_SOFTWARE_stop_timer                0x00001ca8   ARM Code      96  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
-    TIMER_irq                                0x00001d0c   ARM Code      56  isr_manager.o(i.TIMER_irq)
-    UART0_Init                               0x00001d48   ARM Code      60  uart0.o(i.UART0_Init)
-    UART0_sendchar                           0x00001d88   ARM Code      36  uart0.o(i.UART0_sendchar)
-    UART1_Init                               0x00001db0   ARM Code     108  uart1.o(i.UART1_Init)
-    UART1_irq                                0x00001e24   ARM Code      64  isr_manager.o(i.UART1_irq)
-    Wait_For_HIGH_Transition                 0x00001e98   ARM Code      28  wifi_utils.o(i.Wait_For_HIGH_Transition)
-    WifiManager_Init                         0x00002068   ARM Code     288  wifi_manager.o(i.WifiManager_Init)
-    WifiManager_Perform_HW_Reset             0x000021cc   ARM Code      96  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
-    __ARM_common_call_via_r1                 0x000022c9   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r1)
-    __ARM_common_call_via_r2                 0x000022cb   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r2)
-    _is_digit                                0x000022cd   Thumb Code    14  __printf_wp.o(i._is_digit)
-    _sys_exit                                0x000022dc   ARM Code       4  retarget.o(i._sys_exit)
-    compute_crc                              0x000022e0   ARM Code     116  crc.o(i.compute_crc)
-    Inline Thumb to ARM Veneer to ferror     0x0000235d   Thumb Code     4  retarget.o(i.ferror)
-    ferror                                   0x00002360   ARM Code      12  retarget.o(i.ferror)
-    fputc                                    0x0000236c   ARM Code      28  retarget.o(i.fputc)
-    main                                     0x00002388   ARM Code      76  main.o(i.main)
-    spi0_sendReceive_message                 0x00002430   ARM Code     168  spi.o(i.spi0_sendReceive_message)
-    wifi_utils_Init                          0x000024e8   ARM Code      60  wifi_utils.o(i.wifi_utils_Init)
-    Region$$Table$$Base                      0x00002660   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00002680   Number         0  anon$$obj.o(Region$$Table)
+    _printf_percent_end                      0x000001b4   ARM Code       0  _printf_percent_end.o(.ARM.Collect$$_printf_percent$$00000017)
+    Inline ARM to Thumb Veneer to __rt_lib_init 0x000001bc   ARM Code       8  libinit.o(.ARM.Collect$$libinit$$00000000)
+    __rt_lib_init                            0x000001c5   Thumb Code     0  libinit.o(.ARM.Collect$$libinit$$00000000)
+    __rt_lib_init_alloca_1                   0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000002E)
+    __rt_lib_init_argv_1                     0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000002C)
+    __rt_lib_init_atexit_1                   0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001B)
+    __rt_lib_init_clock_1                    0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000021)
+    __rt_lib_init_cpp_1                      0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000032)
+    __rt_lib_init_exceptions_1               0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000030)
+    __rt_lib_init_fp_1                       0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000002)
+    __rt_lib_init_fp_trap_1                  0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001F)
+    __rt_lib_init_getenv_1                   0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000023)
+    __rt_lib_init_heap_1                     0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000A)
+    __rt_lib_init_lc_collate_1               0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000011)
+    __rt_lib_init_lc_ctype_1                 0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000013)
+    __rt_lib_init_lc_monetary_1              0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000015)
+    __rt_lib_init_lc_numeric_1               0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000017)
+    __rt_lib_init_lc_time_1                  0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000019)
+    __rt_lib_init_preinit_1                  0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000004)
+    __rt_lib_init_rand_1                     0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000E)
+    __rt_lib_init_return                     0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000033)
+    __rt_lib_init_signal_1                   0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000001D)
+    __rt_lib_init_stdio_1                    0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$00000025)
+    __rt_lib_init_user_alloc_1               0x000001c7   Thumb Code     0  libinit2.o(.ARM.Collect$$libinit$$0000000C)
+    Inline ARM to Thumb Veneer to __rt_lib_shutdown 0x000001d4   ARM Code       8  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
+    __rt_lib_shutdown                        0x000001dd   Thumb Code     0  libshutdown.o(.ARM.Collect$$libshutdown$$00000000)
+    __rt_lib_shutdown_cpp_1                  0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000002)
+    __rt_lib_shutdown_fp_trap_1              0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000007)
+    __rt_lib_shutdown_heap_1                 0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F)
+    __rt_lib_shutdown_return                 0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000010)
+    __rt_lib_shutdown_signal_1               0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A)
+    __rt_lib_shutdown_stdio_1                0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$00000004)
+    __rt_lib_shutdown_user_alloc_1           0x000001e1   Thumb Code     0  libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C)
+    __rt_entry                               0x000001e8   ARM Code       0  __rtentry.o(.ARM.Collect$$rtentry$$00000000)
+    __rt_entry_presh_1                       0x000001e8   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$00000002)
+    __rt_entry_sh                            0x000001e8   ARM Code       0  __rtentry4.o(.ARM.Collect$$rtentry$$00000004)
+    __rt_entry_li                            0x000001f0   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000A)
+    __rt_entry_postsh_1                      0x000001f0   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$00000009)
+    __rt_entry_main                          0x000001f4   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000D)
+    __rt_entry_postli_1                      0x000001f4   ARM Code       0  __rtentry2.o(.ARM.Collect$$rtentry$$0000000C)
+    Inline Thumb to ARM Veneer to __rt_exit  0x0000021d   Thumb Code     4  rtexit.o(.ARM.Collect$$rtexit$$00000000)
+    __rt_exit                                0x00000220   ARM Code       0  rtexit.o(.ARM.Collect$$rtexit$$00000000)
+    __rt_exit_ls                             0x00000224   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000003)
+    __rt_exit_prels_1                        0x00000224   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000002)
+    __rt_exit_exit                           0x00000228   ARM Code       0  rtexit2.o(.ARM.Collect$$rtexit$$00000004)
+    __user_initial_stackheap                 0x00000230   ARM Code       0  startup.o(.text)
+    __I$use$semihosting                      0x00000250   ARM Code       0  use_no_semi.o(.text)
+    __use_no_semihosting_swi                 0x00000250   ARM Code       4  use_no_semi.o(.text)
+    Inline ARM to Thumb Veneer to __2printf  0x00000254   ARM Code       8  noretval__2printf.o(.text)
+    __2printf                                0x0000025d   Thumb Code    22  noretval__2printf.o(.text)
+    _printf_str                              0x00000279   Thumb Code    88  _printf_str.o(.text)
+    __printf                                 0x000002d1   Thumb Code   322  __printf_flags_wp.o(.text)
+    Inline ARM to Thumb Veneer to memcmp     0x00000418   ARM Code       8  memcmp.o(.text)
+    memcmp                                   0x00000421   Thumb Code   118  memcmp.o(.text)
+    __aeabi_memcpy                           0x00000498   ARM Code       0  rt_memcpy.o(.text)
+    __rt_memcpy                              0x00000498   ARM Code     212  rt_memcpy.o(.text)
+    _memcpy_lastbytes                        0x0000054c   ARM Code       0  rt_memcpy.o(.text)
+    __aeabi_memcpy4                          0x0000056c   ARM Code       0  rt_memcpy_w.o(.text)
+    __aeabi_memcpy8                          0x0000056c   ARM Code       0  rt_memcpy_w.o(.text)
+    __rt_memcpy_w                            0x0000056c   ARM Code     100  rt_memcpy_w.o(.text)
+    _memcpy_lastbytes_aligned                0x000005b8   ARM Code       0  rt_memcpy_w.o(.text)
+    __aeabi_memset                           0x000005d0   ARM Code      16  aeabi_memset.o(.text)
+    __aeabi_memclr                           0x000005e0   ARM Code       0  rt_memclr.o(.text)
+    __rt_memclr                              0x000005e0   ARM Code      64  rt_memclr.o(.text)
+    _memset                                  0x000005e4   ARM Code       0  rt_memclr.o(.text)
+    __aeabi_memclr4                          0x00000620   ARM Code       0  rt_memclr_w.o(.text)
+    __aeabi_memclr8                          0x00000620   ARM Code       0  rt_memclr_w.o(.text)
+    __rt_memclr_w                            0x00000620   ARM Code      84  rt_memclr_w.o(.text)
+    _memset_w                                0x00000624   ARM Code       0  rt_memclr_w.o(.text)
+    __use_two_region_memory                  0x00000675   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_escrow                         0x00000677   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_expand                         0x00000679   Thumb Code     2  heapauxi.o(.text)
+    _printf_char_common                      0x00000687   Thumb Code    34  _printf_char_common.o(.text)
+    Inline ARM to Thumb Veneer to _printf_char 0x000006ac   ARM Code       8  _printf_char.o(.text)
+    _printf_cs_common                        0x000006b5   Thumb Code    26  _printf_char.o(.text)
+    _printf_char                             0x000006cf   Thumb Code    16  _printf_char.o(.text)
+    _printf_string                           0x000006df   Thumb Code     8  _printf_char.o(.text)
+    _printf_char_file                        0x000006e9   Thumb Code    38  _printf_char_file.o(.text)
+    __user_libspace                          0x00000714   ARM Code      12  libspace.o(.text)
+    __user_perproc_libspace                  0x00000714   ARM Code       0  libspace.o(.text)
+    __user_perthread_libspace                0x00000714   ARM Code       0  libspace.o(.text)
+    __user_setup_stackheap                   0x00000720   ARM Code      96  sys_stackheap_outer.o(.text)
+    exit                                     0x00000781   Thumb Code    20  exit.o(.text)
+    Get_HandsakePin_Status                   0x00000794   ARM Code      36  wifi_utils.o(i.Get_HandsakePin_Status)
+    Get_Module_Current_State                 0x000007bc   ARM Code      48  wifi_utils.o(i.Get_Module_Current_State)
+    I2C_init                                 0x00000888   ARM Code      44  i2c.o(i.I2C_init)
+    I2C_irq                                  0x000008b8   ARM Code     780  i2c.o(i.I2C_irq)
+    InitInterrupt                            0x00000be8   ARM Code     112  isr_manager.o(i.InitInterrupt)
+    LP_Set_StayAwake                         0x00000c6c   ARM Code      72  lp_mode_manager.o(i.LP_Set_StayAwake)
+    Read_Ready_Status                        0x00000d8c   ARM Code     144  wifi_utils.o(i.Read_Ready_Status)
+    RingBufInit                              0x00000edc   ARM Code      24  ringbuf.o(i.RingBufInit)
+    RingBufWriteOne                          0x00000ef4   ARM Code      48  ringbuf.o(i.RingBufWriteOne)
+    SPI0_init                                0x00000f24   ARM Code     112  spi.o(i.SPI0_init)
+    SPI0_irq                                 0x00000f9c   ARM Code     128  spi.o(i.SPI0_irq)
+    Send_ESP_Command                         0x00001078   ARM Code     576  wifi_utils.o(i.Send_ESP_Command)
+    TIMER_Init                               0x000012d8   ARM Code      36  timer.o(i.TIMER_Init)
+    TIMER_SOFTWARE_ModX                      0x00001304   ARM Code     820  timer_software.o(i.TIMER_SOFTWARE_ModX)
+    TIMER_SOFTWARE_Wait                      0x0000163c   ARM Code     276  timer_software.o(i.TIMER_SOFTWARE_Wait)
+    TIMER_SOFTWARE_clear_interrupt           0x00001758   ARM Code      40  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
+    TIMER_SOFTWARE_configure_timer           0x00001784   ARM Code     608  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
+    TIMER_SOFTWARE_enable_timer              0x000019e8   ARM Code     128  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
+    TIMER_SOFTWARE_init                      0x00001a6c   ARM Code     144  timer_software.o(i.TIMER_SOFTWARE_init)
+    TIMER_SOFTWARE_interrupt_pending         0x00001b04   ARM Code      32  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
+    TIMER_SOFTWARE_request_timer             0x00001b28   ARM Code     204  timer_software.o(i.TIMER_SOFTWARE_request_timer)
+    TIMER_SOFTWARE_reset_timer               0x00001bf8   ARM Code      24  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
+    TIMER_SOFTWARE_start_timer               0x00001c14   ARM Code     148  timer_software.o(i.TIMER_SOFTWARE_start_timer)
+    TIMER_SOFTWARE_stop_timer                0x00001cac   ARM Code      96  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
+    TIMER_irq                                0x00001d10   ARM Code      56  isr_manager.o(i.TIMER_irq)
+    UART0_Init                               0x00001d4c   ARM Code      60  uart0.o(i.UART0_Init)
+    UART0_sendchar                           0x00001d8c   ARM Code      36  uart0.o(i.UART0_sendchar)
+    UART1_Init                               0x00001db4   ARM Code     108  uart1.o(i.UART1_Init)
+    UART1_irq                                0x00001e28   ARM Code      64  isr_manager.o(i.UART1_irq)
+    Wait_For_HIGH_Transition                 0x00001e9c   ARM Code      28  wifi_utils.o(i.Wait_For_HIGH_Transition)
+    WifiManager_Init                         0x0000206c   ARM Code     324  wifi_manager.o(i.WifiManager_Init)
+    WifiManager_Perform_HW_Reset             0x000021f4   ARM Code      96  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
+    __ARM_common_call_via_r1                 0x000022f1   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r1)
+    __ARM_common_call_via_r2                 0x000022f3   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r2)
+    _is_digit                                0x000022f5   Thumb Code    14  __printf_wp.o(i._is_digit)
+    _sys_exit                                0x00002304   ARM Code       4  retarget.o(i._sys_exit)
+    compute_crc                              0x00002308   ARM Code     116  crc.o(i.compute_crc)
+    Inline Thumb to ARM Veneer to ferror     0x00002385   Thumb Code     4  retarget.o(i.ferror)
+    ferror                                   0x00002388   ARM Code      12  retarget.o(i.ferror)
+    fputc                                    0x00002394   ARM Code      28  retarget.o(i.fputc)
+    main                                     0x000023b0   ARM Code      76  main.o(i.main)
+    spi0_sendReceive_message                 0x00002458   ARM Code     168  spi.o(i.spi0_sendReceive_message)
+    wifi_utils_Init                          0x00002510   ARM Code      60  wifi_utils.o(i.wifi_utils_Init)
+    Region$$Table$$Base                      0x00002740   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00002760   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x40000000   Data           4  retarget.o(.data)
     wait_timer                               0x40000004   Data           2  timer_software.o(.data)
-    timers                                   0x4000002c   Data         140  timer_software.o(.bss)
-    uart1_ringbuff_rx                        0x400004b8   Data          16  isr_manager.o(.bss)
-    __libspace_start                         0x400007c8   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x40000828   Data           0  libspace.o(.bss)
+    timers                                   0x40000030   Data         140  timer_software.o(.bss)
+    uart1_ringbuff_rx                        0x400004bc   Data          16  isr_manager.o(.bss)
+    __libspace_start                         0x400007cc   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x4000082c   Data           0  libspace.o(.bss)
 
 
 
@@ -2628,176 +2629,176 @@ Memory Map of the image
 
   Image Entry point : 0x00000110
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000026ac, Max: 0x00040000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00002790, Max: 0x00040000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00002680, Max: 0x00040000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00002760, Max: 0x00040000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x00000110   Code   RO            3    RESET               startup.o
-    0x00000110   0x00000110   0x00000008   Code   RO         3941  * !!!main             c_t.l(__main.o)
-    0x00000118   0x00000118   0x0000003c   Code   RO         4177    !!!scatter          c_t.l(__scatter.o)
-    0x00000154   0x00000154   0x00000028   Code   RO         4179    !!handler_copy      c_t.l(__scatter_copy.o)
-    0x0000017c   0x0000017c   0x0000002c   Code   RO         4181    !!handler_zi        c_t.l(__scatter_zi.o)
-    0x000001a8   0x000001a8   0x00000004   Ven    RO         3897    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
-    0x000001ac   0x000001ac   0x00000000   Code   RO         3897    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
-    0x000001ac   0x000001ac   0x00000008   Code   RO         3895    .ARM.Collect$$_printf_percent$$0000000C  c_t.l(_printf_x.o)
-    0x000001b4   0x000001b4   0x00000008   Code   RO         3893    .ARM.Collect$$_printf_percent$$00000013  c_t.l(_printf_c.o)
-    0x000001bc   0x000001bc   0x00000008   Code   RO         3991    .ARM.Collect$$_printf_percent$$00000017  c_t.l(_printf_percent_end.o)
-    0x000001c4   0x000001c4   0x00000008   Ven    RO         4120    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
-    0x000001cc   0x000001cc   0x00000002   Code   RO         4120    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4001    .ARM.Collect$$libinit$$00000002  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4003    .ARM.Collect$$libinit$$00000004  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4006    .ARM.Collect$$libinit$$0000000A  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4008    .ARM.Collect$$libinit$$0000000C  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4010    .ARM.Collect$$libinit$$0000000E  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4013    .ARM.Collect$$libinit$$00000011  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4015    .ARM.Collect$$libinit$$00000013  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4017    .ARM.Collect$$libinit$$00000015  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4019    .ARM.Collect$$libinit$$00000017  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4021    .ARM.Collect$$libinit$$00000019  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4023    .ARM.Collect$$libinit$$0000001B  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4025    .ARM.Collect$$libinit$$0000001D  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4027    .ARM.Collect$$libinit$$0000001F  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4029    .ARM.Collect$$libinit$$00000021  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4031    .ARM.Collect$$libinit$$00000023  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4033    .ARM.Collect$$libinit$$00000025  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4037    .ARM.Collect$$libinit$$0000002C  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4039    .ARM.Collect$$libinit$$0000002E  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4041    .ARM.Collect$$libinit$$00000030  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x00000000   Code   RO         4043    .ARM.Collect$$libinit$$00000032  c_t.l(libinit2.o)
-    0x000001ce   0x000001ce   0x0000000c   Code   RO         4044    .ARM.Collect$$libinit$$00000033  c_t.l(libinit2.o)
-    0x000001da   0x000001da   0x00000002   PAD
-    0x000001dc   0x000001dc   0x00000008   Ven    RO         4174    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
-    0x000001e4   0x000001e4   0x00000004   Code   RO         4174    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4134    .ARM.Collect$$libshutdown$$00000002  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4136    .ARM.Collect$$libshutdown$$00000004  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4139    .ARM.Collect$$libshutdown$$00000007  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4142    .ARM.Collect$$libshutdown$$0000000A  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4144    .ARM.Collect$$libshutdown$$0000000C  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000000   Code   RO         4147    .ARM.Collect$$libshutdown$$0000000F  c_t.l(libshutdown2.o)
-    0x000001e8   0x000001e8   0x00000006   Code   RO         4148    .ARM.Collect$$libshutdown$$00000010  c_t.l(libshutdown2.o)
-    0x000001ee   0x000001ee   0x00000002   PAD
-    0x000001f0   0x000001f0   0x00000000   Code   RO         3945    .ARM.Collect$$rtentry$$00000000  c_t.l(__rtentry.o)
-    0x000001f0   0x000001f0   0x00000000   Code   RO         4051    .ARM.Collect$$rtentry$$00000002  c_t.l(__rtentry2.o)
-    0x000001f0   0x000001f0   0x00000008   Code   RO         4063    .ARM.Collect$$rtentry$$00000004  c_t.l(__rtentry4.o)
-    0x000001f8   0x000001f8   0x00000000   Code   RO         4053    .ARM.Collect$$rtentry$$00000009  c_t.l(__rtentry2.o)
-    0x000001f8   0x000001f8   0x00000004   Code   RO         4054    .ARM.Collect$$rtentry$$0000000A  c_t.l(__rtentry2.o)
-    0x000001fc   0x000001fc   0x00000000   Code   RO         4056    .ARM.Collect$$rtentry$$0000000C  c_t.l(__rtentry2.o)
-    0x000001fc   0x000001fc   0x00000028   Code   RO         4057    .ARM.Collect$$rtentry$$0000000D  c_t.l(__rtentry2.o)
-    0x00000224   0x00000224   0x00000004   Ven    RO         4121    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
-    0x00000228   0x00000228   0x00000004   Code   RO         4121    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
-    0x0000022c   0x0000022c   0x00000000   Code   RO         4150    .ARM.Collect$$rtexit$$00000002  c_t.l(rtexit2.o)
-    0x0000022c   0x0000022c   0x00000004   Code   RO         4151    .ARM.Collect$$rtexit$$00000003  c_t.l(rtexit2.o)
-    0x00000230   0x00000230   0x00000008   Code   RO         4152    .ARM.Collect$$rtexit$$00000004  c_t.l(rtexit2.o)
-    0x00000238   0x00000238   0x00000020   Code   RO            4    .text               startup.o
-    0x00000258   0x00000258   0x00000004   Code   RO         3762    .text               c_t.l(use_no_semi.o)
-    0x0000025c   0x0000025c   0x00000008   Ven    RO         3836    .text               c_t.l(noretval__2printf.o)
-    0x00000264   0x00000264   0x0000001c   Code   RO         3836    .text               c_t.l(noretval__2printf.o)
-    0x00000280   0x00000280   0x00000056   Code   RO         3846    .text               c_t.l(_printf_pad.o)
-    0x000002d6   0x000002d6   0x00000058   Code   RO         3848    .text               c_t.l(_printf_str.o)
-    0x0000032e   0x0000032e   0x00000002   PAD
-    0x00000330   0x00000330   0x00000008   Ven    RO         3855    .text               c_t.l(_printf_hex_int.o)
-    0x00000338   0x00000338   0x0000005c   Code   RO         3855    .text               c_t.l(_printf_hex_int.o)
-    0x00000394   0x00000394   0x00000148   Code   RO         3885    .text               c_t.l(__printf_flags_wp.o)
-    0x000004dc   0x000004dc   0x000000d4   Code   RO         3907    .text               c_t.l(rt_memcpy.o)
-    0x000005b0   0x000005b0   0x00000064   Code   RO         3911    .text               c_t.l(rt_memcpy_w.o)
-    0x00000614   0x00000614   0x00000010   Code   RO         3913    .text               c_t.l(aeabi_memset.o)
-    0x00000624   0x00000624   0x00000040   Code   RO         3915    .text               c_t.l(rt_memclr.o)
-    0x00000664   0x00000664   0x00000054   Code   RO         3917    .text               c_t.l(rt_memclr_w.o)
-    0x000006b8   0x000006b8   0x00000006   Code   RO         3939    .text               c_t.l(heapauxi.o)
-    0x000006be   0x000006be   0x000000ba   Code   RO         3981    .text               c_t.l(_printf_intcommon.o)
-    0x00000778   0x00000778   0x00000030   Code   RO         3983    .text               c_t.l(_printf_char_common.o)
-    0x000007a8   0x000007a8   0x00000008   Ven    RO         3987    .text               c_t.l(_printf_char.o)
-    0x000007b0   0x000007b0   0x00000032   Code   RO         3987    .text               c_t.l(_printf_char.o)
-    0x000007e2   0x000007e2   0x00000002   PAD
-    0x000007e4   0x000007e4   0x0000002c   Code   RO         3989    .text               c_t.l(_printf_char_file.o)
-    0x00000810   0x00000810   0x0000000c   Code   RO         4047    .text               c_t.l(libspace.o)
-    0x0000081c   0x0000081c   0x00000060   Code   RO         4095    .text               c_t.l(sys_stackheap_outer.o)
-    0x0000087c   0x0000087c   0x00000014   Code   RO         4101    .text               c_t.l(exit.o)
-    0x00000890   0x00000890   0x00000028   Code   RO         3683    i.Get_HandsakePin_Status  wifi_utils.o
-    0x000008b8   0x000008b8   0x00000098   Code   RO         3684    i.Get_Read_Write_Status  wifi_utils.o
-    0x00000950   0x00000950   0x00000030   Code   RO          564    i.I2C_init          i2c.o
-    0x00000980   0x00000980   0x00000330   Code   RO          565    i.I2C_irq           i2c.o
-    0x00000cb0   0x00000cb0   0x00000084   Code   RO          524    i.InitInterrupt     isr_manager.o
-    0x00000d34   0x00000d34   0x0000004c   Code   RO         3595    i.LP_Set_StayAwake  lp_mode_manager.o
-    0x00000d80   0x00000d80   0x000000d4   Code   RO         3685    i.Read_ESP_Data     wifi_utils.o
-    0x00000e54   0x00000e54   0x00000088   Code   RO         3686    i.Read_Ready_Status  wifi_utils.o
-    0x00000edc   0x00000edc   0x000000b0   Code   RO         3687    i.Request_ESP_Send_Permission  wifi_utils.o
-    0x00000f8c   0x00000f8c   0x00000018   Code   RO          200    i.RingBufInit       ringbuf.o
-    0x00000fa4   0x00000fa4   0x00000030   Code   RO          206    i.RingBufWriteOne   ringbuf.o
-    0x00000fd4   0x00000fd4   0x00000078   Code   RO          633    i.SPI0_init         spi.o
-    0x0000104c   0x0000104c   0x00000098   Code   RO          634    i.SPI0_irq          spi.o
-    0x000010e4   0x000010e4   0x00000044   Code   RO          635    i.SPI0_set_slave_select  spi.o
-    0x00001128   0x00001128   0x000001ac   Code   RO         3688    i.Send_ESP_Command  wifi_utils.o
-    0x000012d4   0x000012d4   0x0000002c   Code   RO          416    i.TIMER_Init        timer.o
-    0x00001300   0x00001300   0x00000338   Code   RO          296    i.TIMER_SOFTWARE_ModX  timer_software.o
-    0x00001638   0x00001638   0x0000011c   Code   RO          297    i.TIMER_SOFTWARE_Wait  timer_software.o
-    0x00001754   0x00001754   0x0000002c   Code   RO          298    i.TIMER_SOFTWARE_clear_interrupt  timer_software.o
-    0x00001780   0x00001780   0x00000264   Code   RO          299    i.TIMER_SOFTWARE_configure_timer  timer_software.o
-    0x000019e4   0x000019e4   0x00000084   Code   RO          301    i.TIMER_SOFTWARE_enable_timer  timer_software.o
-    0x00001a68   0x00001a68   0x00000098   Code   RO          302    i.TIMER_SOFTWARE_init  timer_software.o
-    0x00001b00   0x00001b00   0x00000024   Code   RO          303    i.TIMER_SOFTWARE_interrupt_pending  timer_software.o
-    0x00001b24   0x00001b24   0x000000d0   Code   RO          306    i.TIMER_SOFTWARE_request_timer  timer_software.o
-    0x00001bf4   0x00001bf4   0x0000001c   Code   RO          307    i.TIMER_SOFTWARE_reset_timer  timer_software.o
-    0x00001c10   0x00001c10   0x00000098   Code   RO          309    i.TIMER_SOFTWARE_start_timer  timer_software.o
-    0x00001ca8   0x00001ca8   0x00000064   Code   RO          310    i.TIMER_SOFTWARE_stop_timer  timer_software.o
-    0x00001d0c   0x00001d0c   0x0000003c   Code   RO          525    i.TIMER_irq         isr_manager.o
-    0x00001d48   0x00001d48   0x00000040   Code   RO          434    i.UART0_Init        uart0.o
-    0x00001d88   0x00001d88   0x00000028   Code   RO          435    i.UART0_sendchar    uart0.o
-    0x00001db0   0x00001db0   0x00000074   Code   RO          455    i.UART1_Init        uart1.o
-    0x00001e24   0x00001e24   0x00000048   Code   RO          526    i.UART1_irq         isr_manager.o
-    0x00001e6c   0x00001e6c   0x0000002c   Code   RO          207    i.UpdateIndexAtomic  ringbuf.o
-    0x00001e98   0x00001e98   0x0000001c   Code   RO         3689    i.Wait_For_HIGH_Transition  wifi_utils.o
-    0x00001eb4   0x00001eb4   0x000001b4   Code   RO         3690    i.Wait_for_transition  wifi_utils.o
-    0x00002068   0x00002068   0x00000164   Code   RO         3636    i.WifiManager_Init  wifi_manager.o
-    0x000021cc   0x000021cc   0x00000064   Code   RO         3637    i.WifiManager_Perform_HW_Reset  wifi_manager.o
-    0x00002230   0x00002230   0x00000098   Code   RO         3691    i.Write_ESP_Data    wifi_utils.o
-    0x000022c8   0x000022c8   0x00000002   Code   RO         3844    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
-    0x000022ca   0x000022ca   0x00000002   Code   RO         3842    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
-    0x000022cc   0x000022cc   0x0000000e   Code   RO         3883    i._is_digit         c_t.l(__printf_wp.o)
-    0x000022da   0x000022da   0x00000002   PAD
-    0x000022dc   0x000022dc   0x00000004   Code   RO          149    i._sys_exit         retarget.o
-    0x000022e0   0x000022e0   0x0000007c   Code   RO          399    i.compute_crc       crc.o
-    0x0000235c   0x0000235c   0x00000004   Ven    RO          151    i.ferror            retarget.o
-    0x00002360   0x00002360   0x0000000c   Code   RO          151    i.ferror            retarget.o
-    0x0000236c   0x0000236c   0x0000001c   Code   RO          152    i.fputc             retarget.o
-    0x00002388   0x00002388   0x00000058   Code   RO           11    i.main              main.o
-    0x000023e0   0x000023e0   0x00000028   Code   RO         3692    i.send_Read_EOF     wifi_utils.o
-    0x00002408   0x00002408   0x00000028   Code   RO         3693    i.send_Write_EOF    wifi_utils.o
-    0x00002430   0x00002430   0x000000b8   Code   RO          636    i.spi0_sendReceive_message  spi.o
-    0x000024e8   0x000024e8   0x00000044   Code   RO         3694    i.wifi_utils_Init   wifi_utils.o
-    0x0000252c   0x0000252c   0x00000020   Data   RO          400    .constdata          crc.o
-    0x0000254c   0x0000254c   0x000000d8   Data   RO         3640    .constdata          wifi_manager.o
-    0x00002624   0x00002624   0x00000028   Data   RO         3856    .constdata          c_t.l(_printf_hex_int.o)
-    0x0000264c   0x0000264c   0x00000011   Data   RO         3886    .constdata          c_t.l(__printf_flags_wp.o)
-    0x0000265d   0x0000265d   0x00000003   PAD
-    0x00002660   0x00002660   0x00000020   Data   RO         4175    Region$$Table       anon$$obj.o
+    0x00000110   0x00000110   0x00000008   Code   RO         3948  * !!!main             c_t.l(__main.o)
+    0x00000118   0x00000118   0x0000003c   Code   RO         4184    !!!scatter          c_t.l(__scatter.o)
+    0x00000154   0x00000154   0x00000028   Code   RO         4186    !!handler_copy      c_t.l(__scatter_copy.o)
+    0x0000017c   0x0000017c   0x0000002c   Code   RO         4188    !!handler_zi        c_t.l(__scatter_zi.o)
+    0x000001a8   0x000001a8   0x00000004   Ven    RO         3904    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
+    0x000001ac   0x000001ac   0x00000000   Code   RO         3904    .ARM.Collect$$_printf_percent$$00000000  c_t.l(_printf_percent.o)
+    0x000001ac   0x000001ac   0x00000008   Code   RO         3900    .ARM.Collect$$_printf_percent$$00000013  c_t.l(_printf_c.o)
+    0x000001b4   0x000001b4   0x00000008   Code   RO         3998    .ARM.Collect$$_printf_percent$$00000017  c_t.l(_printf_percent_end.o)
+    0x000001bc   0x000001bc   0x00000008   Ven    RO         4127    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
+    0x000001c4   0x000001c4   0x00000002   Code   RO         4127    .ARM.Collect$$libinit$$00000000  c_t.l(libinit.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4008    .ARM.Collect$$libinit$$00000002  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4010    .ARM.Collect$$libinit$$00000004  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4013    .ARM.Collect$$libinit$$0000000A  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4015    .ARM.Collect$$libinit$$0000000C  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4017    .ARM.Collect$$libinit$$0000000E  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4020    .ARM.Collect$$libinit$$00000011  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4022    .ARM.Collect$$libinit$$00000013  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4024    .ARM.Collect$$libinit$$00000015  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4026    .ARM.Collect$$libinit$$00000017  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4028    .ARM.Collect$$libinit$$00000019  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4030    .ARM.Collect$$libinit$$0000001B  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4032    .ARM.Collect$$libinit$$0000001D  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4034    .ARM.Collect$$libinit$$0000001F  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4036    .ARM.Collect$$libinit$$00000021  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4038    .ARM.Collect$$libinit$$00000023  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4040    .ARM.Collect$$libinit$$00000025  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4044    .ARM.Collect$$libinit$$0000002C  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4046    .ARM.Collect$$libinit$$0000002E  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4048    .ARM.Collect$$libinit$$00000030  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x00000000   Code   RO         4050    .ARM.Collect$$libinit$$00000032  c_t.l(libinit2.o)
+    0x000001c6   0x000001c6   0x0000000c   Code   RO         4051    .ARM.Collect$$libinit$$00000033  c_t.l(libinit2.o)
+    0x000001d2   0x000001d2   0x00000002   PAD
+    0x000001d4   0x000001d4   0x00000008   Ven    RO         4181    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
+    0x000001dc   0x000001dc   0x00000004   Code   RO         4181    .ARM.Collect$$libshutdown$$00000000  c_t.l(libshutdown.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4141    .ARM.Collect$$libshutdown$$00000002  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4143    .ARM.Collect$$libshutdown$$00000004  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4146    .ARM.Collect$$libshutdown$$00000007  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4149    .ARM.Collect$$libshutdown$$0000000A  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4151    .ARM.Collect$$libshutdown$$0000000C  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000000   Code   RO         4154    .ARM.Collect$$libshutdown$$0000000F  c_t.l(libshutdown2.o)
+    0x000001e0   0x000001e0   0x00000006   Code   RO         4155    .ARM.Collect$$libshutdown$$00000010  c_t.l(libshutdown2.o)
+    0x000001e6   0x000001e6   0x00000002   PAD
+    0x000001e8   0x000001e8   0x00000000   Code   RO         3952    .ARM.Collect$$rtentry$$00000000  c_t.l(__rtentry.o)
+    0x000001e8   0x000001e8   0x00000000   Code   RO         4058    .ARM.Collect$$rtentry$$00000002  c_t.l(__rtentry2.o)
+    0x000001e8   0x000001e8   0x00000008   Code   RO         4070    .ARM.Collect$$rtentry$$00000004  c_t.l(__rtentry4.o)
+    0x000001f0   0x000001f0   0x00000000   Code   RO         4060    .ARM.Collect$$rtentry$$00000009  c_t.l(__rtentry2.o)
+    0x000001f0   0x000001f0   0x00000004   Code   RO         4061    .ARM.Collect$$rtentry$$0000000A  c_t.l(__rtentry2.o)
+    0x000001f4   0x000001f4   0x00000000   Code   RO         4063    .ARM.Collect$$rtentry$$0000000C  c_t.l(__rtentry2.o)
+    0x000001f4   0x000001f4   0x00000028   Code   RO         4064    .ARM.Collect$$rtentry$$0000000D  c_t.l(__rtentry2.o)
+    0x0000021c   0x0000021c   0x00000004   Ven    RO         4128    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
+    0x00000220   0x00000220   0x00000004   Code   RO         4128    .ARM.Collect$$rtexit$$00000000  c_t.l(rtexit.o)
+    0x00000224   0x00000224   0x00000000   Code   RO         4157    .ARM.Collect$$rtexit$$00000002  c_t.l(rtexit2.o)
+    0x00000224   0x00000224   0x00000004   Code   RO         4158    .ARM.Collect$$rtexit$$00000003  c_t.l(rtexit2.o)
+    0x00000228   0x00000228   0x00000008   Code   RO         4159    .ARM.Collect$$rtexit$$00000004  c_t.l(rtexit2.o)
+    0x00000230   0x00000230   0x00000020   Code   RO            4    .text               startup.o
+    0x00000250   0x00000250   0x00000004   Code   RO         3769    .text               c_t.l(use_no_semi.o)
+    0x00000254   0x00000254   0x00000008   Ven    RO         3843    .text               c_t.l(noretval__2printf.o)
+    0x0000025c   0x0000025c   0x0000001c   Code   RO         3843    .text               c_t.l(noretval__2printf.o)
+    0x00000278   0x00000278   0x00000058   Code   RO         3855    .text               c_t.l(_printf_str.o)
+    0x000002d0   0x000002d0   0x00000148   Code   RO         3892    .text               c_t.l(__printf_flags_wp.o)
+    0x00000418   0x00000418   0x00000008   Ven    RO         3908    .text               c_t.l(memcmp.o)
+    0x00000420   0x00000420   0x00000076   Code   RO         3908    .text               c_t.l(memcmp.o)
+    0x00000496   0x00000496   0x00000002   PAD
+    0x00000498   0x00000498   0x000000d4   Code   RO         3914    .text               c_t.l(rt_memcpy.o)
+    0x0000056c   0x0000056c   0x00000064   Code   RO         3918    .text               c_t.l(rt_memcpy_w.o)
+    0x000005d0   0x000005d0   0x00000010   Code   RO         3920    .text               c_t.l(aeabi_memset.o)
+    0x000005e0   0x000005e0   0x00000040   Code   RO         3922    .text               c_t.l(rt_memclr.o)
+    0x00000620   0x00000620   0x00000054   Code   RO         3924    .text               c_t.l(rt_memclr_w.o)
+    0x00000674   0x00000674   0x00000006   Code   RO         3946    .text               c_t.l(heapauxi.o)
+    0x0000067a   0x0000067a   0x00000002   PAD
+    0x0000067c   0x0000067c   0x00000030   Code   RO         3990    .text               c_t.l(_printf_char_common.o)
+    0x000006ac   0x000006ac   0x00000008   Ven    RO         3994    .text               c_t.l(_printf_char.o)
+    0x000006b4   0x000006b4   0x00000032   Code   RO         3994    .text               c_t.l(_printf_char.o)
+    0x000006e6   0x000006e6   0x00000002   PAD
+    0x000006e8   0x000006e8   0x0000002c   Code   RO         3996    .text               c_t.l(_printf_char_file.o)
+    0x00000714   0x00000714   0x0000000c   Code   RO         4054    .text               c_t.l(libspace.o)
+    0x00000720   0x00000720   0x00000060   Code   RO         4102    .text               c_t.l(sys_stackheap_outer.o)
+    0x00000780   0x00000780   0x00000014   Code   RO         4108    .text               c_t.l(exit.o)
+    0x00000794   0x00000794   0x00000028   Code   RO         3683    i.Get_HandsakePin_Status  wifi_utils.o
+    0x000007bc   0x000007bc   0x00000034   Code   RO         3684    i.Get_Module_Current_State  wifi_utils.o
+    0x000007f0   0x000007f0   0x00000098   Code   RO         3685    i.Get_Read_Write_Status  wifi_utils.o
+    0x00000888   0x00000888   0x00000030   Code   RO          564    i.I2C_init          i2c.o
+    0x000008b8   0x000008b8   0x00000330   Code   RO          565    i.I2C_irq           i2c.o
+    0x00000be8   0x00000be8   0x00000084   Code   RO          524    i.InitInterrupt     isr_manager.o
+    0x00000c6c   0x00000c6c   0x0000004c   Code   RO         3595    i.LP_Set_StayAwake  lp_mode_manager.o
+    0x00000cb8   0x00000cb8   0x000000d4   Code   RO         3686    i.Read_ESP_Data     wifi_utils.o
+    0x00000d8c   0x00000d8c   0x000000a0   Code   RO         3687    i.Read_Ready_Status  wifi_utils.o
+    0x00000e2c   0x00000e2c   0x000000b0   Code   RO         3688    i.Request_ESP_Send_Permission  wifi_utils.o
+    0x00000edc   0x00000edc   0x00000018   Code   RO          200    i.RingBufInit       ringbuf.o
+    0x00000ef4   0x00000ef4   0x00000030   Code   RO          206    i.RingBufWriteOne   ringbuf.o
+    0x00000f24   0x00000f24   0x00000078   Code   RO          633    i.SPI0_init         spi.o
+    0x00000f9c   0x00000f9c   0x00000098   Code   RO          634    i.SPI0_irq          spi.o
+    0x00001034   0x00001034   0x00000044   Code   RO          635    i.SPI0_set_slave_select  spi.o
+    0x00001078   0x00001078   0x00000260   Code   RO         3689    i.Send_ESP_Command  wifi_utils.o
+    0x000012d8   0x000012d8   0x0000002c   Code   RO          416    i.TIMER_Init        timer.o
+    0x00001304   0x00001304   0x00000338   Code   RO          296    i.TIMER_SOFTWARE_ModX  timer_software.o
+    0x0000163c   0x0000163c   0x0000011c   Code   RO          297    i.TIMER_SOFTWARE_Wait  timer_software.o
+    0x00001758   0x00001758   0x0000002c   Code   RO          298    i.TIMER_SOFTWARE_clear_interrupt  timer_software.o
+    0x00001784   0x00001784   0x00000264   Code   RO          299    i.TIMER_SOFTWARE_configure_timer  timer_software.o
+    0x000019e8   0x000019e8   0x00000084   Code   RO          301    i.TIMER_SOFTWARE_enable_timer  timer_software.o
+    0x00001a6c   0x00001a6c   0x00000098   Code   RO          302    i.TIMER_SOFTWARE_init  timer_software.o
+    0x00001b04   0x00001b04   0x00000024   Code   RO          303    i.TIMER_SOFTWARE_interrupt_pending  timer_software.o
+    0x00001b28   0x00001b28   0x000000d0   Code   RO          306    i.TIMER_SOFTWARE_request_timer  timer_software.o
+    0x00001bf8   0x00001bf8   0x0000001c   Code   RO          307    i.TIMER_SOFTWARE_reset_timer  timer_software.o
+    0x00001c14   0x00001c14   0x00000098   Code   RO          309    i.TIMER_SOFTWARE_start_timer  timer_software.o
+    0x00001cac   0x00001cac   0x00000064   Code   RO          310    i.TIMER_SOFTWARE_stop_timer  timer_software.o
+    0x00001d10   0x00001d10   0x0000003c   Code   RO          525    i.TIMER_irq         isr_manager.o
+    0x00001d4c   0x00001d4c   0x00000040   Code   RO          434    i.UART0_Init        uart0.o
+    0x00001d8c   0x00001d8c   0x00000028   Code   RO          435    i.UART0_sendchar    uart0.o
+    0x00001db4   0x00001db4   0x00000074   Code   RO          455    i.UART1_Init        uart1.o
+    0x00001e28   0x00001e28   0x00000048   Code   RO          526    i.UART1_irq         isr_manager.o
+    0x00001e70   0x00001e70   0x0000002c   Code   RO          207    i.UpdateIndexAtomic  ringbuf.o
+    0x00001e9c   0x00001e9c   0x0000001c   Code   RO         3690    i.Wait_For_HIGH_Transition  wifi_utils.o
+    0x00001eb8   0x00001eb8   0x000001b4   Code   RO         3691    i.Wait_for_transition  wifi_utils.o
+    0x0000206c   0x0000206c   0x00000188   Code   RO         3636    i.WifiManager_Init  wifi_manager.o
+    0x000021f4   0x000021f4   0x00000064   Code   RO         3637    i.WifiManager_Perform_HW_Reset  wifi_manager.o
+    0x00002258   0x00002258   0x00000098   Code   RO         3692    i.Write_ESP_Data    wifi_utils.o
+    0x000022f0   0x000022f0   0x00000002   Code   RO         3851    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
+    0x000022f2   0x000022f2   0x00000002   Code   RO         3849    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
+    0x000022f4   0x000022f4   0x0000000e   Code   RO         3890    i._is_digit         c_t.l(__printf_wp.o)
+    0x00002302   0x00002302   0x00000002   PAD
+    0x00002304   0x00002304   0x00000004   Code   RO          149    i._sys_exit         retarget.o
+    0x00002308   0x00002308   0x0000007c   Code   RO          399    i.compute_crc       crc.o
+    0x00002384   0x00002384   0x00000004   Ven    RO          151    i.ferror            retarget.o
+    0x00002388   0x00002388   0x0000000c   Code   RO          151    i.ferror            retarget.o
+    0x00002394   0x00002394   0x0000001c   Code   RO          152    i.fputc             retarget.o
+    0x000023b0   0x000023b0   0x00000058   Code   RO           11    i.main              main.o
+    0x00002408   0x00002408   0x00000028   Code   RO         3693    i.send_Read_EOF     wifi_utils.o
+    0x00002430   0x00002430   0x00000028   Code   RO         3694    i.send_Write_EOF    wifi_utils.o
+    0x00002458   0x00002458   0x000000b8   Code   RO          636    i.spi0_sendReceive_message  spi.o
+    0x00002510   0x00002510   0x00000044   Code   RO         3695    i.wifi_utils_Init   wifi_utils.o
+    0x00002554   0x00002554   0x00000020   Data   RO          400    .constdata          crc.o
+    0x00002574   0x00002574   0x0000017a   Data   RO         3640    .constdata          wifi_manager.o
+    0x000026ee   0x000026ee   0x00000002   PAD
+    0x000026f0   0x000026f0   0x0000003f   Data   RO         3696    .constdata          wifi_utils.o
+    0x0000272f   0x0000272f   0x00000011   Data   RO         3893    .constdata          c_t.l(__printf_flags_wp.o)
+    0x00002740   0x00002740   0x00000020   Data   RO         4182    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x40000000, Load base: 0x00002680, Size: 0x000030a8, Max: 0x00004000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x40000000, Load base: 0x00002760, Size: 0x000030b0, Max: 0x00004000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x40000000   0x00002680   0x00000004   Data   RW          153    .data               retarget.o
-    0x40000004   0x00002684   0x00000002   Data   RW          312    .data               timer_software.o
-    0x40000006   0x00002686   0x00000003   Data   RW          463    .data               uart1.o
-    0x40000009   0x00002689   0x00000003   PAD
-    0x4000000c   0x0000268c   0x00000014   Data   RW          572    .data               i2c.o
-    0x40000020   0x000026a0   0x00000006   Data   RW          638    .data               spi.o
-    0x40000026   0x000026a6   0x00000001   Data   RW         3598    .data               lp_mode_manager.o
-    0x40000027   0x000026a7   0x00000001   Data   RW         3641    .data               wifi_manager.o
-    0x40000028   0x000026a8   0x00000003   Data   RW         3695    .data               wifi_utils.o
-    0x4000002b   0x000026ab   0x00000001   PAD
-    0x4000002c        -       0x0000008c   Zero   RW          311    .bss                timer_software.o
-    0x400000b8        -       0x00000410   Zero   RW          527    .bss                isr_manager.o
-    0x400004c8        -       0x000000ff   Zero   RW          637    .bss                spi.o
-    0x400005c7   0x000026ab   0x00000001   PAD
-    0x400005c8        -       0x000001fe   Zero   RW         3639    .bss                wifi_manager.o
-    0x400007c6   0x000026ab   0x00000002   PAD
-    0x400007c8        -       0x00000060   Zero   RW         4048    .bss                c_t.l(libspace.o)
-    0x40000828        -       0x00000000   Zero   RW            2    HEAP                startup.o
-    0x40000828        -       0x00002880   Zero   RW            1    STACK               startup.o
+    0x40000000   0x00002760   0x00000004   Data   RW          153    .data               retarget.o
+    0x40000004   0x00002764   0x00000002   Data   RW          312    .data               timer_software.o
+    0x40000006   0x00002766   0x00000003   Data   RW          463    .data               uart1.o
+    0x40000009   0x00002769   0x00000003   PAD
+    0x4000000c   0x0000276c   0x00000014   Data   RW          572    .data               i2c.o
+    0x40000020   0x00002780   0x00000006   Data   RW          638    .data               spi.o
+    0x40000026   0x00002786   0x00000001   Data   RW         3598    .data               lp_mode_manager.o
+    0x40000027   0x00002787   0x00000001   Data   RW         3641    .data               wifi_manager.o
+    0x40000028   0x00002788   0x00000006   Data   RW         3697    .data               wifi_utils.o
+    0x4000002e   0x0000278e   0x00000002   PAD
+    0x40000030        -       0x0000008c   Zero   RW          311    .bss                timer_software.o
+    0x400000bc        -       0x00000410   Zero   RW          527    .bss                isr_manager.o
+    0x400004cc        -       0x000000ff   Zero   RW          637    .bss                spi.o
+    0x400005cb   0x0000278e   0x00000001   PAD
+    0x400005cc        -       0x000001fe   Zero   RW         3639    .bss                wifi_manager.o
+    0x400007ca   0x0000278e   0x00000002   PAD
+    0x400007cc        -       0x00000060   Zero   RW         4055    .bss                c_t.l(libspace.o)
+    0x4000082c   0x0000278e   0x00000004   PAD
+    0x40000830        -       0x00000000   Zero   RW            2    HEAP                startup.o
+    0x40000830        -       0x00002880   Zero   RW            1    STACK               startup.o
 
 
 ==============================================================================
@@ -2820,13 +2821,13 @@ Image component sizes
       2572         52          0          2        140      10362   timer_software.o
        104          8          0          0          0        898   uart0.o
        116          8          0          3          0       1129   uart1.o
-       456         72        216          1        510       3766   wifi_manager.o
-      1908         96          0          3          0       9105   wifi_utils.o
+       492         72        378          1        510       4102   wifi_manager.o
+      2164         88         63          6          0      10012   wifi_utils.o
 
     ----------------------------------------------------------------------
-      7608        452        280         44      12316      50267   Object Totals
+      7900        444        507         48      12316      51510   Object Totals
          4          0         32          0          0          0   (incl. Generated)
-         0          0          0          4          3          0   (incl. Padding)
+         0          0          2          5          3          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2846,13 +2847,9 @@ Image component sizes
         58          0          0          0          0        112   _printf_char.o
         48          4          0          0          0         96   _printf_char_common.o
         44          6          0          0          0         88   _printf_char_file.o
-       100          4         40          0          0         84   _printf_hex_int.o
-       186          0          0          0          0         96   _printf_intcommon.o
-        86          0          0          0          0        116   _printf_pad.o
          4          0          0          0          0          0   _printf_percent.o
          8          0          0          0          0          0   _printf_percent_end.o
         88          0          0          0          0         84   _printf_str.o
-         8          0          0          0          0          0   _printf_x.o
         16          0          0          0          0         68   aeabi_memset.o
         20          0          0          0          0         80   exit.o
          6          0          0          0          0        136   heapauxi.o
@@ -2861,6 +2858,7 @@ Image component sizes
         12          0          0          0          0          0   libshutdown.o
          6          0          0          0          0          0   libshutdown2.o
         12          4          0          0         96         68   libspace.o
+       126          0          0          0          0         72   memcmp.o
         36          6          0          0          0         84   noretval__2printf.o
         64          0          0          0          0         68   rt_memclr.o
         84          0          0          0          0         80   rt_memclr_w.o
@@ -2872,17 +2870,17 @@ Image component sizes
          4          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-      1908         42         60          0         96       1896   Library Totals
-        10          0          3          0          0          0   (incl. Padding)
+      1656         38         17          0        100       1672   Library Totals
+        12          0          0          0          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-      1898         42         57          0         96       1896   c_t.l
+      1644         38         17          0         96       1672   c_t.l
 
     ----------------------------------------------------------------------
-      1908         42         60          0         96       1896   Library Totals
+      1656         38         17          0        100       1672   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -2891,15 +2889,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      9516        494        340         44      12412      49195   Grand Totals
-      9516        494        340         44      12412      49195   ELF Image Totals
-      9516        494        340         44          0          0   ROM Totals
+      9556        482        524         48      12416      50250   Grand Totals
+      9556        482        524         48      12416      50250   ELF Image Totals
+      9556        482        524         48          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9856 (   9.63kB)
-    Total RW  Size (RW Data + ZI Data)             12456 (  12.16kB)
-    Total ROM Size (Code + RO Data + RW Data)       9900 (   9.67kB)
+    Total RO  Size (Code + RO Data)                10080 (   9.84kB)
+    Total RW  Size (RW Data + ZI Data)             12464 (  12.17kB)
+    Total ROM Size (Code + RO Data + RW Data)      10128 (   9.89kB)
 
 ==============================================================================
 

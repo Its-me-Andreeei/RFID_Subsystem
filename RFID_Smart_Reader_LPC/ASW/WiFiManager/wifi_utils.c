@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "./../../utils/timer_software.h"
 #include "./wifi_Manager.h"
@@ -26,6 +27,8 @@ typedef enum read_write_status_t
 	SPI_WRITE,
 	SPI_UNAVAILABLE
 }read_write_status_t;
+
+static wifi_module_state_st module_state;
 
 bool Get_HandsakePin_Status(void)
 {
@@ -194,6 +197,11 @@ command_frame_status_t Read_Ready_Status(void)
 		result = WI_FI_COMMAND_NOK;
 	}
 	
+	if(WI_FI_COMMAND_OK == result)
+	{
+		module_state.HW_module_init = true;
+	}
+	
 	return result;
 }
 
@@ -320,9 +328,26 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 
 command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st responses[])
 {
-	uint8_t index;
+	typedef enum esp_states_en
+	{
+		WIFI_CONNECTED_EN,
+		WIFI_DISCONNECTED_EN,
+		WIFI_GOT_IP_EN,
+		
+		SEQ_LENGTH
+	}esp_states_en;
+	
+	const char ESP_States[3][21] = {
+		[WIFI_CONNECTED_EN] = {"WIFI CONNECTED\r\n"},
+		[WIFI_DISCONNECTED_EN] = {"WIFI DISCONNECT\r\n"},
+		[WIFI_GOT_IP_EN] = {"WIFI GOT IP\r\n"}
+	};
+	
+	const uint8_t number_of_ESP_states = (uint8_t)SEQ_LENGTH;
+	int8_t index;
+	uint8_t index_esp_states;
 	command_frame_status_t operation_result = WI_FI_COMMAND_NOK;
-	/*TBD: To be added error management instead of cast to void*/
+
 	operation_result = Wait_for_transition(HIGH_TO_LOW);
 	if(WI_FI_COMMAND_OK == operation_result)
 	{
@@ -340,13 +365,38 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 						operation_result = Wait_for_transition(HIGH_TO_LOW_TO_HIGH);
 						if(WI_FI_COMMAND_OK == operation_result)
 						{
-							if(index == 2)
-								__nop();
 							operation_result = Read_ESP_Data(responses[index].response, &responses[index].response_length);
 							if(WI_FI_COMMAND_NOK == operation_result)
 							{
 								/*If one command was wrong, do not continue*/
 								break;
+							}
+							else
+							{
+								for(index_esp_states = 0; index_esp_states < number_of_ESP_states; index_esp_states++)
+								{
+									if(memcmp(responses[index].response, ESP_States[index_esp_states], responses[index].response_length) == 0)
+									{
+										switch(index_esp_states)
+										{
+											case WIFI_CONNECTED_EN:
+												module_state.wifi_connected = true;
+												break;
+											case WIFI_DISCONNECTED_EN:
+												module_state.wifi_connected = false;
+												break;
+											case WIFI_GOT_IP_EN:
+												module_state.wifi_got_ip = true;
+											default:
+												/*Do not set any flag otherwise*/
+												break;
+											
+										}
+										/*Ignore this response, consider only AT responses*/
+										index --;
+										break;
+									}
+								}
 							}
 						}
 					}
@@ -355,11 +405,10 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		}
 	}
 	#ifdef WI_FI_DEBUG
-	printf("--------------\n");
+	printf("--------\n");
 	for(index = 0; index < command.number_of_responses; index ++)
 	{
 		uint16_t i_dbg;
-		printf("Rsp Length: %04X\n", responses[index].response_length);
 		printf("\nESP: ");
 		for(i_dbg = 0; i_dbg< responses[index].response_length; i_dbg++)
 		{
@@ -367,7 +416,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		}
 		printf("\n");
 	}
-	printf("--------------\n");
+	printf("--------\n");
 	#endif
 	
 	return operation_result;
@@ -376,7 +425,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 void wifi_utils_Init(void)
 {
 	timer_handsake = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 5000, 1);
+	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 6000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
 }
 
@@ -387,5 +436,10 @@ command_frame_status_t Wait_For_HIGH_Transition(void)
 	status = Wait_for_transition(HIGH_ONLY);
 	
 	return status;
+}
+
+wifi_module_state_st Get_Module_Current_State(void)
+{
+	return module_state;
 }
 

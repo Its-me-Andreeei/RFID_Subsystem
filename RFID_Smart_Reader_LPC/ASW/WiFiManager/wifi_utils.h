@@ -25,10 +25,18 @@ typedef struct AT_Command_st
 	
 }AT_Command_st;
 
+typedef struct wifi_module_state_st
+{
+	bool HW_module_init;
+	bool wifi_connected;
+	bool wifi_got_ip;
+}wifi_module_state_st;
+
 void wifi_utils_Init(void);
 bool Get_HandsakePin_Status(void);
 command_frame_status_t Read_Ready_Status(void);
 command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st responses[]);
 command_frame_status_t Wait_For_HIGH_Transition(void);
+wifi_module_state_st Get_Module_Current_State(void);
 
 #endif
