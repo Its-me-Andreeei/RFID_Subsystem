@@ -14,7 +14,6 @@ uint16_t compute_crc(const uint8_t *u8Buf, const uint8_t len)
   int i;
 
   crc = 0xffff;
-
   for (i = 0; i < len ; i++)
   {
     crc = ((crc << 4) | (u8Buf[i] >> 4))  ^ crctable[crc >> 12];

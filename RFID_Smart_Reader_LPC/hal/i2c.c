@@ -35,14 +35,14 @@ void I2C_init(void)
 	/*Enable I2C interface and enable ACK option*/
 	I2CONSET = ((uint8_t)1U << I2C_ACK_BIT_U8) | ((uint8_t)1U << I2C_ENABLE_BIT_U8);
 }
-
+static uint8_t i2c_request_pending_buffer[I2C_BUFFER_SIZE_U8];
 void I2C_irq(void) __irq
 {
 	uint8_t RX_data_byte;
 	uint16_t tx_tmp_crc;
 	static uint8_t TX_index = 0U;
 	static uint8_t RX_index = 0U;
-	static uint8_t i2c_request_pending_buffer[I2C_BUFFER_SIZE_U8];
+	
 	static uint8_t *ptr_buffer = i2c_request_pending_buffer;
 	
 	#define CLEAR_ISR_BIT_U8 ((uint8_t)3U)
@@ -94,9 +94,10 @@ void I2C_irq(void) __irq
 					
 					i2c_request_pending_buffer[I2C_STATUS_BIT_POS_U8] = (uint8_t)STATE_PENDING;
 					
-					tx_tmp_crc = compute_crc(i2c_buffer_tx, I2C_BUFFER_SIZE_U8-2);
+					tx_tmp_crc = compute_crc(i2c_request_pending_buffer, I2C_BUFFER_SIZE_U8-2);
 					i2c_request_pending_buffer[I2C_CRC_HI_BIT_POS_U8] = (tx_tmp_crc >> 8) & 0xFF;
 					i2c_request_pending_buffer[I2C_CRC_LO_BIT_POS_U8] = tx_tmp_crc & 0xFF;
+					ptr_buffer = i2c_request_pending_buffer;
 				}
 				
 			} /*Prepare entire temporary response, separation is done in order to not spend much time only on FIRST byte*/
@@ -161,6 +162,7 @@ void I2C_irq(void) __irq
 			break;
 			
 		case SLAVE_TX_DATA_NACK:
+			
 			/*Open to another message exchange session*/
 			I2CONSET = ((uint8_t)1U << I2C_ACK_BIT_U8);
 	 		break;

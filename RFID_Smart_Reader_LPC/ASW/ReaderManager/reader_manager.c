@@ -13,12 +13,25 @@
 #define NULL ((void*) 0)
 #endif
 
+typedef enum failure_reason_t
+{
+	NO_FAILURE_PRESENT,
+	INTERNAL_FAILURE,
+	WI_FI_MODULE_NOT_PRESENT
+}failure_reason_t;
+
 static TMR_Reader reader;
 static TMR_TagReadData data;
-static timer_software_handler_t timer_route_status;
+static timer_software_handler_t timer_route_status_and_panic;
 static route_status_t route_status = ON_THE_ROUTE;
 static ReaderRequest_t reader_request = NO_REQUEST;
+static volatile failure_reason_t failure_reason = NO_FAILURE_PRESENT;
 
+
+static void disable_HW_Reader(void)
+{
+	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
+}
 
 /*This function is not recreating the timer element and reader struct*/
 /*************************************************************************************************************************************************
@@ -92,9 +105,9 @@ void ReaderManagerInit(void)
 
 	ConfigInit();
 	
-	timer_route_status = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_route_status, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
-	TIMER_SOFTWARE_reset_timer(timer_route_status);
+	timer_route_status_and_panic = TIMER_SOFTWARE_request_timer();
+	TIMER_SOFTWARE_configure_timer(timer_route_status_and_panic, MODE_0, STATUS_NO_ON_ROUTE_TIMEOUT, 1);
+	TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 	
 	LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, true);
 }
@@ -215,12 +228,6 @@ static bool_t reader_recovery()
 	return result; 
 }
 
-
-static void disable_HW_Reader(void)
-{
-	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
-}
-
 /*************************************************************************************************************************************************
 	Function: 		Reader_Manager
 	Description:	This manager handles the RFID reader, as a state machine. Must be called cyclically. Must not be called before ReaderInit() function
@@ -237,7 +244,8 @@ void Reader_Manager(void)
 		STOP_READING,
 		GET_TAGS, /*This will be the state will be most of time*/
 		CHECK_TEMPERATURE,
-		PERMANENT_FAILURE
+		PERMANENT_FAILURE,
+		PANIC_STATE
 	}ReaderManager_state_en;
 	
 	typedef enum StopReason_t {
@@ -250,6 +258,33 @@ void Reader_Manager(void)
 	int8_t temperature = (int8_t)0x00U;
 	static StopReason_t request_stop = NO_STOP_REASON; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
+	static bool panic_sequence_in_progress = false;
+	
+	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == panic_sequence_in_progress))
+	{
+		printf("READER PANIC ENTERED\n");
+		/*Mark Panic sequence as 'in progress'*/
+		panic_sequence_in_progress = true;
+		/*If WI-FI module is not INIT, wait some time and might get init. Maybe is in it's recovery state or lost connection to internet*/
+		TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
+		TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+		TIMER_SOFTWARE_start_timer(timer_route_status_and_panic);
+		
+		
+		LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
+		
+		/*Stop timer if RF emissions are in progress*/
+		if((current_state_en == START_READING) || (current_state_en == GET_TAGS) || (current_state_en == STOP_READING))
+		{
+			TMR_stopReading(&reader);
+			TMR_flush(&reader);
+		}
+		current_state_en = PANIC_STATE;
+	}
+	else
+	{
+		/*No state change if WI FI module is still present*/
+	}
 	
 	switch(current_state_en)
 	{
@@ -259,6 +294,7 @@ void Reader_Manager(void)
 			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, true);
 			current_state_en = START_READING;
 			break;
+		
 		case CHECK_FOR_REQUESTS:
 			if(READ_REQUEST_ASKED == reader_request)
 			{
@@ -272,11 +308,40 @@ void Reader_Manager(void)
 				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
 			}
 			break;
+			
+		case PANIC_STATE:
+			if(true == TIMER_SOFTWARE_is_Running(timer_route_status_and_panic))
+			{
+				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+				{
+					TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
+					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+					failure_reason = NO_FAILURE_PRESENT;
+					current_state_en = CHECK_FOR_REQUESTS;
+				}
+				else
+				{
+					/*Wi fi Module still absent*/
+					current_state_en = PANIC_STATE;
+				}
+			}
+			else
+			{
+				if(true == TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
+				{
+					/*Reset timer*/
+					TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
+					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+					failure_reason = WI_FI_MODULE_NOT_PRESENT;
+					current_state_en = PERMANENT_FAILURE;
+				}
+			}
+			break;
 		
 		case START_READING:
 			(void)TMR_startReading(&reader);
-			TIMER_SOFTWARE_reset_timer(timer_route_status);
-			TIMER_SOFTWARE_start_timer(timer_route_status);
+			TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+			TIMER_SOFTWARE_start_timer(timer_route_status_and_panic);
 			current_state_en = GET_TAGS;
 			break;
 		
@@ -330,16 +395,16 @@ void Reader_Manager(void)
 					reader_request = REQUEST_FINISHED;
 					
 					/*Reset timer if already got positive response*/
-					(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
-					TIMER_SOFTWARE_clear_interrupt(timer_route_status);
-					TIMER_SOFTWARE_reset_timer(timer_route_status);
+					(void)TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
+					TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
+					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				}
 			}
 			
-			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status))
+			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
 			{
-				TIMER_SOFTWARE_clear_interrupt(timer_route_status);
-				TIMER_SOFTWARE_reset_timer(timer_route_status);
+				TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
+				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				
 				/*After enough missings, declare not on route status*/
 				route_status = NOT_ON_ROUTE;
@@ -349,8 +414,8 @@ void Reader_Manager(void)
 			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
 			if(REQUEST_FINISHED == reader_request)
 			{
-				(void)TIMER_SOFTWARE_stop_timer(timer_route_status);
-				TIMER_SOFTWARE_reset_timer(timer_route_status);
+				(void)TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
+				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				
 				/*Request to manager to go to check temperature only after RF emissions are off. Might add An enum if more cases will be possible from STOP state*/
 				request_stop = STOP_FOR_TEMPERATURE;
@@ -365,7 +430,9 @@ void Reader_Manager(void)
 		
 		case CHECK_TEMPERATURE:
 			/*Reading temporary stopped by now for temperature measurement*/
-
+			/*Wait 500ms in order to not receive remianing echos from when reading was active*/
+			TIMER_SOFTWARE_Wait(500);
+		
 			(void)TMR_paramGet(&reader, TMR_PARAM_RADIO_TEMPERATURE, &temperature);
 			#ifdef UART1_DBG
 			printf("---\n");
@@ -418,12 +485,39 @@ void Reader_Manager(void)
 			break;
 			
 		case PERMANENT_FAILURE:
-			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
-			current_state_en = PERMANENT_FAILURE;
-			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER , false);
+			if(WI_FI_MODULE_NOT_PRESENT == failure_reason)
+			{
+				LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
+				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
+				
+				/*If Wi Fi module is not present due to internet, and if internet comes back, we can recover*/
+				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+				{
+					/*Clear the failure*/
+					failure_reason = NO_FAILURE_PRESENT;
+					
+					/*Perform again module init*/
+					current_state_en = MODULE_INIT;
+					
+					/*Reset Panic sequence flag*/
+					panic_sequence_in_progress = false;
+				}
+				else
+				{
+					/*Module still absent. Stay here*/
+					current_state_en = PERMANENT_FAILURE;
+					LP_Set_StayAwake(FUNC_RFID_READER_MANAGER , false);
 			
-			/*In this state the reader is not Init anymore*/
-			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
+					/*In this state the reader is not Init anymore*/
+					LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
+				}
+			}
+			else
+			{
+				/*This is a permanent failure. Will not recover*/
+			}
+			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
+			
 			break;
 		
 		default:
@@ -458,7 +552,7 @@ void Reader_Manager(void)
 			}
 			else
 			{
-				
+				failure_reason = INTERNAL_FAILURE;
 				current_state_en = PERMANENT_FAILURE;
 				
 				/*Reader is in PERMANENT_FAILURE, no need to stay awake*/

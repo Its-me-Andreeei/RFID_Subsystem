@@ -37,11 +37,11 @@ int main(void)
 	/*------------------------------------*/
 	
 	while(1)
-	{
-			LP_Mode_Manager();
+	{	
 			Reader_Manager();
 			HostComm_Manager();
 			Wifi_Manager();
+			LP_Mode_Manager();
 	}
 	return 0;
 }
