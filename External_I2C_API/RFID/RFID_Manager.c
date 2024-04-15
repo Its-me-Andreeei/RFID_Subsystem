@@ -31,6 +31,7 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
     RFID_request_status_t result = RFID_REQUEST_OK;
     i2c_state_t i2c_comm_state;
     uint16_t crc;
+    uint16_t index;
 
     uint8_t tx_message[I2C_MESSAGE_LEN_U8];
     uint8_t rx_message[I2C_MESSAGE_LEN_U8];
@@ -44,14 +45,23 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
     }
     else
     {
-        tx_message[COMMAND_BIT_POS_U8] = (uint8_t)command;
-        tx_message[DATA_BIT_POS_U8] = in_data;
+        if(RFID_PING == command)
+        {
+            for(index =0 ;index < I2C_MESSAGE_LEN_U8; index++)
+            {
+                tx_message[index] = (uint8_t)0x01U;
+            }
+        }
+        else
+        {
+            tx_message[COMMAND_BIT_POS_U8] = (uint8_t)command;
+            tx_message[DATA_BIT_POS_U8] = in_data;
 
-        crc = compute_crc(tx_message, I2C_MESSAGE_LEN_U8 - (uint8_t)2U);
+            crc = compute_crc(tx_message, I2C_MESSAGE_LEN_U8 - (uint8_t)2U);
 
-        tx_message[CRC_HI_BIT_POS_U8] = (uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU);
-        tx_message[CRC_LO_BIT_POS_U8] = (uint8_t)(crc & (uint8_t)0xFFU);
-
+            tx_message[CRC_HI_BIT_POS_U8] = (uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU);
+            tx_message[CRC_LO_BIT_POS_U8] = (uint8_t)(crc & (uint8_t)0xFFU);
+        }
         i2c_comm_state= i2c_sendMessage(tx_message, I2C_MESSAGE_LEN_U8);
         if(STATE_NOK == i2c_comm_state)
         {
@@ -73,23 +83,38 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
                     }
                     else
                     {
-                        crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
-                        if((rx_message[CRC_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
-                        (rx_message[CRC_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
+                        if(RFID_PING != rx_message[COMMAND_BIT_POS_U8])
                         {
-                            result = RFID_REQUEST_NOK_INVALID_CRC;
-                        }
-                        else
-                        {
-                            if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
+                            crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
+                            if((rx_message[CRC_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
+                            (rx_message[CRC_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
                             {
-                                result = RFID_REQUEST_PENDING;
+                                result = RFID_REQUEST_NOK_INVALID_CRC;
                             }
                             else
                             {
-                                *out_data = rx_message[DATA_BIT_POS_U8];
-                                result = RFID_REQUEST_OK;
+                                if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
+                                {
+                                    result = RFID_REQUEST_PENDING;
+                                }
+                                else
+                                {
+                                    *out_data = rx_message[DATA_BIT_POS_U8];
+                                    result = RFID_REQUEST_OK;
+                                }
                             }
+                        }
+                        else /*If it's a ping signal*/
+                        {
+                            result = RFID_REQUEST_OK;
+                            for(index = 0; index < I2C_MESSAGE_LEN_U8; index++)
+                            {
+                                if((uint8_t)0x01U != rx_message[index])
+                                {
+                                    result = RFID_REQUEST_NOK_RX_COMM_ERROR;
+                                }
+                            }
+                            *out_data = INVALID_OUT_DATA_U8;       
                         }
                     }
                 }

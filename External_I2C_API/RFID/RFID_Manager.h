@@ -5,8 +5,10 @@
 
 typedef enum RFID_command_t
 {
-    RFID_GET_ROUTE_STATUS,
-    RFID_PING,
+    RFID_GET_ROUTE_START= 0x00,
+    RFID_PING = 0x01,
+    RFID_GET_SYS_INIT_STATUS = 0x04,
+    RFID_GET_ROUTE_STATUS = 0x05,
     RFID_INVALID /*More requests will be added when implemented*/
    ,
 }RFID_command_t;
