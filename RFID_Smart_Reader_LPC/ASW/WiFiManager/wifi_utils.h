@@ -39,6 +39,6 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 command_frame_status_t Wait_For_HIGH_Transition(void);
 wifi_module_state_st Get_Module_Current_State(void);
 void Set_Module_Current_State(wifi_module_state_st in_module_state);
-bool Check_for_Disconnected_WiFi(void);
+bool Check_for_WiFi_Update(void);
 
 #endif

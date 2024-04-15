@@ -326,7 +326,7 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 	return result;
 }
 
-bool Check_for_Disconnected_WiFi(void)
+bool Check_for_WiFi_Update(void)
 {
 	command_frame_status_t command_status;
 	uint8_t out_buffer[4095];
@@ -340,6 +340,11 @@ bool Check_for_Disconnected_WiFi(void)
 		if(NULL != strstr((char*)out_buffer, "WIFI DISCONNECT\r\n"))
 		{
 			module_state.wifi_connected = false;
+			result = true;
+		}
+		else if(NULL != strstr((char*)out_buffer, "WIFI CONNECTED\r\n"))
+		{
+			module_state.wifi_connected = true;
 			result = true;
 		}
 		else

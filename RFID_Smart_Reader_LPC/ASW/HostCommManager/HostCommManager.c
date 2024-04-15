@@ -18,6 +18,10 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 				Reader_SET_read_request(true);
 				result = STATE_OK;
 			}
+			else if(READER_IN_FAILURE == Reader_GET_request_status())
+			{
+				result = STATE_INVALID;
+			}
 			else
 			{
 				result = STATE_NOK;
@@ -25,7 +29,7 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 			break;
 		
 		case I2C_REQUEST_GET_ROUTE_STATUS:
-			if(NO_REQUEST == Reader_GET_request_status())
+			if((NO_REQUEST == Reader_GET_request_status()) || (READER_IN_FAILURE == Reader_GET_request_status()))
 			{
 				result = STATE_INVALID;
 			}

@@ -9,9 +9,10 @@
 #include "./wifi_utils.h"
 #include "./../../hal/spi.h"
 #include "./../LP_Mode_Manager/LP_Mode_Manager.h"
+#include "./../ReaderManager/reader_manager.h"
 
 #define ESP_RESET_PIN_NUM_U8 ((uint8_t)25U)
-#define ESP_INIT_RETRIES_NUM_U8 ((uint8_t)5U)
+#define ESP_INIT_RETRIES_NUM_U8 ((uint8_t)3U)
 
 typedef enum init_sequence_en
 {
@@ -32,8 +33,8 @@ static const AT_Command_st wifi_init_config[] = {
 																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (uint16_t)13, (uint8_t)2}, 
 																									
 																									/*Connect to WI-FI Router*/
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (uint16_t)36, (uint8_t)4},
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (uint16_t)37, (uint8_t)2},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (uint16_t)36, (uint8_t)2},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (uint16_t)37, (uint8_t)2},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
 																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (uint16_t)13, (uint8_t)2}, 
@@ -148,88 +149,120 @@ void Wifi_Manager(void)
 	}wifi_manager_state_en;
 	
 	static wifi_manager_state_en wifi_manager_state = WIFI_MAN_IDLE;
-	bool wifi_disconnected;
+	bool wifi_status_update;
+	wifi_module_state_st module_state;
 	static uint8_t init_retries = 0x00;
-	if(false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+	
+	switch(wifi_manager_state)
 	{
-		LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
-		
-		/*In case flag will ever be reseted by mistake, will get in FAILURE state for safety*/
-		wifi_manager_state = WIFI_MAN_FAILURE;
-	}
-	else
-	{
-		switch(wifi_manager_state)
-		{
-			case WIFI_MAN_IDLE:
-				
+		case WIFI_MAN_IDLE:
+			if(false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+			{
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 				
-				wifi_disconnected = Check_for_Disconnected_WiFi();
-				if(true == wifi_disconnected)
+				/*In case init is not done, retry*/
+				wifi_manager_state = WIFI_MAN_INIT;
+			}
+			else
+			{
+				if(false == LP_Get_Functionality_Init_State(FUNC_RFID_READER_MANAGER))
 				{
-					wifi_manager_state = WIFI_MAN_INIT;
-					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
+					wifi_manager_state = WIFI_MAN_FAILURE;
 				}
 				else
 				{
 					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
-				}
-				break;
-			
-			case WIFI_MAN_INIT:
-				if(init_retries < ESP_INIT_RETRIES_NUM_U8)
-				{
-					/*Perform module configuration. Will also perform module HW reset*/
-					WifiManager_Init();
 					
-					/*Check if module was configured successfully*/
-					if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+					wifi_status_update = Check_for_WiFi_Update();
+					if(true == wifi_status_update)
 					{
-						wifi_manager_state = WIFI_MAN_IDLE;
-						LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
-						init_retries = 0x00;
+						module_state = Get_Module_Current_State();
+						if(false == module_state.wifi_connected)
+						{
+							wifi_manager_state = WIFI_MAN_FAILURE;
+						}
 					}
 					else
 					{
-						init_retries ++;
-						wifi_manager_state = WIFI_MAN_INIT;
+						/*TBD: TO be checked for requests*/
 					}
+					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
+				}
+			}
+			break;
+		
+		case WIFI_MAN_INIT:
+			if(init_retries < ESP_INIT_RETRIES_NUM_U8)
+			{
+				/*Perform module configuration. Will also perform module HW reset*/
+				WifiManager_Init();
+				
+				/*Check if module was configured successfully*/
+				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
+				{
+					wifi_manager_state = WIFI_MAN_IDLE;
+					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
+					init_retries = 0x00;
 				}
 				else
 				{
-					/*If chip is not reinitialized after a number of retries, we'll call it Failure*/
-					wifi_manager_state = WIFI_MAN_FAILURE;
+					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
+					init_retries ++;
+					wifi_manager_state = WIFI_MAN_INIT;
 				}
-				break;
-			
-			case WIFI_MAN_SEND_CMD:
-				
-			
-				wifi_manager_state = WIFI_MAN_IDLE;
-				break;
-			
-			case WIFI_MAN_PASSTHROUGH:
-				break;
-			
-			case WIFI_MAN_FAILURE:
-				/*Clear Stay Awake flag*/
+			}
+			else
+			{
+				/*If chip is not reinitialized after a number of retries, we'll call it Failure*/
+				wifi_manager_state = WIFI_MAN_FAILURE;
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
+				init_retries = 0x00;
+			}
+			break;
+		
+		case WIFI_MAN_SEND_CMD:
 			
-				/*Clear Init Flag*/
-				LP_Set_InitFlag(FUNC_WIFI_MANAGER, false);
+		
+			wifi_manager_state = WIFI_MAN_IDLE;
+			break;
+		
+		case WIFI_MAN_PASSTHROUGH:
+			break;
+		
+		case WIFI_MAN_FAILURE:
 			
+			/*Clear Stay Awake flag*/
+			LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
+		
+			/*Clear Init Flag*/
+			LP_Set_InitFlag(FUNC_WIFI_MANAGER, false);
+			
+			/*If Reader is in Permanent Failure state, we have no reason to keep Wi Fi module on*/
+			if(true == Reader_GET_internal_failure_status())
+			{
 				/*Module will be disabled*/
 				Disable_WIFI_Module_HW();
 			
 				/*For robustness purpose -> will be like an infinite loop*/
 				wifi_manager_state = WIFI_MAN_FAILURE;
-				break;
-			
-			default:
-				/*WiFi Manager shall transit back to default state*/
-				wifi_manager_state = WIFI_MAN_IDLE;
-				break;
-		}
+			}
+			else /*Reader is present, so check for WI_FI_CONNECTED status by performing polling of HANDSAKE line*/
+			{
+				wifi_status_update = Check_for_WiFi_Update();
+				if(true == wifi_status_update)
+				{
+					module_state = Get_Module_Current_State();
+					if(true == module_state.wifi_connected)
+					{
+						wifi_manager_state = WIFI_MAN_INIT;
+					}
+				}
+			}
+			break;
+		
+		default:
+			/*WiFi Manager shall transit back to default state*/
+			wifi_manager_state = WIFI_MAN_IDLE;
+			break;
 	}
 }

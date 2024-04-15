@@ -22,7 +22,8 @@ typedef enum ReaderRequest_t
 	NO_REQUEST,
 	READ_REQUEST_ASKED,
 	REQUEST_IN_PROGRESS,
-	REQUEST_FINISHED
+	REQUEST_FINISHED,
+	READER_IN_FAILURE
 }ReaderRequest_t;
 
 void ReaderManagerInit(void);
@@ -33,5 +34,6 @@ void Reader_Set_Read_Request(bool value);
 route_status_t Reader_GET_route_status(void);
 ReaderRequest_t Reader_GET_request_status(void);
 bool Reader_SET_read_request(bool request);
+bool Reader_GET_internal_failure_status(void);
 
 #endif

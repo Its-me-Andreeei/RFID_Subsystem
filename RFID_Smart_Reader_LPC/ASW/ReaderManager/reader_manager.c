@@ -260,7 +260,7 @@ void Reader_Manager(void)
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 	static bool panic_sequence_in_progress = false;
 	
-	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == panic_sequence_in_progress))
+	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == panic_sequence_in_progress) && (NO_FAILURE_PRESENT == failure_reason))
 	{
 		printf("READER PANIC ENTERED\n");
 		/*Mark Panic sequence as 'in progress'*/
@@ -292,7 +292,12 @@ void Reader_Manager(void)
 		case MODULE_INIT:
 			ConfigInit();
 			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, true);
-			current_state_en = START_READING;
+			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, false);
+		
+			/*Reader is ready to process new requests. May arive here after error recoveries*/
+			reader_request = NO_REQUEST;
+		
+			current_state_en = CHECK_FOR_REQUESTS;
 			break;
 		
 		case CHECK_FOR_REQUESTS:
@@ -485,11 +490,16 @@ void Reader_Manager(void)
 			break;
 			
 		case PERMANENT_FAILURE:
+			/*Disconnect HW Module*/
+			disable_HW_Reader();
+			
+			/*In this state the reader is not Init anymore*/
+			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
+			
+			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER , false);
+		
 			if(WI_FI_MODULE_NOT_PRESENT == failure_reason)
-			{
-				LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
-				LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
-				
+			{				
 				/*If Wi Fi module is not present due to internet, and if internet comes back, we can recover*/
 				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
 				{
@@ -501,15 +511,14 @@ void Reader_Manager(void)
 					
 					/*Reset Panic sequence flag*/
 					panic_sequence_in_progress = false;
+					
+					/*Stay awake in order to perform module init*/
+					LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
 				}
 				else
 				{
 					/*Module still absent. Stay here*/
 					current_state_en = PERMANENT_FAILURE;
-					LP_Set_StayAwake(FUNC_RFID_READER_MANAGER , false);
-			
-					/*In this state the reader is not Init anymore*/
-					LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
 				}
 			}
 			else
@@ -518,6 +527,8 @@ void Reader_Manager(void)
 			}
 			/*At this point, reader is not powered anymore, and Reader manager removed for good stay awake flag*/
 			
+			/*Do not process any new requests. If reader will recover from any failure (such as WI FI failure) this will be reseted in INIT state*/
+			reader_request = READER_IN_FAILURE;
 			break;
 		
 		default:
@@ -574,6 +585,20 @@ route_status_t Reader_GET_route_status(void)
 	route_status_t result;
 	result = route_status;
 	route_status = ROUTE_PENDING;
+	return result;
+}
+
+bool Reader_GET_internal_failure_status(void)
+{
+	bool result = false;
+	if(INTERNAL_FAILURE == failure_reason)
+	{
+		result = true;
+	}
+	else
+	{
+		result = false;
+	}
 	return result;
 }
 

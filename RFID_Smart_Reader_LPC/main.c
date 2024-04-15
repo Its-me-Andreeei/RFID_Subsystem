@@ -38,10 +38,10 @@ int main(void)
 	
 	while(1)
 	{	
-			Reader_Manager();
-			HostComm_Manager();
-			Wifi_Manager();
-			LP_Mode_Manager();
+		Reader_Manager();
+		HostComm_Manager();
+		Wifi_Manager();
+		//LP_Mode_Manager();
 	}
 	return 0;
 }
