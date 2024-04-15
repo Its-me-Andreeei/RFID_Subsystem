@@ -18,7 +18,7 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 				Reader_SET_read_request(true);
 				result = STATE_OK;
 			}
-			else if(READER_IN_FAILURE == Reader_GET_request_status())
+			else if(READER_IN_FAILURE == Reader_GET_request_status() || (false == LP_Get_Functionality_Init_State(FUNC_RFID_READER_MANAGER)))
 			{
 				result = STATE_INVALID;
 			}

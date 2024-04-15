@@ -165,7 +165,7 @@ void Wifi_Manager(void)
 			}
 			else
 			{
-				if(false == LP_Get_Functionality_Init_State(FUNC_RFID_READER_MANAGER))
+				if(true == Reader_GET_internal_failure_status())
 				{
 					wifi_manager_state = WIFI_MAN_FAILURE;
 				}
@@ -186,12 +186,12 @@ void Wifi_Manager(void)
 					{
 						/*TBD: TO be checked for requests*/
 					}
-					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 				}
 			}
 			break;
 		
 		case WIFI_MAN_INIT:
+			LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 			if(init_retries < ESP_INIT_RETRIES_NUM_U8)
 			{
 				/*Perform module configuration. Will also perform module HW reset*/
@@ -200,13 +200,16 @@ void Wifi_Manager(void)
 				/*Check if module was configured successfully*/
 				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
 				{
+					if(false == LP_Get_Functionality_Init_State(FUNC_RFID_READER_MANAGER) && (false == Reader_GET_internal_failure_status()))
+					{
+						/*Wake-Up Reader Manager in order to initialize again*/
+						LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
+					}
 					wifi_manager_state = WIFI_MAN_IDLE;
-					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 					init_retries = 0x00;
 				}
 				else
 				{
-					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 					init_retries ++;
 					wifi_manager_state = WIFI_MAN_INIT;
 				}
@@ -248,6 +251,8 @@ void Wifi_Manager(void)
 			}
 			else /*Reader is present, so check for WI_FI_CONNECTED status by performing polling of HANDSAKE line*/
 			{
+				/*TBD : To be seted to false after new pin is added*/
+				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 				wifi_status_update = Check_for_WiFi_Update();
 				if(true == wifi_status_update)
 				{
@@ -265,4 +270,11 @@ void Wifi_Manager(void)
 			wifi_manager_state = WIFI_MAN_IDLE;
 			break;
 	}
+}
+
+bool Wifi_GET_is_Wifi_Connected_status(void)
+{
+	wifi_module_state_st module_state;
+	module_state = Get_Module_Current_State();
+	return module_state.wifi_connected;
 }

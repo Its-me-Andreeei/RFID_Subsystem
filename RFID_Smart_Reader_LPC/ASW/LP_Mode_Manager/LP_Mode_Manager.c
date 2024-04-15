@@ -99,10 +99,12 @@ void LP_Mode_Manager(void)
 	{
 		/*Disable timer because of FIQ*/
 		disable_Timer0();
-		
+		printf("Entered LP\n");
 		/*Go to Idle State*/
 		PCON = (uint8_t)0x01;
 		enable_Timer0();
+		
+		printf("Exit LP\n");
 	}
 	else
 	{

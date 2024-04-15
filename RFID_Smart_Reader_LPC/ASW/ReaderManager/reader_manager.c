@@ -2,12 +2,14 @@
 #include <LPC22xx.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "../../utils/timer_software.h"
 #include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
-#include <stdio.h>
+
 #include "../../hal/uart1.h"
 #include "../LP_Mode_Manager/LP_Mode_Manager.h"
+#include "../WiFiManager/wifi_manager.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -260,7 +262,7 @@ void Reader_Manager(void)
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 	static bool panic_sequence_in_progress = false;
 	
-	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == panic_sequence_in_progress) && (NO_FAILURE_PRESENT == failure_reason))
+	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == Wifi_GET_is_Wifi_Connected_status()) && (false == panic_sequence_in_progress) && (NO_FAILURE_PRESENT == failure_reason))
 	{
 		printf("READER PANIC ENTERED\n");
 		/*Mark Panic sequence as 'in progress'*/
@@ -274,7 +276,7 @@ void Reader_Manager(void)
 		LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
 		
 		/*Stop timer if RF emissions are in progress*/
-		if((current_state_en == START_READING) || (current_state_en == GET_TAGS) || (current_state_en == STOP_READING))
+		if((START_READING == current_state_en) || (GET_TAGS == current_state_en) || (STOP_READING == current_state_en))
 		{
 			TMR_stopReading(&reader);
 			TMR_flush(&reader);
@@ -315,6 +317,7 @@ void Reader_Manager(void)
 			break;
 			
 		case PANIC_STATE:
+			LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
 			if(true == TIMER_SOFTWARE_is_Running(timer_route_status_and_panic))
 			{
 				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
@@ -492,6 +495,7 @@ void Reader_Manager(void)
 		case PERMANENT_FAILURE:
 			/*Disconnect HW Module*/
 			disable_HW_Reader();
+			printf("Reader disabled\n");
 			
 			/*In this state the reader is not Init anymore*/
 			LP_Set_InitFlag(FUNC_RFID_READER_MANAGER, false);
@@ -514,6 +518,9 @@ void Reader_Manager(void)
 					
 					/*Stay awake in order to perform module init*/
 					LP_Set_StayAwake(FUNC_RFID_READER_MANAGER, true);
+					
+					/*Perform Reader HW reset before INIT*/
+					Reader_HW_Reset();
 				}
 				else
 				{
