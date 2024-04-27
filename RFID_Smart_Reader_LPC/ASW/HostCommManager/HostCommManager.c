@@ -5,80 +5,84 @@
 #include "HostCommManager.h"
 #include "../LP_Mode_Manager/LP_Mode_Manager.h"
 
+static u8 data_buffer[100];
+static u8 data_length;
+
 static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 {
-	i2c_command_status_t result = STATE_PENDING;
-	route_status_t route_status;
+	i2c_command_status_t result = I2C_STATE_PENDING;
+	bool reader_request_status;
 	
 	switch(command)
 	{
-		case I2C_REQUEST_GET_ROUTE_START:
+		case I2C_REQUEST_GET_TAGS_START:
 			if(NO_REQUEST == Reader_GET_request_status())
 			{
 				Reader_SET_read_request(true);
-				result = STATE_OK;
+				result = I2C_STATE_OK;
 			}
 			else if(READER_IN_FAILURE == Reader_GET_request_status() || (false == LP_Get_Functionality_Init_State(FUNC_RFID_READER_MANAGER)))
 			{
-				result = STATE_INVALID;
+				result = I2C_STATE_INVALID;
 			}
 			else
 			{
-				result = STATE_NOK;
+				result = I2C_STATE_NOK;
 			}
 			break;
 		
-		case I2C_REQUEST_GET_ROUTE_STATUS:
+		case I2C_REQUEST_GET_TAG_INFO:
 			if((NO_REQUEST == Reader_GET_request_status()) || (READER_IN_FAILURE == Reader_GET_request_status()))
 			{
-				result = STATE_INVALID;
+				result = I2C_STATE_INVALID;
 			}
 			else if(REQUEST_IN_PROGRESS == Reader_GET_request_status())
 			{
-				result = STATE_PENDING;
+				result = I2C_STATE_PENDING;
 			}
 			else
 			{
-				route_status = Reader_GET_route_status();
-				if(ON_THE_ROUTE == route_status)
+				reader_request_status = Reader_GET_TagInformation(data_buffer, &data_length);
+				if(true == reader_request_status)
 				{
-					result = STATE_OK;
-				}else if(NOT_ON_ROUTE == route_status)
+					i2c_set_data_bytes(data_buffer, data_length);
+					result = I2C_STATE_OK;
+				}else if(false == reader_request_status)
 				{
-					result = STATE_NOK;
+					result = I2C_STATE_NOK;
 				}
 			}
 			break;
 		
 		case I2C_REQUEST_PING:
-			result = STATE_INVALID;
+			result = I2C_STATE_INVALID;
 			break;
 		
 		case I2C_REQUEST_WAKE_UP:
-			result = STATE_INVALID;
+			result = I2C_STATE_INVALID;
 			break; 
 		
 		case I2C_REQUEST_GO_TO_SLEEP:
-			result = STATE_INVALID;
+			result = I2C_STATE_INVALID;
 			break;
 		
 		case I2C_REQUEST_INVALID:
-			result = STATE_INVALID;
+			result = I2C_STATE_INVALID;
 			break;
 		
 		case I2C_REQUEST_INIT_STATUS:
 			if(false == LP_Get_System_Init_State())
 			{
-				result = STATE_NOK;
+				result = I2C_STATE_NOK;
 			}
 			else
 			{
-				result = STATE_OK;
+				result = I2C_STATE_OK;
 			}
 			break;
 		
 		default: 
-			result = STATE_INVALID;
+			result = I2C_STATE_INVALID;
 	}
 	return result;
 }
@@ -105,7 +109,7 @@ void HostComm_Manager(void)
 		if(false == i2c_check_CRC_after_RX_finish())
 		{
 			/*Mark CRC as invalid -> corrupted data*/
-			i2c_set_command_status(STATE_NOK);
+			i2c_set_command_status(I2C_STATE_NOK);
 			
 			/*send response to host*/
 			i2c_set_response_ready_status(DATA_READY); 

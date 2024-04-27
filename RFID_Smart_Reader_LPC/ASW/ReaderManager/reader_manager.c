@@ -1,6 +1,7 @@
 #include "reader_manager.h"
 #include <LPC22xx.h>
 #include <stdint.h>
+#include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -10,6 +11,7 @@
 #include "../../hal/uart1.h"
 #include "../LP_Mode_Manager/LP_Mode_Manager.h"
 #include "../WiFiManager/wifi_manager.h"
+#include "../../PlatformTypes.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -25,9 +27,12 @@ typedef enum failure_reason_t
 static TMR_Reader reader;
 static TMR_TagReadData data;
 static timer_software_handler_t timer_route_status_and_panic;
-static route_status_t route_status = ON_THE_ROUTE;
 static ReaderRequest_t reader_request = NO_REQUEST;
 static volatile failure_reason_t failure_reason = NO_FAILURE_PRESENT;
+static state_t WIFI_server_data_ready = STATE_PENDING;
+
+static u8 wifi_buffer_response[100];
+static u8 wifi_buffer_length;
 
 
 static void disable_HW_Reader(void)
@@ -73,20 +78,33 @@ static void ConfigInit(void)
 }
 
 /*************************************************************************************************************************************************
-	Function: 		validate_tag_criteria
+	Function: 		send_validate_tag_criteria_cmd
 	Description:	This funciton will validate if a tag is within the route or not. Will be stubed for now
 	Parameters: 	EPC read from tag and it's length
 	Return value:	true if tag is part of the route, false otherwise
 							
 *************************************************************************************************************************************************/
-static bool validate_tag_criteria(const uint8_t *epc, const uint8_t epc_length)
+static state_t send_validate_tag_criteria_cmd(const uint8_t *epc, const uint8_t epc_length)
 {
-	bool result = false;
-	
-	/*will be replaced later on*/
-	if(epc[epc_length-1] == (uint8_t)0xBF)
+	state_t result = STATE_PENDING;
+	bool bool_result;
+	if((epc == NULL) || (epc_length <= (uint8_t)0))
 	{
-		result = true;
+		result = STATE_NOK;
+	}
+	else
+	{
+		
+		bool_result = Wifi_SET_Command_Request(WIFI_COMMAND_CHECK_TAG, epc, epc_length);
+		/*Means wifi_manager is busy right now*/
+		if(false == bool_result)
+		{
+			result = STATE_PENDING;
+		}
+		else if(true == bool_result)
+		{
+			result = STATE_OK;
+		}
 	}
 	
 	return result;
@@ -138,6 +156,32 @@ ReaderRequest_t Reader_GET_request_status(void)
 	if(REQUEST_FINISHED == reader_request)
 	{
 		reader_request = NO_REQUEST;
+	}
+	return result;
+}
+
+bool Reader_GET_TagInformation(u8 *data, u8 *len)
+{
+	bool result;
+	if((data == NULL) || (len == NULL))
+	{
+		result = false;
+	}
+	else
+	{
+		if(STATE_OK == WIFI_server_data_ready)
+		{
+			memcpy(data, wifi_buffer_response, wifi_buffer_length);
+			*len = wifi_buffer_length;
+			
+			/*Reset this flag as an interface handsake*/
+			WIFI_server_data_ready = STATE_PENDING;
+			result = true;
+		}
+		else
+		{
+			result = false;
+		}
 	}
 	return result;
 }
@@ -239,12 +283,16 @@ static bool_t reader_recovery()
 *************************************************************************************************************************************************/
 void Reader_Manager(void)
 {
+	#define ROUTE_STATUS_BIT_POS_NUM_U8 ((u8)1U)
+	
 	typedef enum ReaderManager_state_en{
 		CHECK_FOR_REQUESTS,
 		MODULE_INIT,
 		START_READING,
 		STOP_READING,
 		GET_TAGS, /*This will be the state will be most of time*/
+		SEND_CHECK_TAG_CMD,
+		RECEIVE_CHECK_TAG_RESPONSE,
 		CHECK_TEMPERATURE,
 		PERMANENT_FAILURE,
 		PANIC_STATE
@@ -261,6 +309,7 @@ void Reader_Manager(void)
 	static StopReason_t request_stop = NO_STOP_REASON; /*This flag is used to decide if after 'stop read' should be checked for temperature, if flag = 0x01*/
 	static TMR_SR_PowerMode powerManagementRequest = TMR_SR_POWER_MODE_FULL;
 	static bool panic_sequence_in_progress = false;
+	state_t result_state;
 	
 	if((false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)) && (false == Wifi_GET_is_Wifi_Connected_status()) && (false == panic_sequence_in_progress) && (NO_FAILURE_PRESENT == failure_reason))
 	{
@@ -394,19 +443,7 @@ void Reader_Manager(void)
 				}
 				printf("\n");
 				#endif /*PRINT_EPC_DBG*/
-				
-				if(true == validate_tag_criteria(data.tag.epc, data.tag.epcByteCount))
-				{
-					/*Set flag regarding "on route" status*/
-					route_status = ON_THE_ROUTE;
-					
-					reader_request = REQUEST_FINISHED;
-					
-					/*Reset timer if already got positive response*/
-					(void)TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
-					TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
-					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
-				}
+				current_state_en = SEND_CHECK_TAG_CMD;
 			}
 			
 			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
@@ -414,16 +451,8 @@ void Reader_Manager(void)
 				TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
 				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				
-				/*After enough missings, declare not on route status*/
-				route_status = NOT_ON_ROUTE;
+				/*After timeout reached, finish requst*/
 				reader_request = REQUEST_FINISHED;
-			}
-			
-			/*After a fixed amount of ms has elaspsed, check for internal temperature of reader for safety*/
-			if(REQUEST_FINISHED == reader_request)
-			{
-				(void)TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
-				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				
 				/*Request to manager to go to check temperature only after RF emissions are off. Might add An enum if more cases will be possible from STOP state*/
 				request_stop = STOP_FOR_TEMPERATURE;
@@ -432,8 +461,61 @@ void Reader_Manager(void)
 			}
 			else /*There are not yet elaspsed 5 seconds*/
 			{
+				//current_state_en = SEND_CHECK_TAG_CMD;
+			}
+			break;
+			
+		case SEND_CHECK_TAG_CMD:
+			result_state = send_validate_tag_criteria_cmd(data.tag.epc, data.tag.epcByteCount);
+			if(STATE_OK == result_state)
+			{
+				current_state_en = RECEIVE_CHECK_TAG_RESPONSE;
+			}
+			else if(STATE_PENDING == result_state)
+			{
+				if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
+				{
+					request_stop = STOP_FOR_TEMPERATURE;
+					/*After enough missings, declare request finished*/
+					reader_request = REQUEST_FINISHED;
+					
+					current_state_en = STOP_READING;
+				}
+				else
+				{
+					current_state_en = SEND_CHECK_TAG_CMD;
+				}
+			}
+			else
+			{
 				current_state_en = GET_TAGS;
 			}
+			break;
+		
+		case RECEIVE_CHECK_TAG_RESPONSE:
+			/*If statuses have been read , we can get to Reader Manager the updated status -> will not loose information*/
+			if(STATE_PENDING == WIFI_server_data_ready)
+			{
+				WIFI_server_data_ready = Wifi_GET_passtrough_response(wifi_buffer_response, &wifi_buffer_length);
+			}
+			/*If request was not accepted, try next time*/
+			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
+			{
+				TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
+				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+				
+				request_stop = STOP_FOR_TEMPERATURE;
+				/*After enough missings, declare not on route status*/
+				reader_request = REQUEST_FINISHED;
+				
+				current_state_en = STOP_READING;
+			}
+			else
+			{
+				/*If request was not accepted, try next time*/
+				current_state_en = RECEIVE_CHECK_TAG_RESPONSE;
+			}
+			
 			break;
 		
 		case CHECK_TEMPERATURE:
@@ -585,14 +667,6 @@ void Reader_Manager(void)
 			}		
 		}
 	}
-}
-
-route_status_t Reader_GET_route_status(void)
-{
-	route_status_t result;
-	result = route_status;
-	route_status = ROUTE_PENDING;
-	return result;
 }
 
 bool Reader_GET_internal_failure_status(void)

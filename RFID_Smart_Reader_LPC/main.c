@@ -41,7 +41,7 @@ int main(void)
 		Reader_Manager();
 		HostComm_Manager();
 		Wifi_Manager();
-		LP_Mode_Manager();
+		//LP_Mode_Manager();
 	}
 	return 0;
 }

@@ -13,6 +13,9 @@
 
 static timer_software_handler_t timer_handsake;
 
+static AT_response_st wifi_passtrough_RX;
+static bool wifi_passtrough_ready = false;
+
 typedef enum transition_type_t
 {
 	HIGH_TO_LOW_TO_HIGH,
@@ -29,6 +32,21 @@ typedef enum read_write_status_t
 }read_write_status_t;
 
 static wifi_module_state_st module_state;
+
+bool Get_Wifi_Response_Ready_State(void)
+{
+	return wifi_passtrough_ready;
+}
+
+void Set_Wifi_Response_Ready_State(bool value)
+{
+	wifi_passtrough_ready = value;
+}
+
+AT_response_st Get_Wifi_Response_Passtrough(void)
+{
+	return wifi_passtrough_RX;
+}
 
 bool Get_HandsakePin_Status(void)
 {
@@ -99,7 +117,7 @@ static void send_Write_EOF(void)
 
 command_frame_status_t Read_ESP_Data(uint8_t *out_buffer, uint16_t *out_length)
 {
-	uint8_t local_buffer[4095];
+	uint8_t local_buffer[1000];
 	uint16_t index;
 	read_write_status_t wr_status;
 	command_frame_status_t result; 
@@ -337,6 +355,7 @@ bool Check_for_WiFi_Update(void)
 	command_status = Read_ESP_Data(out_buffer, &command_length);
 	if(WI_FI_COMMAND_OK == command_status)
 	{
+		Wait_for_transition(HIGH_TO_LOW);
 		if(NULL != strstr((char*)out_buffer, "WIFI DISCONNECT\r\n"))
 		{
 			module_state.wifi_connected = false;
@@ -347,10 +366,26 @@ bool Check_for_WiFi_Update(void)
 			module_state.wifi_connected = true;
 			result = true;
 		}
+		else if(NULL != strstr((char*)out_buffer, "0,CONNECT\r\n"))
+		{
+			module_state.client_app_connected = true;
+		}
+		else if(NULL != strstr((char*)out_buffer, "0,CLOSED\r\n"))
+		{
+			module_state.client_app_connected = false;
+			result = true;
+		}
 		else
 		{
+			if(true == module_state.passtrough_mode)
+			{
+				/*announce higher level that we found passtrough response here*/
+				memcpy(wifi_passtrough_RX.response, out_buffer, command_length);
+				
+				wifi_passtrough_RX.response_length = command_length;
+				wifi_passtrough_ready = true;
+			}
 			result = false;
-			/*More cases to be added here. Right now only react to WiFi disconnect*/
 		}
 	}
 	else
@@ -367,14 +402,18 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		WIFI_CONNECTED_EN,
 		WIFI_DISCONNECTED_EN,
 		WIFI_GOT_IP_EN,
+		WIFI_CLIENT_PRESENT,
+		WIFI_CLIENT_DISCONNECTED,
 		
 		SEQ_LENGTH
 	}esp_states_en;
 	
-	const char ESP_States[3][21] = {
+	const char ESP_States[SEQ_LENGTH][21] = {
 		[WIFI_CONNECTED_EN] = {"WIFI CONNECTED\r\n"},
 		[WIFI_DISCONNECTED_EN] = {"WIFI DISCONNECT\r\n"},
-		[WIFI_GOT_IP_EN] = {"WIFI GOT IP\r\n"}
+		[WIFI_GOT_IP_EN] = {"WIFI GOT IP\r\n"},
+		[WIFI_CLIENT_PRESENT] = {"0,CONNECT\r\n"},
+		[WIFI_CLIENT_DISCONNECTED] = {"0,CLOSED\r\n"}
 	};
 	
 	const uint8_t number_of_ESP_states = (uint8_t)SEQ_LENGTH;
@@ -421,6 +460,13 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 												break;
 											case WIFI_GOT_IP_EN:
 												module_state.wifi_got_ip = true;
+												break;
+											case WIFI_CLIENT_PRESENT:
+												module_state.client_app_connected = true;
+												break;
+											case WIFI_CLIENT_DISCONNECTED:
+												module_state.client_app_connected = false;
+												break;
 											default:
 												/*Do not set any flag otherwise*/
 												break;
@@ -481,5 +527,10 @@ wifi_module_state_st Get_Module_Current_State(void)
 void Set_Module_Current_State(wifi_module_state_st in_module_state)
 {
 	module_state = in_module_state;
+}
+
+void Set_Passthrough_Mode(bool value)
+{
+	module_state.passtrough_mode = value;
 }
 

@@ -18,10 +18,10 @@ typedef struct AT_response_st
 
 typedef struct AT_Command_st
 {
-	const uint8_t at_command_name[50];
-	const uint16_t at_command_length;
+	uint8_t at_command_name[50];
+	uint16_t at_command_length;
 	
-	const uint8_t number_of_responses;
+	uint8_t number_of_responses;
 	
 }AT_Command_st;
 
@@ -30,7 +30,11 @@ typedef struct wifi_module_state_st
 	bool HW_module_init;
 	bool wifi_connected;
 	bool wifi_got_ip;
+	bool client_app_connected;
+	bool passtrough_mode;
 }wifi_module_state_st;
+
+#define WIFI_PASSTHROUGH_BUFFER_LENGTH_U8 ((u8)100)
 
 void wifi_utils_Init(void);
 bool Get_HandsakePin_Status(void);
@@ -40,5 +44,9 @@ command_frame_status_t Wait_For_HIGH_Transition(void);
 wifi_module_state_st Get_Module_Current_State(void);
 void Set_Module_Current_State(wifi_module_state_st in_module_state);
 bool Check_for_WiFi_Update(void);
+bool Get_Wifi_Response_Ready_State(void);
+void Set_Wifi_Response_Ready_State(bool value);
+AT_response_st Get_Wifi_Response_Passtrough(void);
+void Set_Passthrough_Mode(bool value);
 
 #endif
