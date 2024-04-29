@@ -48,5 +48,7 @@ bool Get_Wifi_Response_Ready_State(void);
 void Set_Wifi_Response_Ready_State(bool value);
 AT_response_st Get_Wifi_Response_Passtrough(void);
 void Set_Passthrough_Mode(bool value);
+void wifi_handsake_init(void);
+bool Check_LowToHigh_Status(void);
 
 #endif

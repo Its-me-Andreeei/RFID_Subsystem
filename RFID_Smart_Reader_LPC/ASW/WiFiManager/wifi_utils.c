@@ -7,14 +7,23 @@
 #include "./../../utils/timer_software.h"
 #include "./wifi_Manager.h"
 #include "./wifi_utils.h"
+#include "./wifi_handsake_ISR.h"
 #include "./../../hal/spi.h"
+#include "../../PlatformTypes.h"
 
-#define ESP_HANDSAKE_GPIO_PIN_NUM_U8 ((uint8_t)15U)
+#define ESP_HANDSAKE_GPIO_PIN_NUM_U8 ((u8)13U)
+
+/*Interrupt position within EXT registers*/
+#define EINT2_POS_U8 ((u8)2U)
+
+#define ESP_HANDSAKE_EINT2_PIN_NUM_U8 ((u8)15U)
 
 static timer_software_handler_t timer_handsake;
 
 static AT_response_st wifi_passtrough_RX;
 static bool wifi_passtrough_ready = false;
+
+static volatile bool handsake_transition_irq = false;
 
 typedef enum transition_type_t
 {
@@ -51,8 +60,9 @@ AT_response_st Get_Wifi_Response_Passtrough(void)
 bool Get_HandsakePin_Status(void)
 {
 	bool result;
-	uint32_t gpio_pin_val;
-	gpio_pin_val = IO0PIN & ((uint32_t)1U << ESP_HANDSAKE_GPIO_PIN_NUM_U8);
+	u32 gpio_pin_val;
+
+	gpio_pin_val = IO0PIN & ((u32)1U << ESP_HANDSAKE_GPIO_PIN_NUM_U8);
 	if(0 != gpio_pin_val)
 	{
 		result = true;
@@ -61,32 +71,31 @@ bool Get_HandsakePin_Status(void)
 	{
 		result = false;
 	}
+	
 	return result;
 }
 
-static read_write_status_t Get_Read_Write_Status(uint16_t *length)
+static read_write_status_t Get_Read_Write_Status(u16 *length)
 {
-	uint8_t buffer[7] = {(uint8_t)0x02, (uint8_t)0x04, (uint8_t)0x00, (uint8_t)0x00, (uint8_t)0x00, (uint8_t)0x00, (uint8_t)0x00};
+	u8 buffer[7] = {(u8)0x02, (u8)0x04, (u8)0x00, (u8)0x00, (u8)0x00, (u8)0x00, (u8)0x00};
 	read_write_status_t result;
-	uint8_t handsake_gpio_value;
 	
-	/*Monitor value of handsake pin*/
-	handsake_gpio_value = Get_HandsakePin_Status();
 	/*Handsake pin must be toggled*/
-	if(true == handsake_gpio_value)
+	if(true == handsake_transition_irq)
 	{
+		/*Reset IRQ flag for next transation*/
+		handsake_transition_irq = false;
 		
-		spi0_sendReceive_message(buffer, (uint16_t)7U);
+		spi0_sendReceive_message(buffer, (u16)7U);
 		
-		
-		if(buffer[3] == (uint8_t)0x02U)
+		if(buffer[3] == (u8)0x02U)
 		{
 			*length = 0;
 			result = SPI_WRITE;
 		}
-		else if(buffer[3] == (uint8_t)0x01U)
+		else if(buffer[3] == (u8)0x01U)
 		{
-			*length = (buffer[6] << (uint8_t)8U) | buffer[5];
+			*length = (buffer[6] << (u8)8U) | buffer[5];
 			result = SPI_READ;
 		}
 		else
@@ -105,23 +114,23 @@ static read_write_status_t Get_Read_Write_Status(uint16_t *length)
 
 static void send_Read_EOF(void)
 {
-	uint8_t buffer[3] = {0x08, 0x00, 0x00};
+	u8 buffer[3] = {0x08, 0x00, 0x00};
 	spi0_sendReceive_message(buffer, 3);
 }
 
 static void send_Write_EOF(void)
 {
-	uint8_t buffer[3] = {0x07, 0x00, 0x00};
+	u8 buffer[3] = {0x07, 0x00, 0x00};
 	spi0_sendReceive_message(buffer, 3);
 }
 
-command_frame_status_t Read_ESP_Data(uint8_t *out_buffer, uint16_t *out_length)
+command_frame_status_t Read_ESP_Data(u8 *out_buffer, u16 *out_length)
 {
-	uint8_t local_buffer[1000];
-	uint16_t index;
+	u8 local_buffer[1000];
+	u16 index;
 	read_write_status_t wr_status;
 	command_frame_status_t result; 
-	uint16_t length;
+	u16 length;
 
 	wr_status = Get_Read_Write_Status(&length);
 	if(SPI_READ == wr_status)
@@ -153,13 +162,13 @@ command_frame_status_t Read_ESP_Data(uint8_t *out_buffer, uint16_t *out_length)
 	return result;
 }
 
-static command_frame_status_t Write_ESP_Data(const uint8_t *in_buffer, const uint16_t in_length)
+static command_frame_status_t Write_ESP_Data(const u8 *in_buffer, const u16 in_length)
 {
-	uint8_t local_buffer[4095];
-	uint16_t index;
+	u8 local_buffer[4095];
+	u16 index;
 	read_write_status_t wr_status;
 	command_frame_status_t result; 
-	uint16_t dummy_length; /*No valid length will be returned by chip in case of ESP WRITE*/
+	u16 dummy_length; /*No valid length will be returned by chip in case of ESP WRITE*/
 			
 	wr_status = Get_Read_Write_Status(&dummy_length);
 	if(SPI_WRITE == wr_status)
@@ -190,18 +199,18 @@ static command_frame_status_t Write_ESP_Data(const uint8_t *in_buffer, const uin
 command_frame_status_t Read_Ready_Status(void)
 {
 	command_frame_status_t result = WI_FI_COMMAND_OK;
-	uint8_t buffer[9];
-	uint16_t length;
-	uint8_t index;
+	u8 buffer[9];
+	u16 length;
+	u8 index;
 	
-	const uint8_t response[9] = {0x0D, 0x0A, 0x72, 0x65, 0x61, 0x64, 0x79, 0x0D, 0x0A};
+	const u8 response[9] = {0x0D, 0x0A, 0x72, 0x65, 0x61, 0x64, 0x79, 0x0D, 0x0A};
 	
 	/*This function should get the ready status after module is initialized, in order to start processing requests*/
 	Read_ESP_Data(buffer, &length);
 	
-	if((uint16_t)9U == length)
+	if((u16)9U == length)
 	{
-		for(index = 0; index < (uint8_t)9U; index++)
+		for(index = 0; index < (u8)9U; index++)
 		{
 			if(response[index] != buffer[index])
 			{
@@ -223,10 +232,10 @@ command_frame_status_t Read_Ready_Status(void)
 	return result;
 }
 
-static command_frame_status_t Request_ESP_Send_Permission(const uint16_t command_length)
+static command_frame_status_t Request_ESP_Send_Permission(const u16 command_length)
 {
-	uint8_t buffer[7];
-	static uint8_t sequence_number = (uint8_t)0x00;
+	u8 buffer[7];
+	static u8 sequence_number = (u8)0x00;
 	command_frame_status_t result = WI_FI_COMMAND_OK;
 	bool handsake_pin_status;
 	
@@ -236,17 +245,17 @@ static command_frame_status_t Request_ESP_Send_Permission(const uint16_t command
 	if(false == handsake_pin_status)
 	{		
 		/*Create message structure*/
-		buffer[0] = (uint8_t)0x01;
-		buffer[1] = (uint8_t)0x00;
-		buffer[2] = (uint8_t)0x00;
-		buffer[3] = (uint8_t)0xFE;
+		buffer[0] = (u8)0x01;
+		buffer[1] = (u8)0x00;
+		buffer[2] = (u8)0x00;
+		buffer[3] = (u8)0xFE;
 		buffer[4] = sequence_number;
-		buffer[5] = (uint8_t)(command_length & (uint8_t)0xFFU);
-		buffer[6] = (uint8_t)((command_length >> (uint8_t)8) & (uint8_t)0xFFU);
+		buffer[5] = (u8)(command_length & (u8)0xFFU);
+		buffer[6] = (u8)((command_length >> (u8)8) & (u8)0xFFU);
 		
-		spi0_sendReceive_message(buffer, (uint16_t)7U);
+		spi0_sendReceive_message(buffer, (u16)7U);
 		
-		if(sequence_number < (uint8_t)0xFF)
+		if(sequence_number < (u8)0xFF)
 		{
 			sequence_number++;
 		}
@@ -283,7 +292,7 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 					break;
 				}
 			}
-			while(false == Get_HandsakePin_Status())
+			while(false == handsake_transition_irq)
 			{
 				if(0 != TIMER_SOFTWARE_interrupt_pending(timer_handsake))
 				{
@@ -291,6 +300,11 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 					break;
 				}
 			}
+//			if((true == handsake_transition_irq) && (WI_FI_COMMAND_OK == result))
+//			{
+//				/*If while exit because of IRQ flag, don't forget to reset it*/
+//				handsake_transition_irq = false;
+//			}
 			break;
 			
 		case HIGH_TO_LOW:
@@ -305,7 +319,7 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 			break;
 		
 		case LOW_TO_HIGH:
-			while(false == Get_HandsakePin_Status())
+			while(false == handsake_transition_irq)
 			{
 				if(0 != TIMER_SOFTWARE_interrupt_pending(timer_handsake))
 				{
@@ -313,6 +327,12 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 					break;
 				}
 			}
+			
+//			if((true == handsake_transition_irq) && (WI_FI_COMMAND_OK == result))
+//			{
+//				/*If while exit because of IRQ flag, don't forget to reset it*/
+//				handsake_transition_irq = false;
+//			}
 			break;
 			
 		case HIGH_ONLY:
@@ -347,8 +367,8 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 bool Check_for_WiFi_Update(void)
 {
 	command_frame_status_t command_status;
-	uint8_t out_buffer[4095];
-	uint16_t command_length;
+	u8 out_buffer[4095];
+	u16 command_length;
 	bool result = false;
 	
 	/*Will check for ESP status update and then will check for new commands*/
@@ -416,9 +436,9 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		[WIFI_CLIENT_DISCONNECTED] = {"0,CLOSED\r\n"}
 	};
 	
-	const uint8_t number_of_ESP_states = (uint8_t)SEQ_LENGTH;
+	const u8 number_of_ESP_states = (u8)SEQ_LENGTH;
 	int8_t index;
-	uint8_t index_esp_states;
+	u8 index_esp_states;
 	command_frame_status_t operation_result = WI_FI_COMMAND_NOK;
 
 	operation_result = Wait_for_transition(HIGH_TO_LOW);
@@ -489,7 +509,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 	printf("--------\n");
 	for(index = 0; index < command.number_of_responses; index ++)
 	{
-		uint16_t i_dbg;
+		u16 i_dbg;
 		printf("\nESP: ");
 		for(i_dbg = 0; i_dbg< responses[index].response_length; i_dbg++)
 		{
@@ -508,6 +528,7 @@ void wifi_utils_Init(void)
 	timer_handsake = TIMER_SOFTWARE_request_timer();
 	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 6000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
+	wifi_handsake_init();
 }
 
 command_frame_status_t Wait_For_HIGH_Transition(void)
@@ -532,5 +553,37 @@ void Set_Module_Current_State(wifi_module_state_st in_module_state)
 void Set_Passthrough_Mode(bool value)
 {
 	module_state.passtrough_mode = value;
+}
+
+void wifi_handsake_init(void)
+{
+	/*P0.15 will be configured as EINT2*/
+	PINSEL0 |= (u32)((u32)1U << (u8)31);
+	
+	/*Set EINT2 as edge-sensitive*/
+	EXTMODE |= (u8)((u8)1U << EINT2_POS_U8);
+	
+	/*Set as rising edge sensitive*/
+	EXTPOLAR |= (u8)((u8)1U << EINT2_POS_U8);
+}
+
+void wifi_handsake_irq(void) __irq
+{
+	if((u8)0 != ((u8)EXTINT & (u8)((u8)1U << EINT2_POS_U8)))
+	{
+		/*Mark the fact a rising edge transition occured*/
+		handsake_transition_irq = true;
+		
+		/*Clear interrupt flag*/
+		EXTINT |= (u8)((u8)1U << EINT2_POS_U8);
+	}
+	
+	/*Acknowledge the interrupt for VIC module*/
+	VICVectAddr = 0;
+}
+
+bool Check_LowToHigh_Status(void)
+{
+	return handsake_transition_irq;
 }
 

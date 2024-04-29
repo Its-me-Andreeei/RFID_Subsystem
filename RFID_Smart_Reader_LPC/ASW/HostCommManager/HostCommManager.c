@@ -109,7 +109,7 @@ void HostComm_Manager(void)
 		if(false == i2c_check_CRC_after_RX_finish())
 		{
 			/*Mark CRC as invalid -> corrupted data*/
-			i2c_set_command_status(I2C_STATE_NOK);
+			i2c_set_command_status(I2C_STATE_INVALID);
 			
 			/*send response to host*/
 			i2c_set_response_ready_status(DATA_READY); 

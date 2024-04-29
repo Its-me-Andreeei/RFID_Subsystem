@@ -11,9 +11,6 @@
 /*P0.24 will act as Slave select pin for SPI0 Master mode. Only for error flags (skip flag 7)*/
 #define SPI0_SLAVE_SELECT_PIN_NUM_U8 ((uint8_t)24U)
 
-/*Interrupt position within EXT registers*/
-#define EINT2_POS_U8 ((uint8_t)2U)
-
 /*TBD: Add function for each flag, for diag module*/
 #define SPI_SLAVE_ABORT_BIT_POS_MASK_U8 ((uint8_t)1U << (uint8_t)3U)
 #define SPI_MODE_FAULT_BIT_POS_MASK_U8 ((uint8_t)1U << (uint8_t)4U)

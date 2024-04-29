@@ -131,7 +131,7 @@ void WifiManager_Init(void)
 					
 					/*If one command was wrong, do not continue*/
 					break;
-				}
+				}			
 			}
 		}
 	}
@@ -390,15 +390,13 @@ void Wifi_Manager(void)
 			{
 				/*TBD : To be seted to false after new pin is added*/
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
-				wifi_status_update = Check_for_WiFi_Update();
-				if(true == wifi_status_update)
+				
+				module_state = Get_Module_Current_State();
+				if((true == module_state.wifi_connected) && (true == module_state.wifi_got_ip))
 				{
-					module_state = Get_Module_Current_State();
-					if(true == module_state.wifi_connected)
-					{
-						wifi_manager_state = WIFI_MAN_INIT;
-					}
+					wifi_manager_state = WIFI_MAN_INIT;
 				}
+				
 			}
 			break;
 		
