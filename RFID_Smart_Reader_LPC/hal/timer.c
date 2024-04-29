@@ -5,7 +5,8 @@
 void TIMER_Init()
 {
 	T0MCR = 3;
-	T0MR0 = 14745; // 1 ms
+	//T0MR0 = 14745; // 1 ms
+	T0MR0 = 73725; //5ms
 	T0IR = 1;
 	T0TCR = 1;
 }

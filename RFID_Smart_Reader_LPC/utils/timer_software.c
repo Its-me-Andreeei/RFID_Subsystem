@@ -92,7 +92,7 @@ void TIMER_SOFTWARE_ModX()
 			{
 				if (TIMER_IS_RUNNING(i))
 				{
-					timers[i].TimerCounter++;
+					timers[i].TimerCounter+=5;
 					if (TIMER_GET_COUNTER(i) == 0xFFFFFFFF)
 					{
 						TIMER_SET_OVERFLOW_FLAG(i);
@@ -116,7 +116,7 @@ void TIMER_SOFTWARE_ModX()
 						}
 						case MODE_1:
 						{
-							if (TIMER_GET_COUNTER(i) == TIMER_GET_PERIOD(i))
+							if (TIMER_GET_COUNTER(i) >= TIMER_GET_PERIOD(i))
 							{
 								TIMER_SET_INTERRUPT_FLAG(i);
 								TIMER_RESET(i);
@@ -130,7 +130,7 @@ void TIMER_SOFTWARE_ModX()
 						}
 						case MODE_2:
 						{
-							if (TIMER_GET_COUNTER(i) == TIMER_GET_PERIOD(i))
+							if (TIMER_GET_COUNTER(i) >= TIMER_GET_PERIOD(i))
 							{
 								TIMER_SET_INTERRUPT_FLAG(i);
 								if (timers[i].callback != 0)
