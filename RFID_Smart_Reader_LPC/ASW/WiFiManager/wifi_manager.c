@@ -10,9 +10,10 @@
 #include "./../../hal/spi.h"
 #include "./../LP_Mode_Manager/LP_Mode_Manager.h"
 #include "./../ReaderManager/reader_manager.h"
+#include "../../PlatformTypes.h"
 
-#define ESP_RESET_PIN_NUM_U8 ((uint8_t)25U)
-#define ESP_INIT_RETRIES_NUM_U8 ((uint8_t)3U)
+#define ESP_RESET_PIN_NUM_U8 ((u8)25U)
+#define ESP_INIT_RETRIES_NUM_U8 ((u8)3U)
 
 typedef enum init_sequence_en
 {
@@ -27,31 +28,31 @@ typedef enum init_sequence_en
 }init_sequence_en;
 
 static const AT_Command_st wifi_init_config[] = {
-																									[AT_EN] = {"AT\r\n", (uint16_t)4, (uint8_t)2},
+																									[AT_EN] = {"AT\r\n", (u16)4, (u8)2},
 																									
 																									/*Set ESP to Station mode*/
-																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (uint16_t)13, (uint8_t)2}, 
+																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (u16)13, (u8)2}, 
 																									
 																									/*Connect to WI-FI Router*/
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (uint16_t)36, (uint8_t)2},
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (uint16_t)37, (uint8_t)2},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36, (u8)2},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37, (u8)2},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
-																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (uint16_t)13, (uint8_t)2}, 
+																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13, (u8)2}, 
 																									
 																									/*Limit only to 1 connection*/
-																									[LIMIT_TO_1_CONNECTION] = {"AT+CIPSERVERMAXCONN=1\r\n", (uint16_t)23, (uint8_t)2},
+																									[LIMIT_TO_1_CONNECTION] = {"AT+CIPSERVERMAXCONN=1\r\n", (u16)23, (u8)2},
 																									
 																									/*Open the TCP Server and listen for connections*/
-																									[OPEN_TCP_SERVER] = {"AT+CIPSERVER=1,8080\r\n", (uint16_t)21, (uint8_t)2},
+																									[OPEN_TCP_SERVER] = {"AT+CIPSERVER=1,8080\r\n", (u16)21, (u8)2},
 																									
 																									/*Querry for IP address*/
-																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (uint16_t)12, (uint8_t)3}
+																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (u16)12, (u8)3}
 																								};
 static AT_response_st wifi_response_buffer[4];
 																								
-static uint8_t wifi_passthrough_request[WIFI_PASSTHROUGH_BUFFER_LENGTH_U8];
-static uint8_t wifi_passthrough_length;
+static u8 wifi_passthrough_request[WIFI_PASSTHROUGH_BUFFER_LENGTH_U8];
+static u8 wifi_passthrough_length;
 																								
 static AT_response_st wifi_passtrough_response;																																									
 
@@ -60,11 +61,11 @@ static bool request_new_passtrough_command = false;
 																								
 void WifiManager_Perform_HW_Reset(void)
 {
-	IO0SET |= ((uint8_t)1U << ESP_RESET_PIN_NUM_U8);
+	IO0SET |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
 	TIMER_SOFTWARE_Wait(500);
-	IO0CLR |= ((uint8_t)1U << ESP_RESET_PIN_NUM_U8);
+	IO0CLR |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
 	TIMER_SOFTWARE_Wait(1000);
-	IO0SET |= ((uint8_t)1U << ESP_RESET_PIN_NUM_U8);
+	IO0SET |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
 	TIMER_SOFTWARE_Wait(1000);
 }
 
@@ -101,7 +102,7 @@ void WifiManager_Init(void)
 	wifi_utils_Init();
 	
 	/*Pin P0.25 will be used (as output) for HW reset of ESP32-C3 wi-fi module*/
-	IO0DIR |= ((uint32_t)1U << ESP_RESET_PIN_NUM_U8);
+	IO0DIR |= ((u32)1U << ESP_RESET_PIN_NUM_U8);
 	
 	/*Pin P0.15 will be used for GPIO Handsake polling, by default is configured as input*/
 	
@@ -165,7 +166,7 @@ void WifiManager_Init(void)
 
 static void Disable_WIFI_Module_HW(void)
 {
-	IO0CLR |= ((uint8_t)1U << ESP_RESET_PIN_NUM_U8);
+	IO0CLR |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
 }
 
 void Wifi_Manager(void)
@@ -185,9 +186,9 @@ void Wifi_Manager(void)
 	static wifi_manager_state_en wifi_manager_state = WIFI_MAN_CHECK_PRECONDITION;
 	bool wifi_status_update;
 	wifi_module_state_st module_state;
-	static uint8_t init_retries = 0x00;
-	uint8_t loop_index = 0x00;
-	const AT_Command_st passthrough_mode[2] = {{"AT+CIPMODE=1\r\n", (uint16_t)14U, (uint8_t)2U}, {"AT+CIPSEND\r\n",(uint16_t)12, (uint8_t)1 }};
+	static u8 init_retries = 0x00;
+	u8 loop_index = 0x00;
+	const AT_Command_st passthrough_mode[2] = {{"AT+CIPMODE=1\r\n", (u16)14U, (u8)2U}, {"AT+CIPSEND\r\n",(u16)12, (u8)2 }};
 	command_frame_status_t esp_command_status;
 	AT_response_st at_response[2];
 	
@@ -283,7 +284,7 @@ void Wifi_Manager(void)
 				
 				memcpy(command.at_command_name, wifi_passthrough_request, wifi_passthrough_length);
 				command.at_command_length = wifi_passthrough_length;
-				command.number_of_responses = 2;
+				command.number_of_responses = 1;
 				
 				esp_command_status = Send_ESP_Command(command, wifi_response_buffer);
 				if(WI_FI_COMMAND_OK == esp_command_status)
@@ -415,7 +416,7 @@ bool Wifi_GET_is_Wifi_Connected_status(void)
 	return module_state.wifi_connected;
 }
 
-state_t Wifi_GET_passtrough_response(uint8_t* out_buffer, uint8_t *out_length)
+state_t Wifi_GET_passtrough_response(u8* out_buffer, u8 *out_length)
 {
 	state_t result;
 	AT_response_st result_passthrough;
@@ -461,7 +462,7 @@ state_t Wifi_GET_passtrough_response(uint8_t* out_buffer, uint8_t *out_length)
 	return result;
 }
 
-bool Wifi_SET_Command_Request(const wifi_commands_en wifi_command, const uint8_t data_buffer[],const  uint8_t data_length)
+bool Wifi_SET_Command_Request(const wifi_commands_en wifi_command, const u8 data_buffer[],const  u8 data_length)
 {
 	bool result;
 	switch(wifi_command)
@@ -480,8 +481,10 @@ bool Wifi_SET_Command_Request(const wifi_commands_en wifi_command, const uint8_t
 				request_new_passtrough_command = true;
 				
 				/*Copy input data to local buffers for later processing*/
-				memcpy(wifi_passthrough_request, data_buffer, data_length);
-				wifi_passthrough_length = data_length;				
+				memcpy(wifi_passthrough_request, "tag:", strlen("tag:"));
+				
+				memcpy(wifi_passthrough_request + strlen("tag:") , data_buffer, data_length);
+				wifi_passthrough_length = data_length + strlen("tag:");				
 			}
 			break;
 		
