@@ -436,7 +436,7 @@ state_t Wifi_GET_passtrough_response(u8* out_buffer, u8 *out_length)
 			/*Reset this flag in order to be open to send a new command*/
 			
 			/*Safety extra check in order to avoid negative lengths*/
-			if((result_passthrough.response_length > (u8)0) && (true == isPassthroughResponseValid()))
+			if((result_passthrough.response_length - (u8)4 > (u8)0) && (true == isPassthroughResponseValid()))
 			{
 				*out_length = result_passthrough.response_length;
 				memcpy(out_buffer, result_passthrough.response + 4, result_passthrough.response_length - 4);

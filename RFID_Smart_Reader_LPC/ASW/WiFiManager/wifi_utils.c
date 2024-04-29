@@ -349,7 +349,7 @@ bool Check_for_WiFi_Update(void)
 	command_frame_status_t command_status;
 	uint8_t out_buffer[4095];
 	uint16_t command_length;
-	bool result;
+	bool result = false;
 	
 	/*Will check for ESP status update and then will check for new commands*/
 	command_status = Read_ESP_Data(out_buffer, &command_length);

@@ -37,12 +37,6 @@ typedef enum message_status_t
 	MESSAGE_RX_COMPLETED
 }message_status_t;
 
-typedef struct spi_response_t
-{
-	uint8_t response[SPI_BUFFER_NUM_DATA_BYTES];
-	uint16_t response_length;
-}spi_response_t;
-
 /*Buffer will be filled with TX data which progressively will be filled with RX data*/
 static uint8_t spi0_TX_RX_buffer[SPI_BUFFER_NUM_HEADER_BYTES_U8 + SPI_BUFFER_NUM_DATA_BYTES];
 
@@ -51,7 +45,6 @@ static volatile uint8_t current_spi0_status = 0;
 
 static volatile bool byte_transmission_end = false;
 static volatile uint16_t spi0_buffer_index = 0;
-//static spi_response_t spi_response;
 
 static void SPI0_set_slave_select(slave_select_state_t state)
 {
