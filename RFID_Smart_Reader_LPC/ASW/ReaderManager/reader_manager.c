@@ -58,7 +58,7 @@ static void ConfigInit(void)
 	const TMR_TagProtocol protocol = TMR_TAG_PROTOCOL_GEN2;
 	TMR_TRD_MetadataFlag metadata = (uint16_t)(TMR_TRD_METADATA_FLAG_ALL & (~TMR_TRD_METADATA_FLAG_TAGTYPE));
 	bool readFilter = false;
-	uint16_t asyncOnTime= (uint16_t) 500; /*Time in ms*/
+	uint16_t asyncOnTime= (uint16_t) 1000; /*Time in ms*/
 	uint16_t asyncOffTime= (uint16_t) 1000; /*Time in ms*/
 	
 	(void)TMR_connect(&reader);
@@ -498,24 +498,36 @@ void Reader_Manager(void)
 			{
 				WIFI_server_data_ready = Wifi_GET_passtrough_response(wifi_buffer_response, &wifi_buffer_length);
 			}
-			/*If request was not accepted, try next time*/
-			if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
+			if(STATE_OK == WIFI_server_data_ready)
 			{
+				TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
 				TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
 				TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 				
 				request_stop = STOP_FOR_TEMPERATURE;
-				/*After enough missings, declare not on route status*/
 				reader_request = REQUEST_FINISHED;
-				
 				current_state_en = STOP_READING;
 			}
 			else
 			{
 				/*If request was not accepted, try next time*/
-				current_state_en = RECEIVE_CHECK_TAG_RESPONSE;
+				if(TIMER_SOFTWARE_interrupt_pending(timer_route_status_and_panic))
+				{
+					TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
+					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+					
+					request_stop = STOP_FOR_TEMPERATURE;
+
+					reader_request = REQUEST_FINISHED;
+					
+					current_state_en = STOP_READING;
+				}
+				else
+				{
+					/*If request was not accepted, try next time*/
+					current_state_en = RECEIVE_CHECK_TAG_RESPONSE;
+				}
 			}
-			
 			break;
 		
 		case CHECK_TEMPERATURE:

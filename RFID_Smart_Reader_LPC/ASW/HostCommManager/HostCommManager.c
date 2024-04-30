@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 
 #include "../../hal/i2c.h"
 #include "../ReaderManager/reader_manager.h"

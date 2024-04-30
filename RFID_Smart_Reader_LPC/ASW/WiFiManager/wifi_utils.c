@@ -529,6 +529,14 @@ void wifi_utils_Init(void)
 	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 6000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
 	wifi_handsake_init();
+	
+	handsake_transition_irq = false;
+	
+	module_state.client_app_connected = false;
+	module_state.HW_module_init = false;
+	module_state.passtrough_mode = false;
+	module_state.wifi_connected = false;
+	module_state.wifi_got_ip = false;
 }
 
 command_frame_status_t Wait_For_HIGH_Transition(void)
@@ -557,14 +565,14 @@ void Set_Passthrough_Mode(bool value)
 
 void wifi_handsake_init(void)
 {
-	/*P0.15 will be configured as EINT2*/
-	PINSEL0 |= (u32)((u32)1U << (u8)31);
-	
 	/*Set EINT2 as edge-sensitive*/
 	EXTMODE |= (u8)((u8)1U << EINT2_POS_U8);
 	
 	/*Set as rising edge sensitive*/
 	EXTPOLAR |= (u8)((u8)1U << EINT2_POS_U8);
+	
+	/*P0.15 will be configured as EINT2*/
+	PINSEL0 |= (u32)((u32)1U << (u8)31);
 }
 
 void wifi_handsake_irq(void) __irq

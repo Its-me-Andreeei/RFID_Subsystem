@@ -25,7 +25,7 @@ int main(void)
 	UART1_Init();
 	I2C_init();
 	SPI0_init();
-//	wifi_handsake_init();
+
 	printf("Main");
 
 	InitInterrupt();
