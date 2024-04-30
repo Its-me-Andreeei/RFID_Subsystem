@@ -15,7 +15,7 @@
 #define ESP_RESET_PIN_NUM_U8 ((u8)25U)
 #define ESP_INIT_RETRIES_NUM_U8 ((u8)3U)
 
-typedef enum init_sequence_en
+typedef enum at_sequences_en
 {
 	AT_EN,
 	STATION_MODE_EN,
@@ -24,10 +24,12 @@ typedef enum init_sequence_en
 	LIMIT_TO_1_CONNECTION,
 	OPEN_TCP_SERVER,
 	GET_STATUS_AND_IP,
+	ENTER_RX_PASSTHROUGH_MODE,
+	ENTER_RX_TX_PASSTHROUGH_MODE,
 	END_OF_SEQUENCE
-}init_sequence_en;
+}at_sequences_en;
 
-static const AT_Command_st wifi_init_config[] = {
+static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									[AT_EN] = {"AT\r\n", (u16)4, (u8)2},
 																									
 																									/*Set ESP to Station mode*/
@@ -47,7 +49,13 @@ static const AT_Command_st wifi_init_config[] = {
 																									[OPEN_TCP_SERVER] = {"AT+CIPSERVER=1,8080\r\n", (u16)21, (u8)2},
 																									
 																									/*Querry for IP address*/
-																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (u16)12, (u8)3}
+																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (u16)12, (u8)3},
+																									
+																									/*Enter Receiving Passthrough mode*/
+																									[ENTER_RX_PASSTHROUGH_MODE] = {"AT+CIPMODE=1\r\n", (u16)14U, (u8)2U}, 
+																									
+																									/*Enter TX/RX Passthrough Mode*/
+																									[ENTER_RX_TX_PASSTHROUGH_MODE] = {"AT+CIPSEND\r\n",(u16)12, (u8)2 }
 																								};
 static AT_response_st wifi_response_buffer[4];
 																								
@@ -94,9 +102,11 @@ static bool isPassthroughResponseValid(void)
 }
 void WifiManager_Init(void)
 {
-	init_sequence_en init_seq_index;
+	u8 init_seq_index;
 	command_frame_status_t message_status = WI_FI_COMMAND_NOK;
 	wifi_module_state_st module_state;
+	const u8 init_config[] = {(u8)AT_EN, (u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
+	const u8 size_of_init_sequence = sizeof(init_config) / sizeof(at_sequences_en);
 	
 	/*perform init of wi-fi utils library*/
 	wifi_utils_Init();
@@ -117,10 +127,10 @@ void WifiManager_Init(void)
 		if(WI_FI_COMMAND_OK == message_status)
 		{
 			/*Process the INIT Config sequence*/
-			for(init_seq_index = AT_EN; init_seq_index < END_OF_SEQUENCE; init_seq_index++)
+			for(init_seq_index = 0; init_seq_index < size_of_init_sequence; init_seq_index++)
 			{
 				/*Send and receive response for current command*/
-				message_status = Send_ESP_Command(wifi_init_config[init_seq_index], wifi_response_buffer);
+				message_status = Send_ESP_Command(wifi_at_configs[init_config[init_seq_index]], wifi_response_buffer);
 				if(WI_FI_COMMAND_NOK == message_status)
 				{		
 					/*Announce LP Manager about init's state*/
@@ -187,8 +197,6 @@ void Wifi_Manager(void)
 	bool wifi_status_update;
 	wifi_module_state_st module_state;
 	static u8 init_retries = 0x00;
-	u8 loop_index = 0x00;
-	const AT_Command_st passthrough_mode[2] = {{"AT+CIPMODE=1\r\n", (u16)14U, (u8)2U}, {"AT+CIPSEND\r\n",(u16)12, (u8)2 }};
 	command_frame_status_t esp_command_status;
 	AT_response_st at_response[2];
 	
@@ -346,26 +354,28 @@ void Wifi_Manager(void)
 			break;
 		
 		case WIFI_MAN_ENTER_PASSTHROUGH_MODE:
-			for(loop_index = 0; loop_index < 2; loop_index ++)
-			{
-				esp_command_status = Send_ESP_Command(passthrough_mode[loop_index], at_response);
-				if(WI_FI_COMMAND_NOK == esp_command_status)
-				{
-					wifi_manager_state = WIFI_MAN_FAILURE;
-					break;
-				}
-			}
-			
+
+			esp_command_status = Send_ESP_Command(wifi_at_configs[ENTER_RX_PASSTHROUGH_MODE], at_response);
 			if(WI_FI_COMMAND_OK == esp_command_status)
 			{
-				Set_Passthrough_Mode(true);
-				wifi_manager_state = WIFI_MAN_SEND_CMD;
+				esp_command_status = Send_ESP_Command(wifi_at_configs[ENTER_RX_TX_PASSTHROUGH_MODE], at_response);
+				if(WI_FI_COMMAND_OK == esp_command_status)
+				{
+					Set_Passthrough_Mode(true);
+					wifi_manager_state = WIFI_MAN_SEND_CMD;
+				}
+				else
+				{
+					Set_Passthrough_Mode(false);
+					wifi_manager_state = WIFI_MAN_FAILURE;
+				}
 			}
 			else
 			{
 				Set_Passthrough_Mode(false);
 				wifi_manager_state = WIFI_MAN_FAILURE;
 			}
+			
 			break;
 		
 		case WIFI_MAN_FAILURE:

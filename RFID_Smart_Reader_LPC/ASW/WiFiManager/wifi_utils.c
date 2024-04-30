@@ -375,6 +375,7 @@ bool Check_for_WiFi_Update(void)
 	command_status = Read_ESP_Data(out_buffer, &command_length);
 	if(WI_FI_COMMAND_OK == command_status)
 	{
+		/*TBD: Make use of ESP_States from Send function*/
 		Wait_for_transition(HIGH_TO_LOW);
 		if(NULL != strstr((char*)out_buffer, "WIFI DISCONNECT\r\n"))
 		{
