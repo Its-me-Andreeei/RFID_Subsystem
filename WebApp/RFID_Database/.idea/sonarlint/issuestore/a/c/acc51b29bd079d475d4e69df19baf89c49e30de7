@@ -1,0 +1,8 @@
+
+
+java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(é°Áµşÿÿÿÿ8öáŸÛñ1J$784dbbc2-6e15-4550-906b-6ec0b1b6e8a3
+ 
+java:S1450
+"XRemove the "resultSet" field and declare it as a local variable in the relevant methods.(¿ˆ°úÿÿÿÿ8öªäğ1J$1086dc4d-7e73-4b27-9c9a-4dc32f33d66b
+„
+java:S1128"<Remove this unused import 'com.mysql.cj.jdbc.StatementImpl'.(ôÈøÿÿÿÿ8ƒâŸÛñ1J$99e280e2-b8d3-4ed7-84c0-0d365d134533
