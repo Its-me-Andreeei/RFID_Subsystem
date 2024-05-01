@@ -396,6 +396,11 @@ bool Check_for_WiFi_Update(void)
 			module_state.client_app_connected = false;
 			result = true;
 		}
+		else if(NULL != strstr((char*)out_buffer, "WIFI CONNECTED\r\nWIFI GOT IP\r\n"))
+		{
+			module_state.wifi_got_ip = true;
+			module_state.wifi_got_ip = true;
+		}
 		else
 		{
 			if(true == module_state.passtrough_mode)
@@ -425,16 +430,18 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		WIFI_GOT_IP_EN,
 		WIFI_CLIENT_PRESENT,
 		WIFI_CLIENT_DISCONNECTED,
+		WIFI_CONNECTED_AND_GOT_IP,
 		
 		SEQ_LENGTH
 	}esp_states_en;
 	
-	const char ESP_States[SEQ_LENGTH][21] = {
+	const char ESP_States[SEQ_LENGTH][30] = {
 		[WIFI_CONNECTED_EN] = {"WIFI CONNECTED\r\n"},
 		[WIFI_DISCONNECTED_EN] = {"WIFI DISCONNECT\r\n"},
 		[WIFI_GOT_IP_EN] = {"WIFI GOT IP\r\n"},
 		[WIFI_CLIENT_PRESENT] = {"0,CONNECT\r\n"},
-		[WIFI_CLIENT_DISCONNECTED] = {"0,CLOSED\r\n"}
+		[WIFI_CLIENT_DISCONNECTED] = {"0,CLOSED\r\n"},
+		[WIFI_CONNECTED_AND_GOT_IP] = {"WIFI CONNECTED\r\nWIFI GOT IP\r\n"}
 	};
 	
 	const u8 number_of_ESP_states = (u8)SEQ_LENGTH;
@@ -487,6 +494,10 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 												break;
 											case WIFI_CLIENT_DISCONNECTED:
 												module_state.client_app_connected = false;
+												break;
+											case WIFI_CONNECTED_AND_GOT_IP:
+												module_state.wifi_connected = true;
+												module_state.wifi_got_ip = true;
 												break;
 											default:
 												/*Do not set any flag otherwise*/

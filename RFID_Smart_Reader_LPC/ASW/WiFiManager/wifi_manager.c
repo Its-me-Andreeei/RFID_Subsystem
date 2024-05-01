@@ -26,36 +26,39 @@ typedef enum at_sequences_en
 	GET_STATUS_AND_IP,
 	ENTER_RX_PASSTHROUGH_MODE,
 	ENTER_RX_TX_PASSTHROUGH_MODE,
+	CHANGE_DEFAULT_IP,
 	END_OF_SEQUENCE
 }at_sequences_en;
 
 static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
-																									[AT_EN] = {"AT\r\n", (u16)4, (u8)2},
+																									[AT_EN] = {"AT\r\n", (u16)4U, (u8)2U},
 																									
 																									/*Set ESP to Station mode*/
-																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (u16)13, (u8)2}, 
+																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (u16)13U, (u8)2U}, 
 																									
 																									/*Connect to WI-FI Router*/
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36, (u8)2},
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37, (u8)2},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36U, (u8)2U},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37U, (u8)2U},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
-																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13, (u8)2}, 
+																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13U, (u8)2U}, 
 																									
 																									/*Limit only to 1 connection*/
-																									[LIMIT_TO_1_CONNECTION] = {"AT+CIPSERVERMAXCONN=1\r\n", (u16)23, (u8)2},
+																									[LIMIT_TO_1_CONNECTION] = {"AT+CIPSERVERMAXCONN=1\r\n", (u16)23U, (u8)2U},
 																									
 																									/*Open the TCP Server and listen for connections*/
-																									[OPEN_TCP_SERVER] = {"AT+CIPSERVER=1,8080\r\n", (u16)21, (u8)2},
+																									[OPEN_TCP_SERVER] = {"AT+CIPSERVER=1,8080\r\n", (u16)21U, (u8)2U},
 																									
 																									/*Querry for IP address*/
-																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (u16)12, (u8)3},
+																									[GET_STATUS_AND_IP] = {"AT+CIPSTA?\r\n", (u16)12U, (u8)3U},
 																									
 																									/*Enter Receiving Passthrough mode*/
 																									[ENTER_RX_PASSTHROUGH_MODE] = {"AT+CIPMODE=1\r\n", (u16)14U, (u8)2U}, 
 																									
 																									/*Enter TX/RX Passthrough Mode*/
-																									[ENTER_RX_TX_PASSTHROUGH_MODE] = {"AT+CIPSEND\r\n",(u16)12, (u8)2 }
+																									[ENTER_RX_TX_PASSTHROUGH_MODE] = {"AT+CIPSEND\r\n",(u16)12U, (u8)2U },
+																									
+																									[CHANGE_DEFAULT_IP] = {"AT+CIPSTA=\"192.168.1.6\"\r\n", (u16)25U, (u8)2U}
 																								};
 static AT_response_st wifi_response_buffer[4];
 																								
@@ -105,8 +108,8 @@ void WifiManager_Init(void)
 	u8 init_seq_index;
 	command_frame_status_t message_status = WI_FI_COMMAND_NOK;
 	wifi_module_state_st module_state;
-	const u8 init_config[] = {(u8)AT_EN, (u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
-	const u8 size_of_init_sequence = sizeof(init_config) / sizeof(at_sequences_en);
+	const u8 init_config[] = {(u8)AT_EN, (u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)CHANGE_DEFAULT_IP, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
+	const u8 size_of_init_sequence = (u8)(sizeof(init_config) / sizeof(at_sequences_en));
 	
 	/*perform init of wi-fi utils library*/
 	wifi_utils_Init();
@@ -211,6 +214,12 @@ void Wifi_Manager(void)
 			{
 				wifi_manager_state = WIFI_MAN_FAILURE;
 			}
+			else
+			{
+				/*Update is different then a connecting issue*/
+				/*Stay awake in order to process it*/
+				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
+			}
 		}
 		else
 		{
@@ -221,10 +230,11 @@ void Wifi_Manager(void)
 	switch(wifi_manager_state)
 	{
 		case WIFI_MAN_CHECK_PRECONDITION:
+			
+			LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 			if(false == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
 			{
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
-				
 				/*In case init is not done, retry*/
 				wifi_manager_state = WIFI_MAN_INIT;
 			}
@@ -236,7 +246,6 @@ void Wifi_Manager(void)
 				}
 				else
 				{
-					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 					module_state = Get_Module_Current_State();
 					if(false == module_state.client_app_connected)
 					{
@@ -286,6 +295,7 @@ void Wifi_Manager(void)
 		
 		case WIFI_MAN_SEND_CMD:
 			/*If the previous response was read and a new request was made*/
+			LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 			if((true == request_new_passtrough_command) && (false == Get_Wifi_Response_Ready_State()))
 			{
 				AT_Command_st command;
@@ -297,6 +307,7 @@ void Wifi_Manager(void)
 				esp_command_status = Send_ESP_Command(command, wifi_response_buffer);
 				if(WI_FI_COMMAND_OK == esp_command_status)
 				{
+					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 					wifi_manager_state = WIFI_MAN_WAIT_RESPONSE;
 				}
 				else
@@ -329,10 +340,12 @@ void Wifi_Manager(void)
 			break;
 		
 		case WIFI_MAN_WAIT_CLIENT:
+			
 			module_state = Get_Module_Current_State();
 			/*If client app is present*/
 			if(true == module_state.client_app_connected)
 			{
+				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 				wifi_manager_state = WIFI_MAN_ENTER_PASSTHROUGH_MODE;
 			}
 			else
@@ -354,13 +367,14 @@ void Wifi_Manager(void)
 			break;
 		
 		case WIFI_MAN_ENTER_PASSTHROUGH_MODE:
-
+			LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 			esp_command_status = Send_ESP_Command(wifi_at_configs[ENTER_RX_PASSTHROUGH_MODE], at_response);
 			if(WI_FI_COMMAND_OK == esp_command_status)
 			{
 				esp_command_status = Send_ESP_Command(wifi_at_configs[ENTER_RX_TX_PASSTHROUGH_MODE], at_response);
 				if(WI_FI_COMMAND_OK == esp_command_status)
 				{
+					LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 					Set_Passthrough_Mode(true);
 					wifi_manager_state = WIFI_MAN_SEND_CMD;
 				}
@@ -399,7 +413,7 @@ void Wifi_Manager(void)
 			else /*Reader is present, so check for WI_FI_CONNECTED status by performing polling of HANDSAKE line*/
 			{
 				/*TBD : To be seted to false after new pin is added*/
-				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
+				LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 				
 				module_state = Get_Module_Current_State();
 				if((true == module_state.wifi_connected) && (true == module_state.wifi_got_ip))
