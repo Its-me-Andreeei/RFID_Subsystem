@@ -6,13 +6,18 @@
 #ifndef NULL
 #define NULL ((void*)0)
 #endif
-#define I2C_MESSAGE_LEN_U8 ((uint8_t)4U)
+
+#define I2C_TX_MESSAGE_LEN_U8 ((uint8_t)4)
+#define I2C_MESSAGE_LEN_U8 ((uint8_t)100U)
 #define INVALID_OUT_DATA_U8 ((uint8_t)0xFFU)
 
 #define COMMAND_BIT_POS_U8 ((uint8_t)0U)
 #define DATA_BIT_POS_U8 ((uint8_t)1U)
-#define CRC_HI_BIT_POS_U8 ((uint8_t)2U)
-#define CRC_LO_BIT_POS_U8 ((uint8_t)3U)
+#define CRC_TX_HI_BIT_POS_U8 (I2C_TX_MESSAGE_LEN_U8 - (uint8_t)2U)
+#define CRC_TX_LO_BIT_POS_U8 (I2C_TX_MESSAGE_LEN_U8 - (uint8_t)1U)
+
+#define CRC_RX_HI_BIT_POS_U8 (I2C_MESSAGE_LEN_U8 - (uint8_t)2U)
+#define CRC_RX_LO_BIT_POS_U8 (I2C_MESSAGE_LEN_U8 - (uint8_t)1U)
 
 RFID_request_status_t RFID_init(void)
 {
@@ -33,7 +38,7 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
     uint16_t crc;
     uint16_t index;
 
-    uint8_t tx_message[I2C_MESSAGE_LEN_U8];
+    uint8_t tx_message[I2C_TX_MESSAGE_LEN_U8];
     uint8_t rx_message[I2C_MESSAGE_LEN_U8];
     
     *out_data = INVALID_OUT_DATA_U8;
@@ -41,13 +46,14 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
     if(command >= RFID_INVALID)
     {
         
+        
         result = RFID_REQUEST_NOK_INVALID_COMMAND;
     }
     else
     {
         if(RFID_PING == command)
         {
-            for(index =0 ;index < I2C_MESSAGE_LEN_U8; index++)
+            for(index =0 ;index < I2C_TX_MESSAGE_LEN_U8; index++)
             {
                 tx_message[index] = (uint8_t)0x01U;
             }
@@ -57,12 +63,12 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
             tx_message[COMMAND_BIT_POS_U8] = (uint8_t)command;
             tx_message[DATA_BIT_POS_U8] = in_data;
 
-            crc = compute_crc(tx_message, I2C_MESSAGE_LEN_U8 - (uint8_t)2U);
+            crc = compute_crc(tx_message, I2C_TX_MESSAGE_LEN_U8 - (uint8_t)2U);
 
-            tx_message[CRC_HI_BIT_POS_U8] = (uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU);
-            tx_message[CRC_LO_BIT_POS_U8] = (uint8_t)(crc & (uint8_t)0xFFU);
+            tx_message[CRC_TX_HI_BIT_POS_U8] = (uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU);
+            tx_message[CRC_TX_LO_BIT_POS_U8] = (uint8_t)(crc & (uint8_t)0xFFU);
         }
-        i2c_comm_state= i2c_sendMessage(tx_message, I2C_MESSAGE_LEN_U8);
+        i2c_comm_state= i2c_sendMessage(tx_message, I2C_TX_MESSAGE_LEN_U8);
         if(STATE_NOK == i2c_comm_state)
         {
             result = RFID_REQUEST_NOK_TX_COMM_ERROR;
@@ -86,8 +92,8 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
                         if(RFID_PING != rx_message[COMMAND_BIT_POS_U8])
                         {
                             crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
-                            if((rx_message[CRC_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
-                            (rx_message[CRC_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
+                            if((rx_message[CRC_RX_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
+                            (rx_message[CRC_RX_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
                             {
                                 result = RFID_REQUEST_NOK_INVALID_CRC;
                             }

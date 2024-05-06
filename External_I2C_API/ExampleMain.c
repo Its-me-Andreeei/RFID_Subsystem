@@ -18,11 +18,11 @@ int main()
     RFID_init();
 
     //st = RFID_sendRequest(RFID_PING, 0x00, &out_data);
-    printf("%d\n", RFID_sendRequest(RFID_GET_ROUTE_START, 0x00, &out_data));
+    printf("%d\n", RFID_sendRequest(RFID_GET_TAGS_START, 0x00, &out_data));
     printf("%d\n", out_data);
     if(out_data == 0x00)
     {
-        printf("%d\n", RFID_sendRequest(RFID_GET_ROUTE_STATUS, 0x00, &out_data));
+        printf("%d\n", RFID_sendRequest(RFID_GET_GET_TAGS_INFO, 0x00, &out_data));
         printf("%d\n", out_data);
     }
 
