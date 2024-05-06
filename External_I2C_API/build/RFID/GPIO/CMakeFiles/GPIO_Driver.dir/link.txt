@@ -1,2 +1,0 @@
-/usr/bin/aarch64-linux-gnu-ar qc libGPIO_Driver.a CMakeFiles/GPIO_Driver.dir/gpio_driver.c.o
-/usr/bin/aarch64-linux-gnu-ranlib libGPIO_Driver.a

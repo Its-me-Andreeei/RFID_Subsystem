@@ -1,1 +1,0 @@
-/usr/bin/aarch64-linux-gnu-gcc -g CMakeFiles/CMAKE_PROJECT_NAME.dir/ExampleMain.c.o -o CMAKE_PROJECT_NAME 

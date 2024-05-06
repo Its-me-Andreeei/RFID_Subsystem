@@ -1,2 +1,0 @@
-/usr/bin/aarch64-linux-gnu-ar qc libI2C_Driver.a CMakeFiles/I2C_Driver.dir/i2c_driver.c.o
-/usr/bin/aarch64-linux-gnu-ranlib libI2C_Driver.a

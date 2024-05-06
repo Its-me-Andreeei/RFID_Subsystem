@@ -1,1 +1,0 @@
-/usr/bin/aarch64-linux-gnu-gcc -g CMakeFiles/Raspberry_RFID_I2C.dir/ExampleMain.c.o -o Raspberry_RFID_I2C  RFID/libRFID_Manager.a RFID/GPIO/libGPIO_Driver.a RFID/I2C/libI2C_Driver.a 
