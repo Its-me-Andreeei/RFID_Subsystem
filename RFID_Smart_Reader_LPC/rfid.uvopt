@@ -170,7 +170,7 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>wifi_passthrough_request</ItemText>
+          <ItemText>wifi_passthrough_request,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
