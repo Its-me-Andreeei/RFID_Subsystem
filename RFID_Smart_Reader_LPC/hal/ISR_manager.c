@@ -78,13 +78,13 @@ void InitInterrupt(void)
 	VICIntEnable |= (1 << TIMER0_ISR_NUM_U8) | (1 << UART1_ISR_NUM_U8) | (1 << I2C_ISR_NUM_U8) | (1 << SPI0_ISR_NUM_U8) | (1 << EINT2_ISR_NUM_U8);
 	VICIntSelect |= 1 << TIMER0_ISR_NUM_U8; /*TIMER ISR will be FIQ*/
 	
-	VICVectCntl0 = UART1_ISR_NUM_U8 			 | (1 << ISR_ENABLE_BIT);
+	VICVectCntl3 = UART1_ISR_NUM_U8 			 | (1 << ISR_ENABLE_BIT);
 	VICVectCntl1 = EINT2_ISR_NUM_U8				 | (1 << ISR_ENABLE_BIT);
 	VICVectCntl2 = SPI0_ISR_NUM_U8				 | (1 << ISR_ENABLE_BIT);
-	VICVectCntl3 = I2C_ISR_NUM_U8 	       | (1 << ISR_ENABLE_BIT);
+	VICVectCntl0 = I2C_ISR_NUM_U8 	       | (1 << ISR_ENABLE_BIT);
 	
-	VICVectAddr0 = (unsigned long int)UART1_irq;
+	VICVectAddr3 = (unsigned long int)UART1_irq;
 	VICVectAddr1 = (unsigned long int)wifi_handsake_irq;
 	VICVectAddr2 = (unsigned long int) SPI0_irq;
-	VICVectAddr3 = (unsigned long int)I2C_irq;
+	VICVectAddr0 = (unsigned long int)I2C_irq;
 }

@@ -54,6 +54,7 @@ void I2C_irq(void) __irq
 	static u8 RX_index = 0U;
 	static u8 i2c_request_pending_buffer[I2C_TX_BUFFER_SIZE_U8];
 	static u8 *ptr_buffer = i2c_request_pending_buffer;
+	static u8 tx_length = I2C_TX_BUFFER_SIZE_U8; /*This will be either 100 either 4 (if it is a ping signal*/
 	
 	#define CLEAR_ISR_BIT_U8 ((u8)3U)
 	#define I2C_ACK_BIT_U8 ((u8)2U)
@@ -95,10 +96,12 @@ void I2C_irq(void) __irq
 				No Manager should be involved as it is only used to check communication, with instant response*/
 				if(i2c_buffer_rx[I2C_COMMAND_BIT_POS_U8] == I2C_REQUEST_PING)
 				{
+					tx_length = I2C_PING_SIZE_U8;
 					(void)memset(i2c_request_pending_buffer, I2C_REQUEST_PING, I2C_PING_SIZE_U8);
 				}
 				else
 				{
+					tx_length = I2C_TX_BUFFER_SIZE_U8;
 					i2c_request_pending_buffer[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
 					i2c_buffer_tx[I2C_COMMAND_BIT_POS_U8] = RX_data_byte;
 					
@@ -150,12 +153,12 @@ void I2C_irq(void) __irq
 			break;
 		
 		case SLAVE_TX_DATA_READY:
-			if(TX_index < I2C_TX_BUFFER_SIZE_U8)
+			if(TX_index < tx_length)
 			{
 				I2DAT = ptr_buffer[TX_index];
 				
 				/*If there is only 1 byte left, mark Last Byte and send*/
-				if(TX_index < (I2C_TX_BUFFER_SIZE_U8 - 1))
+				if(TX_index < (tx_length - 1))
 				{
 					I2CONSET = ((u8)1U << I2C_ACK_BIT_U8);
 					TX_index ++;
