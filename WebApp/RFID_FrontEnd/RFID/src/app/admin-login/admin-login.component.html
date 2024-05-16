@@ -1,0 +1,27 @@
+<div class="center-content">
+
+  <div class="login">
+    <mat-label>LOGIN</mat-label>
+  </div>
+  <form (ngSubmit) = "onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)] = "admin.name" name="username" matInput [required]="true" placeholder="your username ...">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter the password</mat-label>
+        <input [(ngModel)] = "admin.password" name="password" placeholder="Enter password" [required]="true" matInput [type]="hide ? 'password' : 'text'">
+        <button type="button" matTooltip="Hide/Unhide your password" mat-icon-button matSuffix  (click)="hide = !hide" >
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <br>
+    </div>
+    <button type="submit" mat-raised-button matSuffix matTooltip="Send your credentials now..." color="primary">Login</button>
+    <button type="button" mat-raised-button color="primary" matTooltip="Don't you have an account? Create one now.." (click)="goToRegisteration()">Registration</button>
+  </form>
+
+</div>

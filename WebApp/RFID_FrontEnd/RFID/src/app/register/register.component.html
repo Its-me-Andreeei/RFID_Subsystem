@@ -1,0 +1,37 @@
+<div class="center-content">
+
+  <div class="login">
+    <mat-label>REGISTER</mat-label>
+  </div>
+  <form (ngSubmit) = "onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input [(ngModel)] = "admin.name" name="username" matInput [required]="true" placeholder="your username ...">
+      <mat-icon matSuffix>email</mat-icon>
+    </mat-form-field>
+
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter the password</mat-label>
+        <input [(ngModel)] = "admin.password" name="password" placeholder="Enter password" [required]="true" matInput [type]="hide ? 'password' : 'text'">
+        <button type="button" matTooltip="Hide/Unhide your password" mat-icon-button matSuffix  (click)="hide = !hide" >
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm the password</mat-label>
+        <input [(ngModel)] = "this.confirmedPassword" name="confirmedPassword" placeholder="Confirm password" [required]="true" matInput [type]="hide ? 'password' : 'text'">
+        <button type="button" matTooltip="Hide/Unhide your password" mat-icon-button matSuffix  (click)="hide = !hide" >
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility_on'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <div>
+      <button type="submit" mat-raised-button matSuffix matTooltip="Send your credentials now..." color="primary">Register Now</button>
+      <button type="button" mat-raised-button matSuffix routerLink="/login" matTooltip="Return back to login page..." color="primary">Back to Login</button>
+    </div>
+  </form>
+
+</div>
