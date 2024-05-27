@@ -1,7 +1,7 @@
 #ifndef __LP_MODE_MANAGER_H
 #define __LP_MODE_MANAGER_H
 
-#include <stdbool.h>
+#include "../../PlatformTypes.h"
 
 typedef enum functionality_t
 {

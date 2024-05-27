@@ -1,8 +1,7 @@
 #ifndef __WIFI_UTILS_H
 #define __WIFI_UTILS_H
 
-#include <stdint.h>
-#include <stdbool.h>
+#include "../../PlatformTypes.h"
 
 typedef enum command_frame_status_t
 {
@@ -12,16 +11,16 @@ typedef enum command_frame_status_t
 
 typedef struct AT_response_st
 {
-	uint8_t response[100];
-	uint16_t response_length;
+	u8 response[100];
+	u16 response_length;
 }AT_response_st;
 
 typedef struct AT_Command_st
 {
-	uint8_t at_command_name[50];
-	uint16_t at_command_length;
+	u8 at_command_name[50];
+	u16 at_command_length;
 	
-	uint8_t number_of_responses;
+	u8 number_of_responses;
 	
 }AT_Command_st;
 

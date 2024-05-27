@@ -1,6 +1,5 @@
 #include "uart1.h"
 #include <lpc22xx.h>
-#include <stdint.h>
 #include "../utils/ringbuf.h"
 #include "ISR_manager.h"
 #include <stdio.h>
@@ -10,7 +9,7 @@
 static timer_software_handler_t timer_TX_RX;
 
 /*This counter is incremented whenever a communication error occours*/
-static uint8_t commErrors = 0;
+static u8 commErrors = 0;
 
 /*************************************************************************************************************************************************
 	Function: 		UART1_Init
@@ -41,7 +40,7 @@ void UART1_Init(void)
 	Return value: The number of Communication errors
 
 *************************************************************************************************************************************************/
-uint8_t UART1_get_CommErrors(void)
+u8 UART1_get_CommErrors(void)
 {
 	return commErrors;
 }
@@ -53,7 +52,7 @@ uint8_t UART1_get_CommErrors(void)
 	Return value: The sent byte
 
 *************************************************************************************************************************************************/
-uint8_t UART1_sendchar(uint8_t ch)
+u8 UART1_sendchar(u8 ch)
 {
 	while (!(U1LSR & 0x20));
 	return (U1THR = ch);
@@ -62,13 +61,13 @@ uint8_t UART1_sendchar(uint8_t ch)
 static UART_TX_RX_Status_en check_communication_errors(void)
 {
 	/*This macros are local in order to reduce their scope. They are only used in this function for the moment*/
-	#define RXFE ((uint8_t)7U) /*Error in Rx FIFO*/
+	#define RXFE ((u8)7U) /*Error in Rx FIFO*/
 	
-	uint8_t error_status = (uint8_t)0U;
+	u8 error_status = (u8)0U;
 	UART_TX_RX_Status_en result;
 	
-	error_status = (uint8_t)U1LSR;
-	if((error_status & ((uint8_t)1 << RXFE)) != (uint8_t)0U)
+	error_status = (u8)U1LSR;
+	if((error_status & ((u8)1 << RXFE)) != (u8)0U)
 	{
 		commErrors++;
 		result = COMMUNICATION_ERROR;
@@ -93,12 +92,12 @@ static UART_TX_RX_Status_en check_communication_errors(void)
 							RETURN_OK = Success in trasmission: all bytes sent within timeout, no communication errors
 							TIMEOUT_ERROR = Transmission was not send within given timeout. Check if BAUD or timeout is configured OK
 *******************************************************************************************************************************************************************/
-UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size, const uint32_t timeoutMs)
+UART_TX_RX_Status_en UART1_sendbuffer(const u8 *buffer, const u32 size, const u32 timeoutMs)
 {
-	uint32_t txBufferIndex = 0x000000;
+	u32 txBufferIndex = 0x000000;
 	UART_TX_RX_Status_en result = RETURN_OK;
 	#ifdef UART1_DBG
-	uint16_t i_dbg = 0;
+	u16 i_dbg = 0;
 	#endif /*UART1_DBG*/
 	
 	#ifdef UART1_DBG
@@ -159,15 +158,15 @@ UART_TX_RX_Status_en UART1_sendbuffer(const uint8_t *buffer, const uint32_t size
 *************************************************************************************************************************************************/
 UART_TX_RX_Status_en UART1_send_reveice_PING(void)
 {
-	#define PING_SIZE ((uint8_t)5U)
-	#define PING_RESPONSE_SIZE ((uint8_t)27U)
+	#define PING_SIZE ((u8)5U)
+	#define PING_RESPONSE_SIZE ((u8)27U)
 	
-	const uint8_t PING[PING_SIZE] = {(uint8_t)0xFFU, (uint8_t)0x00U, (uint8_t)0x03U, (uint8_t)0x1DU, (uint8_t)0x0CU};
-	uint8_t actual_response[PING_RESPONSE_SIZE];
-	uint16_t actual_response_index = (uint16_t)0x0000U;
+	const u8 PING[PING_SIZE] = {(u8)0xFFU, (u8)0x00U, (u8)0x03U, (u8)0x1DU, (u8)0x0CU};
+	u8 actual_response[PING_RESPONSE_SIZE];
+	u16 actual_response_index = (u16)0x0000U;
 	UART_TX_RX_Status_en result = RETURN_OK;
 	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
-	uint16_t loop_index = 0x0000;
+	u16 loop_index = 0x0000;
 	
 	/*Make sure receiver buffer is empty*/
 	UART1_flush();
@@ -206,11 +205,11 @@ UART_TX_RX_Status_en UART1_send_reveice_PING(void)
 	if(actual_response_index == PING_RESPONSE_SIZE)
 	{
 		/*Check for meaningful bytes only (including CRC for optimized speed*/
-		if((actual_response[0] == (uint8_t)0xFF) && 
-			(actual_response[1] == (uint8_t)0x14) && 
-			(actual_response[2] == (uint8_t)0x03) && 
-			(actual_response[PING_RESPONSE_SIZE-2] == (uint8_t)0x79)  && 
-			(actual_response[PING_RESPONSE_SIZE-1] == (uint8_t)0x62) )
+		if((actual_response[0] == (u8)0xFF) && 
+			(actual_response[1] == (u8)0x14) && 
+			(actual_response[2] == (u8)0x03) && 
+			(actual_response[PING_RESPONSE_SIZE-2] == (u8)0x79)  && 
+			(actual_response[PING_RESPONSE_SIZE-1] == (u8)0x62) )
 		{
 			result = RETURN_OK;
 		}
@@ -257,14 +256,14 @@ UART_TX_RX_Status_en UART1_send_reveice_PING(void)
 							TIMEOUT_ERROR = The buffer was not transmitted wihin TimeoutMS
 							COMMUNICATION_ERROR = There was a HW communication issue
 *************************************************************************************************************************************************/
-UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLength, uint32_t* actualLength, const uint32_t timeoutMs)
+UART_TX_RX_Status_en UART1_receivebuffer(u8* message, u32 expectedLength, u32* actualLength, const u32 timeoutMs)
 {
 	UART_TX_RX_Status_en result = RETURN_OK; 
 	UART_TX_RX_Status_en comm_error_result = RETURN_OK;
-	uint16_t ringBuffLength;
-	uint8_t index = (uint8_t)0U;
+	u16 ringBuffLength;
+	u8 index = (u8)0U;
 	#ifdef UART1_DBG
-	uint16_t index_dbg = 0x0000;
+	u16 index_dbg = 0x0000;
 	#endif /*UART1_DBG*/
 	
 	TIMER_SOFTWARE_reset_timer(timer_TX_RX);
@@ -273,7 +272,7 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 	TIMER_SOFTWARE_configure_timer(timer_TX_RX, MODE_0, timeoutMs, 1);
 	TIMER_SOFTWARE_start_timer(timer_TX_RX);
 	
-	while(TIMER_SOFTWARE_interrupt_pending(timer_TX_RX) == (uint8_t)0x00U)
+	while(TIMER_SOFTWARE_interrupt_pending(timer_TX_RX) == (u8)0x00U)
 	{
 		ringBuffLength = RingBufUsed(&uart1_ringbuff_rx);
 		
@@ -354,9 +353,9 @@ UART_TX_RX_Status_en UART1_receivebuffer(uint8_t* message, uint32_t expectedLeng
 							TRUE = Flush operation was successfull
 							FALSE = Flush operation failed
 *************************************************************************************************************************************************/
-bool_t UART1_flush(void)
+bool UART1_flush(void)
 {
-	bool_t result;
+	bool result;
 
 	RingBufFlush(&uart1_ringbuff_rx);
 	

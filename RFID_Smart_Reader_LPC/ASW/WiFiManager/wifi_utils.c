@@ -5,11 +5,9 @@
 #include <string.h>
 
 #include "./../../utils/timer_software.h"
-#include "./wifi_Manager.h"
 #include "./wifi_utils.h"
 #include "./wifi_handsake_ISR.h"
 #include "./../../hal/spi.h"
-#include "../../PlatformTypes.h"
 
 #define ESP_HANDSAKE_GPIO_PIN_NUM_U8 ((u8)13U)
 

@@ -1,11 +1,9 @@
 #ifndef __I2C_H
 #define __I2C_H
 
-#include <stdint.h>
-#include <stdbool.h>
 #include "../PlatformTypes.h"
 
-#define I2C_SLAVE_ADDR ((uint8_t)0x08U)
+#define I2C_SLAVE_ADDR ((u8)0x08U)
 
 typedef enum i2c_requests_t
 {

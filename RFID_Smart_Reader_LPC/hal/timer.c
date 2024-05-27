@@ -1,6 +1,5 @@
 #include <lpc22xx.h>
 #include "timer.h"
-#include "../utils/timer_software.h"
 
 void TIMER_Init()
 {

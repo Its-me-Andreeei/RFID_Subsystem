@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
 
 #include "i2c.h"
 #include <lpc22xx.h>
 #include "i2c_ISR.h"
 #include "../utils/crc.h"
-#include "../PlatformTypes.h"
 
 #define I2C_RX_BUFFER_SIZE_U8 ((u8)4U)
 #define I2C_TX_BUFFER_SIZE_U8 ((u8)100U)

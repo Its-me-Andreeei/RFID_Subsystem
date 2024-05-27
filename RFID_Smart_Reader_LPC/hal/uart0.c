@@ -12,10 +12,10 @@
 void UART0_Init()
 {
   PINSEL0 |= 0x00000005;           
-  U0LCR = (uint8_t)0x83U;                   
-  U0DLL = (uint8_t)1U;    // BAUD = 921600 bps (max)
-  U0LCR = (uint8_t)0x03U;
-  U0FCR = (uint8_t)0x01U;	// fifo enable
+  U0LCR = (u8)0x83U;                   
+  U0DLL = (u8)1U;    // BAUD = 921600 bps (max)
+  U0LCR = (u8)0x03U;
+  U0FCR = (u8)0x01U;	// fifo enable
 }
 
 /*************************************************************************************************************************************************
@@ -25,9 +25,9 @@ void UART0_Init()
 	Return value:	characher to be send over UART0
 							
 *************************************************************************************************************************************************/
-uint8_t UART0_sendchar(uint8_t ch)
+u8 UART0_sendchar(u8 ch)
 {
-	while (!((uint8_t)U0LSR & (uint8_t)0x20));
+	while (!((u8)U0LSR & (u8)0x20));
 	return (U0THR = ch);
 }
 

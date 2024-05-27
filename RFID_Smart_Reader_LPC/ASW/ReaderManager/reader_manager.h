@@ -1,6 +1,5 @@
 #ifndef __READER_MANAGER_H
 #define __READER_MANAGER_H
-#include "../../mercuryapi-1.37.1.44/c/src/api/tm_reader.h"
 #include "../../PlatformTypes.h"
 
 #define STATUS_NO_ON_ROUTE_TIMEOUT 3000

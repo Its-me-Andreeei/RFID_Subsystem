@@ -1,16 +1,12 @@
 #include <lpc22xx.h>
-#include <stdint.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
 
 #include "./../../utils/timer_software.h"
 #include "./wifi_Manager.h"
 #include "./wifi_utils.h"
-#include "./../../hal/spi.h"
 #include "./../LP_Mode_Manager/LP_Mode_Manager.h"
 #include "./../ReaderManager/reader_manager.h"
-#include "../../PlatformTypes.h"
 
 #define ESP_RESET_PIN_NUM_U8 ((u8)25U)
 #define ESP_INIT_RETRIES_NUM_U8 ((u8)3U)

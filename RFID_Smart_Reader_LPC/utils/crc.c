@@ -1,6 +1,6 @@
 #include "crc.h"
 
-static const  uint16_t crctable[16] = 
+static const  u16 crctable[16] = 
 {
   0x0000, 0x1021, 0x2042, 0x3063,
   0x4084, 0x50a5, 0x60c6, 0x70e7,
@@ -8,9 +8,9 @@ static const  uint16_t crctable[16] =
   0xc18c, 0xd1ad, 0xe1ce, 0xf1ef,
 };
 
-uint16_t compute_crc(const uint8_t *u8Buf, const uint8_t len)
+u16 compute_crc(const u8 *u8Buf, const u8 len)
 {
-  uint16_t crc;
+  u16 crc;
   int i;
 
   crc = 0xffff;

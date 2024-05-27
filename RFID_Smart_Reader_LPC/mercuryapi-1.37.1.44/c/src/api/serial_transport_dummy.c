@@ -137,7 +137,7 @@ static TMR_Status s_flush(TMR_SR_SerialTransport *this)
    * nothing.
    */
 	
-	return ((UART1_flush() == TRUE) ? TMR_SUCCESS : TMR_ERROR_INVALID);
+	return ((UART1_flush() == true) ? TMR_SUCCESS : TMR_ERROR_INVALID);
 }
 
 

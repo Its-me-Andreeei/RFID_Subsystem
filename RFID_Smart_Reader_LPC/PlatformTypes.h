@@ -2,6 +2,7 @@
 #define __PLATFORMTYPES_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef enum state_t
 {

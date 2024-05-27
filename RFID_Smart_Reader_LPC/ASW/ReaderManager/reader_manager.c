@@ -1,8 +1,6 @@
 #include "reader_manager.h"
 #include <LPC22xx.h>
-#include <stdint.h>
 #include <string.h>
-#include <stdbool.h>
 #include <stdio.h>
 
 #include "../../utils/timer_software.h"
@@ -11,7 +9,6 @@
 #include "../../hal/uart1.h"
 #include "../LP_Mode_Manager/LP_Mode_Manager.h"
 #include "../WiFiManager/wifi_manager.h"
-#include "../../PlatformTypes.h"
 
 #ifndef NULL
 #define NULL ((void*) 0)
@@ -219,10 +216,10 @@ bool Reader_SET_read_request(bool request)
 	Return value:	TRUE = Communication is recovered
 								FALSE = Permament failure state - Communication was not recovered after 4 complete sequences. No ping responses
 *************************************************************************************************************************************************/
-static bool_t reader_recovery()
+static bool reader_recovery()
 {
 	uint8_t recovery_sequence_counter = NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8;
-	uint8_t result = FALSE;
+	uint8_t result = false;
 	UART_TX_RX_Status_en ping_result = RETURN_NOK;
 	uint8_t index;
 	uint8_t number_of_correct_pings = (uint8_t)0x00;
@@ -231,7 +228,7 @@ static bool_t reader_recovery()
 	printf("---------chip recovery----\n");
 	#endif /*UART1_DBG*/
 	
-	while((recovery_sequence_counter > (uint8_t)0U) && (result == FALSE))
+	while((recovery_sequence_counter > (uint8_t)0U) && (result == false))
 	{
 		/*Reset number of correct ping results after each retry*/
 		number_of_correct_pings = (uint8_t) 0x00;
@@ -257,13 +254,13 @@ static bool_t reader_recovery()
 		/*If there are correct responses to ping, we can end the sequence*/
 		if((uint8_t)0x00 != number_of_correct_pings)
 		{
-			result = TRUE;
+			result = true;
 			break;
 		}
 		else
 		{
 			/*This assignment is added for robustness. 'result' is initially set to FALSE anyways*/
-			result = FALSE;
+			result = false;
 		}
 		
 		/*Guard sequence counter in order to not reach underflow*/
