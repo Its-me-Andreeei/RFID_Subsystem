@@ -58,9 +58,10 @@ static void ConfigInit(void)
 	const TMR_TagProtocol protocol = TMR_TAG_PROTOCOL_GEN2;
 	TMR_TRD_MetadataFlag metadata = (uint16_t)(TMR_TRD_METADATA_FLAG_ALL & (~TMR_TRD_METADATA_FLAG_TAGTYPE));
 	bool readFilter = false;
-	uint16_t asyncOnTime= (uint16_t) 1000; /*Time in ms*/
-	uint16_t asyncOffTime= (uint16_t) 1000; /*Time in ms*/
-	
+	uint16_t asyncOnTime= (uint16_t) 900; /*Time in ms*/
+	uint16_t asyncOffTime= (uint16_t) 700; /*Time in ms*/
+  int32_t write_power = 0;
+	int32_t read_power = 2700; /*Unit: centi-dBm*/
 	(void)TMR_connect(&reader);
 	
 	(void)TMR_paramSet(&reader, TMR_PARAM_REGION_ID, &region);
@@ -75,6 +76,10 @@ static void ConfigInit(void)
 	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCONTIME, &asyncOnTime);
 	
 	(void)TMR_paramSet(&reader, TMR_PARAM_READ_ASYNCOFFTIME, &asyncOffTime);
+	
+	(void)TMR_paramSet(&reader, TMR_PARAM_RADIO_WRITEPOWER, &write_power);
+	
+	(void)TMR_paramSet(&reader, TMR_PARAM_RADIO_READPOWER, &read_power);
 }
 
 /*************************************************************************************************************************************************

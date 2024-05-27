@@ -25,7 +25,6 @@ void ReaderManagerInit(void);
 void Reader_HW_Reset(void);
 void Reader_Manager(void);
 
-void Reader_Set_Read_Request(bool value);
 ReaderRequest_t Reader_GET_request_status(void);
 bool Reader_SET_read_request(bool request);
 bool Reader_GET_internal_failure_status(void);

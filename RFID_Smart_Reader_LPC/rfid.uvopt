@@ -591,7 +591,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>25</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ASW\ReaderManager\reader_manager.c</PathWithFileName>
@@ -603,7 +603,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>26</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ASW\LP_Mode_Manager\LP_Mode_Manager.c</PathWithFileName>
