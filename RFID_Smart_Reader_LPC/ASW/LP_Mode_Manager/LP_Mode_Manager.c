@@ -3,7 +3,7 @@
 
 #include "LP_Mode_Manager.h"
 
-static u8 stayAwakeReasonFlag = 0x00;
+static volatile u8 stayAwakeReasonFlag = 0x00;
 static u8 initDoneFlag = 0x00;
 
 void LP_Set_StayAwake(functionality_t functionality, bool value)
@@ -101,6 +101,7 @@ void LP_Mode_Manager(void)
 		printf("Entered LP\n");
 		/*Go to Idle State*/
 		PCON = (u8)0x01;
+		//while(stayAwakeReasonFlag==0);
 		enable_Timer0();
 		
 		printf("Exit LP\n");

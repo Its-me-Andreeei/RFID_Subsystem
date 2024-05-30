@@ -99,6 +99,7 @@ void HostComm_Manager(void)
 	i2c_requests_t command;
 	i2c_command_status_t command_status;
 	i2c_data_ready_t RX_data_available_en;
+	bool i2c_inProgress;
 	
 	RX_data_available_en = i2c_get_RX_ready_status();
 	
@@ -126,10 +127,27 @@ void HostComm_Manager(void)
 			i2c_set_response_ready_status(DATA_READY); 
 		}
 		
-		/*This manager finished it's task for now, can sleep*/
-		LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, false);
-		
+		/*Only reset stayAwake flag if i2c comm is not in progress*/
+		i2c_inProgress = i2c_get_request_stayAwake();
+		if(false == i2c_inProgress)
+		{
+			/*This manager finished it's task for now, can sleep*/
+			LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, false);
+		}
 		/*Open to new RX transmission*/
 		i2c_set_RX_ready_status(DATA_NOT_READY);
+	}
+	else
+	{
+		i2c_inProgress = i2c_get_request_stayAwake();
+		/*If we are in process of receiving I2C new request, but we have not achieved all bytes yet, still keep alive until transmission ends*/
+		if(true == i2c_inProgress)
+		{
+			LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, true);
+		}
+		else
+		{
+			LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, false);
+		}
 	}
 }

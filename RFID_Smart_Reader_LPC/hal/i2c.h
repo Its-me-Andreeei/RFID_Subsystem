@@ -56,4 +56,5 @@ i2c_data_ready_t i2c_get_RX_ready_status(void);
 void i2c_set_response_ready_status(i2c_data_ready_t data_status);
 void i2c_set_RX_ready_status(i2c_data_ready_t data_status);
 bool i2c_check_CRC_after_RX_finish(void);
+bool i2c_get_request_stayAwake(void);
 #endif

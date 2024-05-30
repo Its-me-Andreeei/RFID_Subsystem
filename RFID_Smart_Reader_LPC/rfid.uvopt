@@ -160,7 +160,56 @@
           <Name>UL2ARM(-U40296420 -O7 -C0 -FO7 -FD40000000 -FC800 -FN1 -FF0LPC_IAP_256 -FS00 -FL01E000)</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>20</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>5492</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\ASW\HostCommManager\HostCommManager.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\rfid\ASW/HostCommManager/HostCommManager.c\20</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>183</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>6680</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\hal\i2c.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>2</Number>
+          <Type>0</Type>
+          <LineNumber>105</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>6136</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\hal\i2c.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -205,7 +254,27 @@
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>responses[1]</ItemText>
+          <ItemText>(tx_tmp_crc &gt;&gt; 8) &amp; 0xFF</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>tx_tmp_crc &amp; 0xFF</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>tx_tmp_crc</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>i2c_request_pending_buffer[(((u8)100U) - (u8)2U)]</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>i2c_request_pending_buffer[(((u8)100U) - (u8)2U)]</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>
@@ -307,7 +376,7 @@
 
   <Group>
     <GroupName>Utils</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -443,7 +512,7 @@
 
   <Group>
     <GroupName>MercuryAPI</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -591,7 +660,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>25</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ASW\ReaderManager\reader_manager.c</PathWithFileName>
@@ -615,7 +684,7 @@
       <GroupNumber>5</GroupNumber>
       <FileNumber>27</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>.\ASW\WiFiManager\wifi_manager.c</PathWithFileName>

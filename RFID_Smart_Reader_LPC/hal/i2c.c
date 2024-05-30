@@ -28,6 +28,7 @@ static u8 i2c_buffer_rx[I2C_RX_BUFFER_SIZE_U8];
 
 static volatile i2c_data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile i2c_data_ready_t RX_data_available_en = DATA_NOT_READY;
+static volatile bool i2c_request_stayAwake;
 
 void I2C_init(void)
 {
@@ -71,6 +72,7 @@ void I2C_irq(void) __irq
 	switch((u8)I2STAT)
 	{
 		case SLAVE_RX_START_ADDRESSING:
+				i2c_request_stayAwake = true;
 				RX_index = 0;
 				response_ready_en = DATA_NOT_READY;
 				I2CONSET = (1 << I2C_ACK_BIT_U8);
@@ -108,7 +110,7 @@ void I2C_irq(void) __irq
 					memset(i2c_buffer_tx + (I2C_STATUS_BIT_POS_U8 + 1), 0xFF, I2C_TX_BUFFER_SIZE_U8 - (I2C_STATUS_BIT_POS_U8 + 1));
 					tx_tmp_crc = compute_crc(i2c_request_pending_buffer, I2C_TX_BUFFER_SIZE_U8-2);
 					i2c_request_pending_buffer[I2C_TX_CRC_HI_BIT_POS_U8] = (tx_tmp_crc >> 8) & 0xFF;
-					i2c_request_pending_buffer[I2C_TX_CRC_HI_BIT_POS_U8] = tx_tmp_crc & 0xFF;
+					i2c_request_pending_buffer[I2C_TX_CRC_LO_BIT_POS_U8] = tx_tmp_crc & 0xFF;
 					ptr_buffer = i2c_request_pending_buffer;
 				}
 				
@@ -120,12 +122,16 @@ void I2C_irq(void) __irq
 			break;
 			
 		case SLAVE_RX_STOP_CONDITION:
+			i2c_request_stayAwake = false;
 			I2CONSET = ((u8)1U << I2C_ACK_BIT_U8); 
 			break;
 			
 		case SLAVE_TX_START_ADDRESSING:
 			TX_index = 0;
-			
+		
+			/*Tell the high-level logic that TX is in progress, in order to not remove stayAwake flag*/
+			i2c_request_stayAwake = true;
+		
 			if(I2C_REQUEST_PING == i2c_buffer_rx[I2C_COMMAND_BIT_POS_U8])
 			{
 				RX_data_available_en = DATA_NOT_READY;
@@ -174,12 +180,13 @@ void I2C_irq(void) __irq
 			break;
 			
 		case SLAVE_TX_DATA_NACK:
-			
+			i2c_request_stayAwake = false;
 			/*Open to another message exchange session*/
 			I2CONSET = ((u8)1U << I2C_ACK_BIT_U8);
 	 		break;
 			
 		case SLAVE_TX_LAST_BYTE:
+			i2c_request_stayAwake = false;
 			/*Open to another message exchange session*/
 			I2CONSET = ((u8)1U << I2C_ACK_BIT_U8);
 			break;
@@ -258,4 +265,9 @@ bool i2c_check_CRC_after_RX_finish(void)
 	}
 	
 	return result;
+}
+
+bool i2c_get_request_stayAwake(void)
+{
+	return i2c_request_stayAwake;
 }

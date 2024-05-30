@@ -55,8 +55,8 @@ static void ConfigInit(void)
 	const TMR_TagProtocol protocol = TMR_TAG_PROTOCOL_GEN2;
 	TMR_TRD_MetadataFlag metadata = (uint16_t)(TMR_TRD_METADATA_FLAG_ALL & (~TMR_TRD_METADATA_FLAG_TAGTYPE));
 	bool readFilter = false;
-	uint16_t asyncOnTime= (uint16_t) 900; /*Time in ms*/
-	uint16_t asyncOffTime= (uint16_t) 700; /*Time in ms*/
+	uint16_t asyncOnTime= (uint16_t) 800; /*Time in ms*/
+	uint16_t asyncOffTime= (uint16_t) 800; /*Time in ms*/
   int32_t write_power = 0;
 	int32_t read_power = 2700; /*Unit: centi-dBm*/
 	(void)TMR_connect(&reader);
@@ -400,6 +400,7 @@ void Reader_Manager(void)
 		case START_READING:
 			(void)TMR_startReading(&reader);
 			TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+			TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
 			TIMER_SOFTWARE_start_timer(timer_route_status_and_panic);
 			current_state_en = GET_TAGS;
 			break;

@@ -1,4 +1,5 @@
 #include "crc.h"
+#include <stdio.h>
 
 static const  u16 crctable[16] = 
 {
