@@ -99,12 +99,13 @@ void HostComm_Manager(void)
 	i2c_requests_t command;
 	i2c_command_status_t command_status;
 	i2c_data_ready_t RX_data_available_en;
+	static bool request_not_finished = false;
 	bool i2c_inProgress;
 	
 	RX_data_available_en = i2c_get_RX_ready_status();
 	
 	/*If data aquisition is ready ( we received a full frame)*/
-	if(DATA_READY == RX_data_available_en)
+	if((DATA_READY == RX_data_available_en) || (request_not_finished == true))
 	{
 		LP_Set_StayAwake(FUNC_HOST_COMM_MANAGER, true);
 		/*Compute CRC on length-2 bytes (all bytes except CRC from host, to see if they match*/
@@ -122,9 +123,18 @@ void HostComm_Manager(void)
 			command = i2c_get_command();
 			command_status = HostComm_decode_requests(command);
 			i2c_set_command_status(command_status);
-			
+			if(command_status == I2C_STATE_PENDING)
+			{
+				i2c_set_response_ready_status(DATA_NOT_READY);
+				request_not_finished = true;
+			}
+			else
+			{
+				i2c_set_response_ready_status(DATA_READY); 
+				request_not_finished = false;
+			}
 			/*send response to host*/
-			i2c_set_response_ready_status(DATA_READY); 
+			
 		}
 		
 		/*Only reset stayAwake flag if i2c comm is not in progress*/

@@ -21,14 +21,13 @@
 #define I2C_RX_CRC_HI_BIT_POS_U8 (I2C_RX_BUFFER_SIZE_U8 - (u8)2U)
 #define I2C_RX_CRC_LO_BIT_POS_U8 (I2C_RX_BUFFER_SIZE_U8 - (u8)1U)
 
-
-
 static u8 i2c_buffer_tx[I2C_TX_BUFFER_SIZE_U8];
 static u8 i2c_buffer_rx[I2C_RX_BUFFER_SIZE_U8];
 
 static volatile i2c_data_ready_t response_ready_en = DATA_NOT_READY;
 static volatile i2c_data_ready_t RX_data_available_en = DATA_NOT_READY;
 static volatile bool i2c_request_stayAwake;
+
 
 void I2C_init(void)
 {
@@ -68,7 +67,7 @@ void I2C_irq(void) __irq
 	#define SLAVE_TX_LAST_BYTE ((u8)0xC8U)
 	
 	#define I2C_ACK_BIT_U8 ((u8)2U)
-	
+
 	switch((u8)I2STAT)
 	{
 		case SLAVE_RX_START_ADDRESSING:
@@ -123,15 +122,6 @@ void I2C_irq(void) __irq
 			
 		case SLAVE_RX_STOP_CONDITION:
 			i2c_request_stayAwake = false;
-			I2CONSET = ((u8)1U << I2C_ACK_BIT_U8); 
-			break;
-			
-		case SLAVE_TX_START_ADDRESSING:
-			TX_index = 0;
-		
-			/*Tell the high-level logic that TX is in progress, in order to not remove stayAwake flag*/
-			i2c_request_stayAwake = true;
-		
 			if(I2C_REQUEST_PING == i2c_buffer_rx[I2C_COMMAND_BIT_POS_U8])
 			{
 				RX_data_available_en = DATA_NOT_READY;
@@ -140,6 +130,14 @@ void I2C_irq(void) __irq
 			{
 				RX_data_available_en = DATA_READY;
 			}
+			I2CONSET = ((u8)1U << I2C_ACK_BIT_U8); 
+			break;
+			
+		case SLAVE_TX_START_ADDRESSING:
+			TX_index = 0;
+		
+			/*Tell the high-level logic that TX is in progress, in order to not remove stayAwake flag*/
+			i2c_request_stayAwake = true;
 		
  			if(DATA_READY == response_ready_en)
 			{
