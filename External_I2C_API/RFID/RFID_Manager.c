@@ -34,6 +34,7 @@ typedef enum RFID_command_t
 }RFID_command_t;
 
 static uint8_t rx_message[I2C_MESSAGE_LEN_U8];
+static uint8_t tx_message[I2C_TX_MESSAGE_LEN_U8];
 
 RFID_request_status_t RFID_init(void)
 {
@@ -41,7 +42,7 @@ RFID_request_status_t RFID_init(void)
     i2c_init();
 }
 
-RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8_t in_data, uint8_t* const status)
+static RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8_t in_data)
 {
 
     #define I2C_RX_REQUEST_SUCCESS ((uint8_t)0x00U)
@@ -53,11 +54,6 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
     i2c_state_t i2c_comm_state;
     uint16_t crc;
     uint16_t index;
-
-    uint8_t tx_message[I2C_TX_MESSAGE_LEN_U8];
-    
-    
-    *status = INVALID_OUT_DATA_U8;
 
     if(command >= RFID_INVALID)
     {
@@ -91,71 +87,71 @@ RFID_request_status_t RFID_sendRequest(const RFID_command_t command, const uint8
         }
         else
         {
-            do{
-                if(RFID_PING == command)
+            if(RFID_PING == command)
+            {
+                i2c_comm_state = i2c_receiveMessage(rx_message, I2C_RX_PING_RESPONSE_SIZE_U8); 
+                result = RFID_REQUEST_OK;
+                for(index = 0; index < I2C_RX_PING_RESPONSE_SIZE_U8; index++)
                 {
-                   i2c_comm_state = i2c_receiveMessage(rx_message, I2C_RX_PING_RESPONSE_SIZE_U8); 
-                }
-                else
-                {
-                    i2c_comm_state = i2c_receiveMessage(rx_message, I2C_MESSAGE_LEN_U8);
-                }
-
-                if(STATE_NOK == i2c_comm_state)
-                {
-                    result = RFID_REQUEST_NOK_RX_COMM_ERROR;
-                }
-                else
-                {
-                    if(rx_message[COMMAND_BIT_POS_U8] != tx_message[COMMAND_BIT_POS_U8])
+                    if((uint8_t)0x01U != rx_message[index])
                     {
                         result = RFID_REQUEST_NOK_RX_COMM_ERROR;
                     }
-                    else
-                    {
-                        if(RFID_PING != rx_message[COMMAND_BIT_POS_U8])
-                        {
-                            crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
-                            if((rx_message[CRC_RX_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
-                            (rx_message[CRC_RX_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
-                            {
-                                result = RFID_REQUEST_NOK_INVALID_CRC;
-                            }
-                            else
-                            {
-                                if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
-                                {
-                                    result = RFID_REQUEST_PENDING;
-                                }
-                                else
-                                {
-                                    *status = rx_message[DATA_BIT_POS_U8];
-                                    result = RFID_REQUEST_OK;
-                                }
-                            }
-                        }
-                        else /*If it's a ping signal*/
-                        {
-                            result = RFID_REQUEST_OK;
-                            for(index = 0; index < I2C_RX_PING_RESPONSE_SIZE_U8; index++)
-                            {
-                                if((uint8_t)0x01U != rx_message[index])
-                                {
-                                    result = RFID_REQUEST_NOK_RX_COMM_ERROR;
-                                }
-                            }
-                            *status = INVALID_OUT_DATA_U8;       
-                        }
-                    }
                 }
-            }while(i2c_comm_state == RFID_REQUEST_PENDING);
+            }                  
         }
     }
 
     return result;
 }
 
-RFID_request_status_t RFID_get_Rooms(RFID_Tag_Information *out_tag_info_ptr)
+static RFID_request_status_t  RFID_receiveResponse(const RFID_command_t command, uint8_t* const status)
+{
+    i2c_state_t i2c_comm_state;
+    RFID_request_status_t result;
+    uint16_t crc;
+
+    i2c_comm_state = i2c_receiveMessage(rx_message, I2C_MESSAGE_LEN_U8);
+
+    if(STATE_NOK == i2c_comm_state)
+    {
+        result = RFID_REQUEST_NOK_RX_COMM_ERROR;
+    }
+    else
+    {
+        if((rx_message[COMMAND_BIT_POS_U8] != tx_message[COMMAND_BIT_POS_U8]) && (command != rx_message[COMMAND_BIT_POS_U8]))
+        {
+            result = RFID_REQUEST_NOK_RX_COMM_ERROR;
+        }
+        else
+        {
+            if(RFID_PING != rx_message[COMMAND_BIT_POS_U8])
+            {
+                crc = compute_crc(rx_message, I2C_MESSAGE_LEN_U8-2);
+                if((rx_message[CRC_RX_HI_BIT_POS_U8] !=(uint8_t)((crc >> (uint8_t)8U) & (uint8_t)0xFFU)) || 
+                (rx_message[CRC_RX_LO_BIT_POS_U8] != (uint8_t)(crc & (uint8_t)0xFFU)))
+                {
+                    result = RFID_REQUEST_NOK_INVALID_CRC;
+                }
+                else
+                {
+                    if(rx_message[DATA_BIT_POS_U8] == I2C_RX_REQUEST_PENDING)
+                    {
+                        result = RFID_REQUEST_PENDING;
+                    }
+                    else
+                    {
+                        *status = rx_message[DATA_BIT_POS_U8];
+                        result = RFID_REQUEST_OK;
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+
+RFID_request_status_t RFID_status_get_Rooms(RFID_Tag_Information *out_tag_info_ptr)
 {
     RFID_request_status_t result = RFID_REQUEST_OK;
     uint8_t status;
@@ -163,70 +159,130 @@ RFID_request_status_t RFID_get_Rooms(RFID_Tag_Information *out_tag_info_ptr)
     char *ptr;
     const uint8_t start_pos = DATA_BIT_POS_U8 + (uint8_t)1U;
     uint8_t index;
-    /*Start the search command*/
-    result = RFID_sendRequest(RFID_GET_TAGS_START, 0x00, &status);
+
+    /*Get the Tag info*/
+    result = RFID_receiveResponse(RFID_GET_GET_TAGS_INFO, &status);
     if((RFID_REQUEST_OK == result) && (STATE_OK == status))
     {
-        /*Get the Tag info*/
-        result = RFID_sendRequest(RFID_GET_GET_TAGS_INFO, 0x00, &status);
-         if((RFID_REQUEST_OK == result) && (STATE_OK == status))
-         {
-            /*Extract only the relevant Tag info part from response message*/
-            for(index = start_pos; (index < CRC_RX_HI_BIT_POS_U8) && (rx_message[index] != 0xFF) && (rx_message[index] != '\n'); index ++)
-            {
-                tag_info_buffer[index - start_pos] = (char)rx_message[index];
-            }
-            tag_info_buffer[index]='\0';
+        /*Extract only the relevant Tag info part from response message*/
+        for(index = start_pos; (index < CRC_RX_HI_BIT_POS_U8) && (rx_message[index] != 0xFF) && (rx_message[index] != '\n'); index ++)
+        {
+            tag_info_buffer[index - start_pos] = (char)rx_message[index];
+        }
+        tag_info_buffer[index]='\0';
 
-            /*---Extract the Tag Name---*/
-            ptr = strtok(tag_info_buffer, ":");
-            if(ptr != NULL)
+        /*---Extract the Tag Name---*/
+        ptr = strtok(tag_info_buffer, ":");
+        if(ptr != NULL)
+        {
+            strcpy(out_tag_info_ptr->room_name, ptr);
+        }
+        else
+        {
+            return RFID_INVALID_TAG_INFORMATION;
+        }
+
+        /*---Extract the Tag Description---*/
+        ptr = strtok(NULL, ":");
+        if(ptr != NULL)
+        {
+            strcpy(out_tag_info_ptr->room_description, ptr);
+        }
+        else
+        {
+            return RFID_INVALID_TAG_INFORMATION;
+        }
+
+        /*---Extract the Destination status---*/
+        ptr = strtok(NULL, ":");
+        if(ptr != NULL)
+        {
+            if(strcmp(ptr, "1")==0)
             {
-                strcpy(out_tag_info_ptr->room_name, ptr);
+                out_tag_info_ptr->destination_node = true;
+            }
+            else if(strcmp(ptr, "0")==0)
+            {
+                out_tag_info_ptr->destination_node = false;
             }
             else
             {
                 return RFID_INVALID_TAG_INFORMATION;
             }
+        }
+        else
+        {
+            return RFID_INVALID_TAG_INFORMATION;
+        }
 
-            /*---Extract the Tag Description---*/
-            ptr = strtok(NULL, ":");
-            if(ptr != NULL)
-            {
-                strcpy(out_tag_info_ptr->room_description, ptr);
-            }
-            else
-            {
-                return RFID_INVALID_TAG_INFORMATION;
-            }
+    }
+    else if((RFID_REQUEST_OK == result) && (0x01 == status))
+    {
+        return RFID_REQUEST_NO_TAGS;
+    }
 
-            /*---Extract the Destination status---*/
-            ptr = strtok(NULL, ":");
-            if(ptr != NULL)
-            {
-                if(strcmp(ptr, "1")==0)
-                {
-                    out_tag_info_ptr->destination_node = true;
-                }
-                else if(strcmp(ptr, "0")==0)
-                {
-                    out_tag_info_ptr->destination_node = false;
-                }
-                else
-                {
-                    return RFID_INVALID_TAG_INFORMATION;
-                }
-            }
-            else
-            {
-                return RFID_INVALID_TAG_INFORMATION;
-            }
+    return result;
+}
 
-         }
-         else if((RFID_REQUEST_OK == result) && (0x01 == status))
-         {
-            return RFID_REQUEST_NO_TAGS;
-         }
+RFID_request_status_t RFID_start_get_Rooms(bool *op_status)
+{
+    RFID_request_status_t result;
+    uint8_t status;
+
+    result = RFID_sendRequest(RFID_GET_GET_TAGS_INFO, 0x00);
+    if(RFID_REQUEST_OK == result)
+    {
+        result = RFID_receiveResponse(RFID_GET_GET_TAGS_INFO, &status);
+        if((RFID_REQUEST_OK == result) && (STATE_OK == status))
+        {
+            *op_status = true;
+        }
+        else
+        {
+            *op_status = false;
+        }
+    }
+
+    return result;
+}
+
+RFID_request_status_t RFID_start_Room_Search(bool *op_status)
+{
+    RFID_request_status_t result;
+    uint8_t status;
+
+    /*Start the search command*/
+    result = RFID_sendRequest(RFID_GET_TAGS_START, 0x00);
+    if(RFID_REQUEST_OK == result)
+    {
+        result = RFID_receiveResponse(RFID_GET_TAGS_START, &status);
+
+        if((RFID_REQUEST_OK == result) && (STATE_OK == status))
+        {
+            *op_status = true;
+        }
+        else
+        {
+            *op_status = false;
+        }
+    }
+
+    return result;
+}
+
+RFID_request_status_t RFID_status_Room_Search(bool *op_status)
+{
+     RFID_request_status_t result;
+    uint8_t status;
+
+    result = RFID_receiveResponse(RFID_GET_TAGS_START, &status);
+    if((RFID_REQUEST_OK == result) && (STATE_OK == status))
+    {
+        *op_status = true;
+    }
+    else
+    {
+        *op_status = false;
     }
 
     return result;
@@ -237,21 +293,23 @@ RFID_request_status_t RFID_Send_Ping(void)
     RFID_request_status_t result;
     uint8_t status;
 
-    result = RFID_sendRequest(RFID_PING, 0x00, &status);
+    result = RFID_sendRequest(RFID_PING, 0x00);
 
     return result;
 }
 
-RFID_request_status_t RFID_get_System_Init_Status(bool *out_init_status)
+RFID_request_status_t RFID_start_get_System_Init_Status(bool *out_init_status)
 {
     RFID_request_status_t result;
     uint8_t status;
 
-     result = RFID_sendRequest(RFID_GET_SYS_INIT_STATUS, 0x00, &status);
+     result = RFID_sendRequest(RFID_GET_SYS_INIT_STATUS, 0x00);
      
      if(result == RFID_REQUEST_OK)
      {
-        if(status == 0x00)
+        result = RFID_receiveResponse(RFID_GET_SYS_INIT_STATUS, &status);
+
+        if((result == RFID_REQUEST_OK) && (status == 0x00))
         {
             *out_init_status = true;
         }
@@ -266,4 +324,23 @@ RFID_request_status_t RFID_get_System_Init_Status(bool *out_init_status)
      }
 
      return result;
+}
+
+RFID_request_status_t RFID_status_get_System_Init_Status(bool *out_init_status)
+{
+    RFID_request_status_t result;
+    uint8_t status;
+
+    result = RFID_receiveResponse(RFID_GET_SYS_INIT_STATUS, &status);
+
+    if((result == RFID_REQUEST_OK) && (status == 0x00))
+    {
+        *out_init_status = true;
+    }
+    else
+    {
+        *out_init_status = false;
+    }
+
+    return result;
 }

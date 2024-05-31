@@ -1,7 +1,6 @@
 #ifndef __RFID_MANAGER_H
 #define __RFID_MANAGER_H
 
-#include <stdint.h>
 #include <stdbool.h>
 
 typedef enum RFID_request_status_t
@@ -24,8 +23,16 @@ typedef struct RFID_Tag_Information
 }RFID_Tag_Information;
 
 RFID_request_status_t RFID_init(void);
-
+/*------------------------------------------------------------------------*/
 RFID_request_status_t RFID_Send_Ping(void);
-RFID_request_status_t RFID_get_System_Init_Status(bool *out_init_status);
-RFID_request_status_t RFID_get_Rooms(RFID_Tag_Information *out_tag_info_ptr);
+/*------------------------------------------------------------------------*/
+RFID_request_status_t RFID_start_get_System_Init_Status(bool *out_init_status);
+RFID_request_status_t RFID_status_get_System_Init_Status(bool *out_init_status);
+/*------------------------------------------------------------------------*/
+RFID_request_status_t RFID_start_Room_Search(bool *op_status);
+RFID_request_status_t RFID_status_Room_Search(bool *op_status);
+/*------------------------------------------------------------------------*/
+RFID_request_status_t RFID_start_get_Rooms(bool *op_status);
+RFID_request_status_t RFID_status_get_Rooms(RFID_Tag_Information *out_tag_info_ptr);
+
 #endif
