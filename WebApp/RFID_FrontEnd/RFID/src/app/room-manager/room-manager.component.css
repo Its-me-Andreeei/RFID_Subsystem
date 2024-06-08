@@ -13,6 +13,10 @@
 }
 
 .welcome-message {
-  font-size: 1.1rem; /* Adjust the font size as needed */
+  font-size: 1.1rem;
+}
+
+.custom-width {
+  width: 500px;
 }
 

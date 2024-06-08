@@ -28,3 +28,6 @@ input.example-right-align {
 button {
   margin: 10px;
 }
+.custom-width {
+  width: 300px;
+}

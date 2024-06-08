@@ -56,25 +56,25 @@
     <mat-card>
       <mat-card-content>
         <form (ngSubmit) = "onSubmit()">
-          <mat-form-field appearance="fill" class="form-field">
+          <mat-form-field appearance="fill" class="form-field custom-width">
             <span matPrefix>Tag ID:</span>
             <mat-label>Enter Tag ID</mat-label>
             <input [(ngModel)] = "newTag.idTag" name="idTag" matInput [required]="true" placeholder="your Tag ID ...">
           </mat-form-field>
           <br>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="custom-width">
             <span matPrefix>Room Name:</span>
             <mat-label>Enter Room Name</mat-label>
             <input [(ngModel)] = "newTag.roomName" name="roomName" matInput [required]="true" placeholder="your Room Name ...">
           </mat-form-field>
           <br>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="custom-width">
             <span matPrefix>Room Description:</span>
             <mat-label>Enter Room Description</mat-label>
             <input [(ngModel)] = "newTag.description" name="description" matInput [required]="true" placeholder="your Room Description ...">
           </mat-form-field>
           <br>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="custom-width">
             <span matPrefix>Destination Node:</span>
             <mat-label>Check option</mat-label>
             <mat-select [(ngModel)]="newTag.destinationNode" name="destinationNode" [required]="true">
