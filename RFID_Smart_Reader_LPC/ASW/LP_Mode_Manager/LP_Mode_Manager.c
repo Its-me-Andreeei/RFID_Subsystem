@@ -1,6 +1,7 @@
 #include <LPC22xx.h>
 #include <stdio.h>
-
+#include "../../hal/timer.h"
+#include "../../hal/watchdog.h"
 #include "LP_Mode_Manager.h"
 
 static volatile u8 stayAwakeReasonFlag = 0x00;
@@ -57,7 +58,6 @@ bool LP_Get_Functionality_Init_State(functionality_t functionality)
 
 void LP_Mode_Manager_Init(void)
 {
-	#define TIMER1_BIT_POS_U8 ((u8)2U)
 	#define PWM_BIT_POS_U8 ((u8)5U)
 	#define RTC_BIT_POS_U8 ((u8)9U)
 	#define SPI1_BIT_POS_U8 ((u8)10U)
@@ -68,7 +68,6 @@ void LP_Mode_Manager_Init(void)
 	#define CAN4_BIT_POS_U8 ((u8)16U)
 	
 	/*Disable unused functionalities*/
-	PCONP &= (u32)(~((u32)1U << TIMER1_BIT_POS_U8));
 	PCONP &= (u32)(~((u32)1U << PWM_BIT_POS_U8));
 	PCONP &= (u32)(~((u32)1U << RTC_BIT_POS_U8));
 	PCONP &= (u32)(~((u32)1U << SPI1_BIT_POS_U8));
@@ -79,6 +78,10 @@ void LP_Mode_Manager_Init(void)
 	PCONP &= (u32)(~((u32)1U << CAN4_BIT_POS_U8));
 	
 	LP_Set_InitFlag(FUNC_LP_MODE_MANAGER, true);
+	
+	/*Set Watchdog config*/
+	Wdg_Init();
+	Wdg_Start(WDG_CONFIG_HP_EN);
 }
 
 static void disable_Timer0(void)
@@ -99,16 +102,30 @@ void LP_Mode_Manager(void)
 		/*Disable timer because of FIQ*/
 		disable_Timer0();
 		printf("Entered LP\n");
+		
+		/*Enable timer used for Watchdog feed*/
+		TIMER1_Start();
+		
+		/*Watchdog goes in LP mode*/
+		Wdg_Start(WDG_CONFIG_LP_EN);
+		
 		/*Go to Idle State*/
 		PCON = (u8)0x01;
-		//while(stayAwakeReasonFlag==0);
-		enable_Timer0();
+		
+		if(false == TIMER1_getWakeUp_Status())
+		{
+			/*Means I2C interrupt provoked wake-up -> Wdg also leaves LP*/
+			TIMER1_Stop();
+			enable_Timer0();
+			Wdg_Start(WDG_CONFIG_HP_EN);
+			
+		}
 		
 		printf("Exit LP\n");
 	}
 	else
 	{
-		/*Do nothing*/
+		Wdg_Feed();
 	}
 }
 

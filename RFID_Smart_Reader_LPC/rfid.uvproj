@@ -496,6 +496,11 @@
               <FileType>1</FileType>
               <FilePath>.\hal\spi.c</FilePath>
             </File>
+            <File>
+              <FileName>watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\hal\watchdog.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

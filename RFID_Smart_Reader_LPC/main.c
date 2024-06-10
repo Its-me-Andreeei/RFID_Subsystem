@@ -27,7 +27,11 @@ int main(void)
 	SPI0_init();
 
 	printf("Main");
-
+	if(((u8)WDMOD & (u8)((u8)1U << (u8)2)) != 0)
+	{
+		printf("Watchdog reset\n");
+	}
+	
 	InitInterrupt();
 	/*------------------------------------*/
 	LP_Mode_Manager_Init();
