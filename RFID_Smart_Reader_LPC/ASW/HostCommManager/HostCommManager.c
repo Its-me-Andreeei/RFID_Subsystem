@@ -5,6 +5,7 @@
 #include "../ReaderManager/reader_manager.h"
 #include "HostCommManager.h"
 #include "../LP_Mode_Manager/LP_Mode_Manager.h"
+#include "../WiFiManager/wifi_manager.h"
 
 static u8 data_buffer[100];
 static u8 data_length;
@@ -72,7 +73,7 @@ static i2c_command_status_t HostComm_decode_requests(i2c_requests_t command)
 			break;
 		
 		case I2C_REQUEST_INIT_STATUS:
-			if(false == LP_Get_System_Init_State())
+			if(false == LP_Get_System_Init_State() || (false == Wifi_GET_is_ClientConnected()))
 			{
 				result = I2C_STATE_NOK;
 			}

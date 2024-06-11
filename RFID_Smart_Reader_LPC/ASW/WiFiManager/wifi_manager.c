@@ -33,11 +33,11 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (u16)13U, (u8)2U}, 
 																									
 																									/*Connect to WI-FI Router*/
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36U, (u8)2U},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_6EA0\",\"01146882\"\r\n", (u16)36U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-A7xG\",\"ZAuU2mENN5\"\r\n", (u16)35U, (u8)2U},
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"dspproject\",\"project@D59\"\r\n", (u16)37U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
 																									
@@ -437,6 +437,13 @@ bool Wifi_GET_is_Wifi_Connected_status(void)
 	wifi_module_state_st module_state;
 	module_state = Get_Module_Current_State();
 	return module_state.wifi_connected;
+}
+
+bool Wifi_GET_is_ClientConnected(void)
+{
+	wifi_module_state_st module_state;
+	module_state = Get_Module_Current_State();
+	return module_state.client_app_connected;
 }
 
 state_t Wifi_GET_passtrough_response(u8* out_buffer, u8 *out_length)
