@@ -164,6 +164,7 @@ Section Cross References
     spi.o(i.spi0_sendReceive_message) refers to spi.o(.bss) for spi0_TX_RX_buffer
     watchdog.o(i.Wdg_Feed) refers to watchdog.o(.data) for WDT_request_feed
     watchdog.o(i.Wdg_FeedSequence) refers to watchdog.o(.data) for WDT_request_feed
+    watchdog.o(i.Wdg_Start) refers to watchdog.o(i.Wdg_FeedSequence) for Wdg_FeedSequence
     watchdog.o(i.Wdg_isFeedRequested) refers to watchdog.o(.data) for WDT_request_feed
     hex_bytes.o(i.TMR_bytesToHex) refers to hex_bytes.o(.data) for hexchars
     hex_bytes.o(i.TMR_hexDottedQuad) refers to hex_bytes.o(.data) for hexchars
@@ -1218,8 +1219,8 @@ Section Cross References
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Request_ESP_Send_Permission) for Request_ESP_Send_Permission
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Write_ESP_Data) for Write_ESP_Data
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(i.Read_ESP_Data) for Read_ESP_Data
-    wifi_utils.o(i.Send_ESP_Command) refers to memcmp.o(.text) for memcmp
     wifi_utils.o(i.Send_ESP_Command) refers to noretval__2printf.o(.text) for __2printf
+    wifi_utils.o(i.Send_ESP_Command) refers to memcmp.o(.text) for memcmp
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(.constdata) for .constdata
     wifi_utils.o(i.Send_ESP_Command) refers to wifi_utils.o(.data) for module_state
     wifi_utils.o(i.Set_Module_Current_State) refers to rt_memcpy.o(.text) for __aeabi_memcpy
@@ -1882,9 +1883,9 @@ Maximum Stack Usage for LP_Mode_Manager 0x90 bytes.
 Call chain for maximum stack usage:
 LP_Mode_Manager => __2printf
 
-Maximum Stack Usage for LP_Mode_Manager_Init 0x8 bytes.
+Maximum Stack Usage for LP_Mode_Manager_Init 0xc bytes.
 Call chain for maximum stack usage:
-LP_Mode_Manager_Init
+LP_Mode_Manager_Init => Wdg_Start
 
 Maximum Stack Usage for Read_ESP_Data 0x430 bytes.
 Call chain for maximum stack usage:
@@ -2446,6 +2447,10 @@ Maximum Stack Usage for Wait_For_HIGH_Transition 0x20 bytes.
 Call chain for maximum stack usage:
 Wait_For_HIGH_Transition => Wait_for_transition => TIMER_SOFTWARE_start_timer
 
+Maximum Stack Usage for Wdg_Start 0x4 bytes.
+Call chain for maximum stack usage:
+Wdg_Start
+
 Maximum Stack Usage for WifiManager_Init 0x11e8 bytes.
 Call chain for maximum stack usage:
 WifiManager_Init => Send_ESP_Command => Write_ESP_Data => Get_Read_Write_Status => spi0_sendReceive_message
@@ -2968,276 +2973,276 @@ Image Symbol Table
     i.SPI0_set_slave_select                  0x00002c70   Section        0  spi.o(i.SPI0_set_slave_select)
     SPI0_set_slave_select                    0x00002c70   ARM Code      64  spi.o(i.SPI0_set_slave_select)
     i.Send_ESP_Command                       0x00002cb4   Section        0  wifi_utils.o(i.Send_ESP_Command)
-    i.Set_Passthrough_Mode                   0x00002f64   Section        0  wifi_utils.o(i.Set_Passthrough_Mode)
-    i.Set_Wifi_Response_Ready_State          0x00002f74   Section        0  wifi_utils.o(i.Set_Wifi_Response_Ready_State)
-    i.TIMER1_Start                           0x00002f84   Section        0  timer.o(i.TIMER1_Start)
-    i.TIMER1_Stop                            0x00002fa8   Section        0  timer.o(i.TIMER1_Stop)
-    i.TIMER1_getWakeUp_Status                0x00002fe0   Section        0  timer.o(i.TIMER1_getWakeUp_Status)
-    i.TIMER_Init                             0x00002ff0   Section        0  timer.o(i.TIMER_Init)
-    i.TIMER_SOFTWARE_ModX                    0x00003044   Section        0  timer_software.o(i.TIMER_SOFTWARE_ModX)
-    i.TIMER_SOFTWARE_Wait                    0x0000337c   Section        0  timer_software.o(i.TIMER_SOFTWARE_Wait)
-    i.TIMER_SOFTWARE_clear_interrupt         0x00003498   Section        0  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
-    i.TIMER_SOFTWARE_configure_timer         0x000034c4   Section        0  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
-    i.TIMER_SOFTWARE_enable_timer            0x00003728   Section        0  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
-    i.TIMER_SOFTWARE_init                    0x000037ac   Section        0  timer_software.o(i.TIMER_SOFTWARE_init)
-    i.TIMER_SOFTWARE_interrupt_pending       0x00003844   Section        0  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
-    i.TIMER_SOFTWARE_is_Running              0x00003868   Section        0  timer_software.o(i.TIMER_SOFTWARE_is_Running)
-    i.TIMER_SOFTWARE_request_timer           0x00003904   Section        0  timer_software.o(i.TIMER_SOFTWARE_request_timer)
-    i.TIMER_SOFTWARE_reset_timer             0x000039d4   Section        0  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
-    i.TIMER_SOFTWARE_start_timer             0x000039f0   Section        0  timer_software.o(i.TIMER_SOFTWARE_start_timer)
-    i.TIMER_SOFTWARE_stop_timer              0x00003a88   Section        0  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
-    i.TIMER_irq                              0x00003aec   Section        0  timer.o(i.TIMER_irq)
-    i.TMR_RP_init_simple                     0x00003b38   Section        0  tm_reader.o(i.TMR_RP_init_simple)
-    i.TMR_SR_SerialReader_init               0x00003b94   Section        0  serial_reader.o(i.TMR_SR_SerialReader_init)
-    i.TMR_SR_SerialTransportDummyInit        0x00003d20   Section        0  serial_transport_dummy.o(i.TMR_SR_SerialTransportDummyInit)
-    i.TMR_SR_SerialTransportNativeInit       0x00003d78   Section        0  serial_transport_dummy.o(i.TMR_SR_SerialTransportNativeInit)
-    i.TMR_SR_addTagOp                        0x00003da4   Section        0  serial_reader.o(i.TMR_SR_addTagOp)
-    i.TMR_SR_antennaDecoding                 0x00004b94   Section        0  serial_reader_l3.o(i.TMR_SR_antennaDecoding)
-    i.TMR_SR_boot                            0x00004cdc   Section        0  serial_reader.o(i.TMR_SR_boot)
-    i.TMR_SR_callSendCmd                     0x00004dbc   Section        0  serial_reader_l3.o(i.TMR_SR_callSendCmd)
-    i.TMR_SR_cmdAntennaDetect                0x00004e1c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdAntennaDetect)
-    i.TMR_SR_cmdBootFirmware                 0x00004f4c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdBootFirmware)
-    i.TMR_SR_cmdClearTagBuffer               0x00004fdc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdClearTagBuffer)
-    i.TMR_SR_cmdFrameHeader                  0x00005004   Section        0  serial_reader_l3.o(i.TMR_SR_cmdFrameHeader)
-    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime 0x0000512c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime)
-    i.TMR_SR_cmdGetAntennaReturnLoss         0x0000536c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaReturnLoss)
-    i.TMR_SR_cmdGetAvailableProtocols        0x000054a4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableProtocols)
-    i.TMR_SR_cmdGetAvailableRegions          0x0000559c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableRegions)
-    i.TMR_SR_cmdGetCurrentProtocol           0x00005644   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetCurrentProtocol)
-    i.TMR_SR_cmdGetFrequencyHopTable         0x00005698   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTable)
-    i.TMR_SR_cmdGetFrequencyHopTableOption   0x00005760   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTableOption)
-    i.TMR_SR_cmdGetFrequencyHopTime          0x00005838   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTime)
-    i.TMR_SR_cmdGetGPIO                      0x0000585c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetGPIO)
-    i.TMR_SR_cmdGetGPIODirection             0x000059ec   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetGPIODirection)
-    i.TMR_SR_cmdGetHardwareVersion           0x00005abc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetHardwareVersion)
-    i.TMR_SR_cmdGetMinimumFrequency          0x00005be8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetMinimumFrequency)
-    i.TMR_SR_cmdGetPerAntennaTime            0x00005c0c   Section        0  serial_reader.o(i.TMR_SR_cmdGetPerAntennaTime)
-    TMR_SR_cmdGetPerAntennaTime              0x00005c0c   ARM Code     280  serial_reader.o(i.TMR_SR_cmdGetPerAntennaTime)
-    i.TMR_SR_cmdGetPowerMode                 0x00005d28   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetPowerMode)
-    i.TMR_SR_cmdGetProtocolConfiguration     0x00005d74   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolConfiguration)
-    i.TMR_SR_cmdGetProtocolList              0x00006488   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolList)
-    i.TMR_SR_cmdGetQuantizationStep          0x000065bc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetQuantizationStep)
-    i.TMR_SR_cmdGetReadTxPower               0x000065e0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPower)
-    i.TMR_SR_cmdGetReadTxPowerWithLimits     0x00006604   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPowerWithLimits)
-    i.TMR_SR_cmdGetReadWriteTxPower          0x000066f0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadWriteTxPower)
-    i.TMR_SR_cmdGetReaderConfiguration       0x000067b0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderConfiguration)
-    i.TMR_SR_cmdGetReaderStatistics          0x000069f8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStatistics)
-    i.TMR_SR_cmdGetReaderStats               0x00006ca4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStats)
-    i.TMR_SR_cmdGetReaderWriteTimeOut        0x00006fbc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderWriteTimeOut)
-    i.TMR_SR_cmdGetRegion                    0x000070d4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetRegion)
-    i.TMR_SR_cmdGetRegionConfiguration       0x00007120   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetRegionConfiguration)
-    i.TMR_SR_cmdGetTagsRemaining             0x000072bc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetTagsRemaining)
-    i.TMR_SR_cmdGetTemperature               0x00007320   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetTemperature)
-    i.TMR_SR_cmdGetUserMode                  0x00007374   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetUserMode)
-    i.TMR_SR_cmdGetWriteTxPower              0x000073c0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetWriteTxPower)
-    i.TMR_SR_cmdMultipleProtocolSearch       0x000073e4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdMultipleProtocolSearch)
-    i.TMR_SR_cmdReadTagMultiple              0x00007588   Section        0  serial_reader_l3.o(i.TMR_SR_cmdReadTagMultiple)
-    i.TMR_SR_cmdResetReaderStatistics        0x00007714   Section        0  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStatistics)
-    i.TMR_SR_cmdResetReaderStats             0x0000780c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStats)
-    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime 0x00007974   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime)
-    i.TMR_SR_cmdSetAntennaSearchList         0x00007bbc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaSearchList)
-    i.TMR_SR_cmdSetBaudRate                  0x00007d08   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetBaudRate)
-    i.TMR_SR_cmdSetFrequencyHopTable         0x00007de8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTable)
-    i.TMR_SR_cmdSetFrequencyHopTableOption   0x00007ef8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTableOption)
-    i.TMR_SR_cmdSetGPIODirection             0x00008020   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetGPIODirection)
-    i.TMR_SR_cmdSetMode                      0x00008164   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetMode)
-    i.TMR_SR_cmdSetPerAntennaTime            0x00008200   Section        0  serial_reader.o(i.TMR_SR_cmdSetPerAntennaTime)
-    TMR_SR_cmdSetPerAntennaTime              0x00008200   ARM Code     580  serial_reader.o(i.TMR_SR_cmdSetPerAntennaTime)
-    i.TMR_SR_cmdSetPowerMode                 0x00008450   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetPowerMode)
-    i.TMR_SR_cmdSetProtocol                  0x00008474   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocol)
-    i.TMR_SR_cmdSetProtocolConfiguration     0x00008528   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolConfiguration)
-    i.TMR_SR_cmdSetProtocolLicenseKey        0x00008f94   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolLicenseKey)
-    i.TMR_SR_cmdSetProtocolList              0x000090c8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolList)
-    i.TMR_SR_cmdSetReadTxPower               0x0000920c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReadTxPower)
-    i.TMR_SR_cmdSetReadWriteTxPower          0x00009230   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReadWriteTxPower)
-    i.TMR_SR_cmdSetReaderConfiguration       0x000092f4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReaderConfiguration)
-    i.TMR_SR_cmdSetReaderWriteTimeOut        0x000095f8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReaderWriteTimeOut)
-    i.TMR_SR_cmdSetRegion                    0x00009758   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegion)
-    i.TMR_SR_cmdSetRegionDwellTime           0x00009a9c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTime)
-    i.TMR_SR_cmdSetRegionDwellTimeEnable     0x00009c00   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeEnable)
-    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  0x00009c2c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeLbtEnable)
-    i.TMR_SR_cmdSetRegionLbt                 0x00009d58   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbt)
-    i.TMR_SR_cmdSetRegionLbtThreshold        0x00009d84   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbtThreshold)
-    i.TMR_SR_cmdSetTxRxPorts                 0x00009ec8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetTxRxPorts)
-    i.TMR_SR_cmdSetUserMode                  0x00009fa8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetUserMode)
-    i.TMR_SR_cmdSetUserProfile               0x00009fcc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetUserProfile)
-    i.TMR_SR_cmdSetWriteTxPower              0x0000a47c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetWriteTxPower)
-    i.TMR_SR_cmdStopReading                  0x0000a4a0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdStopReading)
-    i.TMR_SR_cmdVersion                      0x0000a5ac   Section        0  serial_reader_l3.o(i.TMR_SR_cmdVersion)
-    i.TMR_SR_connect                         0x0000a64c   Section        0  serial_reader.o(i.TMR_SR_connect)
-    i.TMR_SR_convertFromEBV                  0x0000a744   Section        0  tm_reader.o(i.TMR_SR_convertFromEBV)
-    i.TMR_SR_convertToEBV                    0x0000aa3c   Section        0  tm_reader.o(i.TMR_SR_convertToEBV)
-    i.TMR_SR_executeEmbeddedRead             0x0000ad7c   Section        0  serial_reader_l3.o(i.TMR_SR_executeEmbeddedRead)
-    i.TMR_SR_getNextTag                      0x0000b1d0   Section        0  serial_reader.o(i.TMR_SR_getNextTag)
-    i.TMR_SR_getVersion                      0x0000b470   Section        0  serial_reader.o(i.TMR_SR_getVersion)
-    i.TMR_SR_hasMoreTags                     0x0000b574   Section        0  serial_reader.o(i.TMR_SR_hasMoreTags)
-    i.TMR_SR_msgAddAccessPassword            0x0000b97c   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddAccessPassword)
-    i.TMR_SR_msgAddExtendedParams            0x0000ba10   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddExtendedParams)
-    i.TMR_SR_msgAddGEN2BlockErase            0x0000bae4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockErase)
-    i.TMR_SR_msgAddGEN2BlockPermaLock        0x0000bcb4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockPermaLock)
-    i.TMR_SR_msgAddGEN2BlockWrite            0x0000bfd8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockWrite)
-    i.TMR_SR_msgAddGEN2DataRead              0x0000c330   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataRead)
-    i.TMR_SR_msgAddGEN2DataWrite             0x0000c4cc   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataWrite)
-    i.TMR_SR_msgAddGEN2KillTag               0x0000c6b8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2KillTag)
-    i.TMR_SR_msgAddGEN2LockTag               0x0000c7d4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2LockTag)
-    i.TMR_SR_msgAddGEN2WriteTagEPC           0x0000c95c   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2WriteTagEPC)
-    i.TMR_SR_msgAddReadMemory                0x0000ca68   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddReadMemory)
-    i.TMR_SR_msgAddWriteMemory               0x0000cca8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddWriteMemory)
-    i.TMR_SR_msgSetupMultipleProtocolSearch  0x0000ce60   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupMultipleProtocolSearch)
-    i.TMR_SR_msgSetupReadTagMultiple         0x0000d4e0   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultiple)
-    i.TMR_SR_msgSetupReadTagMultipleWithMetadata 0x0000d530   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultipleWithMetadata)
-    i.TMR_SR_paramGet                        0x0000db14   Section        0  serial_reader.o(i.TMR_SR_paramGet)
-    TMR_SR_paramGet                          0x0000db14   ARM Code    5868  serial_reader.o(i.TMR_SR_paramGet)
-    i.TMR_SR_paramSet                        0x0000f210   Section        0  serial_reader.o(i.TMR_SR_paramSet)
-    TMR_SR_paramSet                          0x0000f210   ARM Code    4664  serial_reader.o(i.TMR_SR_paramSet)
-    i.TMR_SR_parseMetadataFromMessage        0x0001044c   Section        0  serial_reader_l3.o(i.TMR_SR_parseMetadataFromMessage)
-    i.TMR_SR_parseMetadataOnly               0x00010678   Section        0  serial_reader_l3.o(i.TMR_SR_parseMetadataOnly)
-    i.TMR_SR_postprocessReaderSpecificMetadata 0x00010b28   Section        0  serial_reader_l3.o(i.TMR_SR_postprocessReaderSpecificMetadata)
-    i.TMR_SR_read                            0x00010cc8   Section        0  serial_reader.o(i.TMR_SR_read)
-    i.TMR_SR_read_internal                   0x00010d60   Section        0  serial_reader.o(i.TMR_SR_read_internal)
-    TMR_SR_read_internal                     0x00010d60   ARM Code    1364  serial_reader.o(i.TMR_SR_read_internal)
-    i.TMR_SR_receiveMessage                  0x000112d8   Section        0  serial_reader_l3.o(i.TMR_SR_receiveMessage)
-    i.TMR_SR_send                            0x0001175c   Section        0  serial_reader_l3.o(i.TMR_SR_send)
-    i.TMR_SR_sendBytes                       0x00011780   Section        0  serial_reader_l3.o(i.TMR_SR_sendBytes)
-    i.TMR_SR_sendCmd                         0x000117e8   Section        0  serial_reader_l3.o(i.TMR_SR_sendCmd)
-    i.TMR_SR_sendMessage                     0x00011814   Section        0  serial_reader_l3.o(i.TMR_SR_sendMessage)
-    i.TMR_SR_sendTimeout                     0x00011994   Section        0  serial_reader_l3.o(i.TMR_SR_sendTimeout)
-    i.TMR__notifyTransportListeners          0x00011ab8   Section        0  tm_reader.o(i.TMR__notifyTransportListeners)
-    i.TMR_create                             0x00011b10   Section        0  tm_reader.o(i.TMR_create)
-    i.TMR_fillReaderStats                    0x00011ce0   Section        0  serial_reader_l3.o(i.TMR_fillReaderStats)
-    i.TMR_flush                              0x0001215c   Section        0  serial_reader_l3.o(i.TMR_flush)
-    i.TMR_hexDottedQuad                      0x00012214   Section        0  hex_bytes.o(i.TMR_hexDottedQuad)
-    i.TMR_initSerialTransportTable           0x0001226c   Section        0  tm_reader.o(i.TMR_initSerialTransportTable)
-    TMR_initSerialTransportTable             0x0001226c   ARM Code     272  tm_reader.o(i.TMR_initSerialTransportTable)
-    i.TMR_paramGet                           0x00012398   Section        0  tm_reader.o(i.TMR_paramGet)
-    i.TMR_paramProbe                         0x00012448   Section        0  tm_reader.o(i.TMR_paramProbe)
-    i.TMR_paramSet                           0x00012508   Section        0  tm_reader.o(i.TMR_paramSet)
-    i.TMR_reader_init_internal               0x000125f4   Section        0  tm_reader.o(i.TMR_reader_init_internal)
-    i.TMR_startReading                       0x000126e4   Section        0  tm_reader_async.o(i.TMR_startReading)
-    i.TMR_stopReading                        0x00012748   Section        0  tm_reader_async.o(i.TMR_stopReading)
-    i.TMR_stringCopy                         0x000127fc   Section        0  tmr_utils.o(i.TMR_stringCopy)
-    i.UART0_Init                             0x00012854   Section        0  uart0.o(i.UART0_Init)
-    i.UART0_sendchar                         0x00012894   Section        0  uart0.o(i.UART0_sendchar)
-    i.UART1_Init                             0x000128bc   Section        0  uart1.o(i.UART1_Init)
-    i.UART1_flush                            0x00012930   Section        0  uart1.o(i.UART1_flush)
-    i.UART1_get_CommErrors                   0x0001296c   Section        0  uart1.o(i.UART1_get_CommErrors)
-    i.UART1_irq                              0x0001297c   Section        0  isr_manager.o(i.UART1_irq)
-    i.UART1_receivebuffer                    0x000129c4   Section        0  uart1.o(i.UART1_receivebuffer)
-    i.UART1_send_reveice_PING                0x00012b88   Section        0  uart1.o(i.UART1_send_reveice_PING)
-    i.UART1_sendbuffer                       0x00012d04   Section        0  uart1.o(i.UART1_sendbuffer)
-    i.UART1_sendchar                         0x00012e60   Section        0  uart1.o(i.UART1_sendchar)
-    i.UpdateIndexAtomic                      0x00012e88   Section        0  ringbuf.o(i.UpdateIndexAtomic)
-    UpdateIndexAtomic                        0x00012e88   ARM Code      44  ringbuf.o(i.UpdateIndexAtomic)
-    i.Wait_For_HIGH_Transition               0x00012eb4   Section        0  wifi_utils.o(i.Wait_For_HIGH_Transition)
-    i.Wait_for_transition                    0x00012ed0   Section        0  wifi_utils.o(i.Wait_for_transition)
-    Wait_for_transition                      0x00012ed0   ARM Code     440  wifi_utils.o(i.Wait_for_transition)
-    i.Wdg_Feed                               0x00013090   Section        0  watchdog.o(i.Wdg_Feed)
-    i.Wdg_FeedSequence                       0x000130a4   Section        0  watchdog.o(i.Wdg_FeedSequence)
-    i.Wdg_Init                               0x000130cc   Section        0  watchdog.o(i.Wdg_Init)
-    i.Wdg_Start                              0x000130dc   Section        0  watchdog.o(i.Wdg_Start)
-    i.Wdg_isFeedRequested                    0x00013144   Section        0  watchdog.o(i.Wdg_isFeedRequested)
-    i.WifiManager_Init                       0x00013154   Section        0  wifi_manager.o(i.WifiManager_Init)
-    i.WifiManager_Perform_HW_Reset           0x00013330   Section        0  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
-    i.Wifi_GET_is_ClientConnected            0x00013394   Section        0  wifi_manager.o(i.Wifi_GET_is_ClientConnected)
-    i.Wifi_GET_is_Wifi_Connected_status      0x000133bc   Section        0  wifi_manager.o(i.Wifi_GET_is_Wifi_Connected_status)
-    i.Wifi_GET_passtrough_response           0x000133e4   Section        0  wifi_manager.o(i.Wifi_GET_passtrough_response)
-    i.Wifi_Manager                           0x000134b8   Section        0  wifi_manager.o(i.Wifi_Manager)
-    i.Wifi_SET_Command_Request               0x00013a14   Section        0  wifi_manager.o(i.Wifi_SET_Command_Request)
-    i.Write_ESP_Data                         0x00013abc   Section        0  wifi_utils.o(i.Write_ESP_Data)
-    Write_ESP_Data                           0x00013abc   ARM Code     152  wifi_utils.o(i.Write_ESP_Data)
-    i.__ARM_common_call_via_r1               0x00013b54   Section        0  __printf.o(i.__ARM_common_call_via_r1)
-    i.__ARM_common_call_via_r2               0x00013b56   Section        0  __printf.o(i.__ARM_common_call_via_r2)
-    i._is_digit                              0x00013b58   Section        0  __printf_wp.o(i._is_digit)
-    i._sys_exit                              0x00013b68   Section        0  retarget.o(i._sys_exit)
-    i.checkForAvailableFeatures              0x00013b6c   Section        0  tm_reader.o(i.checkForAvailableFeatures)
-    i.check_communication_errors             0x00013bf0   Section        0  uart1.o(i.check_communication_errors)
-    check_communication_errors               0x00013bf0   ARM Code      60  uart1.o(i.check_communication_errors)
-    i.compareAntennas                        0x00013c34   Section        0  serial_reader.o(i.compareAntennas)
-    i.compute_crc                            0x00013d4c   Section        0  crc.o(i.compute_crc)
-    i.disable_HW_Reader                      0x00013dc8   Section        0  reader_manager.o(i.disable_HW_Reader)
-    disable_HW_Reader                        0x00013dc8   ARM Code      16  reader_manager.o(i.disable_HW_Reader)
-    i.disable_Timer0                         0x00013ddc   Section        0  lp_mode_manager.o(i.disable_Timer0)
-    disable_Timer0                           0x00013ddc   ARM Code      24  lp_mode_manager.o(i.disable_Timer0)
-    i.enable_Timer0                          0x00013df8   Section        0  lp_mode_manager.o(i.enable_Timer0)
-    enable_Timer0                            0x00013df8   ARM Code      24  lp_mode_manager.o(i.enable_Timer0)
-    i.extractGen2MemoryBankValues            0x00013e14   Section        0  serial_reader_l3.o(i.extractGen2MemoryBankValues)
-    i.ferror                                 0x00013f38   Section        0  retarget.o(i.ferror)
-    i.fillStaticTxRxMapData                  0x00013f44   Section        0  serial_reader.o(i.fillStaticTxRxMapData)
-    i.fillVersionInfo                        0x00013fcc   Section        0  serial_reader_l3.o(i.fillVersionInfo)
-    i.filterbytes                            0x000140d8   Section        0  serial_reader_l3.o(i.filterbytes)
-    filterbytes                              0x000140d8   ARM Code    2176  serial_reader_l3.o(i.filterbytes)
-    i.fputc                                  0x0001496c   Section        0  retarget.o(i.fputc)
-    i.getAddrByteExtEnabledVersion           0x00014988   Section        0  tm_reader.o(i.getAddrByteExtEnabledVersion)
-    i.getHardwareInfo                        0x000149d8   Section        0  serial_reader.o(i.getHardwareInfo)
-    getHardwareInfo                          0x000149d8   ARM Code      76  serial_reader.o(i.getHardwareInfo)
-    i.getPortValues                          0x00014a24   Section        0  serial_reader.o(i.getPortValues)
-    getPortValues                            0x00014a24   ARM Code     332  serial_reader.o(i.getPortValues)
-    i.getReadExtParams                       0x00014b70   Section        0  serial_reader.o(i.getReadExtParams)
-    i.getSerialNumber                        0x00014e64   Section        0  serial_reader.o(i.getSerialNumber)
-    getSerialNumber                          0x00014e64   ARM Code     224  serial_reader.o(i.getSerialNumber)
-    i.getWriteExtParams                      0x00014f48   Section        0  serial_reader.o(i.getWriteExtParams)
-    i.i2c_check_CRC_after_RX_finish          0x000153b0   Section        0  i2c.o(i.i2c_check_CRC_after_RX_finish)
-    i.i2c_get_RX_ready_status                0x00015404   Section        0  i2c.o(i.i2c_get_RX_ready_status)
-    i.i2c_get_command                        0x00015414   Section        0  i2c.o(i.i2c_get_command)
-    i.i2c_get_request_stayAwake              0x0001543c   Section        0  i2c.o(i.i2c_get_request_stayAwake)
-    i.i2c_set_RX_ready_status                0x0001544c   Section        0  i2c.o(i.i2c_set_RX_ready_status)
-    i.i2c_set_command_status                 0x0001545c   Section        0  i2c.o(i.i2c_set_command_status)
-    i.i2c_set_data_bytes                     0x00015494   Section        0  i2c.o(i.i2c_set_data_bytes)
-    i.i2c_set_response_ready_status          0x000154bc   Section        0  i2c.o(i.i2c_set_response_ready_status)
-    i.initTxRxMapFromPorts                   0x000154cc   Section        0  serial_reader.o(i.initTxRxMapFromPorts)
-    i.isPassthroughResponseValid             0x00015538   Section        0  wifi_manager.o(i.isPassthroughResponseValid)
-    isPassthroughResponseValid               0x00015538   ARM Code     148  wifi_manager.o(i.isPassthroughResponseValid)
-    i.isTagTypeFilterAvail                   0x000155d8   Section        0  serial_reader.o(i.isTagTypeFilterAvail)
-    i.main                                   0x0001564c   Section        0  main.o(i.main)
-    i.notify_read_listeners                  0x000156f0   Section        0  tm_reader_async.o(i.notify_read_listeners)
-    i.parseEBVdata                           0x00015738   Section        0  serial_reader_l3.o(i.parseEBVdata)
-    i.prepEmbReadTagMultiple                 0x000157b4   Section        0  serial_reader.o(i.prepEmbReadTagMultiple)
-    prepEmbReadTagMultiple                   0x000157b4   ARM Code     168  serial_reader.o(i.prepEmbReadTagMultiple)
-    i.prepForSearch                          0x00015860   Section        0  serial_reader.o(i.prepForSearch)
-    i.reader_recovery                        0x0001598c   Section        0  reader_manager.o(i.reader_recovery)
-    reader_recovery                          0x0001598c   ARM Code     208  reader_manager.o(i.reader_recovery)
-    i.s_flush                                0x00015aa4   Section        0  serial_transport_dummy.o(i.s_flush)
-    s_flush                                  0x00015aa4   ARM Code      40  serial_transport_dummy.o(i.s_flush)
-    i.s_open                                 0x00015ad0   Section        0  serial_transport_dummy.o(i.s_open)
-    s_open                                   0x00015ad0   ARM Code      12  serial_transport_dummy.o(i.s_open)
-    i.s_receiveBytes                         0x00015adc   Section        0  serial_transport_dummy.o(i.s_receiveBytes)
-    s_receiveBytes                           0x00015adc   ARM Code     100  serial_transport_dummy.o(i.s_receiveBytes)
-    i.s_sendBytes                            0x00015b48   Section        0  serial_transport_dummy.o(i.s_sendBytes)
-    s_sendBytes                              0x00015b48   ARM Code      92  serial_transport_dummy.o(i.s_sendBytes)
-    i.s_setBaudRate                          0x00015bac   Section        0  serial_transport_dummy.o(i.s_setBaudRate)
-    s_setBaudRate                            0x00015bac   ARM Code      12  serial_transport_dummy.o(i.s_setBaudRate)
-    i.s_shutdown                             0x00015bb8   Section        0  serial_transport_dummy.o(i.s_shutdown)
-    s_shutdown                               0x00015bb8   ARM Code      12  serial_transport_dummy.o(i.s_shutdown)
-    i.send_Read_EOF                          0x00015bc4   Section        0  wifi_utils.o(i.send_Read_EOF)
-    send_Read_EOF                            0x00015bc4   ARM Code      36  wifi_utils.o(i.send_Read_EOF)
-    i.send_Write_EOF                         0x00015bec   Section        0  wifi_utils.o(i.send_Write_EOF)
-    send_Write_EOF                           0x00015bec   ARM Code      36  wifi_utils.o(i.send_Write_EOF)
-    i.send_validate_tag_criteria_cmd         0x00015c14   Section        0  reader_manager.o(i.send_validate_tag_criteria_cmd)
-    send_validate_tag_criteria_cmd           0x00015c14   ARM Code     100  reader_manager.o(i.send_validate_tag_criteria_cmd)
-    i.setAntennaList                         0x00015c78   Section        0  serial_reader.o(i.setAntennaList)
-    setAntennaList                           0x00015c78   ARM Code     208  serial_reader.o(i.setAntennaList)
-    i.setAntennaReadTimeHelper               0x00015d4c   Section        0  serial_reader.o(i.setAntennaReadTimeHelper)
-    i.setAntennaReadTimeList                 0x00016010   Section        0  serial_reader.o(i.setAntennaReadTimeList)
-    i.setPortValues                          0x00016094   Section        0  serial_reader.o(i.setPortValues)
-    setPortValues                            0x00016094   ARM Code     280  serial_reader.o(i.setPortValues)
-    i.setProtocol                            0x000161b0   Section        0  serial_reader.o(i.setProtocol)
-    setProtocol                              0x000161b0   ARM Code      76  serial_reader.o(i.setProtocol)
-    i.spi0_sendReceive_message               0x000161fc   Section        0  spi.o(i.spi0_sendReceive_message)
-    i.timer1_irq                             0x000162b4   Section        0  timer.o(i.timer1_irq)
-    i.tm_gettime_consistent                  0x00016308   Section        0  tmr_utils.o(i.tm_gettime_consistent)
-    i.tm_memcpy                              0x0001634c   Section        0  tmr_utils.o(i.tm_memcpy)
-    i.tm_strcpy                              0x00016380   Section        0  tmr_utils.o(i.tm_strcpy)
-    i.tm_u8s_per_bits                        0x000163a4   Section        0  tmr_utils.o(i.tm_u8s_per_bits)
-    i.tmr_gettime                            0x000163c8   Section        0  osdep_dummy.o(i.tmr_gettime)
-    i.tmr_gettime_high                       0x000163d4   Section        0  osdep_dummy.o(i.tmr_gettime_high)
-    i.tmr_gettime_low                        0x000163dc   Section        0  osdep_dummy.o(i.tmr_gettime_low)
-    i.updateTxRxMapData                      0x000163e4   Section        0  serial_reader.o(i.updateTxRxMapData)
-    i.validateParams                         0x0001648c   Section        0  serial_reader.o(i.validateParams)
-    i.validateReadPlan                       0x00016604   Section        0  tm_reader.o(i.validateReadPlan)
-    i.versionCompare                         0x00016660   Section        0  tm_reader.o(i.versionCompare)
-    i.wifi_handsake_init                     0x0001672c   Section        0  wifi_utils.o(i.wifi_handsake_init)
-    i.wifi_handsake_irq                      0x0001676c   Section        0  wifi_utils.o(i.wifi_handsake_irq)
-    i.wifi_utils_Init                        0x000167bc   Section        0  wifi_utils.o(i.wifi_utils_Init)
+    i.Set_Passthrough_Mode                   0x00002f74   Section        0  wifi_utils.o(i.Set_Passthrough_Mode)
+    i.Set_Wifi_Response_Ready_State          0x00002f84   Section        0  wifi_utils.o(i.Set_Wifi_Response_Ready_State)
+    i.TIMER1_Start                           0x00002f94   Section        0  timer.o(i.TIMER1_Start)
+    i.TIMER1_Stop                            0x00002fb8   Section        0  timer.o(i.TIMER1_Stop)
+    i.TIMER1_getWakeUp_Status                0x00002ff0   Section        0  timer.o(i.TIMER1_getWakeUp_Status)
+    i.TIMER_Init                             0x00003000   Section        0  timer.o(i.TIMER_Init)
+    i.TIMER_SOFTWARE_ModX                    0x00003054   Section        0  timer_software.o(i.TIMER_SOFTWARE_ModX)
+    i.TIMER_SOFTWARE_Wait                    0x0000338c   Section        0  timer_software.o(i.TIMER_SOFTWARE_Wait)
+    i.TIMER_SOFTWARE_clear_interrupt         0x000034a8   Section        0  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
+    i.TIMER_SOFTWARE_configure_timer         0x000034d4   Section        0  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
+    i.TIMER_SOFTWARE_enable_timer            0x00003738   Section        0  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
+    i.TIMER_SOFTWARE_init                    0x000037bc   Section        0  timer_software.o(i.TIMER_SOFTWARE_init)
+    i.TIMER_SOFTWARE_interrupt_pending       0x00003854   Section        0  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
+    i.TIMER_SOFTWARE_is_Running              0x00003878   Section        0  timer_software.o(i.TIMER_SOFTWARE_is_Running)
+    i.TIMER_SOFTWARE_request_timer           0x00003914   Section        0  timer_software.o(i.TIMER_SOFTWARE_request_timer)
+    i.TIMER_SOFTWARE_reset_timer             0x000039e4   Section        0  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
+    i.TIMER_SOFTWARE_start_timer             0x00003a00   Section        0  timer_software.o(i.TIMER_SOFTWARE_start_timer)
+    i.TIMER_SOFTWARE_stop_timer              0x00003a98   Section        0  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
+    i.TIMER_irq                              0x00003afc   Section        0  timer.o(i.TIMER_irq)
+    i.TMR_RP_init_simple                     0x00003b48   Section        0  tm_reader.o(i.TMR_RP_init_simple)
+    i.TMR_SR_SerialReader_init               0x00003ba4   Section        0  serial_reader.o(i.TMR_SR_SerialReader_init)
+    i.TMR_SR_SerialTransportDummyInit        0x00003d30   Section        0  serial_transport_dummy.o(i.TMR_SR_SerialTransportDummyInit)
+    i.TMR_SR_SerialTransportNativeInit       0x00003d88   Section        0  serial_transport_dummy.o(i.TMR_SR_SerialTransportNativeInit)
+    i.TMR_SR_addTagOp                        0x00003db4   Section        0  serial_reader.o(i.TMR_SR_addTagOp)
+    i.TMR_SR_antennaDecoding                 0x00004ba4   Section        0  serial_reader_l3.o(i.TMR_SR_antennaDecoding)
+    i.TMR_SR_boot                            0x00004cec   Section        0  serial_reader.o(i.TMR_SR_boot)
+    i.TMR_SR_callSendCmd                     0x00004dcc   Section        0  serial_reader_l3.o(i.TMR_SR_callSendCmd)
+    i.TMR_SR_cmdAntennaDetect                0x00004e2c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdAntennaDetect)
+    i.TMR_SR_cmdBootFirmware                 0x00004f5c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdBootFirmware)
+    i.TMR_SR_cmdClearTagBuffer               0x00004fec   Section        0  serial_reader_l3.o(i.TMR_SR_cmdClearTagBuffer)
+    i.TMR_SR_cmdFrameHeader                  0x00005014   Section        0  serial_reader_l3.o(i.TMR_SR_cmdFrameHeader)
+    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime 0x0000513c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime)
+    i.TMR_SR_cmdGetAntennaReturnLoss         0x0000537c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaReturnLoss)
+    i.TMR_SR_cmdGetAvailableProtocols        0x000054b4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableProtocols)
+    i.TMR_SR_cmdGetAvailableRegions          0x000055ac   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableRegions)
+    i.TMR_SR_cmdGetCurrentProtocol           0x00005654   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetCurrentProtocol)
+    i.TMR_SR_cmdGetFrequencyHopTable         0x000056a8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTable)
+    i.TMR_SR_cmdGetFrequencyHopTableOption   0x00005770   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTableOption)
+    i.TMR_SR_cmdGetFrequencyHopTime          0x00005848   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTime)
+    i.TMR_SR_cmdGetGPIO                      0x0000586c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetGPIO)
+    i.TMR_SR_cmdGetGPIODirection             0x000059fc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetGPIODirection)
+    i.TMR_SR_cmdGetHardwareVersion           0x00005acc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetHardwareVersion)
+    i.TMR_SR_cmdGetMinimumFrequency          0x00005bf8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetMinimumFrequency)
+    i.TMR_SR_cmdGetPerAntennaTime            0x00005c1c   Section        0  serial_reader.o(i.TMR_SR_cmdGetPerAntennaTime)
+    TMR_SR_cmdGetPerAntennaTime              0x00005c1c   ARM Code     280  serial_reader.o(i.TMR_SR_cmdGetPerAntennaTime)
+    i.TMR_SR_cmdGetPowerMode                 0x00005d38   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetPowerMode)
+    i.TMR_SR_cmdGetProtocolConfiguration     0x00005d84   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolConfiguration)
+    i.TMR_SR_cmdGetProtocolList              0x00006498   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolList)
+    i.TMR_SR_cmdGetQuantizationStep          0x000065cc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetQuantizationStep)
+    i.TMR_SR_cmdGetReadTxPower               0x000065f0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPower)
+    i.TMR_SR_cmdGetReadTxPowerWithLimits     0x00006614   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPowerWithLimits)
+    i.TMR_SR_cmdGetReadWriteTxPower          0x00006700   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReadWriteTxPower)
+    i.TMR_SR_cmdGetReaderConfiguration       0x000067c0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderConfiguration)
+    i.TMR_SR_cmdGetReaderStatistics          0x00006a08   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStatistics)
+    i.TMR_SR_cmdGetReaderStats               0x00006cb4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStats)
+    i.TMR_SR_cmdGetReaderWriteTimeOut        0x00006fcc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetReaderWriteTimeOut)
+    i.TMR_SR_cmdGetRegion                    0x000070e4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetRegion)
+    i.TMR_SR_cmdGetRegionConfiguration       0x00007130   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetRegionConfiguration)
+    i.TMR_SR_cmdGetTagsRemaining             0x000072cc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetTagsRemaining)
+    i.TMR_SR_cmdGetTemperature               0x00007330   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetTemperature)
+    i.TMR_SR_cmdGetUserMode                  0x00007384   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetUserMode)
+    i.TMR_SR_cmdGetWriteTxPower              0x000073d0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdGetWriteTxPower)
+    i.TMR_SR_cmdMultipleProtocolSearch       0x000073f4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdMultipleProtocolSearch)
+    i.TMR_SR_cmdReadTagMultiple              0x00007598   Section        0  serial_reader_l3.o(i.TMR_SR_cmdReadTagMultiple)
+    i.TMR_SR_cmdResetReaderStatistics        0x00007724   Section        0  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStatistics)
+    i.TMR_SR_cmdResetReaderStats             0x0000781c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStats)
+    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime 0x00007984   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime)
+    i.TMR_SR_cmdSetAntennaSearchList         0x00007bcc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaSearchList)
+    i.TMR_SR_cmdSetBaudRate                  0x00007d18   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetBaudRate)
+    i.TMR_SR_cmdSetFrequencyHopTable         0x00007df8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTable)
+    i.TMR_SR_cmdSetFrequencyHopTableOption   0x00007f08   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTableOption)
+    i.TMR_SR_cmdSetGPIODirection             0x00008030   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetGPIODirection)
+    i.TMR_SR_cmdSetMode                      0x00008174   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetMode)
+    i.TMR_SR_cmdSetPerAntennaTime            0x00008210   Section        0  serial_reader.o(i.TMR_SR_cmdSetPerAntennaTime)
+    TMR_SR_cmdSetPerAntennaTime              0x00008210   ARM Code     580  serial_reader.o(i.TMR_SR_cmdSetPerAntennaTime)
+    i.TMR_SR_cmdSetPowerMode                 0x00008460   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetPowerMode)
+    i.TMR_SR_cmdSetProtocol                  0x00008484   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocol)
+    i.TMR_SR_cmdSetProtocolConfiguration     0x00008538   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolConfiguration)
+    i.TMR_SR_cmdSetProtocolLicenseKey        0x00008fa4   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolLicenseKey)
+    i.TMR_SR_cmdSetProtocolList              0x000090d8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolList)
+    i.TMR_SR_cmdSetReadTxPower               0x0000921c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReadTxPower)
+    i.TMR_SR_cmdSetReadWriteTxPower          0x00009240   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReadWriteTxPower)
+    i.TMR_SR_cmdSetReaderConfiguration       0x00009304   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReaderConfiguration)
+    i.TMR_SR_cmdSetReaderWriteTimeOut        0x00009608   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetReaderWriteTimeOut)
+    i.TMR_SR_cmdSetRegion                    0x00009768   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegion)
+    i.TMR_SR_cmdSetRegionDwellTime           0x00009aac   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTime)
+    i.TMR_SR_cmdSetRegionDwellTimeEnable     0x00009c10   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeEnable)
+    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  0x00009c3c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeLbtEnable)
+    i.TMR_SR_cmdSetRegionLbt                 0x00009d68   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbt)
+    i.TMR_SR_cmdSetRegionLbtThreshold        0x00009d94   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbtThreshold)
+    i.TMR_SR_cmdSetTxRxPorts                 0x00009ed8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetTxRxPorts)
+    i.TMR_SR_cmdSetUserMode                  0x00009fb8   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetUserMode)
+    i.TMR_SR_cmdSetUserProfile               0x00009fdc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetUserProfile)
+    i.TMR_SR_cmdSetWriteTxPower              0x0000a48c   Section        0  serial_reader_l3.o(i.TMR_SR_cmdSetWriteTxPower)
+    i.TMR_SR_cmdStopReading                  0x0000a4b0   Section        0  serial_reader_l3.o(i.TMR_SR_cmdStopReading)
+    i.TMR_SR_cmdVersion                      0x0000a5bc   Section        0  serial_reader_l3.o(i.TMR_SR_cmdVersion)
+    i.TMR_SR_connect                         0x0000a65c   Section        0  serial_reader.o(i.TMR_SR_connect)
+    i.TMR_SR_convertFromEBV                  0x0000a754   Section        0  tm_reader.o(i.TMR_SR_convertFromEBV)
+    i.TMR_SR_convertToEBV                    0x0000aa4c   Section        0  tm_reader.o(i.TMR_SR_convertToEBV)
+    i.TMR_SR_executeEmbeddedRead             0x0000ad8c   Section        0  serial_reader_l3.o(i.TMR_SR_executeEmbeddedRead)
+    i.TMR_SR_getNextTag                      0x0000b1e0   Section        0  serial_reader.o(i.TMR_SR_getNextTag)
+    i.TMR_SR_getVersion                      0x0000b480   Section        0  serial_reader.o(i.TMR_SR_getVersion)
+    i.TMR_SR_hasMoreTags                     0x0000b584   Section        0  serial_reader.o(i.TMR_SR_hasMoreTags)
+    i.TMR_SR_msgAddAccessPassword            0x0000b98c   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddAccessPassword)
+    i.TMR_SR_msgAddExtendedParams            0x0000ba20   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddExtendedParams)
+    i.TMR_SR_msgAddGEN2BlockErase            0x0000baf4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockErase)
+    i.TMR_SR_msgAddGEN2BlockPermaLock        0x0000bcc4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockPermaLock)
+    i.TMR_SR_msgAddGEN2BlockWrite            0x0000bfe8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockWrite)
+    i.TMR_SR_msgAddGEN2DataRead              0x0000c340   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataRead)
+    i.TMR_SR_msgAddGEN2DataWrite             0x0000c4dc   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataWrite)
+    i.TMR_SR_msgAddGEN2KillTag               0x0000c6c8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2KillTag)
+    i.TMR_SR_msgAddGEN2LockTag               0x0000c7e4   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2LockTag)
+    i.TMR_SR_msgAddGEN2WriteTagEPC           0x0000c96c   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddGEN2WriteTagEPC)
+    i.TMR_SR_msgAddReadMemory                0x0000ca78   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddReadMemory)
+    i.TMR_SR_msgAddWriteMemory               0x0000ccb8   Section        0  serial_reader_l3.o(i.TMR_SR_msgAddWriteMemory)
+    i.TMR_SR_msgSetupMultipleProtocolSearch  0x0000ce70   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupMultipleProtocolSearch)
+    i.TMR_SR_msgSetupReadTagMultiple         0x0000d4f0   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultiple)
+    i.TMR_SR_msgSetupReadTagMultipleWithMetadata 0x0000d540   Section        0  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultipleWithMetadata)
+    i.TMR_SR_paramGet                        0x0000db24   Section        0  serial_reader.o(i.TMR_SR_paramGet)
+    TMR_SR_paramGet                          0x0000db24   ARM Code    5868  serial_reader.o(i.TMR_SR_paramGet)
+    i.TMR_SR_paramSet                        0x0000f220   Section        0  serial_reader.o(i.TMR_SR_paramSet)
+    TMR_SR_paramSet                          0x0000f220   ARM Code    4664  serial_reader.o(i.TMR_SR_paramSet)
+    i.TMR_SR_parseMetadataFromMessage        0x0001045c   Section        0  serial_reader_l3.o(i.TMR_SR_parseMetadataFromMessage)
+    i.TMR_SR_parseMetadataOnly               0x00010688   Section        0  serial_reader_l3.o(i.TMR_SR_parseMetadataOnly)
+    i.TMR_SR_postprocessReaderSpecificMetadata 0x00010b38   Section        0  serial_reader_l3.o(i.TMR_SR_postprocessReaderSpecificMetadata)
+    i.TMR_SR_read                            0x00010cd8   Section        0  serial_reader.o(i.TMR_SR_read)
+    i.TMR_SR_read_internal                   0x00010d70   Section        0  serial_reader.o(i.TMR_SR_read_internal)
+    TMR_SR_read_internal                     0x00010d70   ARM Code    1364  serial_reader.o(i.TMR_SR_read_internal)
+    i.TMR_SR_receiveMessage                  0x000112e8   Section        0  serial_reader_l3.o(i.TMR_SR_receiveMessage)
+    i.TMR_SR_send                            0x0001176c   Section        0  serial_reader_l3.o(i.TMR_SR_send)
+    i.TMR_SR_sendBytes                       0x00011790   Section        0  serial_reader_l3.o(i.TMR_SR_sendBytes)
+    i.TMR_SR_sendCmd                         0x000117f8   Section        0  serial_reader_l3.o(i.TMR_SR_sendCmd)
+    i.TMR_SR_sendMessage                     0x00011824   Section        0  serial_reader_l3.o(i.TMR_SR_sendMessage)
+    i.TMR_SR_sendTimeout                     0x000119a4   Section        0  serial_reader_l3.o(i.TMR_SR_sendTimeout)
+    i.TMR__notifyTransportListeners          0x00011ac8   Section        0  tm_reader.o(i.TMR__notifyTransportListeners)
+    i.TMR_create                             0x00011b20   Section        0  tm_reader.o(i.TMR_create)
+    i.TMR_fillReaderStats                    0x00011cf0   Section        0  serial_reader_l3.o(i.TMR_fillReaderStats)
+    i.TMR_flush                              0x0001216c   Section        0  serial_reader_l3.o(i.TMR_flush)
+    i.TMR_hexDottedQuad                      0x00012224   Section        0  hex_bytes.o(i.TMR_hexDottedQuad)
+    i.TMR_initSerialTransportTable           0x0001227c   Section        0  tm_reader.o(i.TMR_initSerialTransportTable)
+    TMR_initSerialTransportTable             0x0001227c   ARM Code     272  tm_reader.o(i.TMR_initSerialTransportTable)
+    i.TMR_paramGet                           0x000123a8   Section        0  tm_reader.o(i.TMR_paramGet)
+    i.TMR_paramProbe                         0x00012458   Section        0  tm_reader.o(i.TMR_paramProbe)
+    i.TMR_paramSet                           0x00012518   Section        0  tm_reader.o(i.TMR_paramSet)
+    i.TMR_reader_init_internal               0x00012604   Section        0  tm_reader.o(i.TMR_reader_init_internal)
+    i.TMR_startReading                       0x000126f4   Section        0  tm_reader_async.o(i.TMR_startReading)
+    i.TMR_stopReading                        0x00012758   Section        0  tm_reader_async.o(i.TMR_stopReading)
+    i.TMR_stringCopy                         0x0001280c   Section        0  tmr_utils.o(i.TMR_stringCopy)
+    i.UART0_Init                             0x00012864   Section        0  uart0.o(i.UART0_Init)
+    i.UART0_sendchar                         0x000128a4   Section        0  uart0.o(i.UART0_sendchar)
+    i.UART1_Init                             0x000128cc   Section        0  uart1.o(i.UART1_Init)
+    i.UART1_flush                            0x00012940   Section        0  uart1.o(i.UART1_flush)
+    i.UART1_get_CommErrors                   0x0001297c   Section        0  uart1.o(i.UART1_get_CommErrors)
+    i.UART1_irq                              0x0001298c   Section        0  isr_manager.o(i.UART1_irq)
+    i.UART1_receivebuffer                    0x000129d4   Section        0  uart1.o(i.UART1_receivebuffer)
+    i.UART1_send_reveice_PING                0x00012b98   Section        0  uart1.o(i.UART1_send_reveice_PING)
+    i.UART1_sendbuffer                       0x00012d14   Section        0  uart1.o(i.UART1_sendbuffer)
+    i.UART1_sendchar                         0x00012e70   Section        0  uart1.o(i.UART1_sendchar)
+    i.UpdateIndexAtomic                      0x00012e98   Section        0  ringbuf.o(i.UpdateIndexAtomic)
+    UpdateIndexAtomic                        0x00012e98   ARM Code      44  ringbuf.o(i.UpdateIndexAtomic)
+    i.Wait_For_HIGH_Transition               0x00012ec4   Section        0  wifi_utils.o(i.Wait_For_HIGH_Transition)
+    i.Wait_for_transition                    0x00012ee0   Section        0  wifi_utils.o(i.Wait_for_transition)
+    Wait_for_transition                      0x00012ee0   ARM Code     440  wifi_utils.o(i.Wait_for_transition)
+    i.Wdg_Feed                               0x000130a0   Section        0  watchdog.o(i.Wdg_Feed)
+    i.Wdg_FeedSequence                       0x000130b4   Section        0  watchdog.o(i.Wdg_FeedSequence)
+    i.Wdg_Init                               0x000130dc   Section        0  watchdog.o(i.Wdg_Init)
+    i.Wdg_Start                              0x000130ec   Section        0  watchdog.o(i.Wdg_Start)
+    i.Wdg_isFeedRequested                    0x00013148   Section        0  watchdog.o(i.Wdg_isFeedRequested)
+    i.WifiManager_Init                       0x00013158   Section        0  wifi_manager.o(i.WifiManager_Init)
+    i.WifiManager_Perform_HW_Reset           0x00013334   Section        0  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
+    i.Wifi_GET_is_ClientConnected            0x00013398   Section        0  wifi_manager.o(i.Wifi_GET_is_ClientConnected)
+    i.Wifi_GET_is_Wifi_Connected_status      0x000133c0   Section        0  wifi_manager.o(i.Wifi_GET_is_Wifi_Connected_status)
+    i.Wifi_GET_passtrough_response           0x000133e8   Section        0  wifi_manager.o(i.Wifi_GET_passtrough_response)
+    i.Wifi_Manager                           0x000134bc   Section        0  wifi_manager.o(i.Wifi_Manager)
+    i.Wifi_SET_Command_Request               0x00013a18   Section        0  wifi_manager.o(i.Wifi_SET_Command_Request)
+    i.Write_ESP_Data                         0x00013ac0   Section        0  wifi_utils.o(i.Write_ESP_Data)
+    Write_ESP_Data                           0x00013ac0   ARM Code     152  wifi_utils.o(i.Write_ESP_Data)
+    i.__ARM_common_call_via_r1               0x00013b58   Section        0  __printf.o(i.__ARM_common_call_via_r1)
+    i.__ARM_common_call_via_r2               0x00013b5a   Section        0  __printf.o(i.__ARM_common_call_via_r2)
+    i._is_digit                              0x00013b5c   Section        0  __printf_wp.o(i._is_digit)
+    i._sys_exit                              0x00013b6c   Section        0  retarget.o(i._sys_exit)
+    i.checkForAvailableFeatures              0x00013b70   Section        0  tm_reader.o(i.checkForAvailableFeatures)
+    i.check_communication_errors             0x00013bf4   Section        0  uart1.o(i.check_communication_errors)
+    check_communication_errors               0x00013bf4   ARM Code      60  uart1.o(i.check_communication_errors)
+    i.compareAntennas                        0x00013c38   Section        0  serial_reader.o(i.compareAntennas)
+    i.compute_crc                            0x00013d50   Section        0  crc.o(i.compute_crc)
+    i.disable_HW_Reader                      0x00013dcc   Section        0  reader_manager.o(i.disable_HW_Reader)
+    disable_HW_Reader                        0x00013dcc   ARM Code      16  reader_manager.o(i.disable_HW_Reader)
+    i.disable_Timer0                         0x00013de0   Section        0  lp_mode_manager.o(i.disable_Timer0)
+    disable_Timer0                           0x00013de0   ARM Code      24  lp_mode_manager.o(i.disable_Timer0)
+    i.enable_Timer0                          0x00013dfc   Section        0  lp_mode_manager.o(i.enable_Timer0)
+    enable_Timer0                            0x00013dfc   ARM Code      24  lp_mode_manager.o(i.enable_Timer0)
+    i.extractGen2MemoryBankValues            0x00013e18   Section        0  serial_reader_l3.o(i.extractGen2MemoryBankValues)
+    i.ferror                                 0x00013f3c   Section        0  retarget.o(i.ferror)
+    i.fillStaticTxRxMapData                  0x00013f48   Section        0  serial_reader.o(i.fillStaticTxRxMapData)
+    i.fillVersionInfo                        0x00013fd0   Section        0  serial_reader_l3.o(i.fillVersionInfo)
+    i.filterbytes                            0x000140dc   Section        0  serial_reader_l3.o(i.filterbytes)
+    filterbytes                              0x000140dc   ARM Code    2176  serial_reader_l3.o(i.filterbytes)
+    i.fputc                                  0x00014970   Section        0  retarget.o(i.fputc)
+    i.getAddrByteExtEnabledVersion           0x0001498c   Section        0  tm_reader.o(i.getAddrByteExtEnabledVersion)
+    i.getHardwareInfo                        0x000149dc   Section        0  serial_reader.o(i.getHardwareInfo)
+    getHardwareInfo                          0x000149dc   ARM Code      76  serial_reader.o(i.getHardwareInfo)
+    i.getPortValues                          0x00014a28   Section        0  serial_reader.o(i.getPortValues)
+    getPortValues                            0x00014a28   ARM Code     332  serial_reader.o(i.getPortValues)
+    i.getReadExtParams                       0x00014b74   Section        0  serial_reader.o(i.getReadExtParams)
+    i.getSerialNumber                        0x00014e68   Section        0  serial_reader.o(i.getSerialNumber)
+    getSerialNumber                          0x00014e68   ARM Code     224  serial_reader.o(i.getSerialNumber)
+    i.getWriteExtParams                      0x00014f4c   Section        0  serial_reader.o(i.getWriteExtParams)
+    i.i2c_check_CRC_after_RX_finish          0x000153b4   Section        0  i2c.o(i.i2c_check_CRC_after_RX_finish)
+    i.i2c_get_RX_ready_status                0x00015408   Section        0  i2c.o(i.i2c_get_RX_ready_status)
+    i.i2c_get_command                        0x00015418   Section        0  i2c.o(i.i2c_get_command)
+    i.i2c_get_request_stayAwake              0x00015440   Section        0  i2c.o(i.i2c_get_request_stayAwake)
+    i.i2c_set_RX_ready_status                0x00015450   Section        0  i2c.o(i.i2c_set_RX_ready_status)
+    i.i2c_set_command_status                 0x00015460   Section        0  i2c.o(i.i2c_set_command_status)
+    i.i2c_set_data_bytes                     0x00015498   Section        0  i2c.o(i.i2c_set_data_bytes)
+    i.i2c_set_response_ready_status          0x000154c0   Section        0  i2c.o(i.i2c_set_response_ready_status)
+    i.initTxRxMapFromPorts                   0x000154d0   Section        0  serial_reader.o(i.initTxRxMapFromPorts)
+    i.isPassthroughResponseValid             0x0001553c   Section        0  wifi_manager.o(i.isPassthroughResponseValid)
+    isPassthroughResponseValid               0x0001553c   ARM Code     148  wifi_manager.o(i.isPassthroughResponseValid)
+    i.isTagTypeFilterAvail                   0x000155dc   Section        0  serial_reader.o(i.isTagTypeFilterAvail)
+    i.main                                   0x00015650   Section        0  main.o(i.main)
+    i.notify_read_listeners                  0x000156f4   Section        0  tm_reader_async.o(i.notify_read_listeners)
+    i.parseEBVdata                           0x0001573c   Section        0  serial_reader_l3.o(i.parseEBVdata)
+    i.prepEmbReadTagMultiple                 0x000157b8   Section        0  serial_reader.o(i.prepEmbReadTagMultiple)
+    prepEmbReadTagMultiple                   0x000157b8   ARM Code     168  serial_reader.o(i.prepEmbReadTagMultiple)
+    i.prepForSearch                          0x00015864   Section        0  serial_reader.o(i.prepForSearch)
+    i.reader_recovery                        0x00015990   Section        0  reader_manager.o(i.reader_recovery)
+    reader_recovery                          0x00015990   ARM Code     208  reader_manager.o(i.reader_recovery)
+    i.s_flush                                0x00015aa8   Section        0  serial_transport_dummy.o(i.s_flush)
+    s_flush                                  0x00015aa8   ARM Code      40  serial_transport_dummy.o(i.s_flush)
+    i.s_open                                 0x00015ad4   Section        0  serial_transport_dummy.o(i.s_open)
+    s_open                                   0x00015ad4   ARM Code      12  serial_transport_dummy.o(i.s_open)
+    i.s_receiveBytes                         0x00015ae0   Section        0  serial_transport_dummy.o(i.s_receiveBytes)
+    s_receiveBytes                           0x00015ae0   ARM Code     100  serial_transport_dummy.o(i.s_receiveBytes)
+    i.s_sendBytes                            0x00015b4c   Section        0  serial_transport_dummy.o(i.s_sendBytes)
+    s_sendBytes                              0x00015b4c   ARM Code      92  serial_transport_dummy.o(i.s_sendBytes)
+    i.s_setBaudRate                          0x00015bb0   Section        0  serial_transport_dummy.o(i.s_setBaudRate)
+    s_setBaudRate                            0x00015bb0   ARM Code      12  serial_transport_dummy.o(i.s_setBaudRate)
+    i.s_shutdown                             0x00015bbc   Section        0  serial_transport_dummy.o(i.s_shutdown)
+    s_shutdown                               0x00015bbc   ARM Code      12  serial_transport_dummy.o(i.s_shutdown)
+    i.send_Read_EOF                          0x00015bc8   Section        0  wifi_utils.o(i.send_Read_EOF)
+    send_Read_EOF                            0x00015bc8   ARM Code      36  wifi_utils.o(i.send_Read_EOF)
+    i.send_Write_EOF                         0x00015bf0   Section        0  wifi_utils.o(i.send_Write_EOF)
+    send_Write_EOF                           0x00015bf0   ARM Code      36  wifi_utils.o(i.send_Write_EOF)
+    i.send_validate_tag_criteria_cmd         0x00015c18   Section        0  reader_manager.o(i.send_validate_tag_criteria_cmd)
+    send_validate_tag_criteria_cmd           0x00015c18   ARM Code     100  reader_manager.o(i.send_validate_tag_criteria_cmd)
+    i.setAntennaList                         0x00015c7c   Section        0  serial_reader.o(i.setAntennaList)
+    setAntennaList                           0x00015c7c   ARM Code     208  serial_reader.o(i.setAntennaList)
+    i.setAntennaReadTimeHelper               0x00015d50   Section        0  serial_reader.o(i.setAntennaReadTimeHelper)
+    i.setAntennaReadTimeList                 0x00016014   Section        0  serial_reader.o(i.setAntennaReadTimeList)
+    i.setPortValues                          0x00016098   Section        0  serial_reader.o(i.setPortValues)
+    setPortValues                            0x00016098   ARM Code     280  serial_reader.o(i.setPortValues)
+    i.setProtocol                            0x000161b4   Section        0  serial_reader.o(i.setProtocol)
+    setProtocol                              0x000161b4   ARM Code      76  serial_reader.o(i.setProtocol)
+    i.spi0_sendReceive_message               0x00016200   Section        0  spi.o(i.spi0_sendReceive_message)
+    i.timer1_irq                             0x000162b8   Section        0  timer.o(i.timer1_irq)
+    i.tm_gettime_consistent                  0x0001630c   Section        0  tmr_utils.o(i.tm_gettime_consistent)
+    i.tm_memcpy                              0x00016350   Section        0  tmr_utils.o(i.tm_memcpy)
+    i.tm_strcpy                              0x00016384   Section        0  tmr_utils.o(i.tm_strcpy)
+    i.tm_u8s_per_bits                        0x000163a8   Section        0  tmr_utils.o(i.tm_u8s_per_bits)
+    i.tmr_gettime                            0x000163cc   Section        0  osdep_dummy.o(i.tmr_gettime)
+    i.tmr_gettime_high                       0x000163d8   Section        0  osdep_dummy.o(i.tmr_gettime_high)
+    i.tmr_gettime_low                        0x000163e0   Section        0  osdep_dummy.o(i.tmr_gettime_low)
+    i.updateTxRxMapData                      0x000163e8   Section        0  serial_reader.o(i.updateTxRxMapData)
+    i.validateParams                         0x00016490   Section        0  serial_reader.o(i.validateParams)
+    i.validateReadPlan                       0x00016608   Section        0  tm_reader.o(i.validateReadPlan)
+    i.versionCompare                         0x00016664   Section        0  tm_reader.o(i.versionCompare)
+    i.wifi_handsake_init                     0x00016730   Section        0  wifi_utils.o(i.wifi_handsake_init)
+    i.wifi_handsake_irq                      0x00016770   Section        0  wifi_utils.o(i.wifi_handsake_irq)
+    i.wifi_utils_Init                        0x000167c0   Section        0  wifi_utils.o(i.wifi_utils_Init)
     .constdata                               0x00016830   Section       32  crc.o(.constdata)
     crctable                                 0x00016830   Data          32  crc.o(.constdata)
     .constdata                               0x00016850   Section       32  serial_reader.o(.constdata)
@@ -3551,214 +3556,214 @@ Image Symbol Table
     RingBufWriteOne                          0x00002b30   ARM Code      48  ringbuf.o(i.RingBufWriteOne)
     SPI0_init                                0x00002b60   ARM Code     112  spi.o(i.SPI0_init)
     SPI0_irq                                 0x00002bd8   ARM Code     128  spi.o(i.SPI0_irq)
-    Send_ESP_Command                         0x00002cb4   ARM Code     656  wifi_utils.o(i.Send_ESP_Command)
-    Set_Passthrough_Mode                     0x00002f64   ARM Code      12  wifi_utils.o(i.Set_Passthrough_Mode)
-    Set_Wifi_Response_Ready_State            0x00002f74   ARM Code      12  wifi_utils.o(i.Set_Wifi_Response_Ready_State)
-    TIMER1_Start                             0x00002f84   ARM Code      28  timer.o(i.TIMER1_Start)
-    TIMER1_Stop                              0x00002fa8   ARM Code      48  timer.o(i.TIMER1_Stop)
-    TIMER1_getWakeUp_Status                  0x00002fe0   ARM Code      12  timer.o(i.TIMER1_getWakeUp_Status)
-    TIMER_Init                               0x00002ff0   ARM Code      72  timer.o(i.TIMER_Init)
-    TIMER_SOFTWARE_ModX                      0x00003044   ARM Code     820  timer_software.o(i.TIMER_SOFTWARE_ModX)
-    TIMER_SOFTWARE_Wait                      0x0000337c   ARM Code     276  timer_software.o(i.TIMER_SOFTWARE_Wait)
-    TIMER_SOFTWARE_clear_interrupt           0x00003498   ARM Code      40  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
-    TIMER_SOFTWARE_configure_timer           0x000034c4   ARM Code     608  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
-    TIMER_SOFTWARE_enable_timer              0x00003728   ARM Code     128  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
-    TIMER_SOFTWARE_init                      0x000037ac   ARM Code     144  timer_software.o(i.TIMER_SOFTWARE_init)
-    TIMER_SOFTWARE_interrupt_pending         0x00003844   ARM Code      32  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
-    TIMER_SOFTWARE_is_Running                0x00003868   ARM Code     152  timer_software.o(i.TIMER_SOFTWARE_is_Running)
-    TIMER_SOFTWARE_request_timer             0x00003904   ARM Code     204  timer_software.o(i.TIMER_SOFTWARE_request_timer)
-    TIMER_SOFTWARE_reset_timer               0x000039d4   ARM Code      24  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
-    TIMER_SOFTWARE_start_timer               0x000039f0   ARM Code     148  timer_software.o(i.TIMER_SOFTWARE_start_timer)
-    TIMER_SOFTWARE_stop_timer                0x00003a88   ARM Code      96  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
-    TIMER_irq                                0x00003aec   ARM Code      72  timer.o(i.TIMER_irq)
-    TMR_RP_init_simple                       0x00003b38   ARM Code      92  tm_reader.o(i.TMR_RP_init_simple)
-    TMR_SR_SerialReader_init                 0x00003b94   ARM Code     364  serial_reader.o(i.TMR_SR_SerialReader_init)
-    TMR_SR_SerialTransportDummyInit          0x00003d20   ARM Code      64  serial_transport_dummy.o(i.TMR_SR_SerialTransportDummyInit)
-    TMR_SR_SerialTransportNativeInit         0x00003d78   ARM Code      44  serial_transport_dummy.o(i.TMR_SR_SerialTransportNativeInit)
-    TMR_SR_addTagOp                          0x00003da4   ARM Code    3548  serial_reader.o(i.TMR_SR_addTagOp)
-    TMR_SR_antennaDecoding                   0x00004b94   ARM Code     328  serial_reader_l3.o(i.TMR_SR_antennaDecoding)
-    TMR_SR_boot                              0x00004cdc   ARM Code     224  serial_reader.o(i.TMR_SR_boot)
-    TMR_SR_callSendCmd                       0x00004dbc   ARM Code      92  serial_reader_l3.o(i.TMR_SR_callSendCmd)
-    TMR_SR_cmdAntennaDetect                  0x00004e1c   ARM Code     300  serial_reader_l3.o(i.TMR_SR_cmdAntennaDetect)
-    TMR_SR_cmdBootFirmware                   0x00004f4c   ARM Code     140  serial_reader_l3.o(i.TMR_SR_cmdBootFirmware)
-    TMR_SR_cmdClearTagBuffer                 0x00004fdc   ARM Code      40  serial_reader_l3.o(i.TMR_SR_cmdClearTagBuffer)
-    TMR_SR_cmdFrameHeader                    0x00005004   ARM Code     284  serial_reader_l3.o(i.TMR_SR_cmdFrameHeader)
-    TMR_SR_cmdGetAntennaPortPowersAndSettlingTime 0x0000512c   ARM Code     572  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime)
-    TMR_SR_cmdGetAntennaReturnLoss           0x0000536c   ARM Code     308  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaReturnLoss)
-    TMR_SR_cmdGetAvailableProtocols          0x000054a4   ARM Code     248  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableProtocols)
-    TMR_SR_cmdGetAvailableRegions            0x0000559c   ARM Code     168  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableRegions)
-    TMR_SR_cmdGetCurrentProtocol             0x00005644   ARM Code      84  serial_reader_l3.o(i.TMR_SR_cmdGetCurrentProtocol)
-    TMR_SR_cmdGetFrequencyHopTable           0x00005698   ARM Code     200  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTable)
-    TMR_SR_cmdGetFrequencyHopTableOption     0x00005760   ARM Code     212  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTableOption)
-    TMR_SR_cmdGetFrequencyHopTime            0x00005838   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTime)
-    TMR_SR_cmdGetGPIO                        0x0000585c   ARM Code     396  serial_reader_l3.o(i.TMR_SR_cmdGetGPIO)
-    TMR_SR_cmdGetGPIODirection               0x000059ec   ARM Code     204  serial_reader_l3.o(i.TMR_SR_cmdGetGPIODirection)
-    TMR_SR_cmdGetHardwareVersion             0x00005abc   ARM Code     296  serial_reader_l3.o(i.TMR_SR_cmdGetHardwareVersion)
-    TMR_SR_cmdGetMinimumFrequency            0x00005be8   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetMinimumFrequency)
-    TMR_SR_cmdGetPowerMode                   0x00005d28   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetPowerMode)
-    TMR_SR_cmdGetProtocolConfiguration       0x00005d74   ARM Code    1800  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolConfiguration)
-    TMR_SR_cmdGetProtocolList                0x00006488   ARM Code     304  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolList)
-    TMR_SR_cmdGetQuantizationStep            0x000065bc   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetQuantizationStep)
-    TMR_SR_cmdGetReadTxPower                 0x000065e0   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPower)
-    TMR_SR_cmdGetReadTxPowerWithLimits       0x00006604   ARM Code     232  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPowerWithLimits)
-    TMR_SR_cmdGetReadWriteTxPower            0x000066f0   ARM Code     188  serial_reader_l3.o(i.TMR_SR_cmdGetReadWriteTxPower)
-    TMR_SR_cmdGetReaderConfiguration         0x000067b0   ARM Code     576  serial_reader_l3.o(i.TMR_SR_cmdGetReaderConfiguration)
-    TMR_SR_cmdGetReaderStatistics            0x000069f8   ARM Code     680  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStatistics)
-    TMR_SR_cmdGetReaderStats                 0x00006ca4   ARM Code     784  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStats)
-    TMR_SR_cmdGetReaderWriteTimeOut          0x00006fbc   ARM Code     276  serial_reader_l3.o(i.TMR_SR_cmdGetReaderWriteTimeOut)
-    TMR_SR_cmdGetRegion                      0x000070d4   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetRegion)
-    TMR_SR_cmdGetRegionConfiguration         0x00007120   ARM Code     404  serial_reader_l3.o(i.TMR_SR_cmdGetRegionConfiguration)
-    TMR_SR_cmdGetTagsRemaining               0x000072bc   ARM Code     100  serial_reader_l3.o(i.TMR_SR_cmdGetTagsRemaining)
-    TMR_SR_cmdGetTemperature                 0x00007320   ARM Code      84  serial_reader_l3.o(i.TMR_SR_cmdGetTemperature)
-    TMR_SR_cmdGetUserMode                    0x00007374   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetUserMode)
-    TMR_SR_cmdGetWriteTxPower                0x000073c0   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetWriteTxPower)
-    TMR_SR_cmdMultipleProtocolSearch         0x000073e4   ARM Code     408  serial_reader_l3.o(i.TMR_SR_cmdMultipleProtocolSearch)
-    TMR_SR_cmdReadTagMultiple                0x00007588   ARM Code     392  serial_reader_l3.o(i.TMR_SR_cmdReadTagMultiple)
-    TMR_SR_cmdResetReaderStatistics          0x00007714   ARM Code     244  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStatistics)
-    TMR_SR_cmdResetReaderStats               0x0000780c   ARM Code     348  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStats)
-    TMR_SR_cmdSetAntennaPortPowersAndSettlingTime 0x00007974   ARM Code     580  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime)
-    TMR_SR_cmdSetAntennaSearchList           0x00007bbc   ARM Code     328  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaSearchList)
-    TMR_SR_cmdSetBaudRate                    0x00007d08   ARM Code     220  serial_reader_l3.o(i.TMR_SR_cmdSetBaudRate)
-    TMR_SR_cmdSetFrequencyHopTable           0x00007de8   ARM Code     264  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTable)
-    TMR_SR_cmdSetFrequencyHopTableOption     0x00007ef8   ARM Code     292  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTableOption)
-    TMR_SR_cmdSetGPIODirection               0x00008020   ARM Code     320  serial_reader_l3.o(i.TMR_SR_cmdSetGPIODirection)
-    TMR_SR_cmdSetMode                        0x00008164   ARM Code     152  serial_reader_l3.o(i.TMR_SR_cmdSetMode)
-    TMR_SR_cmdSetPowerMode                   0x00008450   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetPowerMode)
-    TMR_SR_cmdSetProtocol                    0x00008474   ARM Code     176  serial_reader_l3.o(i.TMR_SR_cmdSetProtocol)
-    TMR_SR_cmdSetProtocolConfiguration       0x00008528   ARM Code    2652  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolConfiguration)
-    TMR_SR_cmdSetProtocolLicenseKey          0x00008f94   ARM Code     304  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolLicenseKey)
-    TMR_SR_cmdSetProtocolList                0x000090c8   ARM Code     316  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolList)
-    TMR_SR_cmdSetReadTxPower                 0x0000920c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetReadTxPower)
-    TMR_SR_cmdSetReadWriteTxPower            0x00009230   ARM Code     192  serial_reader_l3.o(i.TMR_SR_cmdSetReadWriteTxPower)
-    TMR_SR_cmdSetReaderConfiguration         0x000092f4   ARM Code     764  serial_reader_l3.o(i.TMR_SR_cmdSetReaderConfiguration)
-    TMR_SR_cmdSetReaderWriteTimeOut          0x000095f8   ARM Code     348  serial_reader_l3.o(i.TMR_SR_cmdSetReaderWriteTimeOut)
-    TMR_SR_cmdSetRegion                      0x00009758   ARM Code     812  serial_reader_l3.o(i.TMR_SR_cmdSetRegion)
-    TMR_SR_cmdSetRegionDwellTime             0x00009a9c   ARM Code     352  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTime)
-    TMR_SR_cmdSetRegionDwellTimeEnable       0x00009c00   ARM Code      44  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeEnable)
-    TMR_SR_cmdSetRegionDwellTimeLbtEnable    0x00009c2c   ARM Code     296  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeLbtEnable)
-    TMR_SR_cmdSetRegionLbt                   0x00009d58   ARM Code      44  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbt)
-    TMR_SR_cmdSetRegionLbtThreshold          0x00009d84   ARM Code     320  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbtThreshold)
-    TMR_SR_cmdSetTxRxPorts                   0x00009ec8   ARM Code     220  serial_reader_l3.o(i.TMR_SR_cmdSetTxRxPorts)
-    TMR_SR_cmdSetUserMode                    0x00009fa8   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetUserMode)
-    TMR_SR_cmdSetUserProfile                 0x00009fcc   ARM Code    1184  serial_reader_l3.o(i.TMR_SR_cmdSetUserProfile)
-    TMR_SR_cmdSetWriteTxPower                0x0000a47c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetWriteTxPower)
-    TMR_SR_cmdStopReading                    0x0000a4a0   ARM Code     264  serial_reader_l3.o(i.TMR_SR_cmdStopReading)
-    TMR_SR_cmdVersion                        0x0000a5ac   ARM Code     156  serial_reader_l3.o(i.TMR_SR_cmdVersion)
-    TMR_SR_connect                           0x0000a64c   ARM Code     244  serial_reader.o(i.TMR_SR_connect)
-    TMR_SR_convertFromEBV                    0x0000a744   ARM Code     740  tm_reader.o(i.TMR_SR_convertFromEBV)
-    TMR_SR_convertToEBV                      0x0000aa3c   ARM Code     812  tm_reader.o(i.TMR_SR_convertToEBV)
-    TMR_SR_executeEmbeddedRead               0x0000ad7c   ARM Code    1100  serial_reader_l3.o(i.TMR_SR_executeEmbeddedRead)
-    TMR_SR_getNextTag                        0x0000b1d0   ARM Code     660  serial_reader.o(i.TMR_SR_getNextTag)
-    TMR_SR_getVersion                        0x0000b470   ARM Code     248  serial_reader.o(i.TMR_SR_getVersion)
-    TMR_SR_hasMoreTags                       0x0000b574   ARM Code     996  serial_reader.o(i.TMR_SR_hasMoreTags)
-    TMR_SR_msgAddAccessPassword              0x0000b97c   ARM Code     144  serial_reader_l3.o(i.TMR_SR_msgAddAccessPassword)
-    TMR_SR_msgAddExtendedParams              0x0000ba10   ARM Code     204  serial_reader_l3.o(i.TMR_SR_msgAddExtendedParams)
-    TMR_SR_msgAddGEN2BlockErase              0x0000bae4   ARM Code     460  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockErase)
-    TMR_SR_msgAddGEN2BlockPermaLock          0x0000bcb4   ARM Code     800  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockPermaLock)
-    TMR_SR_msgAddGEN2BlockWrite              0x0000bfd8   ARM Code     852  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockWrite)
-    TMR_SR_msgAddGEN2DataRead                0x0000c330   ARM Code     408  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataRead)
-    TMR_SR_msgAddGEN2DataWrite               0x0000c4cc   ARM Code     480  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataWrite)
-    TMR_SR_msgAddGEN2KillTag                 0x0000c6b8   ARM Code     280  serial_reader_l3.o(i.TMR_SR_msgAddGEN2KillTag)
-    TMR_SR_msgAddGEN2LockTag                 0x0000c7d4   ARM Code     388  serial_reader_l3.o(i.TMR_SR_msgAddGEN2LockTag)
-    TMR_SR_msgAddGEN2WriteTagEPC             0x0000c95c   ARM Code     264  serial_reader_l3.o(i.TMR_SR_msgAddGEN2WriteTagEPC)
-    TMR_SR_msgAddReadMemory                  0x0000ca68   ARM Code     568  serial_reader_l3.o(i.TMR_SR_msgAddReadMemory)
-    TMR_SR_msgAddWriteMemory                 0x0000cca8   ARM Code     432  serial_reader_l3.o(i.TMR_SR_msgAddWriteMemory)
-    TMR_SR_msgSetupMultipleProtocolSearch    0x0000ce60   ARM Code    1656  serial_reader_l3.o(i.TMR_SR_msgSetupMultipleProtocolSearch)
-    TMR_SR_msgSetupReadTagMultiple           0x0000d4e0   ARM Code      80  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultiple)
-    TMR_SR_msgSetupReadTagMultipleWithMetadata 0x0000d530   ARM Code    1488  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultipleWithMetadata)
-    TMR_SR_parseMetadataFromMessage          0x0001044c   ARM Code     556  serial_reader_l3.o(i.TMR_SR_parseMetadataFromMessage)
-    TMR_SR_parseMetadataOnly                 0x00010678   ARM Code    1192  serial_reader_l3.o(i.TMR_SR_parseMetadataOnly)
-    TMR_SR_postprocessReaderSpecificMetadata 0x00010b28   ARM Code     404  serial_reader_l3.o(i.TMR_SR_postprocessReaderSpecificMetadata)
-    TMR_SR_read                              0x00010cc8   ARM Code     144  serial_reader.o(i.TMR_SR_read)
-    TMR_SR_receiveMessage                    0x000112d8   ARM Code    1080  serial_reader_l3.o(i.TMR_SR_receiveMessage)
-    TMR_SR_send                              0x0001175c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_send)
-    TMR_SR_sendBytes                         0x00011780   ARM Code     104  serial_reader_l3.o(i.TMR_SR_sendBytes)
-    TMR_SR_sendCmd                           0x000117e8   ARM Code      44  serial_reader_l3.o(i.TMR_SR_sendCmd)
-    TMR_SR_sendMessage                       0x00011814   ARM Code     368  serial_reader_l3.o(i.TMR_SR_sendMessage)
-    TMR_SR_sendTimeout                       0x00011994   ARM Code     292  serial_reader_l3.o(i.TMR_SR_sendTimeout)
-    TMR__notifyTransportListeners            0x00011ab8   ARM Code      88  tm_reader.o(i.TMR__notifyTransportListeners)
-    TMR_create                               0x00011b10   ARM Code     424  tm_reader.o(i.TMR_create)
-    TMR_fillReaderStats                      0x00011ce0   ARM Code    1144  serial_reader_l3.o(i.TMR_fillReaderStats)
-    TMR_flush                                0x0001215c   ARM Code     172  serial_reader_l3.o(i.TMR_flush)
-    TMR_hexDottedQuad                        0x00012214   ARM Code      84  hex_bytes.o(i.TMR_hexDottedQuad)
-    TMR_paramGet                             0x00012398   ARM Code     176  tm_reader.o(i.TMR_paramGet)
-    TMR_paramProbe                           0x00012448   ARM Code     192  tm_reader.o(i.TMR_paramProbe)
-    TMR_paramSet                             0x00012508   ARM Code     228  tm_reader.o(i.TMR_paramSet)
-    TMR_reader_init_internal                 0x000125f4   ARM Code     216  tm_reader.o(i.TMR_reader_init_internal)
-    TMR_startReading                         0x000126e4   ARM Code      96  tm_reader_async.o(i.TMR_startReading)
-    TMR_stopReading                          0x00012748   ARM Code     164  tm_reader_async.o(i.TMR_stopReading)
-    TMR_stringCopy                           0x000127fc   ARM Code      88  tmr_utils.o(i.TMR_stringCopy)
-    UART0_Init                               0x00012854   ARM Code      60  uart0.o(i.UART0_Init)
-    UART0_sendchar                           0x00012894   ARM Code      36  uart0.o(i.UART0_sendchar)
-    UART1_Init                               0x000128bc   ARM Code     108  uart1.o(i.UART1_Init)
-    UART1_flush                              0x00012930   ARM Code      56  uart1.o(i.UART1_flush)
-    UART1_get_CommErrors                     0x0001296c   ARM Code      12  uart1.o(i.UART1_get_CommErrors)
-    UART1_irq                                0x0001297c   ARM Code      64  isr_manager.o(i.UART1_irq)
-    UART1_receivebuffer                      0x000129c4   ARM Code     424  uart1.o(i.UART1_receivebuffer)
-    UART1_send_reveice_PING                  0x00012b88   ARM Code     356  uart1.o(i.UART1_send_reveice_PING)
-    UART1_sendbuffer                         0x00012d04   ARM Code     312  uart1.o(i.UART1_sendbuffer)
-    UART1_sendchar                           0x00012e60   ARM Code      36  uart1.o(i.UART1_sendchar)
-    Wait_For_HIGH_Transition                 0x00012eb4   ARM Code      28  wifi_utils.o(i.Wait_For_HIGH_Transition)
-    Wdg_Feed                                 0x00013090   ARM Code      16  watchdog.o(i.Wdg_Feed)
-    Wdg_FeedSequence                         0x000130a4   ARM Code      36  watchdog.o(i.Wdg_FeedSequence)
-    Wdg_Init                                 0x000130cc   ARM Code      16  watchdog.o(i.Wdg_Init)
-    Wdg_Start                                0x000130dc   ARM Code     100  watchdog.o(i.Wdg_Start)
-    Wdg_isFeedRequested                      0x00013144   ARM Code      12  watchdog.o(i.Wdg_isFeedRequested)
-    WifiManager_Init                         0x00013154   ARM Code     404  wifi_manager.o(i.WifiManager_Init)
-    WifiManager_Perform_HW_Reset             0x00013330   ARM Code      96  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
-    Wifi_GET_is_ClientConnected              0x00013394   ARM Code      40  wifi_manager.o(i.Wifi_GET_is_ClientConnected)
-    Wifi_GET_is_Wifi_Connected_status        0x000133bc   ARM Code      40  wifi_manager.o(i.Wifi_GET_is_Wifi_Connected_status)
-    Wifi_GET_passtrough_response             0x000133e4   ARM Code     208  wifi_manager.o(i.Wifi_GET_passtrough_response)
-    Wifi_Manager                             0x000134b8   ARM Code    1328  wifi_manager.o(i.Wifi_Manager)
-    Wifi_SET_Command_Request                 0x00013a14   ARM Code     148  wifi_manager.o(i.Wifi_SET_Command_Request)
-    __ARM_common_call_via_r1                 0x00013b55   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r1)
-    __ARM_common_call_via_r2                 0x00013b57   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r2)
-    _is_digit                                0x00013b59   Thumb Code    14  __printf_wp.o(i._is_digit)
-    _sys_exit                                0x00013b68   ARM Code       4  retarget.o(i._sys_exit)
-    checkForAvailableFeatures                0x00013b6c   ARM Code     132  tm_reader.o(i.checkForAvailableFeatures)
-    compareAntennas                          0x00013c34   ARM Code     280  serial_reader.o(i.compareAntennas)
-    compute_crc                              0x00013d4c   ARM Code     116  crc.o(i.compute_crc)
-    extractGen2MemoryBankValues              0x00013e14   ARM Code     284  serial_reader_l3.o(i.extractGen2MemoryBankValues)
-    Inline Thumb to ARM Veneer to ferror     0x00013f35   Thumb Code     4  retarget.o(i.ferror)
-    ferror                                   0x00013f38   ARM Code      12  retarget.o(i.ferror)
-    fillStaticTxRxMapData                    0x00013f44   ARM Code     136  serial_reader.o(i.fillStaticTxRxMapData)
-    fillVersionInfo                          0x00013fcc   ARM Code     268  serial_reader_l3.o(i.fillVersionInfo)
-    fputc                                    0x0001496c   ARM Code      28  retarget.o(i.fputc)
-    getAddrByteExtEnabledVersion             0x00014988   ARM Code      80  tm_reader.o(i.getAddrByteExtEnabledVersion)
-    getReadExtParams                         0x00014b70   ARM Code     748  serial_reader.o(i.getReadExtParams)
-    getWriteExtParams                        0x00014f48   ARM Code    1120  serial_reader.o(i.getWriteExtParams)
-    i2c_check_CRC_after_RX_finish            0x000153b0   ARM Code      80  i2c.o(i.i2c_check_CRC_after_RX_finish)
-    i2c_get_RX_ready_status                  0x00015404   ARM Code      12  i2c.o(i.i2c_get_RX_ready_status)
-    i2c_get_command                          0x00015414   ARM Code      36  i2c.o(i.i2c_get_command)
-    i2c_get_request_stayAwake                0x0001543c   ARM Code      12  i2c.o(i.i2c_get_request_stayAwake)
-    i2c_set_RX_ready_status                  0x0001544c   ARM Code      12  i2c.o(i.i2c_set_RX_ready_status)
-    i2c_set_command_status                   0x0001545c   ARM Code      52  i2c.o(i.i2c_set_command_status)
-    i2c_set_data_bytes                       0x00015494   ARM Code      36  i2c.o(i.i2c_set_data_bytes)
-    i2c_set_response_ready_status            0x000154bc   ARM Code      12  i2c.o(i.i2c_set_response_ready_status)
-    initTxRxMapFromPorts                     0x000154cc   ARM Code     108  serial_reader.o(i.initTxRxMapFromPorts)
-    isTagTypeFilterAvail                     0x000155d8   ARM Code     116  serial_reader.o(i.isTagTypeFilterAvail)
-    main                                     0x0001564c   ARM Code     136  main.o(i.main)
-    notify_read_listeners                    0x000156f0   ARM Code      72  tm_reader_async.o(i.notify_read_listeners)
-    parseEBVdata                             0x00015738   ARM Code     124  serial_reader_l3.o(i.parseEBVdata)
-    prepForSearch                            0x00015860   ARM Code     292  serial_reader.o(i.prepForSearch)
-    setAntennaReadTimeHelper                 0x00015d4c   ARM Code     696  serial_reader.o(i.setAntennaReadTimeHelper)
-    setAntennaReadTimeList                   0x00016010   ARM Code     132  serial_reader.o(i.setAntennaReadTimeList)
-    spi0_sendReceive_message                 0x000161fc   ARM Code     168  spi.o(i.spi0_sendReceive_message)
-    timer1_irq                               0x000162b4   ARM Code      76  timer.o(i.timer1_irq)
-    tm_gettime_consistent                    0x00016308   ARM Code      68  tmr_utils.o(i.tm_gettime_consistent)
-    tm_memcpy                                0x0001634c   ARM Code      52  tmr_utils.o(i.tm_memcpy)
-    tm_strcpy                                0x00016380   ARM Code      36  tmr_utils.o(i.tm_strcpy)
-    tm_u8s_per_bits                          0x000163a4   ARM Code      36  tmr_utils.o(i.tm_u8s_per_bits)
-    tmr_gettime                              0x000163c8   ARM Code      12  osdep_dummy.o(i.tmr_gettime)
-    tmr_gettime_high                         0x000163d4   ARM Code       8  osdep_dummy.o(i.tmr_gettime_high)
-    tmr_gettime_low                          0x000163dc   ARM Code       8  osdep_dummy.o(i.tmr_gettime_low)
-    updateTxRxMapData                        0x000163e4   ARM Code     168  serial_reader.o(i.updateTxRxMapData)
-    validateParams                           0x0001648c   ARM Code     376  serial_reader.o(i.validateParams)
-    validateReadPlan                         0x00016604   ARM Code      92  tm_reader.o(i.validateReadPlan)
-    versionCompare                           0x00016660   ARM Code     204  tm_reader.o(i.versionCompare)
-    wifi_handsake_init                       0x0001672c   ARM Code      60  wifi_utils.o(i.wifi_handsake_init)
-    wifi_handsake_irq                        0x0001676c   ARM Code      72  wifi_utils.o(i.wifi_handsake_irq)
-    wifi_utils_Init                          0x000167bc   ARM Code     100  wifi_utils.o(i.wifi_utils_Init)
+    Send_ESP_Command                         0x00002cb4   ARM Code     664  wifi_utils.o(i.Send_ESP_Command)
+    Set_Passthrough_Mode                     0x00002f74   ARM Code      12  wifi_utils.o(i.Set_Passthrough_Mode)
+    Set_Wifi_Response_Ready_State            0x00002f84   ARM Code      12  wifi_utils.o(i.Set_Wifi_Response_Ready_State)
+    TIMER1_Start                             0x00002f94   ARM Code      28  timer.o(i.TIMER1_Start)
+    TIMER1_Stop                              0x00002fb8   ARM Code      48  timer.o(i.TIMER1_Stop)
+    TIMER1_getWakeUp_Status                  0x00002ff0   ARM Code      12  timer.o(i.TIMER1_getWakeUp_Status)
+    TIMER_Init                               0x00003000   ARM Code      72  timer.o(i.TIMER_Init)
+    TIMER_SOFTWARE_ModX                      0x00003054   ARM Code     820  timer_software.o(i.TIMER_SOFTWARE_ModX)
+    TIMER_SOFTWARE_Wait                      0x0000338c   ARM Code     276  timer_software.o(i.TIMER_SOFTWARE_Wait)
+    TIMER_SOFTWARE_clear_interrupt           0x000034a8   ARM Code      40  timer_software.o(i.TIMER_SOFTWARE_clear_interrupt)
+    TIMER_SOFTWARE_configure_timer           0x000034d4   ARM Code     608  timer_software.o(i.TIMER_SOFTWARE_configure_timer)
+    TIMER_SOFTWARE_enable_timer              0x00003738   ARM Code     128  timer_software.o(i.TIMER_SOFTWARE_enable_timer)
+    TIMER_SOFTWARE_init                      0x000037bc   ARM Code     144  timer_software.o(i.TIMER_SOFTWARE_init)
+    TIMER_SOFTWARE_interrupt_pending         0x00003854   ARM Code      32  timer_software.o(i.TIMER_SOFTWARE_interrupt_pending)
+    TIMER_SOFTWARE_is_Running                0x00003878   ARM Code     152  timer_software.o(i.TIMER_SOFTWARE_is_Running)
+    TIMER_SOFTWARE_request_timer             0x00003914   ARM Code     204  timer_software.o(i.TIMER_SOFTWARE_request_timer)
+    TIMER_SOFTWARE_reset_timer               0x000039e4   ARM Code      24  timer_software.o(i.TIMER_SOFTWARE_reset_timer)
+    TIMER_SOFTWARE_start_timer               0x00003a00   ARM Code     148  timer_software.o(i.TIMER_SOFTWARE_start_timer)
+    TIMER_SOFTWARE_stop_timer                0x00003a98   ARM Code      96  timer_software.o(i.TIMER_SOFTWARE_stop_timer)
+    TIMER_irq                                0x00003afc   ARM Code      72  timer.o(i.TIMER_irq)
+    TMR_RP_init_simple                       0x00003b48   ARM Code      92  tm_reader.o(i.TMR_RP_init_simple)
+    TMR_SR_SerialReader_init                 0x00003ba4   ARM Code     364  serial_reader.o(i.TMR_SR_SerialReader_init)
+    TMR_SR_SerialTransportDummyInit          0x00003d30   ARM Code      64  serial_transport_dummy.o(i.TMR_SR_SerialTransportDummyInit)
+    TMR_SR_SerialTransportNativeInit         0x00003d88   ARM Code      44  serial_transport_dummy.o(i.TMR_SR_SerialTransportNativeInit)
+    TMR_SR_addTagOp                          0x00003db4   ARM Code    3548  serial_reader.o(i.TMR_SR_addTagOp)
+    TMR_SR_antennaDecoding                   0x00004ba4   ARM Code     328  serial_reader_l3.o(i.TMR_SR_antennaDecoding)
+    TMR_SR_boot                              0x00004cec   ARM Code     224  serial_reader.o(i.TMR_SR_boot)
+    TMR_SR_callSendCmd                       0x00004dcc   ARM Code      92  serial_reader_l3.o(i.TMR_SR_callSendCmd)
+    TMR_SR_cmdAntennaDetect                  0x00004e2c   ARM Code     300  serial_reader_l3.o(i.TMR_SR_cmdAntennaDetect)
+    TMR_SR_cmdBootFirmware                   0x00004f5c   ARM Code     140  serial_reader_l3.o(i.TMR_SR_cmdBootFirmware)
+    TMR_SR_cmdClearTagBuffer                 0x00004fec   ARM Code      40  serial_reader_l3.o(i.TMR_SR_cmdClearTagBuffer)
+    TMR_SR_cmdFrameHeader                    0x00005014   ARM Code     284  serial_reader_l3.o(i.TMR_SR_cmdFrameHeader)
+    TMR_SR_cmdGetAntennaPortPowersAndSettlingTime 0x0000513c   ARM Code     572  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime)
+    TMR_SR_cmdGetAntennaReturnLoss           0x0000537c   ARM Code     308  serial_reader_l3.o(i.TMR_SR_cmdGetAntennaReturnLoss)
+    TMR_SR_cmdGetAvailableProtocols          0x000054b4   ARM Code     248  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableProtocols)
+    TMR_SR_cmdGetAvailableRegions            0x000055ac   ARM Code     168  serial_reader_l3.o(i.TMR_SR_cmdGetAvailableRegions)
+    TMR_SR_cmdGetCurrentProtocol             0x00005654   ARM Code      84  serial_reader_l3.o(i.TMR_SR_cmdGetCurrentProtocol)
+    TMR_SR_cmdGetFrequencyHopTable           0x000056a8   ARM Code     200  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTable)
+    TMR_SR_cmdGetFrequencyHopTableOption     0x00005770   ARM Code     212  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTableOption)
+    TMR_SR_cmdGetFrequencyHopTime            0x00005848   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetFrequencyHopTime)
+    TMR_SR_cmdGetGPIO                        0x0000586c   ARM Code     396  serial_reader_l3.o(i.TMR_SR_cmdGetGPIO)
+    TMR_SR_cmdGetGPIODirection               0x000059fc   ARM Code     204  serial_reader_l3.o(i.TMR_SR_cmdGetGPIODirection)
+    TMR_SR_cmdGetHardwareVersion             0x00005acc   ARM Code     296  serial_reader_l3.o(i.TMR_SR_cmdGetHardwareVersion)
+    TMR_SR_cmdGetMinimumFrequency            0x00005bf8   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetMinimumFrequency)
+    TMR_SR_cmdGetPowerMode                   0x00005d38   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetPowerMode)
+    TMR_SR_cmdGetProtocolConfiguration       0x00005d84   ARM Code    1800  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolConfiguration)
+    TMR_SR_cmdGetProtocolList                0x00006498   ARM Code     304  serial_reader_l3.o(i.TMR_SR_cmdGetProtocolList)
+    TMR_SR_cmdGetQuantizationStep            0x000065cc   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetQuantizationStep)
+    TMR_SR_cmdGetReadTxPower                 0x000065f0   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPower)
+    TMR_SR_cmdGetReadTxPowerWithLimits       0x00006614   ARM Code     232  serial_reader_l3.o(i.TMR_SR_cmdGetReadTxPowerWithLimits)
+    TMR_SR_cmdGetReadWriteTxPower            0x00006700   ARM Code     188  serial_reader_l3.o(i.TMR_SR_cmdGetReadWriteTxPower)
+    TMR_SR_cmdGetReaderConfiguration         0x000067c0   ARM Code     576  serial_reader_l3.o(i.TMR_SR_cmdGetReaderConfiguration)
+    TMR_SR_cmdGetReaderStatistics            0x00006a08   ARM Code     680  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStatistics)
+    TMR_SR_cmdGetReaderStats                 0x00006cb4   ARM Code     784  serial_reader_l3.o(i.TMR_SR_cmdGetReaderStats)
+    TMR_SR_cmdGetReaderWriteTimeOut          0x00006fcc   ARM Code     276  serial_reader_l3.o(i.TMR_SR_cmdGetReaderWriteTimeOut)
+    TMR_SR_cmdGetRegion                      0x000070e4   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetRegion)
+    TMR_SR_cmdGetRegionConfiguration         0x00007130   ARM Code     404  serial_reader_l3.o(i.TMR_SR_cmdGetRegionConfiguration)
+    TMR_SR_cmdGetTagsRemaining               0x000072cc   ARM Code     100  serial_reader_l3.o(i.TMR_SR_cmdGetTagsRemaining)
+    TMR_SR_cmdGetTemperature                 0x00007330   ARM Code      84  serial_reader_l3.o(i.TMR_SR_cmdGetTemperature)
+    TMR_SR_cmdGetUserMode                    0x00007384   ARM Code      76  serial_reader_l3.o(i.TMR_SR_cmdGetUserMode)
+    TMR_SR_cmdGetWriteTxPower                0x000073d0   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdGetWriteTxPower)
+    TMR_SR_cmdMultipleProtocolSearch         0x000073f4   ARM Code     408  serial_reader_l3.o(i.TMR_SR_cmdMultipleProtocolSearch)
+    TMR_SR_cmdReadTagMultiple                0x00007598   ARM Code     392  serial_reader_l3.o(i.TMR_SR_cmdReadTagMultiple)
+    TMR_SR_cmdResetReaderStatistics          0x00007724   ARM Code     244  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStatistics)
+    TMR_SR_cmdResetReaderStats               0x0000781c   ARM Code     348  serial_reader_l3.o(i.TMR_SR_cmdResetReaderStats)
+    TMR_SR_cmdSetAntennaPortPowersAndSettlingTime 0x00007984   ARM Code     580  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime)
+    TMR_SR_cmdSetAntennaSearchList           0x00007bcc   ARM Code     328  serial_reader_l3.o(i.TMR_SR_cmdSetAntennaSearchList)
+    TMR_SR_cmdSetBaudRate                    0x00007d18   ARM Code     220  serial_reader_l3.o(i.TMR_SR_cmdSetBaudRate)
+    TMR_SR_cmdSetFrequencyHopTable           0x00007df8   ARM Code     264  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTable)
+    TMR_SR_cmdSetFrequencyHopTableOption     0x00007f08   ARM Code     292  serial_reader_l3.o(i.TMR_SR_cmdSetFrequencyHopTableOption)
+    TMR_SR_cmdSetGPIODirection               0x00008030   ARM Code     320  serial_reader_l3.o(i.TMR_SR_cmdSetGPIODirection)
+    TMR_SR_cmdSetMode                        0x00008174   ARM Code     152  serial_reader_l3.o(i.TMR_SR_cmdSetMode)
+    TMR_SR_cmdSetPowerMode                   0x00008460   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetPowerMode)
+    TMR_SR_cmdSetProtocol                    0x00008484   ARM Code     176  serial_reader_l3.o(i.TMR_SR_cmdSetProtocol)
+    TMR_SR_cmdSetProtocolConfiguration       0x00008538   ARM Code    2652  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolConfiguration)
+    TMR_SR_cmdSetProtocolLicenseKey          0x00008fa4   ARM Code     304  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolLicenseKey)
+    TMR_SR_cmdSetProtocolList                0x000090d8   ARM Code     316  serial_reader_l3.o(i.TMR_SR_cmdSetProtocolList)
+    TMR_SR_cmdSetReadTxPower                 0x0000921c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetReadTxPower)
+    TMR_SR_cmdSetReadWriteTxPower            0x00009240   ARM Code     192  serial_reader_l3.o(i.TMR_SR_cmdSetReadWriteTxPower)
+    TMR_SR_cmdSetReaderConfiguration         0x00009304   ARM Code     764  serial_reader_l3.o(i.TMR_SR_cmdSetReaderConfiguration)
+    TMR_SR_cmdSetReaderWriteTimeOut          0x00009608   ARM Code     348  serial_reader_l3.o(i.TMR_SR_cmdSetReaderWriteTimeOut)
+    TMR_SR_cmdSetRegion                      0x00009768   ARM Code     812  serial_reader_l3.o(i.TMR_SR_cmdSetRegion)
+    TMR_SR_cmdSetRegionDwellTime             0x00009aac   ARM Code     352  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTime)
+    TMR_SR_cmdSetRegionDwellTimeEnable       0x00009c10   ARM Code      44  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeEnable)
+    TMR_SR_cmdSetRegionDwellTimeLbtEnable    0x00009c3c   ARM Code     296  serial_reader_l3.o(i.TMR_SR_cmdSetRegionDwellTimeLbtEnable)
+    TMR_SR_cmdSetRegionLbt                   0x00009d68   ARM Code      44  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbt)
+    TMR_SR_cmdSetRegionLbtThreshold          0x00009d94   ARM Code     320  serial_reader_l3.o(i.TMR_SR_cmdSetRegionLbtThreshold)
+    TMR_SR_cmdSetTxRxPorts                   0x00009ed8   ARM Code     220  serial_reader_l3.o(i.TMR_SR_cmdSetTxRxPorts)
+    TMR_SR_cmdSetUserMode                    0x00009fb8   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetUserMode)
+    TMR_SR_cmdSetUserProfile                 0x00009fdc   ARM Code    1184  serial_reader_l3.o(i.TMR_SR_cmdSetUserProfile)
+    TMR_SR_cmdSetWriteTxPower                0x0000a48c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_cmdSetWriteTxPower)
+    TMR_SR_cmdStopReading                    0x0000a4b0   ARM Code     264  serial_reader_l3.o(i.TMR_SR_cmdStopReading)
+    TMR_SR_cmdVersion                        0x0000a5bc   ARM Code     156  serial_reader_l3.o(i.TMR_SR_cmdVersion)
+    TMR_SR_connect                           0x0000a65c   ARM Code     244  serial_reader.o(i.TMR_SR_connect)
+    TMR_SR_convertFromEBV                    0x0000a754   ARM Code     740  tm_reader.o(i.TMR_SR_convertFromEBV)
+    TMR_SR_convertToEBV                      0x0000aa4c   ARM Code     812  tm_reader.o(i.TMR_SR_convertToEBV)
+    TMR_SR_executeEmbeddedRead               0x0000ad8c   ARM Code    1100  serial_reader_l3.o(i.TMR_SR_executeEmbeddedRead)
+    TMR_SR_getNextTag                        0x0000b1e0   ARM Code     660  serial_reader.o(i.TMR_SR_getNextTag)
+    TMR_SR_getVersion                        0x0000b480   ARM Code     248  serial_reader.o(i.TMR_SR_getVersion)
+    TMR_SR_hasMoreTags                       0x0000b584   ARM Code     996  serial_reader.o(i.TMR_SR_hasMoreTags)
+    TMR_SR_msgAddAccessPassword              0x0000b98c   ARM Code     144  serial_reader_l3.o(i.TMR_SR_msgAddAccessPassword)
+    TMR_SR_msgAddExtendedParams              0x0000ba20   ARM Code     204  serial_reader_l3.o(i.TMR_SR_msgAddExtendedParams)
+    TMR_SR_msgAddGEN2BlockErase              0x0000baf4   ARM Code     460  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockErase)
+    TMR_SR_msgAddGEN2BlockPermaLock          0x0000bcc4   ARM Code     800  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockPermaLock)
+    TMR_SR_msgAddGEN2BlockWrite              0x0000bfe8   ARM Code     852  serial_reader_l3.o(i.TMR_SR_msgAddGEN2BlockWrite)
+    TMR_SR_msgAddGEN2DataRead                0x0000c340   ARM Code     408  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataRead)
+    TMR_SR_msgAddGEN2DataWrite               0x0000c4dc   ARM Code     480  serial_reader_l3.o(i.TMR_SR_msgAddGEN2DataWrite)
+    TMR_SR_msgAddGEN2KillTag                 0x0000c6c8   ARM Code     280  serial_reader_l3.o(i.TMR_SR_msgAddGEN2KillTag)
+    TMR_SR_msgAddGEN2LockTag                 0x0000c7e4   ARM Code     388  serial_reader_l3.o(i.TMR_SR_msgAddGEN2LockTag)
+    TMR_SR_msgAddGEN2WriteTagEPC             0x0000c96c   ARM Code     264  serial_reader_l3.o(i.TMR_SR_msgAddGEN2WriteTagEPC)
+    TMR_SR_msgAddReadMemory                  0x0000ca78   ARM Code     568  serial_reader_l3.o(i.TMR_SR_msgAddReadMemory)
+    TMR_SR_msgAddWriteMemory                 0x0000ccb8   ARM Code     432  serial_reader_l3.o(i.TMR_SR_msgAddWriteMemory)
+    TMR_SR_msgSetupMultipleProtocolSearch    0x0000ce70   ARM Code    1656  serial_reader_l3.o(i.TMR_SR_msgSetupMultipleProtocolSearch)
+    TMR_SR_msgSetupReadTagMultiple           0x0000d4f0   ARM Code      80  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultiple)
+    TMR_SR_msgSetupReadTagMultipleWithMetadata 0x0000d540   ARM Code    1488  serial_reader_l3.o(i.TMR_SR_msgSetupReadTagMultipleWithMetadata)
+    TMR_SR_parseMetadataFromMessage          0x0001045c   ARM Code     556  serial_reader_l3.o(i.TMR_SR_parseMetadataFromMessage)
+    TMR_SR_parseMetadataOnly                 0x00010688   ARM Code    1192  serial_reader_l3.o(i.TMR_SR_parseMetadataOnly)
+    TMR_SR_postprocessReaderSpecificMetadata 0x00010b38   ARM Code     404  serial_reader_l3.o(i.TMR_SR_postprocessReaderSpecificMetadata)
+    TMR_SR_read                              0x00010cd8   ARM Code     144  serial_reader.o(i.TMR_SR_read)
+    TMR_SR_receiveMessage                    0x000112e8   ARM Code    1080  serial_reader_l3.o(i.TMR_SR_receiveMessage)
+    TMR_SR_send                              0x0001176c   ARM Code      36  serial_reader_l3.o(i.TMR_SR_send)
+    TMR_SR_sendBytes                         0x00011790   ARM Code     104  serial_reader_l3.o(i.TMR_SR_sendBytes)
+    TMR_SR_sendCmd                           0x000117f8   ARM Code      44  serial_reader_l3.o(i.TMR_SR_sendCmd)
+    TMR_SR_sendMessage                       0x00011824   ARM Code     368  serial_reader_l3.o(i.TMR_SR_sendMessage)
+    TMR_SR_sendTimeout                       0x000119a4   ARM Code     292  serial_reader_l3.o(i.TMR_SR_sendTimeout)
+    TMR__notifyTransportListeners            0x00011ac8   ARM Code      88  tm_reader.o(i.TMR__notifyTransportListeners)
+    TMR_create                               0x00011b20   ARM Code     424  tm_reader.o(i.TMR_create)
+    TMR_fillReaderStats                      0x00011cf0   ARM Code    1144  serial_reader_l3.o(i.TMR_fillReaderStats)
+    TMR_flush                                0x0001216c   ARM Code     172  serial_reader_l3.o(i.TMR_flush)
+    TMR_hexDottedQuad                        0x00012224   ARM Code      84  hex_bytes.o(i.TMR_hexDottedQuad)
+    TMR_paramGet                             0x000123a8   ARM Code     176  tm_reader.o(i.TMR_paramGet)
+    TMR_paramProbe                           0x00012458   ARM Code     192  tm_reader.o(i.TMR_paramProbe)
+    TMR_paramSet                             0x00012518   ARM Code     228  tm_reader.o(i.TMR_paramSet)
+    TMR_reader_init_internal                 0x00012604   ARM Code     216  tm_reader.o(i.TMR_reader_init_internal)
+    TMR_startReading                         0x000126f4   ARM Code      96  tm_reader_async.o(i.TMR_startReading)
+    TMR_stopReading                          0x00012758   ARM Code     164  tm_reader_async.o(i.TMR_stopReading)
+    TMR_stringCopy                           0x0001280c   ARM Code      88  tmr_utils.o(i.TMR_stringCopy)
+    UART0_Init                               0x00012864   ARM Code      60  uart0.o(i.UART0_Init)
+    UART0_sendchar                           0x000128a4   ARM Code      36  uart0.o(i.UART0_sendchar)
+    UART1_Init                               0x000128cc   ARM Code     108  uart1.o(i.UART1_Init)
+    UART1_flush                              0x00012940   ARM Code      56  uart1.o(i.UART1_flush)
+    UART1_get_CommErrors                     0x0001297c   ARM Code      12  uart1.o(i.UART1_get_CommErrors)
+    UART1_irq                                0x0001298c   ARM Code      64  isr_manager.o(i.UART1_irq)
+    UART1_receivebuffer                      0x000129d4   ARM Code     424  uart1.o(i.UART1_receivebuffer)
+    UART1_send_reveice_PING                  0x00012b98   ARM Code     356  uart1.o(i.UART1_send_reveice_PING)
+    UART1_sendbuffer                         0x00012d14   ARM Code     312  uart1.o(i.UART1_sendbuffer)
+    UART1_sendchar                           0x00012e70   ARM Code      36  uart1.o(i.UART1_sendchar)
+    Wait_For_HIGH_Transition                 0x00012ec4   ARM Code      28  wifi_utils.o(i.Wait_For_HIGH_Transition)
+    Wdg_Feed                                 0x000130a0   ARM Code      16  watchdog.o(i.Wdg_Feed)
+    Wdg_FeedSequence                         0x000130b4   ARM Code      36  watchdog.o(i.Wdg_FeedSequence)
+    Wdg_Init                                 0x000130dc   ARM Code      16  watchdog.o(i.Wdg_Init)
+    Wdg_Start                                0x000130ec   ARM Code      88  watchdog.o(i.Wdg_Start)
+    Wdg_isFeedRequested                      0x00013148   ARM Code      12  watchdog.o(i.Wdg_isFeedRequested)
+    WifiManager_Init                         0x00013158   ARM Code     404  wifi_manager.o(i.WifiManager_Init)
+    WifiManager_Perform_HW_Reset             0x00013334   ARM Code      96  wifi_manager.o(i.WifiManager_Perform_HW_Reset)
+    Wifi_GET_is_ClientConnected              0x00013398   ARM Code      40  wifi_manager.o(i.Wifi_GET_is_ClientConnected)
+    Wifi_GET_is_Wifi_Connected_status        0x000133c0   ARM Code      40  wifi_manager.o(i.Wifi_GET_is_Wifi_Connected_status)
+    Wifi_GET_passtrough_response             0x000133e8   ARM Code     208  wifi_manager.o(i.Wifi_GET_passtrough_response)
+    Wifi_Manager                             0x000134bc   ARM Code    1328  wifi_manager.o(i.Wifi_Manager)
+    Wifi_SET_Command_Request                 0x00013a18   ARM Code     148  wifi_manager.o(i.Wifi_SET_Command_Request)
+    __ARM_common_call_via_r1                 0x00013b59   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r1)
+    __ARM_common_call_via_r2                 0x00013b5b   Thumb Code     2  __printf.o(i.__ARM_common_call_via_r2)
+    _is_digit                                0x00013b5d   Thumb Code    14  __printf_wp.o(i._is_digit)
+    _sys_exit                                0x00013b6c   ARM Code       4  retarget.o(i._sys_exit)
+    checkForAvailableFeatures                0x00013b70   ARM Code     132  tm_reader.o(i.checkForAvailableFeatures)
+    compareAntennas                          0x00013c38   ARM Code     280  serial_reader.o(i.compareAntennas)
+    compute_crc                              0x00013d50   ARM Code     116  crc.o(i.compute_crc)
+    extractGen2MemoryBankValues              0x00013e18   ARM Code     284  serial_reader_l3.o(i.extractGen2MemoryBankValues)
+    Inline Thumb to ARM Veneer to ferror     0x00013f39   Thumb Code     4  retarget.o(i.ferror)
+    ferror                                   0x00013f3c   ARM Code      12  retarget.o(i.ferror)
+    fillStaticTxRxMapData                    0x00013f48   ARM Code     136  serial_reader.o(i.fillStaticTxRxMapData)
+    fillVersionInfo                          0x00013fd0   ARM Code     268  serial_reader_l3.o(i.fillVersionInfo)
+    fputc                                    0x00014970   ARM Code      28  retarget.o(i.fputc)
+    getAddrByteExtEnabledVersion             0x0001498c   ARM Code      80  tm_reader.o(i.getAddrByteExtEnabledVersion)
+    getReadExtParams                         0x00014b74   ARM Code     748  serial_reader.o(i.getReadExtParams)
+    getWriteExtParams                        0x00014f4c   ARM Code    1120  serial_reader.o(i.getWriteExtParams)
+    i2c_check_CRC_after_RX_finish            0x000153b4   ARM Code      80  i2c.o(i.i2c_check_CRC_after_RX_finish)
+    i2c_get_RX_ready_status                  0x00015408   ARM Code      12  i2c.o(i.i2c_get_RX_ready_status)
+    i2c_get_command                          0x00015418   ARM Code      36  i2c.o(i.i2c_get_command)
+    i2c_get_request_stayAwake                0x00015440   ARM Code      12  i2c.o(i.i2c_get_request_stayAwake)
+    i2c_set_RX_ready_status                  0x00015450   ARM Code      12  i2c.o(i.i2c_set_RX_ready_status)
+    i2c_set_command_status                   0x00015460   ARM Code      52  i2c.o(i.i2c_set_command_status)
+    i2c_set_data_bytes                       0x00015498   ARM Code      36  i2c.o(i.i2c_set_data_bytes)
+    i2c_set_response_ready_status            0x000154c0   ARM Code      12  i2c.o(i.i2c_set_response_ready_status)
+    initTxRxMapFromPorts                     0x000154d0   ARM Code     108  serial_reader.o(i.initTxRxMapFromPorts)
+    isTagTypeFilterAvail                     0x000155dc   ARM Code     116  serial_reader.o(i.isTagTypeFilterAvail)
+    main                                     0x00015650   ARM Code     136  main.o(i.main)
+    notify_read_listeners                    0x000156f4   ARM Code      72  tm_reader_async.o(i.notify_read_listeners)
+    parseEBVdata                             0x0001573c   ARM Code     124  serial_reader_l3.o(i.parseEBVdata)
+    prepForSearch                            0x00015864   ARM Code     292  serial_reader.o(i.prepForSearch)
+    setAntennaReadTimeHelper                 0x00015d50   ARM Code     696  serial_reader.o(i.setAntennaReadTimeHelper)
+    setAntennaReadTimeList                   0x00016014   ARM Code     132  serial_reader.o(i.setAntennaReadTimeList)
+    spi0_sendReceive_message                 0x00016200   ARM Code     168  spi.o(i.spi0_sendReceive_message)
+    timer1_irq                               0x000162b8   ARM Code      76  timer.o(i.timer1_irq)
+    tm_gettime_consistent                    0x0001630c   ARM Code      68  tmr_utils.o(i.tm_gettime_consistent)
+    tm_memcpy                                0x00016350   ARM Code      52  tmr_utils.o(i.tm_memcpy)
+    tm_strcpy                                0x00016384   ARM Code      36  tmr_utils.o(i.tm_strcpy)
+    tm_u8s_per_bits                          0x000163a8   ARM Code      36  tmr_utils.o(i.tm_u8s_per_bits)
+    tmr_gettime                              0x000163cc   ARM Code      12  osdep_dummy.o(i.tmr_gettime)
+    tmr_gettime_high                         0x000163d8   ARM Code       8  osdep_dummy.o(i.tmr_gettime_high)
+    tmr_gettime_low                          0x000163e0   ARM Code       8  osdep_dummy.o(i.tmr_gettime_low)
+    updateTxRxMapData                        0x000163e8   ARM Code     168  serial_reader.o(i.updateTxRxMapData)
+    validateParams                           0x00016490   ARM Code     376  serial_reader.o(i.validateParams)
+    validateReadPlan                         0x00016608   ARM Code      92  tm_reader.o(i.validateReadPlan)
+    versionCompare                           0x00016664   ARM Code     204  tm_reader.o(i.versionCompare)
+    wifi_handsake_init                       0x00016730   ARM Code      60  wifi_utils.o(i.wifi_handsake_init)
+    wifi_handsake_irq                        0x00016770   ARM Code      72  wifi_utils.o(i.wifi_handsake_irq)
+    wifi_utils_Init                          0x000167c0   ARM Code     100  wifi_utils.o(i.wifi_utils_Init)
     Region$$Table$$Base                      0x00016b7c   Number         0  anon$$obj.o(Region$$Table)
     Region$$Table$$Limit                     0x00016b9c   Number         0  anon$$obj.o(Region$$Table)
     __stdout                                 0x40000000   Data           4  retarget.o(.data)
@@ -3955,247 +3960,247 @@ Memory Map of the image
     0x00002b60   0x00002b60   0x00000078   Code   RO          625    i.SPI0_init         spi.o
     0x00002bd8   0x00002bd8   0x00000098   Code   RO          626    i.SPI0_irq          spi.o
     0x00002c70   0x00002c70   0x00000044   Code   RO          627    i.SPI0_set_slave_select  spi.o
-    0x00002cb4   0x00002cb4   0x000002b0   Code   RO         3756    i.Send_ESP_Command  wifi_utils.o
-    0x00002f64   0x00002f64   0x00000010   Code   RO         3758    i.Set_Passthrough_Mode  wifi_utils.o
-    0x00002f74   0x00002f74   0x00000010   Code   RO         3759    i.Set_Wifi_Response_Ready_State  wifi_utils.o
-    0x00002f84   0x00002f84   0x00000024   Code   RO          354    i.TIMER1_Start      timer.o
-    0x00002fa8   0x00002fa8   0x00000038   Code   RO          355    i.TIMER1_Stop       timer.o
-    0x00002fe0   0x00002fe0   0x00000010   Code   RO          356    i.TIMER1_getWakeUp_Status  timer.o
-    0x00002ff0   0x00002ff0   0x00000054   Code   RO          357    i.TIMER_Init        timer.o
-    0x00003044   0x00003044   0x00000338   Code   RO          227    i.TIMER_SOFTWARE_ModX  timer_software.o
-    0x0000337c   0x0000337c   0x0000011c   Code   RO          228    i.TIMER_SOFTWARE_Wait  timer_software.o
-    0x00003498   0x00003498   0x0000002c   Code   RO          229    i.TIMER_SOFTWARE_clear_interrupt  timer_software.o
-    0x000034c4   0x000034c4   0x00000264   Code   RO          230    i.TIMER_SOFTWARE_configure_timer  timer_software.o
-    0x00003728   0x00003728   0x00000084   Code   RO          232    i.TIMER_SOFTWARE_enable_timer  timer_software.o
-    0x000037ac   0x000037ac   0x00000098   Code   RO          233    i.TIMER_SOFTWARE_init  timer_software.o
-    0x00003844   0x00003844   0x00000024   Code   RO          234    i.TIMER_SOFTWARE_interrupt_pending  timer_software.o
-    0x00003868   0x00003868   0x0000009c   Code   RO          235    i.TIMER_SOFTWARE_is_Running  timer_software.o
-    0x00003904   0x00003904   0x000000d0   Code   RO          237    i.TIMER_SOFTWARE_request_timer  timer_software.o
-    0x000039d4   0x000039d4   0x0000001c   Code   RO          238    i.TIMER_SOFTWARE_reset_timer  timer_software.o
-    0x000039f0   0x000039f0   0x00000098   Code   RO          240    i.TIMER_SOFTWARE_start_timer  timer_software.o
-    0x00003a88   0x00003a88   0x00000064   Code   RO          241    i.TIMER_SOFTWARE_stop_timer  timer_software.o
-    0x00003aec   0x00003aec   0x0000004c   Code   RO          358    i.TIMER_irq         timer.o
-    0x00003b38   0x00003b38   0x0000005c   Code   RO         2700    i.TMR_RP_init_simple  tm_reader.o
-    0x00003b94   0x00003b94   0x0000018c   Code   RO          870    i.TMR_SR_SerialReader_init  serial_reader.o
-    0x00003d20   0x00003d20   0x00000058   Code   RO         2640    i.TMR_SR_SerialTransportDummyInit  serial_transport_dummy.o
-    0x00003d78   0x00003d78   0x0000002c   Code   RO         2641    i.TMR_SR_SerialTransportNativeInit  serial_transport_dummy.o
-    0x00003da4   0x00003da4   0x00000df0   Code   RO          871    i.TMR_SR_addTagOp   serial_reader.o
-    0x00004b94   0x00004b94   0x00000148   Code   RO         1181    i.TMR_SR_antennaDecoding  serial_reader_l3.o
-    0x00004cdc   0x00004cdc   0x000000e0   Code   RO          872    i.TMR_SR_boot       serial_reader.o
-    0x00004dbc   0x00004dbc   0x00000060   Code   RO         1182    i.TMR_SR_callSendCmd  serial_reader_l3.o
-    0x00004e1c   0x00004e1c   0x00000130   Code   RO         1183    i.TMR_SR_cmdAntennaDetect  serial_reader_l3.o
-    0x00004f4c   0x00004f4c   0x00000090   Code   RO         1189    i.TMR_SR_cmdBootFirmware  serial_reader_l3.o
-    0x00004fdc   0x00004fdc   0x00000028   Code   RO         1190    i.TMR_SR_cmdClearTagBuffer  serial_reader_l3.o
-    0x00005004   0x00005004   0x00000128   Code   RO         1203    i.TMR_SR_cmdFrameHeader  serial_reader_l3.o
-    0x0000512c   0x0000512c   0x00000240   Code   RO         1211    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
-    0x0000536c   0x0000536c   0x00000138   Code   RO         1212    i.TMR_SR_cmdGetAntennaReturnLoss  serial_reader_l3.o
-    0x000054a4   0x000054a4   0x000000f8   Code   RO         1213    i.TMR_SR_cmdGetAvailableProtocols  serial_reader_l3.o
-    0x0000559c   0x0000559c   0x000000a8   Code   RO         1214    i.TMR_SR_cmdGetAvailableRegions  serial_reader_l3.o
-    0x00005644   0x00005644   0x00000054   Code   RO         1216    i.TMR_SR_cmdGetCurrentProtocol  serial_reader_l3.o
-    0x00005698   0x00005698   0x000000c8   Code   RO         1217    i.TMR_SR_cmdGetFrequencyHopTable  serial_reader_l3.o
-    0x00005760   0x00005760   0x000000d8   Code   RO         1218    i.TMR_SR_cmdGetFrequencyHopTableOption  serial_reader_l3.o
-    0x00005838   0x00005838   0x00000024   Code   RO         1219    i.TMR_SR_cmdGetFrequencyHopTime  serial_reader_l3.o
-    0x0000585c   0x0000585c   0x00000190   Code   RO         1220    i.TMR_SR_cmdGetGPIO  serial_reader_l3.o
-    0x000059ec   0x000059ec   0x000000d0   Code   RO         1221    i.TMR_SR_cmdGetGPIODirection  serial_reader_l3.o
-    0x00005abc   0x00005abc   0x0000012c   Code   RO         1222    i.TMR_SR_cmdGetHardwareVersion  serial_reader_l3.o
-    0x00005be8   0x00005be8   0x00000024   Code   RO         1223    i.TMR_SR_cmdGetMinimumFrequency  serial_reader_l3.o
-    0x00005c0c   0x00005c0c   0x0000011c   Code   RO          873    i.TMR_SR_cmdGetPerAntennaTime  serial_reader.o
-    0x00005d28   0x00005d28   0x0000004c   Code   RO         1224    i.TMR_SR_cmdGetPowerMode  serial_reader_l3.o
-    0x00005d74   0x00005d74   0x00000714   Code   RO         1225    i.TMR_SR_cmdGetProtocolConfiguration  serial_reader_l3.o
-    0x00006488   0x00006488   0x00000134   Code   RO         1226    i.TMR_SR_cmdGetProtocolList  serial_reader_l3.o
-    0x000065bc   0x000065bc   0x00000024   Code   RO         1227    i.TMR_SR_cmdGetQuantizationStep  serial_reader_l3.o
-    0x000065e0   0x000065e0   0x00000024   Code   RO         1228    i.TMR_SR_cmdGetReadTxPower  serial_reader_l3.o
-    0x00006604   0x00006604   0x000000ec   Code   RO         1229    i.TMR_SR_cmdGetReadTxPowerWithLimits  serial_reader_l3.o
-    0x000066f0   0x000066f0   0x000000c0   Code   RO         1230    i.TMR_SR_cmdGetReadWriteTxPower  serial_reader_l3.o
-    0x000067b0   0x000067b0   0x00000248   Code   RO         1231    i.TMR_SR_cmdGetReaderConfiguration  serial_reader_l3.o
-    0x000069f8   0x000069f8   0x000002ac   Code   RO         1232    i.TMR_SR_cmdGetReaderStatistics  serial_reader_l3.o
-    0x00006ca4   0x00006ca4   0x00000318   Code   RO         1233    i.TMR_SR_cmdGetReaderStats  serial_reader_l3.o
-    0x00006fbc   0x00006fbc   0x00000118   Code   RO         1234    i.TMR_SR_cmdGetReaderWriteTimeOut  serial_reader_l3.o
-    0x000070d4   0x000070d4   0x0000004c   Code   RO         1235    i.TMR_SR_cmdGetRegion  serial_reader_l3.o
-    0x00007120   0x00007120   0x0000019c   Code   RO         1236    i.TMR_SR_cmdGetRegionConfiguration  serial_reader_l3.o
-    0x000072bc   0x000072bc   0x00000064   Code   RO         1237    i.TMR_SR_cmdGetTagsRemaining  serial_reader_l3.o
-    0x00007320   0x00007320   0x00000054   Code   RO         1238    i.TMR_SR_cmdGetTemperature  serial_reader_l3.o
-    0x00007374   0x00007374   0x0000004c   Code   RO         1239    i.TMR_SR_cmdGetUserMode  serial_reader_l3.o
-    0x000073c0   0x000073c0   0x00000024   Code   RO         1241    i.TMR_SR_cmdGetWriteTxPower  serial_reader_l3.o
-    0x000073e4   0x000073e4   0x000001a4   Code   RO         1259    i.TMR_SR_cmdMultipleProtocolSearch  serial_reader_l3.o
-    0x00007588   0x00007588   0x0000018c   Code   RO         1270    i.TMR_SR_cmdReadTagMultiple  serial_reader_l3.o
-    0x00007714   0x00007714   0x000000f8   Code   RO         1271    i.TMR_SR_cmdResetReaderStatistics  serial_reader_l3.o
-    0x0000780c   0x0000780c   0x00000168   Code   RO         1272    i.TMR_SR_cmdResetReaderStats  serial_reader_l3.o
-    0x00007974   0x00007974   0x00000248   Code   RO         1290    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
-    0x00007bbc   0x00007bbc   0x0000014c   Code   RO         1291    i.TMR_SR_cmdSetAntennaSearchList  serial_reader_l3.o
-    0x00007d08   0x00007d08   0x000000e0   Code   RO         1292    i.TMR_SR_cmdSetBaudRate  serial_reader_l3.o
-    0x00007de8   0x00007de8   0x00000110   Code   RO         1293    i.TMR_SR_cmdSetFrequencyHopTable  serial_reader_l3.o
-    0x00007ef8   0x00007ef8   0x00000128   Code   RO         1294    i.TMR_SR_cmdSetFrequencyHopTableOption  serial_reader_l3.o
-    0x00008020   0x00008020   0x00000144   Code   RO         1296    i.TMR_SR_cmdSetGPIODirection  serial_reader_l3.o
-    0x00008164   0x00008164   0x0000009c   Code   RO         1298    i.TMR_SR_cmdSetMode  serial_reader_l3.o
-    0x00008200   0x00008200   0x00000250   Code   RO          875    i.TMR_SR_cmdSetPerAntennaTime  serial_reader.o
-    0x00008450   0x00008450   0x00000024   Code   RO         1299    i.TMR_SR_cmdSetPowerMode  serial_reader_l3.o
-    0x00008474   0x00008474   0x000000b4   Code   RO         1300    i.TMR_SR_cmdSetProtocol  serial_reader_l3.o
-    0x00008528   0x00008528   0x00000a6c   Code   RO         1301    i.TMR_SR_cmdSetProtocolConfiguration  serial_reader_l3.o
-    0x00008f94   0x00008f94   0x00000134   Code   RO         1302    i.TMR_SR_cmdSetProtocolLicenseKey  serial_reader_l3.o
-    0x000090c8   0x000090c8   0x00000144   Code   RO         1303    i.TMR_SR_cmdSetProtocolList  serial_reader_l3.o
-    0x0000920c   0x0000920c   0x00000024   Code   RO         1304    i.TMR_SR_cmdSetReadTxPower  serial_reader_l3.o
-    0x00009230   0x00009230   0x000000c4   Code   RO         1305    i.TMR_SR_cmdSetReadWriteTxPower  serial_reader_l3.o
-    0x000092f4   0x000092f4   0x00000304   Code   RO         1306    i.TMR_SR_cmdSetReaderConfiguration  serial_reader_l3.o
-    0x000095f8   0x000095f8   0x00000160   Code   RO         1307    i.TMR_SR_cmdSetReaderWriteTimeOut  serial_reader_l3.o
-    0x00009758   0x00009758   0x00000344   Code   RO         1308    i.TMR_SR_cmdSetRegion  serial_reader_l3.o
-    0x00009a9c   0x00009a9c   0x00000164   Code   RO         1309    i.TMR_SR_cmdSetRegionDwellTime  serial_reader_l3.o
-    0x00009c00   0x00009c00   0x0000002c   Code   RO         1310    i.TMR_SR_cmdSetRegionDwellTimeEnable  serial_reader_l3.o
-    0x00009c2c   0x00009c2c   0x0000012c   Code   RO         1311    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  serial_reader_l3.o
-    0x00009d58   0x00009d58   0x0000002c   Code   RO         1312    i.TMR_SR_cmdSetRegionLbt  serial_reader_l3.o
-    0x00009d84   0x00009d84   0x00000144   Code   RO         1313    i.TMR_SR_cmdSetRegionLbtThreshold  serial_reader_l3.o
-    0x00009ec8   0x00009ec8   0x000000e0   Code   RO         1314    i.TMR_SR_cmdSetTxRxPorts  serial_reader_l3.o
-    0x00009fa8   0x00009fa8   0x00000024   Code   RO         1315    i.TMR_SR_cmdSetUserMode  serial_reader_l3.o
-    0x00009fcc   0x00009fcc   0x000004b0   Code   RO         1316    i.TMR_SR_cmdSetUserProfile  serial_reader_l3.o
-    0x0000a47c   0x0000a47c   0x00000024   Code   RO         1317    i.TMR_SR_cmdSetWriteTxPower  serial_reader_l3.o
-    0x0000a4a0   0x0000a4a0   0x0000010c   Code   RO         1318    i.TMR_SR_cmdStopReading  serial_reader_l3.o
-    0x0000a5ac   0x0000a5ac   0x000000a0   Code   RO         1322    i.TMR_SR_cmdVersion  serial_reader_l3.o
-    0x0000a64c   0x0000a64c   0x000000f8   Code   RO          876    i.TMR_SR_connect    serial_reader.o
-    0x0000a744   0x0000a744   0x000002f8   Code   RO         2707    i.TMR_SR_convertFromEBV  tm_reader.o
-    0x0000aa3c   0x0000aa3c   0x00000340   Code   RO         2708    i.TMR_SR_convertToEBV  tm_reader.o
-    0x0000ad7c   0x0000ad7c   0x00000454   Code   RO         1327    i.TMR_SR_executeEmbeddedRead  serial_reader_l3.o
-    0x0000b1d0   0x0000b1d0   0x000002a0   Code   RO          880    i.TMR_SR_getNextTag  serial_reader.o
-    0x0000b470   0x0000b470   0x00000104   Code   RO          881    i.TMR_SR_getVersion  serial_reader.o
-    0x0000b574   0x0000b574   0x00000408   Code   RO          884    i.TMR_SR_hasMoreTags  serial_reader.o
-    0x0000b97c   0x0000b97c   0x00000094   Code   RO         1328    i.TMR_SR_msgAddAccessPassword  serial_reader_l3.o
-    0x0000ba10   0x0000ba10   0x000000d4   Code   RO         1331    i.TMR_SR_msgAddExtendedParams  serial_reader_l3.o
-    0x0000bae4   0x0000bae4   0x000001d0   Code   RO         1341    i.TMR_SR_msgAddGEN2BlockErase  serial_reader_l3.o
-    0x0000bcb4   0x0000bcb4   0x00000324   Code   RO         1342    i.TMR_SR_msgAddGEN2BlockPermaLock  serial_reader_l3.o
-    0x0000bfd8   0x0000bfd8   0x00000358   Code   RO         1343    i.TMR_SR_msgAddGEN2BlockWrite  serial_reader_l3.o
-    0x0000c330   0x0000c330   0x0000019c   Code   RO         1344    i.TMR_SR_msgAddGEN2DataRead  serial_reader_l3.o
-    0x0000c4cc   0x0000c4cc   0x000001ec   Code   RO         1345    i.TMR_SR_msgAddGEN2DataWrite  serial_reader_l3.o
-    0x0000c6b8   0x0000c6b8   0x0000011c   Code   RO         1346    i.TMR_SR_msgAddGEN2KillTag  serial_reader_l3.o
-    0x0000c7d4   0x0000c7d4   0x00000188   Code   RO         1347    i.TMR_SR_msgAddGEN2LockTag  serial_reader_l3.o
-    0x0000c95c   0x0000c95c   0x0000010c   Code   RO         1348    i.TMR_SR_msgAddGEN2WriteTagEPC  serial_reader_l3.o
-    0x0000ca68   0x0000ca68   0x00000240   Code   RO         1391    i.TMR_SR_msgAddReadMemory  serial_reader_l3.o
-    0x0000cca8   0x0000cca8   0x000001b8   Code   RO         1392    i.TMR_SR_msgAddWriteMemory  serial_reader_l3.o
-    0x0000ce60   0x0000ce60   0x00000680   Code   RO         1393    i.TMR_SR_msgSetupMultipleProtocolSearch  serial_reader_l3.o
-    0x0000d4e0   0x0000d4e0   0x00000050   Code   RO         1394    i.TMR_SR_msgSetupReadTagMultiple  serial_reader_l3.o
-    0x0000d530   0x0000d530   0x000005e4   Code   RO         1395    i.TMR_SR_msgSetupReadTagMultipleWithMetadata  serial_reader_l3.o
-    0x0000db14   0x0000db14   0x000016fc   Code   RO          888    i.TMR_SR_paramGet   serial_reader.o
-    0x0000f210   0x0000f210   0x0000123c   Code   RO          889    i.TMR_SR_paramSet   serial_reader.o
-    0x0001044c   0x0001044c   0x0000022c   Code   RO         1396    i.TMR_SR_parseMetadataFromMessage  serial_reader_l3.o
-    0x00010678   0x00010678   0x000004b0   Code   RO         1397    i.TMR_SR_parseMetadataOnly  serial_reader_l3.o
-    0x00010b28   0x00010b28   0x000001a0   Code   RO         1398    i.TMR_SR_postprocessReaderSpecificMetadata  serial_reader_l3.o
-    0x00010cc8   0x00010cc8   0x00000098   Code   RO          890    i.TMR_SR_read       serial_reader.o
-    0x00010d60   0x00010d60   0x00000578   Code   RO          895    i.TMR_SR_read_internal  serial_reader.o
-    0x000112d8   0x000112d8   0x00000484   Code   RO         1400    i.TMR_SR_receiveMessage  serial_reader_l3.o
-    0x0001175c   0x0001175c   0x00000024   Code   RO         1402    i.TMR_SR_send       serial_reader_l3.o
-    0x00011780   0x00011780   0x00000068   Code   RO         1403    i.TMR_SR_sendBytes  serial_reader_l3.o
-    0x000117e8   0x000117e8   0x0000002c   Code   RO         1404    i.TMR_SR_sendCmd    serial_reader_l3.o
-    0x00011814   0x00011814   0x00000180   Code   RO         1405    i.TMR_SR_sendMessage  serial_reader_l3.o
-    0x00011994   0x00011994   0x00000124   Code   RO         1406    i.TMR_SR_sendTimeout  serial_reader_l3.o
-    0x00011ab8   0x00011ab8   0x00000058   Code   RO         2751    i.TMR__notifyTransportListeners  tm_reader.o
-    0x00011b10   0x00011b10   0x000001d0   Code   RO         2753    i.TMR_create        tm_reader.o
-    0x00011ce0   0x00011ce0   0x0000047c   Code   RO         1407    i.TMR_fillReaderStats  serial_reader_l3.o
-    0x0001215c   0x0001215c   0x000000b8   Code   RO         1408    i.TMR_flush         serial_reader_l3.o
-    0x00012214   0x00012214   0x00000058   Code   RO          722    i.TMR_hexDottedQuad  hex_bytes.o
-    0x0001226c   0x0001226c   0x0000012c   Code   RO         2757    i.TMR_initSerialTransportTable  tm_reader.o
-    0x00012398   0x00012398   0x000000b0   Code   RO         2760    i.TMR_paramGet      tm_reader.o
-    0x00012448   0x00012448   0x000000c0   Code   RO         2762    i.TMR_paramProbe    tm_reader.o
-    0x00012508   0x00012508   0x000000ec   Code   RO         2763    i.TMR_paramSet      tm_reader.o
-    0x000125f4   0x000125f4   0x000000f0   Code   RO         2765    i.TMR_reader_init_internal  tm_reader.o
-    0x000126e4   0x000126e4   0x00000064   Code   RO         3191    i.TMR_startReading  tm_reader_async.o
-    0x00012748   0x00012748   0x000000b4   Code   RO         3192    i.TMR_stopReading   tm_reader_async.o
-    0x000127fc   0x000127fc   0x00000058   Code   RO         3291    i.TMR_stringCopy    tmr_utils.o
-    0x00012854   0x00012854   0x00000040   Code   RO          417    i.UART0_Init        uart0.o
-    0x00012894   0x00012894   0x00000028   Code   RO          418    i.UART0_sendchar    uart0.o
-    0x000128bc   0x000128bc   0x00000074   Code   RO          438    i.UART1_Init        uart1.o
-    0x00012930   0x00012930   0x0000003c   Code   RO          439    i.UART1_flush       uart1.o
-    0x0001296c   0x0001296c   0x00000010   Code   RO          440    i.UART1_get_CommErrors  uart1.o
-    0x0001297c   0x0001297c   0x00000048   Code   RO          508    i.UART1_irq         isr_manager.o
-    0x000129c4   0x000129c4   0x000001c4   Code   RO          441    i.UART1_receivebuffer  uart1.o
-    0x00012b88   0x00012b88   0x0000017c   Code   RO          442    i.UART1_send_reveice_PING  uart1.o
-    0x00012d04   0x00012d04   0x0000015c   Code   RO          443    i.UART1_sendbuffer  uart1.o
-    0x00012e60   0x00012e60   0x00000028   Code   RO          444    i.UART1_sendchar    uart1.o
-    0x00012e88   0x00012e88   0x0000002c   Code   RO          138    i.UpdateIndexAtomic  ringbuf.o
-    0x00012eb4   0x00012eb4   0x0000001c   Code   RO         3760    i.Wait_For_HIGH_Transition  wifi_utils.o
-    0x00012ed0   0x00012ed0   0x000001c0   Code   RO         3761    i.Wait_for_transition  wifi_utils.o
-    0x00013090   0x00013090   0x00000014   Code   RO          679    i.Wdg_Feed          watchdog.o
-    0x000130a4   0x000130a4   0x00000028   Code   RO          680    i.Wdg_FeedSequence  watchdog.o
-    0x000130cc   0x000130cc   0x00000010   Code   RO          681    i.Wdg_Init          watchdog.o
-    0x000130dc   0x000130dc   0x00000068   Code   RO          682    i.Wdg_Start         watchdog.o
-    0x00013144   0x00013144   0x00000010   Code   RO          683    i.Wdg_isFeedRequested  watchdog.o
-    0x00013154   0x00013154   0x000001dc   Code   RO         3663    i.WifiManager_Init  wifi_manager.o
-    0x00013330   0x00013330   0x00000064   Code   RO         3664    i.WifiManager_Perform_HW_Reset  wifi_manager.o
-    0x00013394   0x00013394   0x00000028   Code   RO         3665    i.Wifi_GET_is_ClientConnected  wifi_manager.o
-    0x000133bc   0x000133bc   0x00000028   Code   RO         3666    i.Wifi_GET_is_Wifi_Connected_status  wifi_manager.o
-    0x000133e4   0x000133e4   0x000000d4   Code   RO         3667    i.Wifi_GET_passtrough_response  wifi_manager.o
-    0x000134b8   0x000134b8   0x0000055c   Code   RO         3668    i.Wifi_Manager      wifi_manager.o
-    0x00013a14   0x00013a14   0x000000a8   Code   RO         3669    i.Wifi_SET_Command_Request  wifi_manager.o
-    0x00013abc   0x00013abc   0x00000098   Code   RO         3762    i.Write_ESP_Data    wifi_utils.o
-    0x00013b54   0x00013b54   0x00000002   Code   RO         3979    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
-    0x00013b56   0x00013b56   0x00000002   Code   RO         3977    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
-    0x00013b58   0x00013b58   0x0000000e   Code   RO         4018    i._is_digit         c_t.l(__printf_wp.o)
-    0x00013b66   0x00013b66   0x00000002   PAD
-    0x00013b68   0x00013b68   0x00000004   Code   RO           77    i._sys_exit         retarget.o
-    0x00013b6c   0x00013b6c   0x00000084   Code   RO         2771    i.checkForAvailableFeatures  tm_reader.o
-    0x00013bf0   0x00013bf0   0x00000044   Code   RO          445    i.check_communication_errors  uart1.o
-    0x00013c34   0x00013c34   0x00000118   Code   RO          902    i.compareAntennas   serial_reader.o
-    0x00013d4c   0x00013d4c   0x0000007c   Code   RO          330    i.compute_crc       crc.o
-    0x00013dc8   0x00013dc8   0x00000014   Code   RO         3432    i.disable_HW_Reader  reader_manager.o
-    0x00013ddc   0x00013ddc   0x0000001c   Code   RO         3598    i.disable_Timer0    lp_mode_manager.o
-    0x00013df8   0x00013df8   0x0000001c   Code   RO         3599    i.enable_Timer0     lp_mode_manager.o
-    0x00013e14   0x00013e14   0x00000120   Code   RO         1411    i.extractGen2MemoryBankValues  serial_reader_l3.o
-    0x00013f34   0x00013f34   0x00000004   Ven    RO           79    i.ferror            retarget.o
-    0x00013f38   0x00013f38   0x0000000c   Code   RO           79    i.ferror            retarget.o
-    0x00013f44   0x00013f44   0x00000088   Code   RO          903    i.fillStaticTxRxMapData  serial_reader.o
-    0x00013fcc   0x00013fcc   0x0000010c   Code   RO         1412    i.fillVersionInfo   serial_reader_l3.o
-    0x000140d8   0x000140d8   0x00000894   Code   RO         1413    i.filterbytes       serial_reader_l3.o
-    0x0001496c   0x0001496c   0x0000001c   Code   RO           80    i.fputc             retarget.o
-    0x00014988   0x00014988   0x00000050   Code   RO         2773    i.getAddrByteExtEnabledVersion  tm_reader.o
-    0x000149d8   0x000149d8   0x0000004c   Code   RO          904    i.getHardwareInfo   serial_reader.o
-    0x00014a24   0x00014a24   0x0000014c   Code   RO          905    i.getPortValues     serial_reader.o
-    0x00014b70   0x00014b70   0x000002f4   Code   RO          906    i.getReadExtParams  serial_reader.o
-    0x00014e64   0x00014e64   0x000000e4   Code   RO          907    i.getSerialNumber   serial_reader.o
-    0x00014f48   0x00014f48   0x00000468   Code   RO          908    i.getWriteExtParams  serial_reader.o
-    0x000153b0   0x000153b0   0x00000054   Code   RO          545    i.i2c_check_CRC_after_RX_finish  i2c.o
-    0x00015404   0x00015404   0x00000010   Code   RO          546    i.i2c_get_RX_ready_status  i2c.o
-    0x00015414   0x00015414   0x00000028   Code   RO          547    i.i2c_get_command   i2c.o
-    0x0001543c   0x0001543c   0x00000010   Code   RO          548    i.i2c_get_request_stayAwake  i2c.o
-    0x0001544c   0x0001544c   0x00000010   Code   RO          549    i.i2c_set_RX_ready_status  i2c.o
-    0x0001545c   0x0001545c   0x00000038   Code   RO          550    i.i2c_set_command_status  i2c.o
-    0x00015494   0x00015494   0x00000028   Code   RO          551    i.i2c_set_data_bytes  i2c.o
-    0x000154bc   0x000154bc   0x00000010   Code   RO          552    i.i2c_set_response_ready_status  i2c.o
-    0x000154cc   0x000154cc   0x0000006c   Code   RO          909    i.initTxRxMapFromPorts  serial_reader.o
-    0x00015538   0x00015538   0x000000a0   Code   RO         3670    i.isPassthroughResponseValid  wifi_manager.o
-    0x000155d8   0x000155d8   0x00000074   Code   RO          910    i.isTagTypeFilterAvail  serial_reader.o
-    0x0001564c   0x0001564c   0x000000a4   Code   RO           11    i.main              main.o
-    0x000156f0   0x000156f0   0x00000048   Code   RO         3194    i.notify_read_listeners  tm_reader_async.o
-    0x00015738   0x00015738   0x0000007c   Code   RO         1418    i.parseEBVdata      serial_reader_l3.o
-    0x000157b4   0x000157b4   0x000000ac   Code   RO          911    i.prepEmbReadTagMultiple  serial_reader.o
-    0x00015860   0x00015860   0x0000012c   Code   RO          912    i.prepForSearch     serial_reader.o
-    0x0001598c   0x0001598c   0x00000118   Code   RO         3433    i.reader_recovery   reader_manager.o
-    0x00015aa4   0x00015aa4   0x0000002c   Code   RO         2642    i.s_flush           serial_transport_dummy.o
-    0x00015ad0   0x00015ad0   0x0000000c   Code   RO         2643    i.s_open            serial_transport_dummy.o
-    0x00015adc   0x00015adc   0x0000006c   Code   RO         2644    i.s_receiveBytes    serial_transport_dummy.o
-    0x00015b48   0x00015b48   0x00000064   Code   RO         2645    i.s_sendBytes       serial_transport_dummy.o
-    0x00015bac   0x00015bac   0x0000000c   Code   RO         2646    i.s_setBaudRate     serial_transport_dummy.o
-    0x00015bb8   0x00015bb8   0x0000000c   Code   RO         2647    i.s_shutdown        serial_transport_dummy.o
-    0x00015bc4   0x00015bc4   0x00000028   Code   RO         3763    i.send_Read_EOF     wifi_utils.o
-    0x00015bec   0x00015bec   0x00000028   Code   RO         3764    i.send_Write_EOF    wifi_utils.o
-    0x00015c14   0x00015c14   0x00000064   Code   RO         3434    i.send_validate_tag_criteria_cmd  reader_manager.o
-    0x00015c78   0x00015c78   0x000000d4   Code   RO          913    i.setAntennaList    serial_reader.o
-    0x00015d4c   0x00015d4c   0x000002c4   Code   RO          914    i.setAntennaReadTimeHelper  serial_reader.o
-    0x00016010   0x00016010   0x00000084   Code   RO          915    i.setAntennaReadTimeList  serial_reader.o
-    0x00016094   0x00016094   0x0000011c   Code   RO          916    i.setPortValues     serial_reader.o
-    0x000161b0   0x000161b0   0x0000004c   Code   RO          917    i.setProtocol       serial_reader.o
-    0x000161fc   0x000161fc   0x000000b8   Code   RO          628    i.spi0_sendReceive_message  spi.o
-    0x000162b4   0x000162b4   0x00000054   Code   RO          359    i.timer1_irq        timer.o
-    0x00016308   0x00016308   0x00000044   Code   RO         3293    i.tm_gettime_consistent  tmr_utils.o
-    0x0001634c   0x0001634c   0x00000034   Code   RO         3294    i.tm_memcpy         tmr_utils.o
-    0x00016380   0x00016380   0x00000024   Code   RO         3297    i.tm_strcpy         tmr_utils.o
-    0x000163a4   0x000163a4   0x00000024   Code   RO         3299    i.tm_u8s_per_bits   tmr_utils.o
-    0x000163c8   0x000163c8   0x0000000c   Code   RO          834    i.tmr_gettime       osdep_dummy.o
-    0x000163d4   0x000163d4   0x00000008   Code   RO          835    i.tmr_gettime_high  osdep_dummy.o
-    0x000163dc   0x000163dc   0x00000008   Code   RO          836    i.tmr_gettime_low   osdep_dummy.o
-    0x000163e4   0x000163e4   0x000000a8   Code   RO          918    i.updateTxRxMapData  serial_reader.o
-    0x0001648c   0x0001648c   0x00000178   Code   RO          919    i.validateParams    serial_reader.o
-    0x00016604   0x00016604   0x0000005c   Code   RO         2774    i.validateReadPlan  tm_reader.o
-    0x00016660   0x00016660   0x000000cc   Code   RO         2775    i.versionCompare    tm_reader.o
-    0x0001672c   0x0001672c   0x00000040   Code   RO         3765    i.wifi_handsake_init  wifi_utils.o
-    0x0001676c   0x0001676c   0x00000050   Code   RO         3766    i.wifi_handsake_irq  wifi_utils.o
-    0x000167bc   0x000167bc   0x00000074   Code   RO         3767    i.wifi_utils_Init   wifi_utils.o
+    0x00002cb4   0x00002cb4   0x000002c0   Code   RO         3756    i.Send_ESP_Command  wifi_utils.o
+    0x00002f74   0x00002f74   0x00000010   Code   RO         3758    i.Set_Passthrough_Mode  wifi_utils.o
+    0x00002f84   0x00002f84   0x00000010   Code   RO         3759    i.Set_Wifi_Response_Ready_State  wifi_utils.o
+    0x00002f94   0x00002f94   0x00000024   Code   RO          354    i.TIMER1_Start      timer.o
+    0x00002fb8   0x00002fb8   0x00000038   Code   RO          355    i.TIMER1_Stop       timer.o
+    0x00002ff0   0x00002ff0   0x00000010   Code   RO          356    i.TIMER1_getWakeUp_Status  timer.o
+    0x00003000   0x00003000   0x00000054   Code   RO          357    i.TIMER_Init        timer.o
+    0x00003054   0x00003054   0x00000338   Code   RO          227    i.TIMER_SOFTWARE_ModX  timer_software.o
+    0x0000338c   0x0000338c   0x0000011c   Code   RO          228    i.TIMER_SOFTWARE_Wait  timer_software.o
+    0x000034a8   0x000034a8   0x0000002c   Code   RO          229    i.TIMER_SOFTWARE_clear_interrupt  timer_software.o
+    0x000034d4   0x000034d4   0x00000264   Code   RO          230    i.TIMER_SOFTWARE_configure_timer  timer_software.o
+    0x00003738   0x00003738   0x00000084   Code   RO          232    i.TIMER_SOFTWARE_enable_timer  timer_software.o
+    0x000037bc   0x000037bc   0x00000098   Code   RO          233    i.TIMER_SOFTWARE_init  timer_software.o
+    0x00003854   0x00003854   0x00000024   Code   RO          234    i.TIMER_SOFTWARE_interrupt_pending  timer_software.o
+    0x00003878   0x00003878   0x0000009c   Code   RO          235    i.TIMER_SOFTWARE_is_Running  timer_software.o
+    0x00003914   0x00003914   0x000000d0   Code   RO          237    i.TIMER_SOFTWARE_request_timer  timer_software.o
+    0x000039e4   0x000039e4   0x0000001c   Code   RO          238    i.TIMER_SOFTWARE_reset_timer  timer_software.o
+    0x00003a00   0x00003a00   0x00000098   Code   RO          240    i.TIMER_SOFTWARE_start_timer  timer_software.o
+    0x00003a98   0x00003a98   0x00000064   Code   RO          241    i.TIMER_SOFTWARE_stop_timer  timer_software.o
+    0x00003afc   0x00003afc   0x0000004c   Code   RO          358    i.TIMER_irq         timer.o
+    0x00003b48   0x00003b48   0x0000005c   Code   RO         2700    i.TMR_RP_init_simple  tm_reader.o
+    0x00003ba4   0x00003ba4   0x0000018c   Code   RO          870    i.TMR_SR_SerialReader_init  serial_reader.o
+    0x00003d30   0x00003d30   0x00000058   Code   RO         2640    i.TMR_SR_SerialTransportDummyInit  serial_transport_dummy.o
+    0x00003d88   0x00003d88   0x0000002c   Code   RO         2641    i.TMR_SR_SerialTransportNativeInit  serial_transport_dummy.o
+    0x00003db4   0x00003db4   0x00000df0   Code   RO          871    i.TMR_SR_addTagOp   serial_reader.o
+    0x00004ba4   0x00004ba4   0x00000148   Code   RO         1181    i.TMR_SR_antennaDecoding  serial_reader_l3.o
+    0x00004cec   0x00004cec   0x000000e0   Code   RO          872    i.TMR_SR_boot       serial_reader.o
+    0x00004dcc   0x00004dcc   0x00000060   Code   RO         1182    i.TMR_SR_callSendCmd  serial_reader_l3.o
+    0x00004e2c   0x00004e2c   0x00000130   Code   RO         1183    i.TMR_SR_cmdAntennaDetect  serial_reader_l3.o
+    0x00004f5c   0x00004f5c   0x00000090   Code   RO         1189    i.TMR_SR_cmdBootFirmware  serial_reader_l3.o
+    0x00004fec   0x00004fec   0x00000028   Code   RO         1190    i.TMR_SR_cmdClearTagBuffer  serial_reader_l3.o
+    0x00005014   0x00005014   0x00000128   Code   RO         1203    i.TMR_SR_cmdFrameHeader  serial_reader_l3.o
+    0x0000513c   0x0000513c   0x00000240   Code   RO         1211    i.TMR_SR_cmdGetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
+    0x0000537c   0x0000537c   0x00000138   Code   RO         1212    i.TMR_SR_cmdGetAntennaReturnLoss  serial_reader_l3.o
+    0x000054b4   0x000054b4   0x000000f8   Code   RO         1213    i.TMR_SR_cmdGetAvailableProtocols  serial_reader_l3.o
+    0x000055ac   0x000055ac   0x000000a8   Code   RO         1214    i.TMR_SR_cmdGetAvailableRegions  serial_reader_l3.o
+    0x00005654   0x00005654   0x00000054   Code   RO         1216    i.TMR_SR_cmdGetCurrentProtocol  serial_reader_l3.o
+    0x000056a8   0x000056a8   0x000000c8   Code   RO         1217    i.TMR_SR_cmdGetFrequencyHopTable  serial_reader_l3.o
+    0x00005770   0x00005770   0x000000d8   Code   RO         1218    i.TMR_SR_cmdGetFrequencyHopTableOption  serial_reader_l3.o
+    0x00005848   0x00005848   0x00000024   Code   RO         1219    i.TMR_SR_cmdGetFrequencyHopTime  serial_reader_l3.o
+    0x0000586c   0x0000586c   0x00000190   Code   RO         1220    i.TMR_SR_cmdGetGPIO  serial_reader_l3.o
+    0x000059fc   0x000059fc   0x000000d0   Code   RO         1221    i.TMR_SR_cmdGetGPIODirection  serial_reader_l3.o
+    0x00005acc   0x00005acc   0x0000012c   Code   RO         1222    i.TMR_SR_cmdGetHardwareVersion  serial_reader_l3.o
+    0x00005bf8   0x00005bf8   0x00000024   Code   RO         1223    i.TMR_SR_cmdGetMinimumFrequency  serial_reader_l3.o
+    0x00005c1c   0x00005c1c   0x0000011c   Code   RO          873    i.TMR_SR_cmdGetPerAntennaTime  serial_reader.o
+    0x00005d38   0x00005d38   0x0000004c   Code   RO         1224    i.TMR_SR_cmdGetPowerMode  serial_reader_l3.o
+    0x00005d84   0x00005d84   0x00000714   Code   RO         1225    i.TMR_SR_cmdGetProtocolConfiguration  serial_reader_l3.o
+    0x00006498   0x00006498   0x00000134   Code   RO         1226    i.TMR_SR_cmdGetProtocolList  serial_reader_l3.o
+    0x000065cc   0x000065cc   0x00000024   Code   RO         1227    i.TMR_SR_cmdGetQuantizationStep  serial_reader_l3.o
+    0x000065f0   0x000065f0   0x00000024   Code   RO         1228    i.TMR_SR_cmdGetReadTxPower  serial_reader_l3.o
+    0x00006614   0x00006614   0x000000ec   Code   RO         1229    i.TMR_SR_cmdGetReadTxPowerWithLimits  serial_reader_l3.o
+    0x00006700   0x00006700   0x000000c0   Code   RO         1230    i.TMR_SR_cmdGetReadWriteTxPower  serial_reader_l3.o
+    0x000067c0   0x000067c0   0x00000248   Code   RO         1231    i.TMR_SR_cmdGetReaderConfiguration  serial_reader_l3.o
+    0x00006a08   0x00006a08   0x000002ac   Code   RO         1232    i.TMR_SR_cmdGetReaderStatistics  serial_reader_l3.o
+    0x00006cb4   0x00006cb4   0x00000318   Code   RO         1233    i.TMR_SR_cmdGetReaderStats  serial_reader_l3.o
+    0x00006fcc   0x00006fcc   0x00000118   Code   RO         1234    i.TMR_SR_cmdGetReaderWriteTimeOut  serial_reader_l3.o
+    0x000070e4   0x000070e4   0x0000004c   Code   RO         1235    i.TMR_SR_cmdGetRegion  serial_reader_l3.o
+    0x00007130   0x00007130   0x0000019c   Code   RO         1236    i.TMR_SR_cmdGetRegionConfiguration  serial_reader_l3.o
+    0x000072cc   0x000072cc   0x00000064   Code   RO         1237    i.TMR_SR_cmdGetTagsRemaining  serial_reader_l3.o
+    0x00007330   0x00007330   0x00000054   Code   RO         1238    i.TMR_SR_cmdGetTemperature  serial_reader_l3.o
+    0x00007384   0x00007384   0x0000004c   Code   RO         1239    i.TMR_SR_cmdGetUserMode  serial_reader_l3.o
+    0x000073d0   0x000073d0   0x00000024   Code   RO         1241    i.TMR_SR_cmdGetWriteTxPower  serial_reader_l3.o
+    0x000073f4   0x000073f4   0x000001a4   Code   RO         1259    i.TMR_SR_cmdMultipleProtocolSearch  serial_reader_l3.o
+    0x00007598   0x00007598   0x0000018c   Code   RO         1270    i.TMR_SR_cmdReadTagMultiple  serial_reader_l3.o
+    0x00007724   0x00007724   0x000000f8   Code   RO         1271    i.TMR_SR_cmdResetReaderStatistics  serial_reader_l3.o
+    0x0000781c   0x0000781c   0x00000168   Code   RO         1272    i.TMR_SR_cmdResetReaderStats  serial_reader_l3.o
+    0x00007984   0x00007984   0x00000248   Code   RO         1290    i.TMR_SR_cmdSetAntennaPortPowersAndSettlingTime  serial_reader_l3.o
+    0x00007bcc   0x00007bcc   0x0000014c   Code   RO         1291    i.TMR_SR_cmdSetAntennaSearchList  serial_reader_l3.o
+    0x00007d18   0x00007d18   0x000000e0   Code   RO         1292    i.TMR_SR_cmdSetBaudRate  serial_reader_l3.o
+    0x00007df8   0x00007df8   0x00000110   Code   RO         1293    i.TMR_SR_cmdSetFrequencyHopTable  serial_reader_l3.o
+    0x00007f08   0x00007f08   0x00000128   Code   RO         1294    i.TMR_SR_cmdSetFrequencyHopTableOption  serial_reader_l3.o
+    0x00008030   0x00008030   0x00000144   Code   RO         1296    i.TMR_SR_cmdSetGPIODirection  serial_reader_l3.o
+    0x00008174   0x00008174   0x0000009c   Code   RO         1298    i.TMR_SR_cmdSetMode  serial_reader_l3.o
+    0x00008210   0x00008210   0x00000250   Code   RO          875    i.TMR_SR_cmdSetPerAntennaTime  serial_reader.o
+    0x00008460   0x00008460   0x00000024   Code   RO         1299    i.TMR_SR_cmdSetPowerMode  serial_reader_l3.o
+    0x00008484   0x00008484   0x000000b4   Code   RO         1300    i.TMR_SR_cmdSetProtocol  serial_reader_l3.o
+    0x00008538   0x00008538   0x00000a6c   Code   RO         1301    i.TMR_SR_cmdSetProtocolConfiguration  serial_reader_l3.o
+    0x00008fa4   0x00008fa4   0x00000134   Code   RO         1302    i.TMR_SR_cmdSetProtocolLicenseKey  serial_reader_l3.o
+    0x000090d8   0x000090d8   0x00000144   Code   RO         1303    i.TMR_SR_cmdSetProtocolList  serial_reader_l3.o
+    0x0000921c   0x0000921c   0x00000024   Code   RO         1304    i.TMR_SR_cmdSetReadTxPower  serial_reader_l3.o
+    0x00009240   0x00009240   0x000000c4   Code   RO         1305    i.TMR_SR_cmdSetReadWriteTxPower  serial_reader_l3.o
+    0x00009304   0x00009304   0x00000304   Code   RO         1306    i.TMR_SR_cmdSetReaderConfiguration  serial_reader_l3.o
+    0x00009608   0x00009608   0x00000160   Code   RO         1307    i.TMR_SR_cmdSetReaderWriteTimeOut  serial_reader_l3.o
+    0x00009768   0x00009768   0x00000344   Code   RO         1308    i.TMR_SR_cmdSetRegion  serial_reader_l3.o
+    0x00009aac   0x00009aac   0x00000164   Code   RO         1309    i.TMR_SR_cmdSetRegionDwellTime  serial_reader_l3.o
+    0x00009c10   0x00009c10   0x0000002c   Code   RO         1310    i.TMR_SR_cmdSetRegionDwellTimeEnable  serial_reader_l3.o
+    0x00009c3c   0x00009c3c   0x0000012c   Code   RO         1311    i.TMR_SR_cmdSetRegionDwellTimeLbtEnable  serial_reader_l3.o
+    0x00009d68   0x00009d68   0x0000002c   Code   RO         1312    i.TMR_SR_cmdSetRegionLbt  serial_reader_l3.o
+    0x00009d94   0x00009d94   0x00000144   Code   RO         1313    i.TMR_SR_cmdSetRegionLbtThreshold  serial_reader_l3.o
+    0x00009ed8   0x00009ed8   0x000000e0   Code   RO         1314    i.TMR_SR_cmdSetTxRxPorts  serial_reader_l3.o
+    0x00009fb8   0x00009fb8   0x00000024   Code   RO         1315    i.TMR_SR_cmdSetUserMode  serial_reader_l3.o
+    0x00009fdc   0x00009fdc   0x000004b0   Code   RO         1316    i.TMR_SR_cmdSetUserProfile  serial_reader_l3.o
+    0x0000a48c   0x0000a48c   0x00000024   Code   RO         1317    i.TMR_SR_cmdSetWriteTxPower  serial_reader_l3.o
+    0x0000a4b0   0x0000a4b0   0x0000010c   Code   RO         1318    i.TMR_SR_cmdStopReading  serial_reader_l3.o
+    0x0000a5bc   0x0000a5bc   0x000000a0   Code   RO         1322    i.TMR_SR_cmdVersion  serial_reader_l3.o
+    0x0000a65c   0x0000a65c   0x000000f8   Code   RO          876    i.TMR_SR_connect    serial_reader.o
+    0x0000a754   0x0000a754   0x000002f8   Code   RO         2707    i.TMR_SR_convertFromEBV  tm_reader.o
+    0x0000aa4c   0x0000aa4c   0x00000340   Code   RO         2708    i.TMR_SR_convertToEBV  tm_reader.o
+    0x0000ad8c   0x0000ad8c   0x00000454   Code   RO         1327    i.TMR_SR_executeEmbeddedRead  serial_reader_l3.o
+    0x0000b1e0   0x0000b1e0   0x000002a0   Code   RO          880    i.TMR_SR_getNextTag  serial_reader.o
+    0x0000b480   0x0000b480   0x00000104   Code   RO          881    i.TMR_SR_getVersion  serial_reader.o
+    0x0000b584   0x0000b584   0x00000408   Code   RO          884    i.TMR_SR_hasMoreTags  serial_reader.o
+    0x0000b98c   0x0000b98c   0x00000094   Code   RO         1328    i.TMR_SR_msgAddAccessPassword  serial_reader_l3.o
+    0x0000ba20   0x0000ba20   0x000000d4   Code   RO         1331    i.TMR_SR_msgAddExtendedParams  serial_reader_l3.o
+    0x0000baf4   0x0000baf4   0x000001d0   Code   RO         1341    i.TMR_SR_msgAddGEN2BlockErase  serial_reader_l3.o
+    0x0000bcc4   0x0000bcc4   0x00000324   Code   RO         1342    i.TMR_SR_msgAddGEN2BlockPermaLock  serial_reader_l3.o
+    0x0000bfe8   0x0000bfe8   0x00000358   Code   RO         1343    i.TMR_SR_msgAddGEN2BlockWrite  serial_reader_l3.o
+    0x0000c340   0x0000c340   0x0000019c   Code   RO         1344    i.TMR_SR_msgAddGEN2DataRead  serial_reader_l3.o
+    0x0000c4dc   0x0000c4dc   0x000001ec   Code   RO         1345    i.TMR_SR_msgAddGEN2DataWrite  serial_reader_l3.o
+    0x0000c6c8   0x0000c6c8   0x0000011c   Code   RO         1346    i.TMR_SR_msgAddGEN2KillTag  serial_reader_l3.o
+    0x0000c7e4   0x0000c7e4   0x00000188   Code   RO         1347    i.TMR_SR_msgAddGEN2LockTag  serial_reader_l3.o
+    0x0000c96c   0x0000c96c   0x0000010c   Code   RO         1348    i.TMR_SR_msgAddGEN2WriteTagEPC  serial_reader_l3.o
+    0x0000ca78   0x0000ca78   0x00000240   Code   RO         1391    i.TMR_SR_msgAddReadMemory  serial_reader_l3.o
+    0x0000ccb8   0x0000ccb8   0x000001b8   Code   RO         1392    i.TMR_SR_msgAddWriteMemory  serial_reader_l3.o
+    0x0000ce70   0x0000ce70   0x00000680   Code   RO         1393    i.TMR_SR_msgSetupMultipleProtocolSearch  serial_reader_l3.o
+    0x0000d4f0   0x0000d4f0   0x00000050   Code   RO         1394    i.TMR_SR_msgSetupReadTagMultiple  serial_reader_l3.o
+    0x0000d540   0x0000d540   0x000005e4   Code   RO         1395    i.TMR_SR_msgSetupReadTagMultipleWithMetadata  serial_reader_l3.o
+    0x0000db24   0x0000db24   0x000016fc   Code   RO          888    i.TMR_SR_paramGet   serial_reader.o
+    0x0000f220   0x0000f220   0x0000123c   Code   RO          889    i.TMR_SR_paramSet   serial_reader.o
+    0x0001045c   0x0001045c   0x0000022c   Code   RO         1396    i.TMR_SR_parseMetadataFromMessage  serial_reader_l3.o
+    0x00010688   0x00010688   0x000004b0   Code   RO         1397    i.TMR_SR_parseMetadataOnly  serial_reader_l3.o
+    0x00010b38   0x00010b38   0x000001a0   Code   RO         1398    i.TMR_SR_postprocessReaderSpecificMetadata  serial_reader_l3.o
+    0x00010cd8   0x00010cd8   0x00000098   Code   RO          890    i.TMR_SR_read       serial_reader.o
+    0x00010d70   0x00010d70   0x00000578   Code   RO          895    i.TMR_SR_read_internal  serial_reader.o
+    0x000112e8   0x000112e8   0x00000484   Code   RO         1400    i.TMR_SR_receiveMessage  serial_reader_l3.o
+    0x0001176c   0x0001176c   0x00000024   Code   RO         1402    i.TMR_SR_send       serial_reader_l3.o
+    0x00011790   0x00011790   0x00000068   Code   RO         1403    i.TMR_SR_sendBytes  serial_reader_l3.o
+    0x000117f8   0x000117f8   0x0000002c   Code   RO         1404    i.TMR_SR_sendCmd    serial_reader_l3.o
+    0x00011824   0x00011824   0x00000180   Code   RO         1405    i.TMR_SR_sendMessage  serial_reader_l3.o
+    0x000119a4   0x000119a4   0x00000124   Code   RO         1406    i.TMR_SR_sendTimeout  serial_reader_l3.o
+    0x00011ac8   0x00011ac8   0x00000058   Code   RO         2751    i.TMR__notifyTransportListeners  tm_reader.o
+    0x00011b20   0x00011b20   0x000001d0   Code   RO         2753    i.TMR_create        tm_reader.o
+    0x00011cf0   0x00011cf0   0x0000047c   Code   RO         1407    i.TMR_fillReaderStats  serial_reader_l3.o
+    0x0001216c   0x0001216c   0x000000b8   Code   RO         1408    i.TMR_flush         serial_reader_l3.o
+    0x00012224   0x00012224   0x00000058   Code   RO          722    i.TMR_hexDottedQuad  hex_bytes.o
+    0x0001227c   0x0001227c   0x0000012c   Code   RO         2757    i.TMR_initSerialTransportTable  tm_reader.o
+    0x000123a8   0x000123a8   0x000000b0   Code   RO         2760    i.TMR_paramGet      tm_reader.o
+    0x00012458   0x00012458   0x000000c0   Code   RO         2762    i.TMR_paramProbe    tm_reader.o
+    0x00012518   0x00012518   0x000000ec   Code   RO         2763    i.TMR_paramSet      tm_reader.o
+    0x00012604   0x00012604   0x000000f0   Code   RO         2765    i.TMR_reader_init_internal  tm_reader.o
+    0x000126f4   0x000126f4   0x00000064   Code   RO         3191    i.TMR_startReading  tm_reader_async.o
+    0x00012758   0x00012758   0x000000b4   Code   RO         3192    i.TMR_stopReading   tm_reader_async.o
+    0x0001280c   0x0001280c   0x00000058   Code   RO         3291    i.TMR_stringCopy    tmr_utils.o
+    0x00012864   0x00012864   0x00000040   Code   RO          417    i.UART0_Init        uart0.o
+    0x000128a4   0x000128a4   0x00000028   Code   RO          418    i.UART0_sendchar    uart0.o
+    0x000128cc   0x000128cc   0x00000074   Code   RO          438    i.UART1_Init        uart1.o
+    0x00012940   0x00012940   0x0000003c   Code   RO          439    i.UART1_flush       uart1.o
+    0x0001297c   0x0001297c   0x00000010   Code   RO          440    i.UART1_get_CommErrors  uart1.o
+    0x0001298c   0x0001298c   0x00000048   Code   RO          508    i.UART1_irq         isr_manager.o
+    0x000129d4   0x000129d4   0x000001c4   Code   RO          441    i.UART1_receivebuffer  uart1.o
+    0x00012b98   0x00012b98   0x0000017c   Code   RO          442    i.UART1_send_reveice_PING  uart1.o
+    0x00012d14   0x00012d14   0x0000015c   Code   RO          443    i.UART1_sendbuffer  uart1.o
+    0x00012e70   0x00012e70   0x00000028   Code   RO          444    i.UART1_sendchar    uart1.o
+    0x00012e98   0x00012e98   0x0000002c   Code   RO          138    i.UpdateIndexAtomic  ringbuf.o
+    0x00012ec4   0x00012ec4   0x0000001c   Code   RO         3760    i.Wait_For_HIGH_Transition  wifi_utils.o
+    0x00012ee0   0x00012ee0   0x000001c0   Code   RO         3761    i.Wait_for_transition  wifi_utils.o
+    0x000130a0   0x000130a0   0x00000014   Code   RO          679    i.Wdg_Feed          watchdog.o
+    0x000130b4   0x000130b4   0x00000028   Code   RO          680    i.Wdg_FeedSequence  watchdog.o
+    0x000130dc   0x000130dc   0x00000010   Code   RO          681    i.Wdg_Init          watchdog.o
+    0x000130ec   0x000130ec   0x0000005c   Code   RO          682    i.Wdg_Start         watchdog.o
+    0x00013148   0x00013148   0x00000010   Code   RO          683    i.Wdg_isFeedRequested  watchdog.o
+    0x00013158   0x00013158   0x000001dc   Code   RO         3663    i.WifiManager_Init  wifi_manager.o
+    0x00013334   0x00013334   0x00000064   Code   RO         3664    i.WifiManager_Perform_HW_Reset  wifi_manager.o
+    0x00013398   0x00013398   0x00000028   Code   RO         3665    i.Wifi_GET_is_ClientConnected  wifi_manager.o
+    0x000133c0   0x000133c0   0x00000028   Code   RO         3666    i.Wifi_GET_is_Wifi_Connected_status  wifi_manager.o
+    0x000133e8   0x000133e8   0x000000d4   Code   RO         3667    i.Wifi_GET_passtrough_response  wifi_manager.o
+    0x000134bc   0x000134bc   0x0000055c   Code   RO         3668    i.Wifi_Manager      wifi_manager.o
+    0x00013a18   0x00013a18   0x000000a8   Code   RO         3669    i.Wifi_SET_Command_Request  wifi_manager.o
+    0x00013ac0   0x00013ac0   0x00000098   Code   RO         3762    i.Write_ESP_Data    wifi_utils.o
+    0x00013b58   0x00013b58   0x00000002   Code   RO         3979    i.__ARM_common_call_via_r1  c_t.l(__printf.o)
+    0x00013b5a   0x00013b5a   0x00000002   Code   RO         3977    i.__ARM_common_call_via_r2  c_t.l(__printf.o)
+    0x00013b5c   0x00013b5c   0x0000000e   Code   RO         4018    i._is_digit         c_t.l(__printf_wp.o)
+    0x00013b6a   0x00013b6a   0x00000002   PAD
+    0x00013b6c   0x00013b6c   0x00000004   Code   RO           77    i._sys_exit         retarget.o
+    0x00013b70   0x00013b70   0x00000084   Code   RO         2771    i.checkForAvailableFeatures  tm_reader.o
+    0x00013bf4   0x00013bf4   0x00000044   Code   RO          445    i.check_communication_errors  uart1.o
+    0x00013c38   0x00013c38   0x00000118   Code   RO          902    i.compareAntennas   serial_reader.o
+    0x00013d50   0x00013d50   0x0000007c   Code   RO          330    i.compute_crc       crc.o
+    0x00013dcc   0x00013dcc   0x00000014   Code   RO         3432    i.disable_HW_Reader  reader_manager.o
+    0x00013de0   0x00013de0   0x0000001c   Code   RO         3598    i.disable_Timer0    lp_mode_manager.o
+    0x00013dfc   0x00013dfc   0x0000001c   Code   RO         3599    i.enable_Timer0     lp_mode_manager.o
+    0x00013e18   0x00013e18   0x00000120   Code   RO         1411    i.extractGen2MemoryBankValues  serial_reader_l3.o
+    0x00013f38   0x00013f38   0x00000004   Ven    RO           79    i.ferror            retarget.o
+    0x00013f3c   0x00013f3c   0x0000000c   Code   RO           79    i.ferror            retarget.o
+    0x00013f48   0x00013f48   0x00000088   Code   RO          903    i.fillStaticTxRxMapData  serial_reader.o
+    0x00013fd0   0x00013fd0   0x0000010c   Code   RO         1412    i.fillVersionInfo   serial_reader_l3.o
+    0x000140dc   0x000140dc   0x00000894   Code   RO         1413    i.filterbytes       serial_reader_l3.o
+    0x00014970   0x00014970   0x0000001c   Code   RO           80    i.fputc             retarget.o
+    0x0001498c   0x0001498c   0x00000050   Code   RO         2773    i.getAddrByteExtEnabledVersion  tm_reader.o
+    0x000149dc   0x000149dc   0x0000004c   Code   RO          904    i.getHardwareInfo   serial_reader.o
+    0x00014a28   0x00014a28   0x0000014c   Code   RO          905    i.getPortValues     serial_reader.o
+    0x00014b74   0x00014b74   0x000002f4   Code   RO          906    i.getReadExtParams  serial_reader.o
+    0x00014e68   0x00014e68   0x000000e4   Code   RO          907    i.getSerialNumber   serial_reader.o
+    0x00014f4c   0x00014f4c   0x00000468   Code   RO          908    i.getWriteExtParams  serial_reader.o
+    0x000153b4   0x000153b4   0x00000054   Code   RO          545    i.i2c_check_CRC_after_RX_finish  i2c.o
+    0x00015408   0x00015408   0x00000010   Code   RO          546    i.i2c_get_RX_ready_status  i2c.o
+    0x00015418   0x00015418   0x00000028   Code   RO          547    i.i2c_get_command   i2c.o
+    0x00015440   0x00015440   0x00000010   Code   RO          548    i.i2c_get_request_stayAwake  i2c.o
+    0x00015450   0x00015450   0x00000010   Code   RO          549    i.i2c_set_RX_ready_status  i2c.o
+    0x00015460   0x00015460   0x00000038   Code   RO          550    i.i2c_set_command_status  i2c.o
+    0x00015498   0x00015498   0x00000028   Code   RO          551    i.i2c_set_data_bytes  i2c.o
+    0x000154c0   0x000154c0   0x00000010   Code   RO          552    i.i2c_set_response_ready_status  i2c.o
+    0x000154d0   0x000154d0   0x0000006c   Code   RO          909    i.initTxRxMapFromPorts  serial_reader.o
+    0x0001553c   0x0001553c   0x000000a0   Code   RO         3670    i.isPassthroughResponseValid  wifi_manager.o
+    0x000155dc   0x000155dc   0x00000074   Code   RO          910    i.isTagTypeFilterAvail  serial_reader.o
+    0x00015650   0x00015650   0x000000a4   Code   RO           11    i.main              main.o
+    0x000156f4   0x000156f4   0x00000048   Code   RO         3194    i.notify_read_listeners  tm_reader_async.o
+    0x0001573c   0x0001573c   0x0000007c   Code   RO         1418    i.parseEBVdata      serial_reader_l3.o
+    0x000157b8   0x000157b8   0x000000ac   Code   RO          911    i.prepEmbReadTagMultiple  serial_reader.o
+    0x00015864   0x00015864   0x0000012c   Code   RO          912    i.prepForSearch     serial_reader.o
+    0x00015990   0x00015990   0x00000118   Code   RO         3433    i.reader_recovery   reader_manager.o
+    0x00015aa8   0x00015aa8   0x0000002c   Code   RO         2642    i.s_flush           serial_transport_dummy.o
+    0x00015ad4   0x00015ad4   0x0000000c   Code   RO         2643    i.s_open            serial_transport_dummy.o
+    0x00015ae0   0x00015ae0   0x0000006c   Code   RO         2644    i.s_receiveBytes    serial_transport_dummy.o
+    0x00015b4c   0x00015b4c   0x00000064   Code   RO         2645    i.s_sendBytes       serial_transport_dummy.o
+    0x00015bb0   0x00015bb0   0x0000000c   Code   RO         2646    i.s_setBaudRate     serial_transport_dummy.o
+    0x00015bbc   0x00015bbc   0x0000000c   Code   RO         2647    i.s_shutdown        serial_transport_dummy.o
+    0x00015bc8   0x00015bc8   0x00000028   Code   RO         3763    i.send_Read_EOF     wifi_utils.o
+    0x00015bf0   0x00015bf0   0x00000028   Code   RO         3764    i.send_Write_EOF    wifi_utils.o
+    0x00015c18   0x00015c18   0x00000064   Code   RO         3434    i.send_validate_tag_criteria_cmd  reader_manager.o
+    0x00015c7c   0x00015c7c   0x000000d4   Code   RO          913    i.setAntennaList    serial_reader.o
+    0x00015d50   0x00015d50   0x000002c4   Code   RO          914    i.setAntennaReadTimeHelper  serial_reader.o
+    0x00016014   0x00016014   0x00000084   Code   RO          915    i.setAntennaReadTimeList  serial_reader.o
+    0x00016098   0x00016098   0x0000011c   Code   RO          916    i.setPortValues     serial_reader.o
+    0x000161b4   0x000161b4   0x0000004c   Code   RO          917    i.setProtocol       serial_reader.o
+    0x00016200   0x00016200   0x000000b8   Code   RO          628    i.spi0_sendReceive_message  spi.o
+    0x000162b8   0x000162b8   0x00000054   Code   RO          359    i.timer1_irq        timer.o
+    0x0001630c   0x0001630c   0x00000044   Code   RO         3293    i.tm_gettime_consistent  tmr_utils.o
+    0x00016350   0x00016350   0x00000034   Code   RO         3294    i.tm_memcpy         tmr_utils.o
+    0x00016384   0x00016384   0x00000024   Code   RO         3297    i.tm_strcpy         tmr_utils.o
+    0x000163a8   0x000163a8   0x00000024   Code   RO         3299    i.tm_u8s_per_bits   tmr_utils.o
+    0x000163cc   0x000163cc   0x0000000c   Code   RO          834    i.tmr_gettime       osdep_dummy.o
+    0x000163d8   0x000163d8   0x00000008   Code   RO          835    i.tmr_gettime_high  osdep_dummy.o
+    0x000163e0   0x000163e0   0x00000008   Code   RO          836    i.tmr_gettime_low   osdep_dummy.o
+    0x000163e8   0x000163e8   0x000000a8   Code   RO          918    i.updateTxRxMapData  serial_reader.o
+    0x00016490   0x00016490   0x00000178   Code   RO          919    i.validateParams    serial_reader.o
+    0x00016608   0x00016608   0x0000005c   Code   RO         2774    i.validateReadPlan  tm_reader.o
+    0x00016664   0x00016664   0x000000cc   Code   RO         2775    i.versionCompare    tm_reader.o
+    0x00016730   0x00016730   0x00000040   Code   RO         3765    i.wifi_handsake_init  wifi_utils.o
+    0x00016770   0x00016770   0x00000050   Code   RO         3766    i.wifi_handsake_irq  wifi_utils.o
+    0x000167c0   0x000167c0   0x00000070   Code   RO         3767    i.wifi_utils_Init   wifi_utils.o
     0x00016830   0x00016830   0x00000020   Data   RO          331    .constdata          crc.o
     0x00016850   0x00016850   0x00000020   Data   RO          920    .constdata          serial_reader.o
     0x00016870   0x00016870   0x0000021c   Data   RO         3672    .constdata          wifi_manager.o
@@ -4282,12 +4287,12 @@ Image component sizes
        280          0          0          0          0       3911   tmr_utils.o
        104          8          0          0          0        898   uart0.o
       1480        116          0          3          0       6350   uart1.o
-       196         16          0          1          0       2387   watchdog.o
+       184         16          0          1          0       2427   watchdog.o
       2596        160        540          4        610      10813   wifi_manager.o
-      2964        240        180         10        102      15187   wifi_utils.o
+      2976        244        180         10        102      15191   wifi_utils.o
 
     ----------------------------------------------------------------------
-     88308       2560        816        152      14240     433330   Object Totals
+     88308       2564        816        152      14240     433374   Object Totals
         16          4         32          0          0          0   (incl. Generated)
          0          0          0         11          5          0   (incl. Padding)
 
@@ -4374,9 +4379,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     92208       2652        876        156      14340     420902   Grand Totals
-     92208       2652        876        156      14340     420902   ELF Image Totals
-     92208       2652        876        156          0          0   ROM Totals
+     92208       2656        876        156      14340     420946   Grand Totals
+     92208       2656        876        156      14340     420946   ELF Image Totals
+     92208       2656        876        156          0          0   ROM Totals
 
 ==============================================================================
 

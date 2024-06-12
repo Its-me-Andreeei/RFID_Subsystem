@@ -37,9 +37,8 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_6EA0\",\"01146882\"\r\n", (u16)36U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-A7xG\",\"ZAuU2mENN5\"\r\n", (u16)35U, (u8)2U},
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"dspproject\",\"project@D59\"\r\n", (u16)37U, (u8)2U},
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
 																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13U, (u8)2U}, 
@@ -76,9 +75,9 @@ void WifiManager_Perform_HW_Reset(void)
 	IO0SET |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
 	TIMER_SOFTWARE_Wait(500);
 	IO0CLR |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
-	TIMER_SOFTWARE_Wait(1000);
+	TIMER_SOFTWARE_Wait(500);
 	IO0SET |= ((u8)1U << ESP_RESET_PIN_NUM_U8);
-	TIMER_SOFTWARE_Wait(1000);
+	TIMER_SOFTWARE_Wait(500);
 }
 
 static bool isPassthroughResponseValid(void)

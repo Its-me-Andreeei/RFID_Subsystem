@@ -465,6 +465,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 						if(WI_FI_COMMAND_OK == operation_result)
 						{
 							operation_result = Read_ESP_Data(responses[index].response, &responses[index].response_length);
+							//printf("Read_Status = %d\n", operation_result);
 							if(WI_FI_COMMAND_NOK == operation_result)
 							{
 								/*If one command was wrong, do not continue*/
@@ -536,7 +537,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 void wifi_utils_Init(void)
 {
 	timer_handsake = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 6000, 1);
+	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 4000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
 	wifi_handsake_init();
 	

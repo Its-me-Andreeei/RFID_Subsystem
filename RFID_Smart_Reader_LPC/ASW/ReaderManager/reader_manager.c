@@ -145,9 +145,9 @@ void ReaderManagerInit(void)
 void Reader_HW_Reset(void)
 {
 	IO0CLR = (uint8_t)1 << RESET_PIN_READER_U8;
-	TIMER_SOFTWARE_Wait(1000);
+	TIMER_SOFTWARE_Wait(500);
 	IO0SET = (uint8_t)1 << RESET_PIN_READER_U8;
-	TIMER_SOFTWARE_Wait(1000);
+	TIMER_SOFTWARE_Wait(500);
 }
 
 ReaderRequest_t Reader_GET_request_status(void)

@@ -14,15 +14,13 @@ void Wdg_Start(Wdg_Config_en config)
 	switch(config)
 	{
 		case WDG_CONFIG_HP_EN:
-			WDTC = (u32)0x0189BFFF; /*7 seconds*/
-			WDFEED = (u8)0xAAu;
-			WDFEED = (u8)0x55u;
+			WDTC = (u32)0x1893FFFF; /*7 seconds*/
+			Wdg_FeedSequence();
 			break;
 		
 		case WDG_CONFIG_LP_EN:
 			WDTC = (u32)0xFFFFFFFF; /*Maximum value possible*/
-			WDFEED = (u8)0xAAu;
-			WDFEED = (u8)0x55u;
+			Wdg_FeedSequence();
 			break;
 		
 		default:
@@ -39,6 +37,7 @@ void Wdg_Init(void)
 void Wdg_Feed()
 {
 	WDT_request_feed = true;
+	//printf("Feed\n");
 }
 
 void Wdg_FeedSequence(void)
