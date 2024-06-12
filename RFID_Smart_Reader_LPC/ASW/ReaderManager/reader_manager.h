@@ -7,7 +7,7 @@
 #define RESET_PIN_READER_U8 ((uint8_t)23U)
 
 /*This is the maximum number of times we perform recovery sequences in case of lost communication*/
-#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8 ((uint8_t)0x03U) 
+#define NUMBER_OF_RECOVERY_SEQUENCE_STEPS_U8 ((uint8_t)0x02U) 
 /*This if the maximum number of PINGs we try after a hard reset is performed in sequence recovery process*/
 #define NUMBER_OF_PING_CHECKS_AFTER_RESET_U8 ((uint8_t)4U)
 
