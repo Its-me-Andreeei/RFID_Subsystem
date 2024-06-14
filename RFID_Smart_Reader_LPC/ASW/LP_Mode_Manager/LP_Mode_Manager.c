@@ -118,8 +118,12 @@ void LP_Mode_Manager(void)
 			TIMER1_Stop();
 			enable_Timer0();
 			Wdg_Start(WDG_CONFIG_HP_EN);
-			
 		}
+		else
+		{
+			TIMER1_Stop();
+		}
+		
 		
 		printf("Exit LP\n");
 	}

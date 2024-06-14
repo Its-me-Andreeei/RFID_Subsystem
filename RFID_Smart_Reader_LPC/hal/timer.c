@@ -33,12 +33,12 @@ void TIMER_irq(void) __irq
 	if ((T0IR & 1) != 0)
 	{
 		TIMER_SOFTWARE_ModX();
-		T0IR |= 1;
 		
 		if(true == Wdg_isFeedRequested())
 		{
 			Wdg_FeedSequence();
 		}
+		T0IR |= 1;
 	}
 }
 
@@ -51,7 +51,8 @@ void TIMER_Init()
 	T0TCR = 1;
 	
 	T1PR = 3;
-	T1MR0 = 0xED4A5680; //18 minutes
+	//T1MR0 = 0xED4A5680; //18 minutes
+	T1MR0 = 0x0D2F0000; //1 minute
 	T1MCR = 5;
 	T1IR = 1;
 }

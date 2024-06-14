@@ -15,11 +15,15 @@ void Wdg_Start(Wdg_Config_en config)
 	{
 		case WDG_CONFIG_HP_EN:
 			WDTC = (u32)0x1893FFFF; /*7 seconds*/
+			//printf("WATCHDOG HP CFG\n");
 			Wdg_FeedSequence();
 			break;
 		
 		case WDG_CONFIG_LP_EN:
 			WDTC = (u32)0xFFFFFFFF; /*Maximum value possible*/
+			//WDTC = (u32)0x27EFBFFF; /*3 minutes*/
+
+			//printf("WATCHDOG LP CFG\n");
 			Wdg_FeedSequence();
 			break;
 		
@@ -31,13 +35,12 @@ void Wdg_Start(Wdg_Config_en config)
 
 void Wdg_Init(void)
 {
-	WDMOD = ((u8)((u8)1U << (u8)1U) | (u8)0x01U);
+	WDMOD = (/*(u8)((u8)1U << (u8)1U) |*/ (u8)0x01U);
 }
 
 void Wdg_Feed()
 {
 	WDT_request_feed = true;
-	//printf("Feed\n");
 }
 
 void Wdg_FeedSequence(void)
