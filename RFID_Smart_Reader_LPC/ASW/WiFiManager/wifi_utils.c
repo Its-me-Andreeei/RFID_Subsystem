@@ -429,6 +429,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		WIFI_CLIENT_PRESENT,
 		WIFI_CLIENT_DISCONNECTED,
 		WIFI_CONNECTED_AND_GOT_IP,
+		ERROR,
 		
 		SEQ_LENGTH
 	}esp_states_en;
@@ -439,7 +440,8 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 		[WIFI_GOT_IP_EN] = {"WIFI GOT IP\r\n"},
 		[WIFI_CLIENT_PRESENT] = {"0,CONNECT\r\n"},
 		[WIFI_CLIENT_DISCONNECTED] = {"0,CLOSED\r\n"},
-		[WIFI_CONNECTED_AND_GOT_IP] = {"WIFI CONNECTED\r\nWIFI GOT IP\r\n"}
+		[WIFI_CONNECTED_AND_GOT_IP] = {"WIFI CONNECTED\r\nWIFI GOT IP\r\n"},
+		[ERROR] = {"ERROR\r\n"}
 	};
 	
 	const u8 number_of_ESP_states = (u8)SEQ_LENGTH;
@@ -497,6 +499,9 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 											case WIFI_CONNECTED_AND_GOT_IP:
 												module_state.wifi_connected = true;
 												module_state.wifi_got_ip = true;
+												break;
+											case ERROR:
+												operation_result = WI_FI_COMMAND_NOK;
 												break;
 											default:
 												/*Do not set any flag otherwise*/

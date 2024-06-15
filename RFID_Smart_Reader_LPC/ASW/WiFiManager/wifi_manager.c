@@ -108,7 +108,7 @@ void WifiManager_Init(void)
 	u8 init_seq_index;
 	command_frame_status_t message_status = WI_FI_COMMAND_NOK;
 	wifi_module_state_st module_state;
-	const u8 init_config[] = {(u8)AT_EN, (u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)CHANGE_DEFAULT_IP, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
+	const u8 init_config[] = {(u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)CHANGE_DEFAULT_IP, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
 	const u8 size_of_init_sequence = (u8)(sizeof(init_config) / sizeof(at_sequences_en));
 	
 	/*perform init of wi-fi utils library*/
