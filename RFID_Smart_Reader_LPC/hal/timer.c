@@ -51,8 +51,8 @@ void TIMER_Init()
 	T0TCR = 1;
 	
 	T1PR = 3;
-	//T1MR0 = 0xED4A5680; //18 minutes
-	T1MR0 = 0x0D2F0000; //1 minute
+	T1MR0 = 0xED4A5680; //18 minutes
+	//T1MR0 = 0x0D2F0000; //1 minute
 	T1MCR = 5;
 	T1IR = 1;
 }
