@@ -277,6 +277,7 @@ static command_frame_status_t Wait_for_transition(const transition_type_t transi
 	command_frame_status_t result = WI_FI_COMMAND_OK;
 	
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
+	TIMER_SOFTWARE_clear_interrupt(timer_handsake);
 	TIMER_SOFTWARE_start_timer(timer_handsake);
 	
 	switch(transition)

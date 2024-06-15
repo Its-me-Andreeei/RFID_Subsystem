@@ -321,6 +321,7 @@ void Reader_Manager(void)
 		/*If WI-FI module is not INIT, wait some time and might get init. Maybe is in it's recovery state or lost connection to internet*/
 		TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
 		TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
+		TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
 		TIMER_SOFTWARE_start_timer(timer_route_status_and_panic);
 		
 		
@@ -374,6 +375,7 @@ void Reader_Manager(void)
 				if(true == LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER))
 				{
 					TIMER_SOFTWARE_stop_timer(timer_route_status_and_panic);
+					TIMER_SOFTWARE_clear_interrupt(timer_route_status_and_panic);
 					TIMER_SOFTWARE_reset_timer(timer_route_status_and_panic);
 					failure_reason = NO_FAILURE_PRESENT;
 					current_state_en = CHECK_FOR_REQUESTS;
