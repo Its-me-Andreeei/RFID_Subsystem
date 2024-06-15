@@ -225,7 +225,7 @@ void Wifi_Manager(void)
 		if(true == wifi_status_update)
 		{
 			module_state = Get_Module_Current_State();
-			if(false == module_state.wifi_connected)
+			if((false == module_state.wifi_connected) && (true ==LP_Get_Functionality_Init_State(FUNC_WIFI_MANAGER)))
 			{
 				wifi_manager_state = WIFI_MAN_FAILURE;
 			}
