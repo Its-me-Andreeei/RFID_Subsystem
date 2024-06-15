@@ -23,6 +23,9 @@ typedef enum at_sequences_en
 	ENTER_RX_PASSTHROUGH_MODE,
 	ENTER_RX_TX_PASSTHROUGH_MODE,
 	CHANGE_DEFAULT_IP,
+	EXIT_RX_TX_PASSTHROUGH_MODE,
+	EXIT_RX_PASSTHROUGH_MODE,
+	CLOSE_TCP_CONNECTION,
 	END_OF_SEQUENCE
 }at_sequences_en;
 
@@ -33,12 +36,12 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									[STATION_MODE_EN] = {"AT+CWMODE=1\r\n", (u16)13U, (u8)2U}, 
 																									
 																									/*Connect to WI-FI Router*/
-																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36U, (u8)2U},
+																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_4FE4\",\"00773126\"\r\n", (u16)36U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-02349788\",\"gy3cUath\"\r\n", (u16)37U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"TP-Link_6EA0\",\"01146882\"\r\n", (u16)36U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-A7xG\",\"ZAuU2mENN5\"\r\n", (u16)35U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
-																									[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
 																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13U, (u8)2U}, 
@@ -58,7 +61,16 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									/*Enter TX/RX Passthrough Mode*/
 																									[ENTER_RX_TX_PASSTHROUGH_MODE] = {"AT+CIPSEND\r\n",(u16)12U, (u8)2U },
 																									
-																									[CHANGE_DEFAULT_IP] = {"AT+CIPSTA=\"192.168.1.6\"\r\n", (u16)25U, (u8)2U}
+																									[CHANGE_DEFAULT_IP] = {"AT+CIPSTA=\"192.168.1.6\"\r\n", (u16)25U, (u8)2U},
+																									
+																									/*Leave TX/RX Passthrough Mode, no reply expected*/
+																									[EXIT_RX_TX_PASSTHROUGH_MODE] = {"+++", (u16)3U, (u8)0U},
+																									
+																									/*Leave RX Passthrough Mode*/
+																									[EXIT_RX_PASSTHROUGH_MODE] = {"AT+CIPMODE=0\r\n", (u16)14U, (u8)2U}, 
+																									
+																									/*Close the TCP Connection finally*/
+																									[CLOSE_TCP_CONNECTION] = {"AT+CIPCLOSE\r\n", (u16)13U, (u8)2U }
 																								};
 static AT_response_st wifi_response_buffer[4];
 																								
@@ -111,7 +123,7 @@ void WifiManager_Init(void)
 	const u8 init_config[] = {(u8)STATION_MODE_EN, (u8)CONNECT_WI_FI_EN, (u8)CHANGE_DEFAULT_IP, (u8)ALLOW_MULTIPLE_CONNECTIONS_EN, (u8)LIMIT_TO_1_CONNECTION, (u8)OPEN_TCP_SERVER, (u8)GET_STATUS_AND_IP};
 	const u8 size_of_init_sequence = (u8)(sizeof(init_config) / sizeof(at_sequences_en));
 	
-	/*perform init of wi-fi utils library*/
+	/*perform init of wi-fi (Low Layer) utils library*/
 	wifi_utils_Init();
 	
 	/*Pin P0.25 will be used (as output) for HW reset of ESP32-C3 wi-fi module*/
@@ -202,6 +214,9 @@ void Wifi_Manager(void)
 	static u8 init_retries = 0x00;
 	command_frame_status_t esp_command_status;
 	AT_response_st at_response[2];
+	static bool internal_failure = false;
+	const u8 exit_passthrough_mode[] = {(u8)EXIT_RX_TX_PASSTHROUGH_MODE, (u8)EXIT_RX_PASSTHROUGH_MODE};
+	u8 index;
 	
 	/*Any new updates on ESP state or messages in passtrough mode will be cought in local buffer*/
 	if(true == Get_HandsakePin_Status())
@@ -288,6 +303,8 @@ void Wifi_Manager(void)
 			{
 				/*If chip is not reinitialized after a number of retries, we'll call it Failure*/
 				wifi_manager_state = WIFI_MAN_FAILURE;
+				internal_failure = true;
+				
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 				init_retries = 0x00;
 			}
@@ -308,15 +325,36 @@ void Wifi_Manager(void)
 				if(WI_FI_COMMAND_OK == esp_command_status)
 				{
 					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
-					wifi_manager_state = WIFI_MAN_WAIT_RESPONSE;
+					wifi_response_buffer[0].response[wifi_response_buffer[0].response_length] = (u8)'\0';
+					if(strstr((char*)wifi_response_buffer[0].response, "RX:Done") != NULL)
+					{
+						wifi_manager_state = WIFI_MAN_WAIT_RESPONSE;
+					}
+					else
+					{
+						/*Update Wi-Fi Low Layer with client being disconnected*/
+						module_state = Get_Module_Current_State();
+						module_state.client_app_connected = false;
+						Set_Module_Current_State(module_state);
+						
+						/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
+						wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
+					}
 				}
 				else
 				{
-					wifi_manager_state = WIFI_MAN_FAILURE;
+					/*Update Wi-Fi Low Layer with client being disconnected*/
+						module_state = Get_Module_Current_State();
+						module_state.client_app_connected = false;
+						Set_Module_Current_State(module_state);
+						
+						/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
+						wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
 				}
 			}
-			else
+			else /*Database has not responded to ESP's request*/
 			{
+				
 				wifi_manager_state = WIFI_MAN_SEND_CMD;
 			}
 			break;
@@ -348,13 +386,31 @@ void Wifi_Manager(void)
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 				wifi_manager_state = WIFI_MAN_ENTER_PASSTHROUGH_MODE;
 			}
+			/*Reaching here means after a message was sent to database, no answer received, which means it is not connected anymore.*/
+			/*Passthrough will be left and client will be waited*/
+			else if((true == module_state.passtrough_mode) && (false == module_state.client_app_connected))
+			{
+				for(index = 0; index < (u8)(sizeof(exit_passthrough_mode)/sizeof(u8)); index++)
+				{
+					esp_command_status =Send_ESP_Command(wifi_at_configs[exit_passthrough_mode[index]],wifi_response_buffer);
+					if(esp_command_status == WI_FI_COMMAND_NOK)
+					{
+						/*Broken connection with ESP finally*/
+						wifi_manager_state = WIFI_MAN_FAILURE;
+						internal_failure = true;
+						break;
+					}
+				}
+				/*Otherwise no state update. Will pass in this state one more time*/
+				Set_Passthrough_Mode(false);
+			}
 			else
 			{
 				/*Check for state update and wait one for time (loop until client connects)*/
 				wifi_status_update = Check_for_WiFi_Update();
 				if(true == wifi_status_update)
 				{
-					/*Fetch the new state update. Will be check on next call of Wifi manager*/
+					/*Fetch the new state update. Will be checked on next call of Wifi manager*/
 					module_state = Get_Module_Current_State();
 					wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
 				}
@@ -382,12 +438,14 @@ void Wifi_Manager(void)
 				{
 					Set_Passthrough_Mode(false);
 					wifi_manager_state = WIFI_MAN_FAILURE;
+					internal_failure = true;
 				}
 			}
 			else
 			{
 				Set_Passthrough_Mode(false);
 				wifi_manager_state = WIFI_MAN_FAILURE;
+				internal_failure = true;
 			}
 			
 			break;
@@ -402,7 +460,7 @@ void Wifi_Manager(void)
 			LP_Set_InitFlag(FUNC_WIFI_MANAGER, false);
 			
 			/*If Reader is in Permanent Failure state, we have no reason to keep Wi Fi module on*/
-			if(true == Reader_GET_internal_failure_status())
+			if((true == Reader_GET_internal_failure_status()) || (true == internal_failure))
 			{
 				/*Module will be disabled*/
 				Disable_WIFI_Module_HW();
@@ -412,7 +470,6 @@ void Wifi_Manager(void)
 			}
 			else /*Reader is present, so check for WI_FI_CONNECTED status by performing polling of HANDSAKE line*/
 			{
-				/*TBD : To be seted to false after new pin is added*/
 				LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
 				
 				module_state = Get_Module_Current_State();
