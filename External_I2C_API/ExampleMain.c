@@ -13,12 +13,7 @@
 
 void delay(int milli_seconds)
 {
-    // Storing start time
-    clock_t start_time = clock();
- 
-    // looping till required time is not achieved
-    while (clock() < start_time + milli_seconds)
-        ;
+     sleep(1);
 }
 
 int main()
@@ -31,7 +26,7 @@ int main()
 
     RFID_init();
 
-    //st = RFID_Send_Ping();
+    st = RFID_Send_Ping();
     
     if(st == RFID_REQUEST_OK)
     {

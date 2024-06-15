@@ -90,13 +90,20 @@ static RFID_request_status_t RFID_sendRequest(const RFID_command_t command, cons
             if(RFID_PING == command)
             {
                 i2c_comm_state = i2c_receiveMessage(rx_message, I2C_RX_PING_RESPONSE_SIZE_U8); 
-                result = RFID_REQUEST_OK;
-                for(index = 0; index < I2C_RX_PING_RESPONSE_SIZE_U8; index++)
+                if(i2c_comm_state == STATE_OK)
                 {
-                    if((uint8_t)0x01U != rx_message[index])
+                    result = RFID_REQUEST_OK;
+                    for(index = 0; index < I2C_RX_PING_RESPONSE_SIZE_U8; index++)
                     {
-                        result = RFID_REQUEST_NOK_RX_COMM_ERROR;
+                        if((uint8_t)0x01U != rx_message[index])
+                        {
+                            result = RFID_REQUEST_NOK_RX_COMM_ERROR;
+                        }
                     }
+                }
+                else
+                {
+                    result = RFID_REQUEST_NOK_RX_COMM_ERROR;
                 }
             }                  
         }
