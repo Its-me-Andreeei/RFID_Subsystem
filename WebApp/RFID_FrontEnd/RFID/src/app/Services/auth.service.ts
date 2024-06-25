@@ -59,11 +59,15 @@ export class AuthService {
     this.loginStorage.setItem("isLoggedIn", "false");
   }
 
-  registerUser(admin: Admin) :Observable<any>{
-    if(admin.name != null && admin.password != null) {
-      admin.password = this.hashService.hashPassword(admin.password, admin.password);
+  registerUser(admin: Admin): Observable<any> {
+    // Create a local copy of the admin object
+    const localAdmin = { ...admin };
+
+    if (localAdmin.name != null && localAdmin.password != null) {
+      localAdmin.password = this.hashService.hashPassword(localAdmin.password, localAdmin.password);
     }
-    return this.http.post<Admin>(this.pathToRegister, admin);
+
+    return this.http.post<Admin>(this.pathToRegister, localAdmin);
   }
 
 }

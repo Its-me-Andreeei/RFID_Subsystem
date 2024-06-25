@@ -30,8 +30,16 @@ export class RegisterComponent {
               alert("Thank your for registration");
               this.router.navigate(['login']);
             }
+            else
+            {
+              alert("[ERROR] User was not registered");
+            }
           }
         )
+      }
+      else
+      {
+        alert("Passwords do not match");
       }
     }
   }
