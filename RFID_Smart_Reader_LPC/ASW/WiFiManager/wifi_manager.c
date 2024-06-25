@@ -313,14 +313,13 @@ void Wifi_Manager(void)
 		case WIFI_MAN_SEND_CMD:
 			/*If the previous response was read and a new request was made*/
 			LP_Set_StayAwake(FUNC_WIFI_MANAGER, false);
-			if((true == request_new_passtrough_command) && (false == Get_Wifi_Response_Ready_State()))
+			if((true == request_new_passtrough_command) /*&& (false == Get_Wifi_Response_Ready_State())*/)
 			{
 				AT_Command_st command;
 				
 				memcpy(command.at_command_name, wifi_passthrough_request, wifi_passthrough_length);
 				command.at_command_length = wifi_passthrough_length;
 				command.number_of_responses = 1;
-				
 				esp_command_status = Send_ESP_Command(command, wifi_response_buffer);
 				if(WI_FI_COMMAND_OK == esp_command_status)
 				{

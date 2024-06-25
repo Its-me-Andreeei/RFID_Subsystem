@@ -454,12 +454,24 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 	if(WI_FI_COMMAND_OK == operation_result)
 	{
 		operation_result = Request_ESP_Send_Permission(command.at_command_length);
+		
 		if(WI_FI_COMMAND_OK == operation_result)
 		{
 			operation_result = Wait_for_transition(LOW_TO_HIGH);
+			
+			if(WI_FI_COMMAND_NOK == operation_result)
+			{
+				operation_result = Request_ESP_Send_Permission(command.at_command_length);
+				if(WI_FI_COMMAND_OK == operation_result)
+				{
+					operation_result = Wait_for_transition(LOW_TO_HIGH);
+				}
+			}
+			
 			if(WI_FI_COMMAND_OK == operation_result)
 			{
 				operation_result = Write_ESP_Data(command.at_command_name, command.at_command_length);
+				
 				if(WI_FI_COMMAND_OK == operation_result)
 				{
 					for(index = 0; index < command.number_of_responses; index ++)
@@ -543,7 +555,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 void wifi_utils_Init(void)
 {
 	timer_handsake = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 4000, 1);
+	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 4500, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
 	wifi_handsake_init();
 	
