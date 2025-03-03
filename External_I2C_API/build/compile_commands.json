@@ -1,0 +1,27 @@
+[
+{
+  "directory": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/build",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc   -g -std=gnu2x -o CMakeFiles/Raspberry_RFID_I2C.dir/ExampleMain.c.o -c /home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/ExampleMain.c",
+  "file": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/ExampleMain.c"
+},
+{
+  "directory": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/build/RFID",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc   -g -std=gnu2x -o CMakeFiles/RFID_Manager.dir/RFID_Manager.c.o -c /home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/RFID_Manager.c",
+  "file": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/RFID_Manager.c"
+},
+{
+  "directory": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/build/RFID",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc   -g -std=gnu2x -o CMakeFiles/RFID_Manager.dir/crc.c.o -c /home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/crc.c",
+  "file": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/crc.c"
+},
+{
+  "directory": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/build/RFID/GPIO",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc   -g -std=gnu2x -o CMakeFiles/GPIO_Driver.dir/gpio_driver.c.o -c /home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/GPIO/gpio_driver.c",
+  "file": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/GPIO/gpio_driver.c"
+},
+{
+  "directory": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/build/RFID/I2C",
+  "command": "/usr/bin/aarch64-linux-gnu-gcc   -g -std=gnu2x -o CMakeFiles/I2C_Driver.dir/i2c_driver.c.o -c /home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/I2C/i2c_driver.c",
+  "file": "/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/I2C/i2c_driver.c"
+}
+]

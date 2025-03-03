@@ -42,6 +42,7 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-A7xG\",\"ZAuU2mENN5\"\r\n", (u16)35U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DIGI-3scU\",\"9DXRXzNEtb\"\r\n", (u16)35U, (u8)2U},
 																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"DSPLABS_B417\",\"@dsplabs\"\r\n", (u16)36U, (u8)2U},
+																									//[CONNECT_WI_FI_EN] = {"AT+CWJAP=\"dlink_DWR-920_191D\",\"pArhh69853\"\r\n", (u16)44U, (u8)2U},
 																									
 																									/*Allow multiple connections in order to put module on TCP Server mode*/
 																									[ALLOW_MULTIPLE_CONNECTIONS_EN] = {"AT+CIPMUX=1\r\n", (u16)13U, (u8)2U}, 
@@ -61,6 +62,7 @@ static const AT_Command_st wifi_at_configs[END_OF_SEQUENCE] = {
 																									/*Enter TX/RX Passthrough Mode*/
 																									[ENTER_RX_TX_PASSTHROUGH_MODE] = {"AT+CIPSEND\r\n",(u16)12U, (u8)2U },
 																									
+																									//[CHANGE_DEFAULT_IP] = {"AT+CIPSTA=\"172.16.254.252\"\r\n", (u16)28U, (u8)2U},
 																									[CHANGE_DEFAULT_IP] = {"AT+CIPSTA=\"192.168.1.6\"\r\n", (u16)25U, (u8)2U},
 																									
 																									/*Leave TX/RX Passthrough Mode, no reply expected*/
@@ -215,6 +217,7 @@ void Wifi_Manager(void)
 	command_frame_status_t esp_command_status;
 	AT_response_st at_response[2];
 	static bool internal_failure = false;
+	static u8 fail = 0;
 	const u8 exit_passthrough_mode[] = {(u8)EXIT_RX_TX_PASSTHROUGH_MODE, (u8)EXIT_RX_PASSTHROUGH_MODE};
 	u8 index;
 	
@@ -323,6 +326,7 @@ void Wifi_Manager(void)
 				esp_command_status = Send_ESP_Command(command, wifi_response_buffer);
 				if(WI_FI_COMMAND_OK == esp_command_status)
 				{
+					fail = 0;
 					LP_Set_StayAwake(FUNC_WIFI_MANAGER, true);
 					wifi_response_buffer[0].response[wifi_response_buffer[0].response_length] = (u8)'\0';
 					if(strstr((char*)wifi_response_buffer[0].response, "RX:Done") != NULL)
@@ -331,24 +335,38 @@ void Wifi_Manager(void)
 					}
 					else
 					{
-						/*Update Wi-Fi Low Layer with client being disconnected*/
-						module_state = Get_Module_Current_State();
-						module_state.client_app_connected = false;
-						Set_Module_Current_State(module_state);
-						
-						/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
-						wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
+						fail++;
+						if(fail == (u8)5)
+						{
+							/*Update Wi-Fi Low Layer with client being disconnected*/
+							module_state = Get_Module_Current_State();
+							module_state.client_app_connected = false;
+							Set_Module_Current_State(module_state);
+							
+							/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
+							wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
+							fail = 0;
+						}
+						else
+						{
+							wifi_manager_state = WIFI_MAN_SEND_CMD;
+						}
 					}
 				}
 				else
 				{
-					/*Update Wi-Fi Low Layer with client being disconnected*/
-						module_state = Get_Module_Current_State();
-						module_state.client_app_connected = false;
-						Set_Module_Current_State(module_state);
-						
-						/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
-						wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
+						fail++;
+						if(fail == (u8)5)
+						{
+						/*Update Wi-Fi Low Layer with client being disconnected*/
+							module_state = Get_Module_Current_State();
+							module_state.client_app_connected = false;
+							Set_Module_Current_State(module_state);
+							
+							/*Wait again for client to reconnect -> Passthrough mode will be left in WAIT CLIENT state*/
+							wifi_manager_state = WIFI_MAN_WAIT_CLIENT;
+							fail = 0;
+						}
 				}
 			}
 			else /*Database has not responded to ESP's request*/

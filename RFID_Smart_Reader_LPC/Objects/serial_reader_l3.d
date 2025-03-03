@@ -33,3 +33,5 @@
 .\objects\serial_reader_l3.o: mercuryapi-1.37.1.44\c\src\api\serial_reader_imp.h
 .\objects\serial_reader_l3.o: mercuryapi-1.37.1.44\c\src\api\tmr_utils.h
 .\objects\serial_reader_l3.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\serial_reader_l3.o: mercuryapi-1.37.1.44\c\src\api\../../../../utils/crc.h
+.\objects\serial_reader_l3.o: mercuryapi-1.37.1.44\c\src\api\../../../../utils/../PlatformTypes.h

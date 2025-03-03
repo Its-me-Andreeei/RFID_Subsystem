@@ -1,0 +1,9 @@
+.\objects\lp_mode_manager.o: ASW\LP_Mode_Manager\LP_Mode_Manager.c
+.\objects\lp_mode_manager.o: C:\Keil_v5\ARM\INC\Philips\LPC22xx.h
+.\objects\lp_mode_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\lp_mode_manager.o: ASW\LP_Mode_Manager\../../hal/timer.h
+.\objects\lp_mode_manager.o: ASW\LP_Mode_Manager\../../hal/../PlatformTypes.h
+.\objects\lp_mode_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\lp_mode_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\lp_mode_manager.o: ASW\LP_Mode_Manager\../../hal/watchdog.h
+.\objects\lp_mode_manager.o: ASW\LP_Mode_Manager\LP_Mode_Manager.h

@@ -4,3 +4,5 @@
 .\objects\retarget.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\retarget.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\retarget.o: hal/uart0.h
+.\objects\retarget.o: hal/../PlatformTypes.h
+.\objects\retarget.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

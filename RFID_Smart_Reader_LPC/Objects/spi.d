@@ -1,0 +1,10 @@
+.\objects\spi.o: hal\spi.c
+.\objects\spi.o: C:\Keil_v5\ARM\INC\Philips\LPC22xx.h
+.\objects\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\spi.o: hal\./spi.h
+.\objects\spi.o: hal\./../PlatformTypes.h
+.\objects\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\spi.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\spi.o: hal\./spi_ISR.h
+.\objects\spi.o: hal\./../utils/timer_software.h

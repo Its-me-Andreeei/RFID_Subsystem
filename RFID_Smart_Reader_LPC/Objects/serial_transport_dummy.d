@@ -27,4 +27,5 @@
 .\objects\serial_transport_dummy.o: mercuryapi-1.37.1.44\c\src\api\tmr_region.h
 .\objects\serial_transport_dummy.o: mercuryapi-1.37.1.44\c\src\api\tmr_serial_transport.h
 .\objects\serial_transport_dummy.o: mercuryapi-1.37.1.44\c\src\api\../../../../hal/uart1.h
+.\objects\serial_transport_dummy.o: mercuryapi-1.37.1.44\c\src\api\../../../../hal/../PlatformTypes.h
 .\objects\serial_transport_dummy.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

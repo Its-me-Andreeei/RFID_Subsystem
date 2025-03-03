@@ -449,82 +449,79 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 	int8_t index;
 	u8 index_esp_states;
 	command_frame_status_t operation_result = WI_FI_COMMAND_NOK;
-
-	operation_result = Wait_for_transition(HIGH_TO_LOW);
-	if(WI_FI_COMMAND_OK == operation_result)
-	{
-		operation_result = Request_ESP_Send_Permission(command.at_command_length);
-		
+	const u8 retries = (u8)3U;
+	u8 index_loop;
+	
+	
+	//for(index_loop = 0; index_loop < retries; index_loop ++)
+	//{
+		operation_result = Wait_for_transition(HIGH_TO_LOW);
 		if(WI_FI_COMMAND_OK == operation_result)
 		{
-			operation_result = Wait_for_transition(LOW_TO_HIGH);
-			
-			if(WI_FI_COMMAND_NOK == operation_result)
-			{
-				operation_result = Request_ESP_Send_Permission(command.at_command_length);
-				if(WI_FI_COMMAND_OK == operation_result)
-				{
-					operation_result = Wait_for_transition(LOW_TO_HIGH);
-				}
-			}
+			operation_result = Request_ESP_Send_Permission(command.at_command_length);
 			
 			if(WI_FI_COMMAND_OK == operation_result)
 			{
-				operation_result = Write_ESP_Data(command.at_command_name, command.at_command_length);
+				operation_result = Wait_for_transition(LOW_TO_HIGH);
 				
 				if(WI_FI_COMMAND_OK == operation_result)
 				{
-					for(index = 0; index < command.number_of_responses; index ++)
+					operation_result = Write_ESP_Data(command.at_command_name, command.at_command_length);
+					
+					if(WI_FI_COMMAND_OK == operation_result)
 					{
-						operation_result = Wait_for_transition(HIGH_TO_LOW_TO_HIGH);
-						if(WI_FI_COMMAND_OK == operation_result)
+						for(index = 0; index < command.number_of_responses; index ++)
 						{
-							operation_result = Read_ESP_Data(responses[index].response, &responses[index].response_length);
-							//printf("Read_Status = %d\n", operation_result);
-							if(WI_FI_COMMAND_NOK == operation_result)
+							operation_result = Wait_for_transition(HIGH_TO_LOW_TO_HIGH);
+							if(WI_FI_COMMAND_OK == operation_result)
 							{
-								/*If one command was wrong, do not continue*/
-								break;
-							}
-							else
-							{
-								for(index_esp_states = 0; index_esp_states < number_of_ESP_states; index_esp_states++)
+								operation_result = Read_ESP_Data(responses[index].response, &responses[index].response_length);
+								//printf("Read_Status = %d\n", operation_result);
+								if(WI_FI_COMMAND_NOK == operation_result)
 								{
-									if(memcmp(responses[index].response, ESP_States[index_esp_states], responses[index].response_length) == 0)
+									/*If one command was wrong, do not continue*/
+									break;
+								}
+								else
+								{
+									for(index_esp_states = 0; index_esp_states < number_of_ESP_states; index_esp_states++)
 									{
-										switch(index_esp_states)
+										if(memcmp(responses[index].response, ESP_States[index_esp_states], responses[index].response_length) == 0)
 										{
-											case WIFI_CONNECTED_EN:
-												module_state.wifi_connected = true;
-												break;
-											case WIFI_DISCONNECTED_EN:
-												module_state.wifi_connected = false;
-												break;
-											case WIFI_GOT_IP_EN:
-												module_state.wifi_got_ip = true;
-												break;
-											case WIFI_CLIENT_PRESENT:
-												module_state.client_app_connected = true;
-												break;
-											case WIFI_CLIENT_DISCONNECTED:
-												module_state.client_app_connected = false;
-												break;
-											case WIFI_CONNECTED_AND_GOT_IP:
-												module_state.wifi_connected = true;
-												module_state.wifi_got_ip = true;
-												break;
-											case ERROR:
-												operation_result = WI_FI_COMMAND_NOK;
-												break;
-											default:
-												/*Do not set any flag otherwise*/
-												break;
-											
+											switch(index_esp_states)
+											{
+												case WIFI_CONNECTED_EN:
+													module_state.wifi_connected = true;
+													break;
+												case WIFI_DISCONNECTED_EN:
+													module_state.wifi_connected = false;
+													break;
+												case WIFI_GOT_IP_EN:
+													module_state.wifi_got_ip = true;
+													break;
+												case WIFI_CLIENT_PRESENT:
+													module_state.client_app_connected = true;
+													break;
+												case WIFI_CLIENT_DISCONNECTED:
+													module_state.client_app_connected = false;
+													break;
+												case WIFI_CONNECTED_AND_GOT_IP:
+													module_state.wifi_connected = true;
+													module_state.wifi_got_ip = true;
+													break;
+												case ERROR:
+													operation_result = WI_FI_COMMAND_NOK;
+													break;
+												default:
+													/*Do not set any flag otherwise*/
+													break;
+												
+											}
+											/*Ignore this response, consider only AT responses*/
+											index --;
+											/*Messages are mutual exclusives, so only one match is necessary*/
+											break;
 										}
-										/*Ignore this response, consider only AT responses*/
-										index --;
-										/*Messages are mutual exclusives, so only one match is necessary*/
-										break;
 									}
 								}
 							}
@@ -533,7 +530,11 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 				}
 			}
 		}
-	}
+		/*if(operation_result == WI_FI_COMMAND_OK)
+		{
+			break;
+		}*/
+	//}
 	#ifdef WI_FI_DEBUG
 	printf("--------\n");
 	for(index = 0; index < command.number_of_responses; index ++)
@@ -555,7 +556,7 @@ command_frame_status_t Send_ESP_Command(AT_Command_st command, AT_response_st re
 void wifi_utils_Init(void)
 {
 	timer_handsake = TIMER_SOFTWARE_request_timer();
-	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 4500, 1);
+	TIMER_SOFTWARE_configure_timer(timer_handsake, MODE_0, 3000, 1);
 	TIMER_SOFTWARE_reset_timer(timer_handsake);
 	wifi_handsake_init();
 	

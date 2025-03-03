@@ -1,0 +1,12 @@
+.\objects\wifi_manager.o: ASW\WiFiManager\wifi_manager.c
+.\objects\wifi_manager.o: C:\Keil_v5\ARM\INC\Philips\lpc22xx.h
+.\objects\wifi_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\wifi_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./../../utils/timer_software.h
+.\objects\wifi_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./wifi_Manager.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./../../PlatformTypes.h
+.\objects\wifi_manager.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./wifi_utils.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./../LP_Mode_Manager/LP_Mode_Manager.h
+.\objects\wifi_manager.o: ASW\WiFiManager\./../ReaderManager/reader_manager.h

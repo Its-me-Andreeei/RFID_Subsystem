@@ -80,7 +80,7 @@ void LP_Mode_Manager_Init(void)
 	LP_Set_InitFlag(FUNC_LP_MODE_MANAGER, true);
 	
 	/*Set Watchdog config*/
-	Wdg_Init();
+	//Wdg_Init();
 	Wdg_Start(WDG_CONFIG_HP_EN);
 }
 

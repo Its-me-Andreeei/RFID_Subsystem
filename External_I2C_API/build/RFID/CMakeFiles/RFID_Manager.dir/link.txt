@@ -1,0 +1,2 @@
+/usr/bin/aarch64-linux-gnu-ar qc libRFID_Manager.a CMakeFiles/RFID_Manager.dir/RFID_Manager.c.o CMakeFiles/RFID_Manager.dir/crc.c.o
+/usr/bin/aarch64-linux-gnu-ranlib libRFID_Manager.a

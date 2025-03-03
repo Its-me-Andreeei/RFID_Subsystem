@@ -1,0 +1,12 @@
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/CMakeFiles/Raspberry_RFID_I2C.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/CMakeFiles/edit_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/CMakeFiles/rebuild_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/CMakeFiles/RFID_Manager.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/CMakeFiles/edit_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/CMakeFiles/rebuild_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/GPIO/CMakeFiles/GPIO_Driver.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/GPIO/CMakeFiles/edit_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/GPIO/CMakeFiles/rebuild_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/I2C/CMakeFiles/I2C_Driver.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/I2C/CMakeFiles/edit_cache.dir
+/home/admin/Desktop/RFID/proiectdiploma_karolyi_andrei/External_I2C_API/RFID/I2C/CMakeFiles/rebuild_cache.dir

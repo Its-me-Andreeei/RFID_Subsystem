@@ -1,0 +1,10 @@
+.\objects\i2c.o: hal\i2c.c
+.\objects\i2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\i2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\i2c.o: hal\i2c.h
+.\objects\i2c.o: hal\../PlatformTypes.h
+.\objects\i2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\i2c.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\i2c.o: C:\Keil_v5\ARM\INC\Philips\lpc22xx.h
+.\objects\i2c.o: hal\i2c_ISR.h
+.\objects\i2c.o: hal\../utils/crc.h
